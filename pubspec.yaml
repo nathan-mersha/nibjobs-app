@@ -1,0 +1,42 @@
+name: nibjobs
+description: Ethiopian job finder
+version: 1.0.0+1
+
+environment:
+  sdk: ">=2.12.0 <3.0.0"
+
+
+dependencies:
+  flutter:
+    sdk: flutter
+  cupertino_icons: ^1.0.2
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+  flutter_lints: ^1.0.0
+
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/images/apply_for_job.png
+    - assets/images/create_job.png
+    - assets/images/make_money.png
+    - assets/images/select_language.png
+    - assets/images/signup.png
+
+
+  fonts:
+    - family: Sofia
+      fonts:
+        - asset: assets/fonts/Sofia-Pro-Regular.ttf
+          weight: 700
+    - family: Noto
+      fonts:
+        - asset: assets/fonts/NotoSansEthiopic-Bold.ttf
+
+    - family: NibCustomIcons
+      fonts:
+        - asset: assets/icons/NibCustomIcons.ttf
