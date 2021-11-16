@@ -170,7 +170,7 @@ class MyAppState extends State<MyApp> {
                             context), // Add the locale here
                         builder: DevicePreview.appBuilder,
                         debugShowCheckedModeBanner: false,
-                        title: "Kelem",
+                        title: "nib jobs",
                         theme: state.themeData,
                         routes: routes);
                   });
@@ -181,7 +181,7 @@ class MyAppState extends State<MyApp> {
                             context), // Add the locale here
                         builder: DevicePreview.appBuilder,
                         debugShowCheckedModeBanner: false,
-                        title: "Kelem",
+                        title: "nib jobs",
                         theme: state.themeData,
                         routes: routes);
                   });

@@ -26,7 +26,7 @@ final appThemeData = {
       cardTheme: const CardTheme(color: LightColor.background),
       textTheme:
           const TextTheme(bodyText1: TextStyle(color: CustomColor.GRAY_LIGHT)),
-      iconTheme: const IconThemeData(color: CustomColor.GRAY_LIGHT),
+      iconTheme: const IconThemeData(color: CustomColor.GRAY_VERY_LIGHT),
       bottomAppBarColor: LightColor.background,
       dividerColor: LightColor.lightGrey,
       primaryTextTheme:

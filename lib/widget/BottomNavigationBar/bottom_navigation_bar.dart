@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:nibjobs/rsr/theme/color.dart';
-import 'package:nibjobs/themes/light_color.dart';
 import 'package:nibjobs/themes/nib_custom_icons_icons.dart';
 import 'package:nibjobs/widget/BottomNavigationBar/bottom_curved_Painter.dart';
 
@@ -97,7 +96,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
                 opacity: isEnable ? _yController!.value : 1,
                 child: Icon(icon,
                     color: isEnable
-                        ? LightColor.background
+                        ? CustomColor.GRAY_DARK
                         : Theme.of(context).iconTheme.color),
               )),
         ),
@@ -150,7 +149,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
   Widget build(BuildContext context) {
     final appSize = MediaQuery.of(context).size;
     final height = 60.0;
-    return Container(
+    return SizedBox(
       width: appSize.width,
       height: 60,
       child: Stack(
