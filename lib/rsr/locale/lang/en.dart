@@ -61,15 +61,15 @@ class EN {
     LanguageKey.PLEASE_ENTER_BODY: "please enter body",
     LanguageKey.SEND: "send",
     LanguageKey.MESSAGE: "message",
-    LanguageKey.SEARCH_AND_LOCATE: "search and Locate",
-    LanguageKey.SEARCH_AND_LOCATE_FROM_A_VARIETY:
-        "Search and locate from a variety of categories including but not limited to books, cloth and iot devices.",
-    LanguageKey.ADD_TO_WISHLIST: "discover",
-    LanguageKey.IF_YOU_COLD:
-        "discover new and exciting companys and jobs from all over including art, musical instruments companys",
-    LanguageKey.AWRA_MARKET:
-        "Kelem is a big community of retailers and suppliers, participate in the community, and have fun!",
-    LanguageKey.ENJOY_THE_COMMUNITY: "Create and Sell",
+    LanguageKey.TITLE_ONE: "apply for jobs",
+    LanguageKey.TITLE_ONE_BODY:
+        "There are over 300 active jobs looking for your application, sign up and apply for jobs",
+    LanguageKey.TITLE_TWO: "create jobs",
+    LanguageKey.TITLE_TWO_BODY:
+        "There are over 300 active jobs looking for your application, sign up and apply for jobs",
+    LanguageKey.TITLE_THREE_BODY:
+        "There are over 300 active jobs looking for your application, sign up and apply for jobs",
+    LanguageKey.TITLE_THREE: "Make Money",
     LanguageKey.PROCEED: "proceed",
     LanguageKey.NO_ITEM_IN_CART: "no item in cart",
     LanguageKey.ADD_ITEMS_TO_CART_TO_CHECKOUT: "add items to cart to checkout",
@@ -176,15 +176,13 @@ class EN {
         "This End-User License Agreement ('EULA') is a legal agreement between you and Kelem This EULA agreement governs your acquisition and use of our Kelem software ('Software') directly from Kelem or indirectly through a Kelem authorized reseller or distributor (a 'Reseller'). Please read this EULA agreement carefully before completing the installation process and using the Kelem software. It provides a license to use the Kelem software and contains warranty information and liability disclaimers. If you register for a free trial of the Kelem software, this EULA agreement will also govern that trial. By clicking 'accept' or installing and/or using the Kelem software, you are confirming your acceptance of the Software and agreeing to become bound by the terms of this EULA agreement. If you are entering into this EULA agreement on behalf of a company or other legal entity, you represent that you have the authority to bind such entity and its affiliates to these terms and conditions. If you do not have such authority or if you do not agree with the terms and conditions of this EULA agreement, do not install or use the Software, and you must not accept this EULA agreement. This EULA agreement shall apply only to the Software supplied by Kelem herewith regardless of whether other software is referred to or described herein. The terms also apply to any Kelem updates, supplements, Internet-based services, and support services for the Software, unless other terms accompany those items on delivery. If so, those terms apply. License Grant Kelem hereby grants you a personal, non-transferable, non-exclusive licence to use the Kelem software on your devices in accordance with the terms of this EULA agreement. You are permitted to load the Kelem software (for example a PC, laptop, mobile or tablet) under your control. You are responsible for ensuring your device meets the minimum requirements of the Kelem software. You are not permitted to: Edit, alter, modify, adapt, translate or otherwise change the whole or any part of the Software nor permit the whole or any part of the Software to be combined with or become incorporated in any other software, nor decompile, disassemble or reverse engineer the Software or attempt to do any such things Reproduce, copy, distribute, resell or otherwise use the Software for any commercial purpose Allow any third party to use the Software on behalf of or for the benefit of any third party Use the Software in any way which breaches any applicable local, national or international law use the Software for any purpose that Kelem considers is a breach of this EULA agreement Intellectual Property and Ownership Kelem shall at all times retain ownership of the Software as originally downloaded by you and all subsequent downloads of the Software by you. The Software (and the copyright, and other intellectual property rights of whatever nature in the Software, including any modifications made thereto) are and shall remain the property of Kelem. Kelem reserves the right to grant licences to use the Software to third parties. Termination This EULA agreement is effective from the date you first use the Software and shall continue until terminated. You may terminate it at any time upon written notice to Kelem. It will also terminate immediately if you fail to comply with any term of this EULA agreement. Upon such termination, the licenses granted by this EULA agreement will immediately terminate and you agree to stop all access and use of the Software. The provisions that by their nature continue and survive will survive any termination of this EULA agreement. This EULA was created by App EULA Template Generator from App-Privacy-Policy.com for Kelem Governing Law This EULA agreement, and any dispute arising out of or in connection with this EULA agreement, shall be governed by and construed in accordance with the laws of et.",
     LanguageKey.THANK_YOU_FOR_YOUR_FEEDBACK: "thank you for your feedback",
     LanguageKey.BR: "br",
-    LanguageKey.DO_YOU_WANT_TO_DELETE_THE_JOB:
-        "do you want to delete the job",
+    LanguageKey.DO_YOU_WANT_TO_DELETE_THE_JOB: "do you want to delete the job",
     LanguageKey.YOU_HAVE_SUCCESSFUL_DELETED_THE_JOB:
         "you have successful deleted the job",
     LanguageKey.KELEM_WEBSITE: "https://kelem.et",
     LanguageKey.PLEASE_CHOOSE_A_IMAGE: "please choose an image",
     LanguageKey.MY_JOBS: "my jobs",
-    LanguageKey.JOB_ADDED_TO_FAVORITE_LIST:
-        "job added to favorite list",
+    LanguageKey.JOB_ADDED_TO_FAVORITE_LIST: "job added to favorite list",
     LanguageKey.JOB_REMOVED_FROM_FAVORITE_LIST:
         "job removed from favorite list",
     LanguageKey.LATEST: "latest",

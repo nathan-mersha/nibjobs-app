@@ -23,9 +23,23 @@ final appThemeData = {
       fontFamily: StringRsr.locale == "en" ? "Sofia" : "Noto",
       backgroundColor: LightColor.background,
       primaryColor: CustomColor.PRIM_DARK,
+      primaryColorDark: CustomColor.RAD_DARK,
+      elevatedButtonTheme: ElevatedButtonThemeData(
+        style: ElevatedButton.styleFrom(
+          primary: CustomColor.RAD_DARK,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(30.0),
+          ),
+        ),
+      ),
       cardTheme: const CardTheme(color: LightColor.background),
-      textTheme:
-          const TextTheme(bodyText1: TextStyle(color: CustomColor.GRAY_LIGHT)),
+      textTheme: const TextTheme(
+        bodyText1: TextStyle(color: CustomColor.TEXT_COLOR_GRAY),
+        bodyText2: TextStyle(color: CustomColor.GRAY_LIGHT),
+        subtitle1: TextStyle(color: CustomColor.TEXT_COLOR_GRAY),
+        subtitle2: TextStyle(color: CustomColor.TEXT_COLOR_GRAY_LIGHT),
+        headline6: TextStyle(color: CustomColor.TEXT_COLOR_GRAY),
+      ),
       iconTheme: const IconThemeData(color: CustomColor.GRAY_VERY_LIGHT),
       bottomAppBarColor: LightColor.background,
       dividerColor: LightColor.lightGrey,

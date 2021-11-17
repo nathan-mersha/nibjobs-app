@@ -29,51 +29,48 @@ class _SignInPageState extends State<SignInPage> {
         },
         child: Stack(
           children: [
-            Container(
+            SizedBox(
               width: double.infinity,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: <Widget>[
-                  Expanded(
-                    flex: 1,
-                    child: Container(
-                      alignment: Alignment.bottomCenter,
-                      color: CustomColor.GRAY_VERY_LIGHT,
-                      width: double.infinity,
-                      child: Image.asset(
-                        "assets/images/addisababa_silhouet.png",
+              child: Container(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 80, vertical: 35),
+                width: double.infinity,
+                color: Colors.white,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: <Widget>[
+                    const Spacer(),
+                    Expanded(
+                      child: Container(
+                        alignment: Alignment.bottomCenter,
+                        color: Colors.white,
+                        width: double.infinity,
+                        child: Image.asset(
+                          "assets/images/signup.png",
+                        ),
                       ),
                     ),
-                  ),
-                  Expanded(
-                    flex: 5,
-                    child: Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 80, vertical: 35),
-                      width: double.infinity,
-                      color: Colors.white,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: <Widget>[
-                          Text(
-                            StringRsr.get(LanguageKey.SIGN_IN, firstCap: true)!,
-                            style: const TextStyle(
-                                fontSize: 28,
-                                color: CustomColor.GRAY_LIGHT,
-                                fontWeight: FontWeight.w800),
-                          ),
-                          Text(
-                            StringRsr.get(LanguageKey.LET_US_KNOW_YOU,
-                                firstCap: true)!,
-                            style: const TextStyle(color: CustomColor.GRAY),
-                          ),
-                          Expanded(
-                            child: Container(
-                              alignment: Alignment.bottomCenter,
-                              child: Form(
-                                child: ListView(
+                    const Spacer(),
+                    // Text(
+                    //   StringRsr.get(LanguageKey.SIGN_IN, firstCap: true)!,
+                    //   style: const TextStyle(
+                    //       fontSize: 28,
+                    //       color: CustomColor.GRAY_LIGHT,
+                    //       fontWeight: FontWeight.w800),
+                    // ),
+                    // Text(
+                    //   StringRsr.get(LanguageKey.LET_US_KNOW_YOU,
+                    //       firstCap: true)!,
+                    //   style: const TextStyle(color: CustomColor.GRAY),
+                    // ),
+                    Expanded(
+                      child: Container(
+                        alignment: Alignment.bottomCenter,
+                        child: Form(
+                          child: ListView(
 //                            itemExtent: 50,
-                                  children: <Widget>[
+                            children: <Widget>[
 //                               TextFormField(
 //                                 decoration: InputDecoration(hintText: "email"),
 //                               ),
@@ -89,100 +86,94 @@ class _SignInPageState extends State<SignInPage> {
 //                                 Buttons.Email,
 //                                 onPressed: () {},
 //                               ),
-                                    SignInButton(
-                                      Buttons.Google,
-                                      text: StringRsr.get(
-                                          LanguageKey.SIGN_IN_WITH_GOOGLE,
-                                          firstCap: true),
-                                      onPressed: () async {
-                                        // todo : signin with the prefered method
-                                        // todo : navigate to home
-//                                  authService
-//                                       .signInWithGoogle()
-//                                      .then((firebaseUser) {
-//                                    Navigator.pushReplacementNamed(
-//                                        context, RouteTo.HOME);
-//                                  });
-                                        bool registerResult =
-                                            await signInWithGoogle();
-
-                                        if (registerResult) {
-                                          BlocProvider.of<UserBloc>(context)
-                                              .add(UserSignIn());
-                                          Navigator.pushReplacementNamed(
-                                              context, RouteTo.HOME);
-                                        }
-                                      },
-                                    ),
-                                    SignInButton(
-                                      Buttons.Apple,
-                                      text: StringRsr.get(
-                                          LanguageKey.SIGN_IN_WITH_APPLE,
-                                          firstCap: true),
-                                      onPressed: () async {
-                                        // todo : signin with the prefered method
-                                        // todo : navigate to home
-//                                  authService
-//                                       .signInWithGoogle()
-//                                      .then((firebaseUser) {
-//                                    Navigator.pushReplacementNamed(
-//                                        context, RouteTo.HOME);
-//                                  });
-                                        bool registerResult =
-                                            await signInWithApple();
-
-                                        if (registerResult) {
-                                          BlocProvider.of<UserBloc>(context)
-                                              .add(UserSignIn());
-                                          Navigator.pushReplacementNamed(
-                                              context, RouteTo.HOME);
-                                        }
-                                      },
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.center,
-                            children: <Widget>[
-                              Text(
-                                StringRsr.get(LanguageKey.I_WILL_DO_IT_LATTER,
-                                    firstCap: true)!,
-                                style: const TextStyle(color: CustomColor.GRAY),
-                              ),
-                              TextButton(
-                                child: Text(
-                                  StringRsr.get(LanguageKey.SKIP,
-                                      firstCap: true)!,
-                                  style: TextStyle(
-                                      color: Theme.of(context).primaryColor,
-                                      fontWeight: FontWeight.w800,
-                                      fontSize: 16),
-                                ),
+                              SignInButton(
+                                Buttons.Google,
+                                text: StringRsr.get(
+                                    LanguageKey.SIGN_IN_WITH_GOOGLE,
+                                    firstCap: true),
                                 onPressed: () async {
-                                  // setState(() {
-                                  //   showInfo = true;
-                                  // });
+                                  // todo : signin with the prefered method
+                                  // todo : navigate to home
+//                                  authService
+//                                       .signInWithGoogle()
+//                                      .then((firebaseUser) {
+//                                    Navigator.pushReplacementNamed(
+//                                        context, RouteTo.HOME);
+//                                  });
                                   bool registerResult =
-                                      await signInAnonymously();
+                                      await signInWithGoogle();
 
                                   if (registerResult) {
-                                    // BlocProvider.of<UserBloc>(context)
-                                    //     .add(UserSignIn());
+                                    BlocProvider.of<UserBloc>(context)
+                                        .add(UserSignIn());
                                     Navigator.pushReplacementNamed(
                                         context, RouteTo.HOME);
                                   }
                                 },
-                              )
+                              ),
+                              SignInButton(
+                                Buttons.Apple,
+                                text: StringRsr.get(
+                                    LanguageKey.SIGN_IN_WITH_APPLE,
+                                    firstCap: true),
+                                onPressed: () async {
+                                  // todo : signin with the prefered method
+                                  // todo : navigate to home
+//                                  authService
+//                                       .signInWithGoogle()
+//                                      .then((firebaseUser) {
+//                                    Navigator.pushReplacementNamed(
+//                                        context, RouteTo.HOME);
+//                                  });
+                                  bool registerResult = await signInWithApple();
+
+                                  if (registerResult) {
+                                    BlocProvider.of<UserBloc>(context)
+                                        .add(UserSignIn());
+                                    Navigator.pushReplacementNamed(
+                                        context, RouteTo.HOME);
+                                  }
+                                },
+                              ),
                             ],
-                          )
-                        ],
+                          ),
+                        ),
                       ),
                     ),
-                  ),
-                ],
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        Text(
+                          StringRsr.get(LanguageKey.I_WILL_DO_IT_LATTER,
+                              firstCap: true)!,
+                          style: const TextStyle(color: CustomColor.GRAY),
+                        ),
+                        TextButton(
+                          child: Text(
+                            StringRsr.get(LanguageKey.SKIP, firstCap: true)!,
+                            style: TextStyle(
+                                color: Theme.of(context).primaryColor,
+                                fontWeight: FontWeight.w800,
+                                fontSize: 16),
+                          ),
+                          onPressed: () async {
+                            // setState(() {
+                            //   showInfo = true;
+                            // });
+                            bool registerResult = await signInAnonymously();
+
+                            if (registerResult) {
+                              // BlocProvider.of<UserBloc>(context)
+                              //     .add(UserSignIn());
+                              Navigator.pushReplacementNamed(
+                                  context, RouteTo.HOME);
+                            }
+                          },
+                        )
+                      ],
+                    )
+                  ],
+                ),
               ),
             ),
           ],

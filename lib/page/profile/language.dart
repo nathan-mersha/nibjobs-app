@@ -37,17 +37,6 @@ class _LanguagePageState extends State<LanguagePage> {
           mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             Expanded(
-              flex: 1,
-              child: Container(
-                alignment: Alignment.bottomCenter,
-                color: CustomColor.GRAY_VERY_LIGHT,
-                width: double.infinity,
-                child: Image.asset(
-                  "assets/images/addisababa_silhouet.png",
-                ),
-              ),
-            ),
-            Expanded(
               flex: 5,
               child: Container(
                 padding:
@@ -57,37 +46,55 @@ class _LanguagePageState extends State<LanguagePage> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: <Widget>[
-                    Image.asset(
-                      "assets/images/icon_primary_color.png",
-                      width: 60,
+                    // Image.asset(
+                    //   "assets/images/icon_primary_color.png",
+                    //   width: 60,
+                    // ),
+                    // const SizedBox(
+                    //   height: 20,
+                    // ),
+                    // const Text(
+                    //   "ሰላም",
+                    //   style: TextStyle(
+                    //       fontSize: 28, color: CustomColor.GRAY_LIGHT),
+                    // ),
+                    // const Text(
+                    //   "Hello there,",
+                    //   style: TextStyle(fontSize: 28, color: CustomColor.GRAY),
+                    // ),
+                    const Spacer(),
+                    Expanded(
+                      flex: 1,
+                      child: Container(
+                        alignment: Alignment.bottomCenter,
+                        color: Colors.white,
+                        width: double.infinity,
+                        child: Image.asset(
+                          "assets/images/select_language.png",
+                        ),
+                      ),
                     ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    const Text(
-                      "ሰላም",
-                      style: TextStyle(
-                          fontSize: 28, color: CustomColor.GRAY_LIGHT),
-                    ),
-                    const Text(
-                      "Hello there,",
-                      style: TextStyle(fontSize: 28, color: CustomColor.GRAY),
-                    ),
+                    const Spacer(),
                     Expanded(
                       child: Container(
                         alignment: Alignment.bottomCenter,
                         child: Column(
-                          mainAxisAlignment: MainAxisAlignment.end,
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
-                            const Text(
-                              "እባክዎ ቋንቋ ይምረጡ",
-                              style: TextStyle(
-                                  fontSize: 16, color: CustomColor.GRAY_DARK),
-                            ),
-                            const Text(
-                              "please select a language",
-                              style: TextStyle(
-                                  fontSize: 16, color: CustomColor.GRAY),
+                            Column(
+                              children: [
+                                const Text(
+                                  "እባክዎ ቋንቋ ይምረጡ",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      color: CustomColor.GRAY_DARK),
+                                ),
+                                const Text(
+                                  "please select a language",
+                                  style: TextStyle(
+                                      fontSize: 16, color: CustomColor.GRAY),
+                                ),
+                              ],
                             ),
                             const SizedBox(
                               height: 40,
@@ -116,15 +123,20 @@ class _LanguagePageState extends State<LanguagePage> {
                             const SizedBox(
                               height: 25,
                             ),
-                            Container(
-                              width: double.infinity,
+                            SizedBox(
+                              width: 300,
+                              height: 40,
                               child: ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                  primary: Theme.of(context).primaryColor,
-                                ),
+                                // style: ElevatedButton.styleFrom(
+                                //   primary: Theme.of(context).primaryColorDark,
+                                //   shape: RoundedRectangleBorder(
+                                //     borderRadius: BorderRadius.circular(30.0),
+                                //   ),
+                                // ),
                                 child: Text(
                                   proceedButtonTxt,
-                                  style: const TextStyle(color: Colors.white),
+                                  style: TextStyle(
+                                      color: Theme.of(context).primaryColor),
                                 ),
                                 onPressed: () async {
                                   // todo : set first time flag to false

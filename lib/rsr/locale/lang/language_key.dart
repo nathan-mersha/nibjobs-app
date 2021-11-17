@@ -69,13 +69,12 @@ class LanguageKey {
   static const String PLEASE_ENTER_BODY = "PLEASE_ENTER_BODY";
   static const String SEND = "SEND";
   static const String MESSAGE = "MESSAGE";
-  static const String SEARCH_AND_LOCATE = "SEARCH_AND_LOCATE";
-  static const String SEARCH_AND_LOCATE_FROM_A_VARIETY =
-      "SEARCH_AND_LOCATE_FROM_A_VARIETY";
-  static const String IF_YOU_COLD = "IF_YOU_COLD";
-  static const String ADD_TO_WISHLIST = "ADD_TO_WISHLIST";
-  static const String AWRA_MARKET = "AWRA_MARKET";
-  static const String ENJOY_THE_COMMUNITY = "ENJOY_THE_COMMUNITY";
+  static const String TITLE_ONE = "TITLE_ONE";
+  static const String TITLE_ONE_BODY = "TITLE_ONE_BODY";
+  static const String TITLE_TWO_BODY = "TITLE_TWO_BODY";
+  static const String TITLE_TWO = "TITLE_TWO";
+  static const String TITLE_THREE_BODY = "TITLE_THREE_BODY";
+  static const String TITLE_THREE = "TITLE_THREE";
   static const String PROCEED = "PROCEED";
   static const String NO_ITEM_IN_CART = "NO_ITEM_IN_CART";
   static const String ADD_ITEMS_TO_CART_TO_CHECKOUT =
@@ -179,8 +178,7 @@ class LanguageKey {
   static const String MY_JOBS = "MY_JOBS";
   static const String PLEASE_CHOOSE_A_IMAGE = "PLEASE_CHOOSE_A_IMAGE";
 
-  static const String JOB_ADDED_TO_FAVORITE_LIST =
-      "JOB_ADDED_TO_FAVORITE_LIST";
+  static const String JOB_ADDED_TO_FAVORITE_LIST = "JOB_ADDED_TO_FAVORITE_LIST";
   static const String JOB_REMOVED_FROM_FAVORITE_LIST =
       "JOB_REMOVED_FROM_FAVORITE_LIST";
   static const String LATEST = "LATEST";

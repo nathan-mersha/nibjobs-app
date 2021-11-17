@@ -60,14 +60,14 @@ class ET_AM {
     LanguageKey.PLEASE_ENTER_BODY: "እባክዎን መልእክት ያስገቡ",
     LanguageKey.SEND: "ላክ",
     LanguageKey.MESSAGE: "መልዕክት",
-    LanguageKey.SEARCH_AND_LOCATE: "ይፈልጉ እና ያግኙ",
-    LanguageKey.SEARCH_AND_LOCATE_FROM_A_VARIETY:
+    LanguageKey.TITLE_ONE: "ይፈልጉ እና ያግኙ",
+    LanguageKey.TITLE_ONE_BODY:
         "ከተለያዩ የ መጻሕፍት ፣ ኤሌክትሮኒክስ ፣ መኪናዎች ፣ ጌጣጌጥ ምድቦች ይፈልጉ እና ያግኙ",
-    LanguageKey.ADD_TO_WISHLIST: "አግኙ",
-    LanguageKey.IF_YOU_COLD: "አዲስ እና አስደሳች ሱቆችን እና ምርቶችን ያግኙ",
-    LanguageKey.AWRA_MARKET:
+    LanguageKey.TITLE_TWO: "አግኙ",
+    LanguageKey.TITLE_TWO_BODY: "አዲስ እና አስደሳች ሱቆችን እና ምርቶችን ያግኙ",
+    LanguageKey.TITLE_THREE_BODY:
         "ቀለም ትልቅ የችርቻሮ እና የአቅራቢዎች ማህበረሰብ ነው ፣ በማህበረሰቡ ውስጥ ይሳተፉ እና ይዝናኑ!",
-    LanguageKey.ENJOY_THE_COMMUNITY: "ይፍጠሩ እና ይሽጡ",
+    LanguageKey.TITLE_THREE: "ይፍጠሩ እና ይሽጡ",
     LanguageKey.PROCEED: "ቀጥል",
     LanguageKey.NO_ITEM_IN_CART: "በጋሪ ውስጥ ምንም ዕቃ የለም",
     LanguageKey.ADD_ITEMS_TO_CART_TO_CHECKOUT: "ዕቃውን ወደ ጋሪ ያካትቱ",

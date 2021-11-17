@@ -15,23 +15,23 @@ class _WelcomePageState extends State<WelcomePage> {
   static final welcomePage = [
     // First welcome page
     {
-      "title": StringRsr.get(LanguageKey.SEARCH_AND_LOCATE, firstCap: true),
-      "description": StringRsr.get(LanguageKey.SEARCH_AND_LOCATE_FROM_A_VARIETY,
-          firstCap: true),
+      "title": StringRsr.get(LanguageKey.TITLE_ONE, firstCap: true),
+      "description": StringRsr.get(LanguageKey.TITLE_ONE_BODY, firstCap: true),
       "image": "assets/images/apply_for_job.png"
     },
 
     // Second welcome page
     {
-      "title": StringRsr.get(LanguageKey.ADD_TO_WISHLIST, firstCap: true),
-      "description": StringRsr.get(LanguageKey.IF_YOU_COLD, firstCap: true),
+      "title": StringRsr.get(LanguageKey.TITLE_TWO, firstCap: true),
+      "description": StringRsr.get(LanguageKey.TITLE_TWO_BODY, firstCap: true),
       "image": "assets/images/create_job.png"
     },
 
     // Third welcome page
     {
-      "title": StringRsr.get(LanguageKey.ENJOY_THE_COMMUNITY, firstCap: true),
-      "description": StringRsr.get(LanguageKey.AWRA_MARKET, firstCap: true),
+      "title": StringRsr.get(LanguageKey.TITLE_THREE, firstCap: true),
+      "description":
+          StringRsr.get(LanguageKey.TITLE_THREE_BODY, firstCap: true),
       "image": "assets/images/make_money.png"
     },
   ];
