@@ -9,12 +9,10 @@ import 'package:nibjobs/api/local.dart';
 import 'package:nibjobs/bloc/down/down_bloc.dart';
 import 'package:nibjobs/bloc/internet/internet_bloc.dart';
 import 'package:nibjobs/bloc/search/search_bloc.dart';
-import 'package:nibjobs/dal/notification_dal.dart';
 import 'package:nibjobs/db/k_shared_preference.dart';
 import 'package:nibjobs/global.dart' as global;
 import 'package:nibjobs/model/commerce/job.dart';
 import 'package:nibjobs/model/config/global.dart';
-import 'package:nibjobs/model/notification_model.dart';
 import 'package:nibjobs/model/profile/company.dart';
 import 'package:nibjobs/route/route.dart';
 import 'package:nibjobs/rsr/locale/lang/language_key.dart';
@@ -64,41 +62,43 @@ class _HomePageState extends State<HomePage> {
     HLocalNotification.initialize(context);
 
     FirebaseMessaging.instance.getInitialMessage().then((message) {
-      if (message != null) {
-        //debugPrint(message.notification.body);
-        //debugPrint(message.notification.title);
-        final routerFromMessage = message.data["route"];
-        NotificationModel notificationModel = NotificationModel(
-          id: message.messageId,
-          notificationServiceName: message.notification!.title,
-          notificationServiceMessage: message.notification!.body,
-          notificationServiceAmount: "0",
-          notificationType: message.notification!.title,
-          notificationServiceDate: DateTime.now().toString(),
-          notificationServicePaymentMethodName: "wallet",
-        );
-
-        NotificationDAL.create(notificationModel);
-        //debugPrint(routerFromMessage);
-      }
+      // if (message != null) {
+      //   //debugPrint(message.notification.body);
+      //   //debugPrint(message.notification.title);
+      //   final routerFromMessage = message.data["route"];
+      //   NotificationModel notificationModel = NotificationModel(
+      //     id: message.messageId,
+      //     notificationServiceName: message.notification!.title,
+      //     notificationServiceMessage: message.notification!.body,
+      //     notificationServiceAmount: "0",
+      //     notificationType: message.notification!.title,
+      //     notificationServiceDate: DateTime.now().toString(),
+      //     notificationServicePaymentMethodName: "wallet",
+      //   );
+      //
+      //   NotificationDAL.create(notificationModel);
+      //   //debugPrint(routerFromMessage);
+      // }
+      notificationFunctionSave(message);
     });
     FirebaseMessaging.onMessage.listen((message) {
       if (message.notification != null) {
         //debugPrint(message.notification.body);
         //debugPrint(message.notification.title);
         HLocalNotification.showNotification(message);
-        NotificationModel notificationModel = NotificationModel(
-          id: message.messageId,
-          notificationServiceName: message.notification!.title,
-          notificationServiceMessage: message.notification!.body,
-          notificationServiceAmount: "0",
-          notificationType: message.notification!.title,
-          notificationServiceDate: DateTime.now().toString(),
-          notificationServicePaymentMethodName: "wallet",
-        );
-
-        NotificationDAL.create(notificationModel);
+        // NotificationModel notificationModel = NotificationModel(
+        //   id: message.messageId,
+        //   notificationServiceName: message.notification!.title,
+        //   notificationServiceMessage: message.notification!.body,
+        //   notificationServiceAmount: "0",
+        //   notificationType: message.notification!.title,
+        //   notificationServiceDate: DateTime.now().toString(),
+        //   notificationServicePaymentMethodName: "wallet",
+        // );
+        //
+        // NotificationDAL.create(notificationModel);
         //Navigator.of(context).pushNamed(RouteTo.NOTIFICATION);
+        notificationFunctionSave(message);
       }
     });
 

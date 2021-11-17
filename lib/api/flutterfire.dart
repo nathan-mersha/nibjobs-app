@@ -12,9 +12,11 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:nibjobs/dal/notification_dal.dart';
 import 'package:nibjobs/db/k_shared_preference.dart';
 import 'package:nibjobs/model/commerce/coupon.dart';
 import 'package:nibjobs/model/commerce/job.dart';
+import 'package:nibjobs/model/notification_model.dart';
 import 'package:nibjobs/model/profile/company.dart';
 import 'package:nibjobs/model/profile/contact_us.dart';
 import 'package:nibjobs/model/profile/user.dart';
@@ -29,6 +31,20 @@ Future<void> makeWebCall(String url) async {
     await launch(url);
   } else {
     throw 'Could not launch $url';
+  }
+}
+void notificationFunctionSave(RemoteMessage? message) {
+  if (message != null) {
+    NotificationModel notificationModel = NotificationModel(
+      id: message.messageId,
+      notificationServiceName: message.notification!.title,
+      notificationServiceMessage: message.notification!.body,
+      notificationServiceAmount: "0",
+      notificationType: message.notification!.title,
+      notificationServiceDate: DateTime.now().toString(),
+      notificationServicePaymentMethodName: "wallet",
+    );
+    NotificationDAL.create(notificationModel);
   }
 }
 

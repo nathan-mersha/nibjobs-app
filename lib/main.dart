@@ -15,6 +15,7 @@ import 'package:nibjobs/themes/theme.dart';
 
 import 'api/app_builder.dart';
 import 'api/config/global.dart';
+import 'api/flutterfire.dart';
 import 'bloc/ads/ad_helper.dart';
 import 'bloc/category/category_bloc.dart';
 import 'bloc/description/description_cubit.dart';
@@ -27,25 +28,13 @@ import 'bloc/sort/sort_bloc.dart';
 import 'bloc/theme/theme_bloc.dart';
 import 'bloc/user/user_bloc.dart';
 import 'dal/create_all_table.dart';
-import 'dal/notification_dal.dart';
 import 'db/k_shared_preference.dart';
-import 'model/notification_model.dart';
 
 String backgroundMessageTest = "";
 Future<void> backgroundMessage(RemoteMessage? message) async {
-  if (message != null) {
-    backgroundMessageTest = "backgroundMessage";
-    NotificationModel notificationModel = NotificationModel(
-      id: message.messageId,
-      notificationServiceName: message.notification!.title,
-      notificationServiceMessage: message.notification!.body,
-      notificationServiceAmount: "0",
-      notificationType: message.notification!.title,
-      notificationServiceDate: DateTime.now().toString(),
-      notificationServicePaymentMethodName: "wallet",
-    );
-    NotificationDAL.create(notificationModel);
-  }
+  backgroundMessageTest = "backgroundMessage";
+
+  notificationFunctionSave(message);
 }
 
 AdHelper? adState;

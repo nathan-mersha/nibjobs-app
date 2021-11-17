@@ -292,10 +292,10 @@ class _CategoryPreferencePageState extends State<CategoryPreferencePage> {
                                                 Expanded(
                                                   flex: 1,
                                                   child: Container(
-                                                    padding:
-                                                        EdgeInsets.symmetric(
-                                                            vertical: 3,
-                                                            horizontal: 15),
+                                                    padding: const EdgeInsets
+                                                            .symmetric(
+                                                        vertical: 3,
+                                                        horizontal: 15),
                                                     child: Column(
                                                       crossAxisAlignment:
                                                           CrossAxisAlignment
@@ -407,8 +407,9 @@ class _CategoryPreferencePageState extends State<CategoryPreferencePage> {
                                       HSharedPreference.SELECT_PREFERENCE,
                                       true);
                                   String uid = await hSharedPreference
-                                      .get(HSharedPreference.KEY_USER_ID);
-                                  if (uid != null) {
+                                          .get(HSharedPreference.KEY_USER_ID) ??
+                                      "";
+                                  if (uid != "") {
                                     List<String> list = await hSharedPreference
                                             .get(HSharedPreference
                                                 .LIST_OF_FAV_CATEGORY) ??
