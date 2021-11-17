@@ -78,7 +78,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
   Widget _icon(IconData icon, bool isEnable, int index) {
     return Expanded(
       child: InkWell(
-        borderRadius: BorderRadius.all(Radius.circular(50)),
+        borderRadius: const BorderRadius.all(Radius.circular(50)),
         onTap: () {
           _handlePressed(index);
         },
@@ -87,10 +87,11 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
           alignment: isEnable ? Alignment.topCenter : Alignment.center,
           child: AnimatedContainer(
               height: isEnable ? 40 : 20,
-              duration: Duration(milliseconds: 300),
+              duration: const Duration(milliseconds: 300),
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                  color: isEnable ? CustomColor.RAD_DARK : Colors.white,
+                  color:
+                      isEnable ? Theme.of(context).primaryColor : Colors.white,
                   shape: BoxShape.circle),
               child: Opacity(
                 opacity: isEnable ? _yController!.value : 1,

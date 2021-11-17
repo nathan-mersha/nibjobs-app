@@ -117,15 +117,15 @@ class EN {
     LanguageKey.NO_WEBSITE: "no website",
     LanguageKey.NO_PHYSICAL_ADDRESS: "no physical address",
     LanguageKey.FAVORITE: "favorite",
-    LanguageKey.DOWNLOAD_KELEM_APP: "download kelem app from the link below",
+    LanguageKey.DOWNLOAD_KELEM_APP: "download nib app from the link below",
     LanguageKey.NO_NOTIFICATIONS_FOUND: "no notifications",
     LanguageKey.REFRESH: "refresh",
     LanguageKey.NOTIFICATION: "notification",
-    LanguageKey.Q1: "What is kelem?",
-    LanguageKey.Q2: "How can I add my company on kelem?",
+    LanguageKey.Q1: "What is nib?",
+    LanguageKey.Q2: "How can I add my company on nib?",
     LanguageKey.Q3:
         "How is Kelem different from other E-commerce application available in ethiopia",
-    LanguageKey.Q4: "Can I create my own company in kelem app",
+    LanguageKey.Q4: "Can I create my own company in nib app",
     LanguageKey.Q5: "Who can see my phone number",
     LanguageKey.Q6:
         "I see my company is listed in the app, can I have full control of the company",
@@ -142,14 +142,14 @@ class EN {
     LanguageKey.A3:
         "Kelem mainly focuses on existing E-commerce channels on telegram by indexing their content, although you still can create a company in the application and post your own jobs.",
     LanguageKey.A4:
-        "Yes you can create your company in kelem and post jobs as well",
+        "Yes you can create your company in nib and post jobs as well",
     LanguageKey.A5:
         "If you insert your phone number and any other personal information, it will be available to anyone who would like to contact you",
     LanguageKey.A6:
         "Yes, just prove that you own the company by calling us with the listed phone number and we will send you a link to a web dashboard which will give you full control to all your jobs",
 
     LanguageKey.A7:
-        "Companys that are only verified are visible for the public, please contact us if you like us to verify your company",
+        "Companies that are only verified are visible for the public, please contact us if you like us to verify your company",
     LanguageKey.A8:
         "Jobs that are approved by the admin will be visible to the public (may take up to 72hrs)",
 
@@ -179,7 +179,7 @@ class EN {
     LanguageKey.DO_YOU_WANT_TO_DELETE_THE_JOB: "do you want to delete the job",
     LanguageKey.YOU_HAVE_SUCCESSFUL_DELETED_THE_JOB:
         "you have successful deleted the job",
-    LanguageKey.KELEM_WEBSITE: "https://kelem.et",
+    LanguageKey.KELEM_WEBSITE: "https://nib.et",
     LanguageKey.PLEASE_CHOOSE_A_IMAGE: "please choose an image",
     LanguageKey.MY_JOBS: "my jobs",
     LanguageKey.JOB_ADDED_TO_FAVORITE_LIST: "job added to favorite list",
