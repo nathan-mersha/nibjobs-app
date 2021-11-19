@@ -6,13 +6,13 @@ class Company {
   static const String NAME = "name";
   static const String RANK = "rank";
   static const String CATEGORY = "category";
-  static const String PRIMARY_PHONE = "primary_phone";
-  static const String SECONDARY_PHONE = "secondary_phone";
+  static const String PRIMARY_PHONE = "primaryPhone";
+  static const String SECONDARY_PHONE = "secondaryPhone";
   static const String EMAIL = "email";
   static const String VERIFIED = "verified";
   static const String WEBSITE = "website";
-  static const String PHYSICAL_ADDRESS = "physical_address";
-  static const String NO_OF_EMPLOYEES = "no_of_employees";
+  static const String PHYSICAL_ADDRESS = "physicalAddress";
+  static const String NO_OF_EMPLOYEES = "noOfEmployees";
   static const String DESCRIPRTION = "description";
   static const String LOGO = "logo";
   static const String FIRST_MODIFIED = "firstModified";

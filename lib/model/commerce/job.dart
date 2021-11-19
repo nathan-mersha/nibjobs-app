@@ -33,7 +33,7 @@ class Job {
   String? contractType;
   String? salary;
   num? availablePositions;
-  List<String>? tags;
+  List<dynamic>? tags;
   String? description;
   String? applyVia;
   String? applyLink;
@@ -103,7 +103,9 @@ class Job {
         description: map[DESCRIPTION],
         applyVia: map[APPLY_VIA],
         applyLink: map[APPLY_LINK],
-        jobChannel: map[JOB_CHANNEL],
+        jobChannel: map[JOB_CHANNEL] == null
+            ? JobChannel()
+            : JobChannel.toModel(map[JOB_CHANNEL]),
         approved: map[APPROVED],
         deleted: map[DELETED],
         rawPost: map[RAW_POST],

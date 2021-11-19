@@ -3,14 +3,14 @@ class JobChannel {
 
   static const String COLLECTION_NAME = "jobChannel";
   static const String ID = "id";
-  static const String CHANNEL_ID = "channel_id";
+  static const String CHANNEL_ID = "channelId";
   static const String NAME = "name";
   static const String RANK = "rank";
   static const String DESCRIPTION = "description";
   static const String LOGO = "logo";
   static const String LINK = "link";
-  static const String FIRST_MODIFIED = "first_modified";
-  static const String LAST_MODIFIED = "last_modified";
+  static const String FIRST_MODIFIED = "firstModified";
+  static const String LAST_MODIFIED = "lastModified";
 
   String? id;
   String? channelId;

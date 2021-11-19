@@ -42,7 +42,7 @@ class _AddItemPageState extends State<AddItemPage> {
   TextEditingController tagController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   bool absorbing = false;
-  List<String> tagList = [];
+  List<dynamic> tagList = [];
   final picker = ImagePicker();
   bool allSeen = false;
   List jobImage = [];
