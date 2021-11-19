@@ -1,10 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:nibjobs/api/flutterfire.dart';
-import 'package:nibjobs/bloc/user/user_bloc.dart';
 import 'package:nibjobs/db/k_shared_preference.dart';
 import 'package:nibjobs/model/commerce/job.dart';
 import 'package:nibjobs/model/profile/user.dart';
@@ -195,178 +192,197 @@ class _JobViewState extends State<JobView> {
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(20),
           ),
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
-              // Image thumbnail or image place holder
-              Expanded(
-                flex: 1,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Stack(
-                    fit: StackFit.expand,
-                    children: [
-                      // JobView.getThumbnailView(widget._job!,
-                      //     size: JobView.SIZE_MEDIUM),
-                      Align(
-                        alignment: Alignment.topRight,
-                        child: Padding(
-                          padding: const EdgeInsets.only(right: 10.0, top: 5),
-                          child: Builder(builder: (context) {
-                            if (widget.pageAdmin) {
-                              return Container(
-                                decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(24),
-                                  color: Colors.white,
-                                ),
-                                child: Padding(
-                                  padding: const EdgeInsets.all(4.0),
-                                  child: Icon(
-                                    Icons.verified_user,
-                                    color: widget._job!.approved!
-                                        ? Colors.lightGreen
-                                        : LightColor.lightGrey,
-                                    size: 20,
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                // Image thumbnail or image place holder
+                // Expanded(
+                //   flex: 1,
+                //   child: Padding(
+                //     padding: const EdgeInsets.all(8.0),
+                //     child: Stack(
+                //       fit: StackFit.expand,
+                //       children: [
+                //         // JobView.getThumbnailView(widget._job!,
+                //         //     size: JobView.SIZE_MEDIUM),
+                //         Align(
+                //           alignment: Alignment.topRight,
+                //           child: Padding(
+                //             padding: const EdgeInsets.only(right: 10.0, top: 5),
+                //             child: Builder(builder: (context) {
+                //               if (widget.pageAdmin) {
+                //                 return Container(
+                //                   decoration: BoxDecoration(
+                //                     borderRadius: BorderRadius.circular(24),
+                //                     color: Colors.white,
+                //                   ),
+                //                   child: Padding(
+                //                     padding: const EdgeInsets.all(4.0),
+                //                     child: Icon(
+                //                       Icons.verified_user,
+                //                       color: widget._job!.approved!
+                //                           ? Colors.lightGreen
+                //                           : LightColor.lightGrey,
+                //                       size: 20,
+                //                     ),
+                //                   ),
+                //                 );
+                //               }
+                //               return BlocBuilder<UserBloc, UserState>(
+                //                 builder: (context, state) {
+                //                   if (state is UserSignedInState) {
+                //                     return GestureDetector(
+                //                       onTap: () async {
+                //                         isSelected = !isSelected;
+                //                         if (isSelected) {
+                //                           final result =
+                //                               await addFavJob(widget._job!);
+                //                           if (result) {
+                //                             addToList();
+                //                             Fluttertoast.showToast(
+                //                                 msg:
+                //                                     "${widget._job!.title} ${StringRsr.get(LanguageKey.JOB_ADDED_TO_FAVORITE_LIST)}",
+                //                                 toastLength: Toast.LENGTH_SHORT,
+                //                                 gravity: ToastGravity.CENTER,
+                //                                 timeInSecForIosWeb: 1,
+                //                                 backgroundColor: Colors.green,
+                //                                 textColor: Colors.white,
+                //                                 fontSize: 16.0);
+                //                           } else {}
+                //                         } else {
+                //                           final result =
+                //                               await deleteFavJob(widget._job!);
+                //                           if (result) {
+                //                             removeInList();
+                //                             Fluttertoast.showToast(
+                //                                 msg:
+                //                                     "${widget._job!.title} ${StringRsr.get(LanguageKey.JOB_REMOVED_FROM_FAVORITE_LIST)}",
+                //                                 toastLength: Toast.LENGTH_SHORT,
+                //                                 gravity: ToastGravity.CENTER,
+                //                                 timeInSecForIosWeb: 1,
+                //                                 backgroundColor: Colors.red,
+                //                                 textColor: Colors.white,
+                //                                 fontSize: 16.0);
+                //                           } else {}
+                //                         }
+                //                         setState(() {});
+                //                       },
+                //                       child: Container(
+                //                         decoration: BoxDecoration(
+                //                           borderRadius: BorderRadius.circular(24),
+                //                           color: Colors.white,
+                //                         ),
+                //                         child: Padding(
+                //                           padding: const EdgeInsets.all(4.0),
+                //                           child: Icon(
+                //                             Icons.favorite,
+                //                             color: isSelected
+                //                                 ? Colors.red
+                //                                 : LightColor.lightGrey,
+                //                             size: 15,
+                //                           ),
+                //                         ),
+                //                       ),
+                //                     );
+                //                   }
+                //                   return GestureDetector(
+                //                     onTap: () async {
+                //                       Navigator.pushNamed(
+                //                           context, RouteTo.PROFILE_SIGN_IN);
+                //                     },
+                //                     child: Container(
+                //                       decoration: BoxDecoration(
+                //                         borderRadius: BorderRadius.circular(24),
+                //                         color: Colors.white,
+                //                       ),
+                //                       child: Padding(
+                //                         padding: const EdgeInsets.all(4.0),
+                //                         child: Icon(
+                //                           Icons.favorite,
+                //                           color: isSelected
+                //                               ? Colors.red
+                //                               : LightColor.lightGrey,
+                //                           size: 15,
+                //                         ),
+                //                       ),
+                //                     ),
+                //                   );
+                //                 },
+                //               );
+                //             }),
+                //           ),
+                //         )
+                //       ],
+                //     ),
+                //   ),
+                // ),
+
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    padding:
+                        const EdgeInsets.symmetric(vertical: 3, horizontal: 15),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        // Job name
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              "${widget._job!.title![0].toUpperCase()}${widget._job!.title!.substring(1).toLowerCase()}",
+                              maxLines: 1,
+                              overflow: TextOverflow.fade,
+                              textAlign: TextAlign.left,
+                              softWrap: false,
+                              style: const TextStyle(
+                                color: CustomColor.TEXT_DARK,
+                                fontSize: 16,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+
+                            // Job Author / Manufacturer
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "by ${widget._job!.company!.name}",
+                                  maxLines: 1,
+                                  overflow: TextOverflow.fade,
+                                  textAlign: TextAlign.left,
+                                  softWrap: false,
+                                  style: const TextStyle(
+                                    color: CustomColor.TEXT_DARK,
                                   ),
                                 ),
-                              );
-                            }
-                            return BlocBuilder<UserBloc, UserState>(
-                              builder: (context, state) {
-                                if (state is UserSignedInState) {
-                                  return GestureDetector(
-                                    onTap: () async {
-                                      isSelected = !isSelected;
-                                      if (isSelected) {
-                                        final result =
-                                            await addFavJob(widget._job!);
-                                        if (result) {
-                                          addToList();
-                                          Fluttertoast.showToast(
-                                              msg:
-                                                  "${widget._job!.title} ${StringRsr.get(LanguageKey.JOB_ADDED_TO_FAVORITE_LIST)}",
-                                              toastLength: Toast.LENGTH_SHORT,
-                                              gravity: ToastGravity.CENTER,
-                                              timeInSecForIosWeb: 1,
-                                              backgroundColor: Colors.green,
-                                              textColor: Colors.white,
-                                              fontSize: 16.0);
-                                        } else {}
-                                      } else {
-                                        final result =
-                                            await deleteFavJob(widget._job!);
-                                        if (result) {
-                                          removeInList();
-                                          Fluttertoast.showToast(
-                                              msg:
-                                                  "${widget._job!.title} ${StringRsr.get(LanguageKey.JOB_REMOVED_FROM_FAVORITE_LIST)}",
-                                              toastLength: Toast.LENGTH_SHORT,
-                                              gravity: ToastGravity.CENTER,
-                                              timeInSecForIosWeb: 1,
-                                              backgroundColor: Colors.red,
-                                              textColor: Colors.white,
-                                              fontSize: 16.0);
-                                        } else {}
-                                      }
-                                      setState(() {});
-                                    },
-                                    child: Container(
-                                      decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(24),
-                                        color: Colors.white,
-                                      ),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(4.0),
-                                        child: Icon(
-                                          Icons.favorite,
-                                          color: isSelected
-                                              ? Colors.red
-                                              : LightColor.lightGrey,
-                                          size: 15,
-                                        ),
-                                      ),
-                                    ),
-                                  );
-                                }
-                                return GestureDetector(
-                                  onTap: () async {
-                                    Navigator.pushNamed(
-                                        context, RouteTo.PROFILE_SIGN_IN);
-                                  },
-                                  child: Container(
-                                    decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(24),
-                                      color: Colors.white,
-                                    ),
-                                    child: Padding(
-                                      padding: const EdgeInsets.all(4.0),
-                                      child: Icon(
-                                        Icons.favorite,
-                                        color: isSelected
-                                            ? Colors.red
-                                            : LightColor.lightGrey,
-                                        size: 15,
-                                      ),
+                                Container(
+                                  alignment: Alignment.topRight,
+                                  child: Text(
+                                    timeago.format(widget._job!.lastModified!),
+                                    maxLines: 1,
+                                    overflow: TextOverflow.fade,
+                                    textAlign: TextAlign.right,
+                                    softWrap: false,
+                                    style: const TextStyle(
+                                      fontSize: 10,
+                                      fontWeight: FontWeight.bold,
+                                      color: CustomColor.RAD_DARK,
                                     ),
                                   ),
-                                );
-                              },
-                            );
-                          }),
+                                ),
+                              ],
+                            ),
+                          ],
                         ),
-                      )
-                    ],
-                  ),
-                ),
-              ),
 
-              Expanded(
-                flex: 1,
-                child: Container(
-                  padding:
-                      const EdgeInsets.symmetric(vertical: 3, horizontal: 15),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: <Widget>[
-                      // Job name
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            //"${widget._job!.name![0].toUpperCase()}${widget._job!.name!.substring(1).toLowerCase()}",
-                            "as",
-                            maxLines: 1,
-                            overflow: TextOverflow.fade,
-                            textAlign: TextAlign.left,
-                            softWrap: false,
-                            style: const TextStyle(
-                              color: CustomColor.TEXT_DARK,
-                              fontSize: 16,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          ),
-
-                          // Job Author / Manufacturer
-                          Text(
-                            "widget._job!.authorOrManufacturer!",
-                            maxLines: 1,
-                            overflow: TextOverflow.fade,
-                            textAlign: TextAlign.left,
-                            softWrap: false,
-                            style: const TextStyle(
-                              color: CustomColor.TEXT_DARK,
-                            ),
-                          ),
-                        ],
-                      ),
-
-                      const SizedBox(
-                        height: 1,
-                      ),
-                      SizedBox(
-                        width: 120,
-                        child: Text(
+                        const SizedBox(
+                          height: 1,
+                        ),
+                        Text(
                           widget._job!.description!,
                           maxLines: 2,
                           overflow: TextOverflow.ellipsis,
@@ -377,98 +393,84 @@ class _JobViewState extends State<JobView> {
                             color: CustomColor.TEXT_DARK,
                           ),
                         ),
-                      ),
-                      Container(
-                        alignment: Alignment.topRight,
-                        child: Text(
-                          timeago.format(widget._job!.lastModified!),
-                          maxLines: 1,
-                          overflow: TextOverflow.fade,
-                          textAlign: TextAlign.right,
-                          softWrap: false,
-                          style: const TextStyle(
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                            color: CustomColor.RAD_DARK,
-                          ),
-                        ),
-                      ),
-                      // Price and regular price
-                      const SizedBox(
-                        height: 2,
-                      ),
 
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        mainAxisSize: MainAxisSize.max,
-                        children: [
-                          SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child:
-                                JobView.getPricingView(context, widget._job!),
-                          ),
-                          SingleChildScrollView(
-                            scrollDirection: Axis.horizontal,
-                            child: GestureDetector(
-                              onTap: () async {
-                                var uid = await hSharedPreference
-                                    .get(HSharedPreference.KEY_USER_ID);
-                                var email = await hSharedPreference
-                                    .get(HSharedPreference.KEY_USER_EMAIL);
-                                var phone = await hSharedPreference
-                                    .get(HSharedPreference.KEY_USER_PHONE);
-                                var userName = await hSharedPreference
-                                    .get(HSharedPreference.KEY_USER_NAME);
-                                var userImage = await hSharedPreference
-                                    .get(HSharedPreference.KEY_USER_IMAGE_URL);
-                                List<String> list = await hSharedPreference.get(
-                                        HSharedPreference
-                                            .LIST_OF_FAV_CATEGORY) ??
-                                    [];
-                                UserModel user = UserModel(
-                                  userId: uid ??
-                                      FirebaseAuth.instance.currentUser!.uid,
-                                  email: email,
-                                  profilePicture: userImage,
-                                  phoneNumber: phone,
-                                  userName: userName,
-                                  categoryList: list,
-                                );
-                                CalledJob calledJob = CalledJob(
-                                  job: widget._job,
-                                  user: user,
-                                  lastModified: DateTime.now(),
-                                );
-                                await addCallJob(calledJob);
-                                makePhoneCall(
-                                    "tel:${widget._job!.company!.primaryPhone!.replaceAll("+", "").replaceAll(" ", "")}");
-                              },
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    color: const Color(0xff404040)),
-                                padding: const EdgeInsets.only(
-                                  left: 12,
-                                  top: 5,
-                                  bottom: 5,
-                                  right: 12,
-                                ),
-                                child: Text(
-                                  StringRsr.get(LanguageKey.CALL)!,
-                                  style: const TextStyle(color: Colors.white),
+                        // Price and regular price
+                        const SizedBox(
+                          height: 2,
+                        ),
+
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child:
+                                  JobView.getPricingView(context, widget._job!),
+                            ),
+                            SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: GestureDetector(
+                                onTap: () async {
+                                  var uid = await hSharedPreference
+                                      .get(HSharedPreference.KEY_USER_ID);
+                                  var email = await hSharedPreference
+                                      .get(HSharedPreference.KEY_USER_EMAIL);
+                                  var phone = await hSharedPreference
+                                      .get(HSharedPreference.KEY_USER_PHONE);
+                                  var userName = await hSharedPreference
+                                      .get(HSharedPreference.KEY_USER_NAME);
+                                  var userImage = await hSharedPreference.get(
+                                      HSharedPreference.KEY_USER_IMAGE_URL);
+                                  List<String> list = await hSharedPreference
+                                          .get(HSharedPreference
+                                              .LIST_OF_FAV_CATEGORY) ??
+                                      [];
+                                  UserModel user = UserModel(
+                                    userId: uid ??
+                                        FirebaseAuth.instance.currentUser!.uid,
+                                    email: email,
+                                    profilePicture: userImage,
+                                    phoneNumber: phone,
+                                    userName: userName,
+                                    categoryList: list,
+                                  );
+                                  CalledJob calledJob = CalledJob(
+                                    job: widget._job,
+                                    user: user,
+                                    lastModified: DateTime.now(),
+                                  );
+                                  await addCallJob(calledJob);
+                                  makePhoneCall(
+                                      "tel:${widget._job!.company!.primaryPhone!.replaceAll("+", "").replaceAll(" ", "")}");
+                                },
+                                child: Container(
+                                  decoration: BoxDecoration(
+                                      borderRadius: BorderRadius.circular(20),
+                                      color: const Color(0xff404040)),
+                                  padding: const EdgeInsets.only(
+                                    left: 12,
+                                    top: 5,
+                                    bottom: 5,
+                                    right: 12,
+                                  ),
+                                  child: Text(
+                                    StringRsr.get(LanguageKey.CALL)!,
+                                    style: const TextStyle(color: Colors.white),
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
-                      )
+                          ],
+                        )
 
-                      // Job price and regular price
-                    ],
+                        // Job price and regular price
+                      ],
+                    ),
                   ),
-                ),
-              )
-            ],
+                )
+              ],
+            ),
           ),
         ),
       ),
