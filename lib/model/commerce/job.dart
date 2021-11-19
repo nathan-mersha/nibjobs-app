@@ -110,7 +110,7 @@ class Job {
         deleted: map[DELETED],
         rawPost: map[RAW_POST],
         company:
-            map[CATEGORY] == null ? Company() : Company.toModel(map[CATEGORY]),
+            map[COMPANY] == null ? Company() : Company.toModel(map[COMPANY]),
         firstModified: DateTime.parse(
             map[FIRST_MODIFIED] ?? DateTime.now().toIso8601String()),
         lastModified: DateTime.parse(

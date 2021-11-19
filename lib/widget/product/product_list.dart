@@ -394,7 +394,7 @@ class _JobListState extends State<JobList> {
                                                 : 0,
                                             itemBuilder: (BuildContext context,
                                                 int index) {
-                                              if (_jobs[index].name !=
+                                              if (_jobs[index].title !=
                                                   "googleAdsKelem") {
                                                 return AspectRatio(
                                                   aspectRatio:

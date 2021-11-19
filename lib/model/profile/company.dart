@@ -30,7 +30,7 @@ class Company {
   bool? verified;
   String? website;
   String? physicalAddress;
-  num? noOfEmployees;
+  String? noOfEmployees;
   String? description;
   String? logo;
   DateTime? firstModified;
