@@ -17,15 +17,15 @@ class Job {
   static const String AVAILABLE_POSITIONS = "available_positions";
   static const String TAGS = "tags";
   static const String DESCRIPTION = "description";
-  static const String APPLY_VIA = "apply_via";
-  static const String APPLY_LINK = "apply_link";
+  static const String APPLY_VIA = "applyVia";
+  static const String APPLY_LINK = "applyLink";
   static const String COMPANY = "company";
-  static const String JOB_CHANNEL = "job_channel";
+  static const String JOB_CHANNEL = "jobChannel";
   static const String APPROVED = "approved";
   static const String DELETED = "deleted";
-  static const String RAW_POST = "raw_post";
-  static const String FIRST_MODIFIED = "first_modified";
-  static const String LAST_MODIFIED = "last_modified";
+  static const String RAW_POST = "rawPost";
+  static const String FIRST_MODIFIED = "firstModified";
+  static const String LAST_MODIFIED = "lastModified";
 
   String? id;
   String? title;
