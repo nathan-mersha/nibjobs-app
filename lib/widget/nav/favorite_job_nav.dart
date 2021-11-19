@@ -50,14 +50,14 @@ class _FavoriteJobNavigationState extends State<FavoriteJobNavigation> {
         amCategories = global.localConfig.amCategory;
         categories = global.localConfig.categories;
         category = global.localConfig.selectedCategory;
-        subCategories = global.localConfig.selectedCategory.subCategories;
+        subCategories = global.localConfig.selectedCategory.tags;
       });
     });
   }
 // else {
 //   categories = global.localConfig.categories;
 //   category = global.localConfig.selectedCategory;
-//   subCategories = global.localConfig.selectedCategory.subCategories;
+//   subCategories = global.localConfig.selectedCategory.tags;
 //
 // }
 

@@ -1,4 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -14,7 +13,6 @@ import 'package:nibjobs/rsr/locale/lang/language_key.dart';
 import 'package:nibjobs/rsr/locale/string_rsr.dart';
 import 'package:nibjobs/rsr/theme/color.dart';
 import 'package:nibjobs/themes/light_color.dart';
-import 'package:nibjobs/widget/product/product_placeholder.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:url_launcher/url_launcher.dart';
 
@@ -36,34 +34,34 @@ class JobView extends StatefulWidget {
       this.fav = "",
       this.onComplete});
 
-  static Widget getThumbnailView(Job job,
-      {bool expand = true, String size = SIZE_MEDIUM}) {
-    return job.image == null || job.image!.isEmpty
-        ? JobPlaceholder(
-            job: job,
-            size: size,
-          )
-        : CachedNetworkImage(
-            imageUrl: job.image![0],
-            useOldImageOnUrlChange: true,
-            imageBuilder: (context, imagePath) {
-              return ClipRRect(
-                borderRadius: BorderRadius.all(Radius.circular(20)),
-                child: Image(
-                  image: imagePath,
-                  fit: BoxFit.cover,
-                ),
-              );
-            },
-            placeholderFadeInDuration: Duration(seconds: 1),
-            placeholder: (BuildContext context, String imageURL) {
-              return JobPlaceholder(job: job);
-            },
-            errorWidget: (BuildContext context, String imageURL, dynamic) {
-              return JobPlaceholder(job: job);
-            },
-          );
-  }
+  // static Widget getThumbnailView(Job job,
+  //     {bool expand = true, String size = SIZE_MEDIUM}) {
+  //   return job.image == null || job.image!.isEmpty
+  //       ? JobPlaceholder(
+  //           job: job,
+  //           size: size,
+  //         )
+  //       : CachedNetworkImage(
+  //           imageUrl: job.image![0],
+  //           useOldImageOnUrlChange: true,
+  //           imageBuilder: (context, imagePath) {
+  //             return ClipRRect(
+  //               borderRadius: BorderRadius.all(Radius.circular(20)),
+  //               child: Image(
+  //                 image: imagePath,
+  //                 fit: BoxFit.cover,
+  //               ),
+  //             );
+  //           },
+  //           placeholderFadeInDuration: Duration(seconds: 1),
+  //           placeholder: (BuildContext context, String imageURL) {
+  //             return JobPlaceholder(job: job);
+  //           },
+  //           errorWidget: (BuildContext context, String imageURL, dynamic) {
+  //             return JobPlaceholder(job: job);
+  //           },
+  //         );
+  // }
 
   static Widget getPricingView(BuildContext context, Job job,
       {double priceFontSize = 15,
@@ -78,7 +76,8 @@ class JobView extends StatefulWidget {
             : MainAxisAlignment.spaceBetween,
         children: <Widget>[
           Text(
-            "${currencyFormat.format(job.price).toString()}",
+            //"${currencyFormat.format(job.price).toString()}",
+            "as",
             maxLines: 1,
             overflow: TextOverflow.fade,
             textAlign: TextAlign.left,
@@ -125,7 +124,7 @@ class _JobViewState extends State<JobView> {
         await hSharedPreference.get(HSharedPreference.LIST_OF_FAV) ?? [];
 
     if (!(widget.fav == "Fav")) {
-      if (proFavList.contains(widget._job!.jobId)) {
+      if (proFavList.contains(widget._job!.id)) {
         setState(() {
           isSelected = true;
         });
@@ -138,7 +137,7 @@ class _JobViewState extends State<JobView> {
       setState(() {
         isSelected = true;
       });
-      if (!proFavList.contains(widget._job!.jobId)) {
+      if (!proFavList.contains(widget._job!.id)) {
         await addToList();
       }
     }
@@ -147,7 +146,7 @@ class _JobViewState extends State<JobView> {
   Future<void> addToList() async {
     List<String> proFavList =
         await hSharedPreference.get(HSharedPreference.LIST_OF_FAV) ?? [];
-    proFavList.add(widget._job!.jobId.toString());
+    proFavList.add(widget._job!.id.toString());
 
     await hSharedPreference.set(HSharedPreference.LIST_OF_FAV, proFavList);
   }
@@ -155,7 +154,7 @@ class _JobViewState extends State<JobView> {
   Future<void> removeInList() async {
     List<String> proFavList =
         await hSharedPreference.get(HSharedPreference.LIST_OF_FAV) ?? [];
-    proFavList.remove(widget._job!.jobId.toString());
+    proFavList.remove(widget._job!.id.toString());
     await hSharedPreference.set(HSharedPreference.LIST_OF_FAV, proFavList);
   }
 
@@ -207,8 +206,8 @@ class _JobViewState extends State<JobView> {
                   child: Stack(
                     fit: StackFit.expand,
                     children: [
-                      JobView.getThumbnailView(widget._job!,
-                          size: JobView.SIZE_MEDIUM),
+                      // JobView.getThumbnailView(widget._job!,
+                      //     size: JobView.SIZE_MEDIUM),
                       Align(
                         alignment: Alignment.topRight,
                         child: Padding(
@@ -245,7 +244,7 @@ class _JobViewState extends State<JobView> {
                                           addToList();
                                           Fluttertoast.showToast(
                                               msg:
-                                                  "${widget._job!.name} ${StringRsr.get(LanguageKey.JOB_ADDED_TO_FAVORITE_LIST)}",
+                                                  "${widget._job!.title} ${StringRsr.get(LanguageKey.JOB_ADDED_TO_FAVORITE_LIST)}",
                                               toastLength: Toast.LENGTH_SHORT,
                                               gravity: ToastGravity.CENTER,
                                               timeInSecForIosWeb: 1,
@@ -260,7 +259,7 @@ class _JobViewState extends State<JobView> {
                                           removeInList();
                                           Fluttertoast.showToast(
                                               msg:
-                                                  "${widget._job!.name} ${StringRsr.get(LanguageKey.JOB_REMOVED_FROM_FAVORITE_LIST)}",
+                                                  "${widget._job!.title} ${StringRsr.get(LanguageKey.JOB_REMOVED_FROM_FAVORITE_LIST)}",
                                               toastLength: Toast.LENGTH_SHORT,
                                               gravity: ToastGravity.CENTER,
                                               timeInSecForIosWeb: 1,
@@ -335,7 +334,8 @@ class _JobViewState extends State<JobView> {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            "${widget._job!.name![0].toUpperCase()}${widget._job!.name!.substring(1).toLowerCase()}",
+                            //"${widget._job!.name![0].toUpperCase()}${widget._job!.name!.substring(1).toLowerCase()}",
+                            "as",
                             maxLines: 1,
                             overflow: TextOverflow.fade,
                             textAlign: TextAlign.left,
@@ -349,7 +349,7 @@ class _JobViewState extends State<JobView> {
 
                           // Job Author / Manufacturer
                           Text(
-                            widget._job!.authorOrManufacturer!,
+                            "widget._job!.authorOrManufacturer!",
                             maxLines: 1,
                             overflow: TextOverflow.fade,
                             textAlign: TextAlign.left,

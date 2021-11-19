@@ -1,7 +1,6 @@
 import 'dart:io';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -43,7 +42,7 @@ class _AddItemPageState extends State<AddItemPage> {
   TextEditingController tagController = TextEditingController();
   TextEditingController descriptionController = TextEditingController();
   bool absorbing = false;
-  List<dynamic> tagList = [];
+  List<String> tagList = [];
   final picker = ImagePicker();
   bool allSeen = false;
   List jobImage = [];
@@ -187,9 +186,9 @@ class _AddItemPageState extends State<AddItemPage> {
       jobOld = ModalRoute.of(context)!.settings.arguments as Job;
       if (jobOld != null && !allSeen) {
         title = "Edit Item";
-        jobImage = jobOld!.image!;
+        //jobImage = jobOld!.image!;
         categoryController.text = jobOld!.category!;
-        subcategoryController.text = jobOld!.subCategory!;
+        //subcategoryController.text = jobOld!.subCategory!;
         selectedCategory = jobOld!.category;
         for (var element in categories!) {
           if (element.name == selectedCategory) {
@@ -197,19 +196,19 @@ class _AddItemPageState extends State<AddItemPage> {
           }
         }
 
-        selectedSubCategory = jobOld!.subCategory;
-        if (!category!.subCategories!.contains(selectedSubCategory)) {
-          selectedSubCategory = "other";
-        }
+        // selectedSubCategory = jobOld!.subCategory;
+        //  if (!category!.tags!.contains(selectedSubCategory)) {
+        //    selectedSubCategory = "other";
+        //  }
 
-        nameController.text = jobOld!.name!;
-        authorController.text = jobOld!.authorOrManufacturer!;
-        priceController.text = jobOld!.price!.toString();
-        availableController.text = jobOld!.availableStock.toString();
-        tagList = jobOld!.tag!;
+        nameController.text = jobOld!.title!;
+        authorController.text = jobOld!.contractType!;
+        priceController.text = jobOld!.salary!.toString();
+        availableController.text = jobOld!.availablePositions.toString();
+        tagList = jobOld!.tags!;
         descriptionController.text = jobOld!.description!;
-        metaData = jobOld!.metaData!;
-        jobId = jobOld!.jobId!;
+        //metaData = jobOld!.rawPost!;
+        jobId = jobOld!.id!;
         allSeen = true;
 
         setState(() {});
@@ -232,203 +231,203 @@ class _AddItemPageState extends State<AddItemPage> {
                     scrollDirection: Axis.vertical,
                     child: Column(
                       children: [
-                        GestureDetector(
-                          onTap: () {
-                            showDialog(
-                                context: context,
-                                builder: (context) {
-                                  return AlertDialog(
-                                    title: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.center,
-                                      children: [
-                                        ElevatedButton(
-                                          onPressed: () {},
-                                          style: ButtonStyle(
-                                            backgroundColor:
-                                                MaterialStateProperty.all<
-                                                    Color>(Colors.white),
-                                            elevation: MaterialStateProperty
-                                                .all<double>(0),
-                                          ),
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceAround,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              TextButton(
-                                                  onPressed: () {
-                                                    chooseImage(
-                                                        ImageSource.camera);
-                                                    Navigator.pop(context);
-                                                  },
-                                                  child: Icon(
-                                                    Icons.camera_alt,
-                                                    color: Theme.of(context)
-                                                        .primaryColor,
-                                                    size: 45,
-                                                  )),
-                                              const SizedBox(
-                                                height: 10,
-                                              ),
-                                              Text(
-                                                StringRsr.get(
-                                                    LanguageKey.CAMERA)!,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .subtitle1,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-
-                                        ElevatedButton(
-                                          style: ButtonStyle(
-                                            backgroundColor:
-                                                MaterialStateProperty.all<
-                                                    Color>(Colors.white),
-                                            elevation: MaterialStateProperty
-                                                .all<double>(0),
-                                          ),
-                                          onPressed: () {},
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceAround,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.center,
-                                            children: [
-                                              TextButton(
-                                                  onPressed: () {
-                                                    chooseImage(
-                                                        ImageSource.gallery);
-                                                    Navigator.pop(context);
-                                                  },
-                                                  child: const Icon(
-                                                    Icons.image,
-                                                    color: Color(0xffb81d00),
-                                                    size: 45,
-                                                  )),
-                                              const SizedBox(
-                                                height: 10,
-                                              ),
-                                              Text(
-                                                StringRsr.get(
-                                                    LanguageKey.GALLERY)!,
-                                                style: Theme.of(context)
-                                                    .textTheme
-                                                    .subtitle1,
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-
-                                        // ElevatedButton(
-                                        //     onPressed: () {
-                                        //       chooseImage(
-                                        //           ImageSource.camera);
-                                        //       Navigator.pop(context);
-                                        //     },
-                                        //     child: Text(StringRsr.get(
-                                        //         LanguageKey.CAMERA))),
-                                        // ElevatedButton(
-                                        //     onPressed: () {
-                                        //       chooseImage(
-                                        //           ImageSource.gallery);
-                                        //       Navigator.pop(context);
-                                        //     },
-                                        //     child: Text(StringRsr.get(
-                                        //         LanguageKey.GALLEY))),
-                                      ],
-                                    ),
-                                  );
-                                });
-                          },
-                          child: SizedBox(
-                            height: 100,
-                            width: 150,
-                            child: allSeen &&
-                                    imageFile == null &&
-                                    jobImage.isNotEmpty
-                                ? CachedNetworkImage(
-                                    imageUrl: jobImage[0],
-                                    imageBuilder: (context, imagePath) {
-                                      return ClipRRect(
-                                        borderRadius: const BorderRadius.all(
-                                            Radius.circular(20)),
-                                        child: Image(
-                                          image: imagePath,
-                                          fit: BoxFit.cover,
-                                        ),
-                                      );
-                                    },
-                                    useOldImageOnUrlChange: false,
-                                    placeholderFadeInDuration:
-                                        const Duration(seconds: 1),
-                                    placeholder: (BuildContext context,
-                                        String imageURL) {
-                                      return CircleAvatar(
-                                        backgroundColor:
-                                            Theme.of(context).primaryColor,
-                                        radius: 50,
-                                        child: Text(
-                                          jobOld!.name!
-                                              .substring(0, 1)
-                                              .toUpperCase(),
-                                          style: const TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 40,
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                    errorWidget: (BuildContext context,
-                                        String imageURL, dynamic) {
-                                      return CircleAvatar(
-                                        backgroundColor:
-                                            Theme.of(context).primaryColor,
-                                        radius: 50,
-                                        child: Text(
-                                          jobOld!.name!
-                                              .substring(0, 1)
-                                              .toUpperCase(),
-                                          style: const TextStyle(
-                                            color: Colors.white,
-                                            fontSize: 40,
-                                          ),
-                                        ),
-                                      );
-                                    },
-                                  )
-                                : imageFile != null
-                                    ? Container(
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                          image: DecorationImage(
-                                            image: FileImage(imageFile!),
-                                            fit: BoxFit.cover,
-                                          ),
-                                        ),
-                                      )
-                                    : Container(
-                                        height: 100,
-                                        width: 150,
-                                        decoration: BoxDecoration(
-                                          color: CustomColor.GRAY_LIGHT,
-                                          borderRadius:
-                                              BorderRadius.circular(20),
-                                        ),
-                                        child: Icon(
-                                          Icons.camera_alt,
-                                          size: 40,
-                                          color: Theme.of(context).primaryColor,
-                                        ),
-                                      ),
-                          ),
-                        ),
+                        // GestureDetector(
+                        //   onTap: () {
+                        //     showDialog(
+                        //         context: context,
+                        //         builder: (context) {
+                        //           return AlertDialog(
+                        //             title: Row(
+                        //               mainAxisAlignment:
+                        //                   MainAxisAlignment.spaceBetween,
+                        //               crossAxisAlignment:
+                        //                   CrossAxisAlignment.center,
+                        //               children: [
+                        //                 ElevatedButton(
+                        //                   onPressed: () {},
+                        //                   style: ButtonStyle(
+                        //                     backgroundColor:
+                        //                         MaterialStateProperty.all<
+                        //                             Color>(Colors.white),
+                        //                     elevation: MaterialStateProperty
+                        //                         .all<double>(0),
+                        //                   ),
+                        //                   child: Column(
+                        //                     mainAxisAlignment:
+                        //                         MainAxisAlignment.spaceAround,
+                        //                     crossAxisAlignment:
+                        //                         CrossAxisAlignment.center,
+                        //                     children: [
+                        //                       TextButton(
+                        //                           onPressed: () {
+                        //                             chooseImage(
+                        //                                 ImageSource.camera);
+                        //                             Navigator.pop(context);
+                        //                           },
+                        //                           child: Icon(
+                        //                             Icons.camera_alt,
+                        //                             color: Theme.of(context)
+                        //                                 .primaryColor,
+                        //                             size: 45,
+                        //                           )),
+                        //                       const SizedBox(
+                        //                         height: 10,
+                        //                       ),
+                        //                       Text(
+                        //                         StringRsr.get(
+                        //                             LanguageKey.CAMERA)!,
+                        //                         style: Theme.of(context)
+                        //                             .textTheme
+                        //                             .subtitle1,
+                        //                       ),
+                        //                     ],
+                        //                   ),
+                        //                 ),
+                        //
+                        //                 ElevatedButton(
+                        //                   style: ButtonStyle(
+                        //                     backgroundColor:
+                        //                         MaterialStateProperty.all<
+                        //                             Color>(Colors.white),
+                        //                     elevation: MaterialStateProperty
+                        //                         .all<double>(0),
+                        //                   ),
+                        //                   onPressed: () {},
+                        //                   child: Column(
+                        //                     mainAxisAlignment:
+                        //                         MainAxisAlignment.spaceAround,
+                        //                     crossAxisAlignment:
+                        //                         CrossAxisAlignment.center,
+                        //                     children: [
+                        //                       TextButton(
+                        //                           onPressed: () {
+                        //                             chooseImage(
+                        //                                 ImageSource.gallery);
+                        //                             Navigator.pop(context);
+                        //                           },
+                        //                           child: const Icon(
+                        //                             Icons.image,
+                        //                             color: Color(0xffb81d00),
+                        //                             size: 45,
+                        //                           )),
+                        //                       const SizedBox(
+                        //                         height: 10,
+                        //                       ),
+                        //                       Text(
+                        //                         StringRsr.get(
+                        //                             LanguageKey.GALLERY)!,
+                        //                         style: Theme.of(context)
+                        //                             .textTheme
+                        //                             .subtitle1,
+                        //                       ),
+                        //                     ],
+                        //                   ),
+                        //                 ),
+                        //
+                        //                 // ElevatedButton(
+                        //                 //     onPressed: () {
+                        //                 //       chooseImage(
+                        //                 //           ImageSource.camera);
+                        //                 //       Navigator.pop(context);
+                        //                 //     },
+                        //                 //     child: Text(StringRsr.get(
+                        //                 //         LanguageKey.CAMERA))),
+                        //                 // ElevatedButton(
+                        //                 //     onPressed: () {
+                        //                 //       chooseImage(
+                        //                 //           ImageSource.gallery);
+                        //                 //       Navigator.pop(context);
+                        //                 //     },
+                        //                 //     child: Text(StringRsr.get(
+                        //                 //         LanguageKey.GALLEY))),
+                        //               ],
+                        //             ),
+                        //           );
+                        //         });
+                        //   },
+                        //   child: SizedBox(
+                        //     height: 100,
+                        //     width: 150,
+                        //     child: allSeen &&
+                        //             imageFile == null &&
+                        //             jobImage.isNotEmpty
+                        //         ? CachedNetworkImage(
+                        //             imageUrl: jobImage[0],
+                        //             imageBuilder: (context, imagePath) {
+                        //               return ClipRRect(
+                        //                 borderRadius: const BorderRadius.all(
+                        //                     Radius.circular(20)),
+                        //                 child: Image(
+                        //                   image: imagePath,
+                        //                   fit: BoxFit.cover,
+                        //                 ),
+                        //               );
+                        //             },
+                        //             useOldImageOnUrlChange: false,
+                        //             placeholderFadeInDuration:
+                        //                 const Duration(seconds: 1),
+                        //             placeholder: (BuildContext context,
+                        //                 String imageURL) {
+                        //               return CircleAvatar(
+                        //                 backgroundColor:
+                        //                     Theme.of(context).primaryColor,
+                        //                 radius: 50,
+                        //                 child: Text(
+                        //                   jobOld!.name!
+                        //                       .substring(0, 1)
+                        //                       .toUpperCase(),
+                        //                   style: const TextStyle(
+                        //                     color: Colors.white,
+                        //                     fontSize: 40,
+                        //                   ),
+                        //                 ),
+                        //               );
+                        //             },
+                        //             errorWidget: (BuildContext context,
+                        //                 String imageURL, dynamic) {
+                        //               return CircleAvatar(
+                        //                 backgroundColor:
+                        //                     Theme.of(context).primaryColor,
+                        //                 radius: 50,
+                        //                 child: Text(
+                        //                   jobOld!.name!
+                        //                       .substring(0, 1)
+                        //                       .toUpperCase(),
+                        //                   style: const TextStyle(
+                        //                     color: Colors.white,
+                        //                     fontSize: 40,
+                        //                   ),
+                        //                 ),
+                        //               );
+                        //             },
+                        //           )
+                        //         : imageFile != null
+                        //             ? Container(
+                        //                 decoration: BoxDecoration(
+                        //                   borderRadius:
+                        //                       BorderRadius.circular(20),
+                        //                   image: DecorationImage(
+                        //                     image: FileImage(imageFile!),
+                        //                     fit: BoxFit.cover,
+                        //                   ),
+                        //                 ),
+                        //               )
+                        //             : Container(
+                        //                 height: 100,
+                        //                 width: 150,
+                        //                 decoration: BoxDecoration(
+                        //                   color: CustomColor.GRAY_LIGHT,
+                        //                   borderRadius:
+                        //                       BorderRadius.circular(20),
+                        //                 ),
+                        //                 child: Icon(
+                        //                   Icons.camera_alt,
+                        //                   size: 40,
+                        //                   color: Theme.of(context).primaryColor,
+                        //                 ),
+                        //               ),
+                        //   ),
+                        // ),
                         const SizedBox(
                           height: 15,
                         ),
@@ -476,45 +475,45 @@ class _AddItemPageState extends State<AddItemPage> {
                                   }).toList(),
                                 ),
                               ),
-                              Text(
-                                StringRsr.get(LanguageKey.SUBCATEGORY,
-                                    firstCap: true)!,
-                                style: const TextStyle(
-                                    color: Colors.black54, fontSize: 12),
-                              ),
-                              Padding(
-                                padding: const EdgeInsets.only(bottom: 0),
-                                child: DropdownButton<String>(
-                                  isExpanded: true,
-                                  hint: Text(
-                                    StringRsr.get(
-                                        LanguageKey.SELECT_SUBCATEGORY,
-                                        firstCap: true)!,
-                                  ),
-                                  onChanged: (studentId) {
-                                    // on package change
-                                    setSelectedSubCategory(studentId!);
-                                    subcategoryController.text = studentId;
-                                  },
-                                  value: selectedSubCategory,
-                                  items: category != null
-                                      ? category!.subCategories!.map((package) {
-                                          return DropdownMenuItem<String>(
-                                              value: package,
-                                              child: Text(
-                                                package,
-                                              ));
-                                        }).toList()
-                                      : ["select category first"]
-                                          .map((package) {
-                                          return DropdownMenuItem<String>(
-                                              value: package,
-                                              child: Text(
-                                                package,
-                                              ));
-                                        }).toList(),
-                                ),
-                              ),
+                              // Text(
+                              //   StringRsr.get(LanguageKey.SUBCATEGORY,
+                              //       firstCap: true)!,
+                              //   style: const TextStyle(
+                              //       color: Colors.black54, fontSize: 12),
+                              // ),
+                              // Padding(
+                              //   padding: const EdgeInsets.only(bottom: 0),
+                              //   child: DropdownButton<String>(
+                              //     isExpanded: true,
+                              //     hint: Text(
+                              //       StringRsr.get(
+                              //           LanguageKey.SELECT_SUBCATEGORY,
+                              //           firstCap: true)!,
+                              //     ),
+                              //     onChanged: (studentId) {
+                              //       // on package change
+                              //       setSelectedSubCategory(studentId!);
+                              //       subcategoryController.text = studentId;
+                              //     },
+                              //     value: selectedSubCategory,
+                              //     items: category != null
+                              //         ? category!.tags!.map((package) {
+                              //             return DropdownMenuItem<String>(
+                              //                 value: package,
+                              //                 child: Text(
+                              //                   package,
+                              //                 ));
+                              //           }).toList()
+                              //         : ["select category first"]
+                              //             .map((package) {
+                              //             return DropdownMenuItem<String>(
+                              //                 value: package,
+                              //                 child: Text(
+                              //                   package,
+                              //                 ));
+                              //           }).toList(),
+                              //   ),
+                              // ),
 
                               TextFormField(
                                 controller: nameController,
@@ -1176,21 +1175,21 @@ class _AddItemPageState extends State<AddItemPage> {
       }
       Job job = Job(
         company: company ?? jobOld!.company,
-        jobId: jobId ?? uuid.v1(),
-        image: jobImage,
+        id: jobId ?? uuid.v1(),
+        //image: jobImage,
         approved: false,
-        name: nameController.text,
-        price: num.parse(priceController.text),
+        title: nameController.text,
+        salary: priceController.text,
         description: descriptionController.text,
         category: categoryController.text,
-        subCategory: subcategoryController.text,
-        availableStock: num.parse(availableController.text),
-        authorOrManufacturer: authorController.text,
-        tag: tagList,
-        metaData: metaData,
-        deliverable: true,
-        publishedStatus: "publishedFromApp",
-        rating: 0,
+        //subCategory: subcategoryController.text,
+        availablePositions: num.parse(availableController.text),
+        contractType: authorController.text,
+        tags: tagList,
+        //metaData: metaData,
+        //deliverable: true,
+        //publishedStatus: "publishedFromApp",
+        //rating: 0,
       );
       // todo edit or add job
       if (jobOld!.firstModified == null) {
@@ -1226,7 +1225,7 @@ class _AddItemPageState extends State<AddItemPage> {
           context,
           DialogType.SUCCES,
           StringRsr.get(LanguageKey.SUCCESSFUL, firstCap: true),
-          '${StringRsr.get(LanguageKey.YOU_HAVE_SUCCESSFUL_ADDED, firstCap: true)} ${job.name}',
+          '${StringRsr.get(LanguageKey.YOU_HAVE_SUCCESSFUL_ADDED, firstCap: true)} ${job.title}',
           onOk: () {
             cleaner();
           },

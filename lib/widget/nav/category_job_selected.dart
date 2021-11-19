@@ -79,7 +79,7 @@ class _CategorySelectedJobNavigationState
   @override
   Widget build(BuildContext context) {
     Category category1 = ModalRoute.of(context)!.settings.arguments as Category;
-    subCategories = category1.subCategories;
+    subCategories = category1.tags;
 
     return Scaffold(
         appBar: PreferredSize(
@@ -144,7 +144,7 @@ class _CategorySelectedJobNavigationState
                                       return JobList(
                                         category1,
                                         category.toString(),
-                                        searchBooks ,
+                                        searchBooks,
                                         fromWhere: "nu",
                                       );
                                     }).toList()),

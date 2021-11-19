@@ -22,7 +22,7 @@ class CompanyView extends StatefulWidget {
 
   static Widget getThumbnailView(Company job,
       {bool expand = true, String size = SIZE_MEDIUM}) {
-    return job.logo == null || job.logo.isEmpty
+    return job.logo == null || job.logo!.isEmpty
         ? CircleAvatar(
             backgroundColor: CustomColor.PRIM_DARK,
             radius: 50,
@@ -37,7 +37,7 @@ class CompanyView extends StatefulWidget {
             ),
           )
         : CachedNetworkImage(
-            imageUrl: job.logo,
+            imageUrl: job.logo!,
             useOldImageOnUrlChange: true,
             imageBuilder: (context, imagePath) {
               return ClipRRect(
@@ -186,7 +186,7 @@ class _CompanyViewState extends State<CompanyView> {
                         ),
                       ),
                       Visibility(
-                        visible: widget._job.isVerified!,
+                        visible: widget._job.verified!,
                         child: const Padding(
                           padding: const EdgeInsets.only(right: 8.0),
                           child: Icon(
@@ -254,7 +254,7 @@ class _CompanyViewState extends State<CompanyView> {
 
                           // Company Author / Manufacturer
                           Text(
-                            "${widget._job.totalJobs} ${StringRsr.get(LanguageKey.JOBS)}",
+                            "${widget._job.noOfEmployees} ${StringRsr.get(LanguageKey.JOBS)}",
                             maxLines: 1,
                             overflow: TextOverflow.fade,
                             textAlign: TextAlign.left,

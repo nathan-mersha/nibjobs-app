@@ -68,7 +68,7 @@ Container buildAdsContainer(
                         if (documentSnapshot.data() != null) {
                           Job p = Job.toModel(documentSnapshot.data());
                           //this is only for test
-                          p.jobId = documentSnapshot.id;
+                          p.id = documentSnapshot.id;
                           Navigator.pushNamed(context, RouteTo.JOB_DETAIL,
                               arguments: p);
                         }
@@ -84,7 +84,7 @@ Container buildAdsContainer(
                           Company p = Company.toModel(
                               documentSnapshot.data() as Map<String, dynamic>);
                           //this is only for test
-                          p.companyId = documentSnapshot.id;
+                          p.id = documentSnapshot.id;
                           Navigator.pushNamed(context, RouteTo.JOB_SEARCH,
                               arguments: p);
                         }

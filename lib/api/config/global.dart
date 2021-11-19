@@ -55,7 +55,7 @@ class ApiGlobalConfig {
       );
 
       categories.insert(
-          0, Category(name: "all", subCategories: ["all"], icon: "some Icon"));
+          0, Category(name: "all", tags: ["all"], icon: "some Icon"));
       global.localConfig.amCategory = translation;
       global.localConfig.categories = categories;
       global.localConfig.selectedCategory = categories[1];

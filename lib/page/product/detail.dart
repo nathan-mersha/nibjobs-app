@@ -7,7 +7,6 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:nibjobs/api/flutterfire.dart';
@@ -27,7 +26,6 @@ import 'package:nibjobs/themes/theme.dart';
 import 'package:nibjobs/widget/icon/icons.dart';
 import 'package:nibjobs/widget/info/message.dart';
 import 'package:nibjobs/widget/product/product_placeholder.dart';
-import 'package:nibjobs/widget/product/product_view.dart';
 import 'package:share/share.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:url_launcher/url_launcher.dart';
@@ -36,36 +34,36 @@ class JobDetailPage extends StatefulWidget {
   @override
   _JobDetailPageState createState() => _JobDetailPageState();
 
-  static getRatingStarView(Job job) {
-    return RatingBar(
-      itemSize: 20,
-      initialRating: job.rating!.toDouble() ,
-      minRating: 1,
-      direction: Axis.horizontal,
-      glow: true,
-      maxRating: 5,
-      allowHalfRating: true,
-      itemCount: 5,
-      onRatingUpdate: (rating) {
-        // Send rating information to server
-        // show pop animation and notify user of the updated rating info.
-      },
-      ratingWidget: RatingWidget(
-        full: const Icon(
-          Icons.star,
-          color: Colors.amber,
-        ),
-        half: const Icon(
-          Icons.star,
-          color: Colors.amber,
-        ),
-        empty: const Icon(
-          Icons.star,
-          color: Colors.amber,
-        ),
-      ),
-    );
-  }
+  // static getRatingStarView(Job job) {
+  //   return RatingBar(
+  //     itemSize: 20,
+  //     initialRating: job.rating!.toDouble() ,
+  //     minRating: 1,
+  //     direction: Axis.horizontal,
+  //     glow: true,
+  //     maxRating: 5,
+  //     allowHalfRating: true,
+  //     itemCount: 5,
+  //     onRatingUpdate: (rating) {
+  //       // Send rating information to server
+  //       // show pop animation and notify user of the updated rating info.
+  //     },
+  //     ratingWidget: RatingWidget(
+  //       full: const Icon(
+  //         Icons.star,
+  //         color: Colors.amber,
+  //       ),
+  //       half: const Icon(
+  //         Icons.star,
+  //         color: Colors.amber,
+  //       ),
+  //       empty: const Icon(
+  //         Icons.star,
+  //         color: Colors.amber,
+  //       ),
+  //     ),
+  //   );
+  // }
 }
 
 class _JobDetailPageState extends State<JobDetailPage> {
@@ -90,7 +88,7 @@ class _JobDetailPageState extends State<JobDetailPage> {
   Future<void> seeInList() async {
     List<String> proFavList =
         await hSharedPreference.get(HSharedPreference.LIST_OF_FAV) ?? [];
-    if (proFavList.contains(job!.jobId)) {
+    if (proFavList.contains(job!.id)) {
       isSet = true;
       setState(() {
         isSelected = true;
@@ -106,7 +104,7 @@ class _JobDetailPageState extends State<JobDetailPage> {
   Future<void> addToList() async {
     List<String> proFavList =
         await hSharedPreference.get(HSharedPreference.LIST_OF_FAV) ?? [];
-    proFavList.add(job!.jobId!);
+    proFavList.add(job!.id!);
 
     await hSharedPreference.set(HSharedPreference.LIST_OF_FAV, proFavList);
   }
@@ -114,7 +112,7 @@ class _JobDetailPageState extends State<JobDetailPage> {
   Future<void> removeInList() async {
     List<String> proFavList =
         await hSharedPreference.get(HSharedPreference.LIST_OF_FAV) ?? [];
-    proFavList.remove(job!.jobId);
+    proFavList.remove(job!.id);
     await hSharedPreference.set(HSharedPreference.LIST_OF_FAV, proFavList);
   }
 
@@ -139,7 +137,7 @@ class _JobDetailPageState extends State<JobDetailPage> {
                 addToList();
                 Fluttertoast.showToast(
                     msg:
-                        "${job.name} ${StringRsr.get(LanguageKey.JOB_ADDED_TO_FAVORITE_LIST)}",
+                        "${job.title} ${StringRsr.get(LanguageKey.JOB_ADDED_TO_FAVORITE_LIST)}",
                     toastLength: Toast.LENGTH_SHORT,
                     gravity: ToastGravity.CENTER,
                     timeInSecForIosWeb: 1,
@@ -153,7 +151,7 @@ class _JobDetailPageState extends State<JobDetailPage> {
                 removeInList();
                 Fluttertoast.showToast(
                     msg:
-                        "${job.name} ${StringRsr.get(LanguageKey.JOB_REMOVED_FROM_FAVORITE_LIST)}",
+                        "${job.title} ${StringRsr.get(LanguageKey.JOB_REMOVED_FROM_FAVORITE_LIST)}",
                     toastLength: Toast.LENGTH_SHORT,
                     gravity: ToastGravity.CENTER,
                     timeInSecForIosWeb: 1,
@@ -184,7 +182,7 @@ class _JobDetailPageState extends State<JobDetailPage> {
           onTap: () async {
             /// todo : here
             String url =
-                "https://kelem.page.link/?link=https://kelem.et/job?id=${job.jobId}&apn=com.kelem.kelemapp&isi=1588695130&ibi=com.kelem.kelemapp";
+                "https://kelem.page.link/?link=https://kelem.et/job?id=${job.id}&apn=com.kelem.kelemapp&isi=1588695130&ibi=com.kelem.kelemapp";
             Share.share(url);
           },
           child: Container(
@@ -274,7 +272,7 @@ class _JobDetailPageState extends State<JobDetailPage> {
                                       children: [
                                         Text(
                                           currencyFormat
-                                              .format(job!.price)
+                                              .format(job!.salary)
                                               .toString(),
                                           style: const TextStyle(
                                             fontSize: 30,
@@ -420,7 +418,7 @@ class _JobDetailPageState extends State<JobDetailPage> {
                                       ),
                                     ),
                                     Visibility(
-                                      visible: job!.company!.isVerified!,
+                                      visible: job!.company!.verified!,
                                       child: const Padding(
                                         padding: EdgeInsets.only(
                                             right: 8.0, left: 2.0),
@@ -586,32 +584,32 @@ class _JobDetailPageState extends State<JobDetailPage> {
               return Stack(
                 //crossAxisAlignment: CrossAxisAlignment.start,
                 children: <Widget>[
-                  CachedNetworkImage(
-                    imageUrl: job.image![state.currentIndex],
-                    imageBuilder: (context, imageProvider) {
-                      return Container(
-                        decoration: BoxDecoration(
-                            image: DecorationImage(
-                              image: imageProvider,
-                              fit: BoxFit.cover,
-                            ),
-                            borderRadius: BorderRadius.circular(20)),
-                      );
-                    },
-                    useOldImageOnUrlChange: true,
-                    fit: BoxFit.cover,
-                    placeholderFadeInDuration: Duration(microseconds: 200),
-                    placeholder: (BuildContext context, String imageURL) {
-                      return BackdropFilter(
-                        filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
-                        child: Container(
-                          decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(20),
-                              color: Colors.grey.withOpacity(0.0)),
-                        ),
-                      );
-                    },
-                  ),
+                  // CachedNetworkImage(
+                  //   imageUrl: job.image![state.currentIndex],
+                  //   imageBuilder: (context, imageProvider) {
+                  //     return Container(
+                  //       decoration: BoxDecoration(
+                  //           image: DecorationImage(
+                  //             image: imageProvider,
+                  //             fit: BoxFit.cover,
+                  //           ),
+                  //           borderRadius: BorderRadius.circular(20)),
+                  //     );
+                  //   },
+                  //   useOldImageOnUrlChange: true,
+                  //   fit: BoxFit.cover,
+                  //   placeholderFadeInDuration: Duration(microseconds: 200),
+                  //   placeholder: (BuildContext context, String imageURL) {
+                  //     return BackdropFilter(
+                  //       filter: ImageFilter.blur(sigmaX: 10.0, sigmaY: 10.0),
+                  //       child: Container(
+                  //         decoration: BoxDecoration(
+                  //             borderRadius: BorderRadius.circular(20),
+                  //             color: Colors.grey.withOpacity(0.0)),
+                  //       ),
+                  //     );
+                  //   },
+                  // ),
                   Container(
                     // decoration: BoxDecoration(
                     //   image: DecorationImage(
@@ -636,24 +634,24 @@ class _JobDetailPageState extends State<JobDetailPage> {
                         Stack(
                           //fit: StackFit.expand,
                           children: [
-                            GestureDetector(
-                              onTap: () {
-                                Navigator.push(context,
-                                    MaterialPageRoute(builder: (_) {
-                                  return DetailScreen(
-                                      image: job.image![state.currentIndex]);
-                                }));
-                              },
-                              child: Hero(
-                                tag: 'imageHero',
-                                child: Container(
-                                  width: 230,
-                                  height: 199,
-                                  child: JobView.getThumbnailView(job,
-                                      expand: false, size: JobView.SIZE_SMALL),
-                                ),
-                              ),
-                            ),
+                            // GestureDetector(
+                            //   onTap: () {
+                            //     Navigator.push(context,
+                            //         MaterialPageRoute(builder: (_) {
+                            //       return DetailScreen(
+                            //           image: job.image![state.currentIndex]);
+                            //     }));
+                            //   },
+                            //   child: Hero(
+                            //     tag: 'imageHero',
+                            //     child: Container(
+                            //       width: 230,
+                            //       height: 199,
+                            //       child: JobView.getThumbnailView(job,
+                            //           expand: false, size: JobView.SIZE_SMALL),
+                            //     ),
+                            //   ),
+                            // ),
                           ],
                         ),
                         // const SizedBox(
@@ -662,77 +660,77 @@ class _JobDetailPageState extends State<JobDetailPage> {
                       ],
                     ),
                   ),
-                  Visibility(
-                    visible: job.image!.length > 1,
-                    child: Align(
-                      alignment: Alignment.center,
-                      child: Padding(
-                        padding: const EdgeInsets.only(bottom: 4.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            IconButton(
-                                onPressed: () {
-                                  // imageIndex =
-                                  //     imageIndex > 0 ? imageIndex - 1 : imageIndex;
-                                  //
-                                  // setState(() {});
-                                  BlocProvider.of<ImageCubit>(context)
-                                      .emitPreviceImage(job.image!.length);
-                                },
-                                icon: const Icon(
-                                  Icons.arrow_back_ios,
-                                  color: CustomColor.GRAY_VERY_LIGHT,
-                                  size: 20,
-                                )),
-                            IconButton(
-                                onPressed: () {
-                                  // imageIndex =
-                                  //     imageIndex < 2 ? imageIndex + 1 : imageIndex;
-                                  //
-                                  // setState(() {});
-                                  BlocProvider.of<ImageCubit>(context)
-                                      .emitNextImage(job.image!.length);
-                                },
-                                icon: const Icon(
-                                  Icons.arrow_forward_ios,
-                                  color: CustomColor.GRAY_VERY_LIGHT,
-                                  size: 20,
-                                )),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ),
+                  // Visibility(
+                  //   visible: job.image!.length > 1,
+                  //   child: Align(
+                  //     alignment: Alignment.center,
+                  //     child: Padding(
+                  //       padding: const EdgeInsets.only(bottom: 4.0),
+                  //       child: Row(
+                  //         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  //         children: [
+                  //           IconButton(
+                  //               onPressed: () {
+                  //                 // imageIndex =
+                  //                 //     imageIndex > 0 ? imageIndex - 1 : imageIndex;
+                  //                 //
+                  //                 // setState(() {});
+                  //                 BlocProvider.of<ImageCubit>(context)
+                  //                     .emitPreviceImage(job.image!.length);
+                  //               },
+                  //               icon: const Icon(
+                  //                 Icons.arrow_back_ios,
+                  //                 color: CustomColor.GRAY_VERY_LIGHT,
+                  //                 size: 20,
+                  //               )),
+                  //           IconButton(
+                  //               onPressed: () {
+                  //                 // imageIndex =
+                  //                 //     imageIndex < 2 ? imageIndex + 1 : imageIndex;
+                  //                 //
+                  //                 // setState(() {});
+                  //                 BlocProvider.of<ImageCubit>(context)
+                  //                     .emitNextImage(job.image!.length);
+                  //               },
+                  //               icon: const Icon(
+                  //                 Icons.arrow_forward_ios,
+                  //                 color: CustomColor.GRAY_VERY_LIGHT,
+                  //                 size: 20,
+                  //               )),
+                  //         ],
+                  //       ),
+                  //     ),
+                  //   ),
+                  // ),
                   Column(
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
-                      Visibility(
-                        visible: job.image!.length > 1,
-                        child: Container(
-                          alignment: Alignment.bottomCenter,
-                          height: 20,
-                          child: Padding(
-                            padding: const EdgeInsets.only(bottom: 4.0),
-                            child: ListView.builder(
-                                itemCount: job.image!.length,
-                                shrinkWrap: true,
-                                scrollDirection: Axis.horizontal,
-                                itemBuilder: (context, index) {
-                                  return Padding(
-                                    padding: const EdgeInsets.only(right: 2.0),
-                                    child: Icon(
-                                      Icons.circle,
-                                      size: 10,
-                                      color: state.currentIndex == index
-                                          ? Colors.white
-                                          : Theme.of(context).accentColor,
-                                    ),
-                                  );
-                                }),
-                          ),
-                        ),
-                      ),
+                      // Visibility(
+                      //   visible: job.image!.length > 1,
+                      //   child: Container(
+                      //     alignment: Alignment.bottomCenter,
+                      //     height: 20,
+                      //     child: Padding(
+                      //       padding: const EdgeInsets.only(bottom: 4.0),
+                      //       child: ListView.builder(
+                      //           itemCount: job.image!.length,
+                      //           shrinkWrap: true,
+                      //           scrollDirection: Axis.horizontal,
+                      //           itemBuilder: (context, index) {
+                      //             return Padding(
+                      //               padding: const EdgeInsets.only(right: 2.0),
+                      //               child: Icon(
+                      //                 Icons.circle,
+                      //                 size: 10,
+                      //                 color: state.currentIndex == index
+                      //                     ? Colors.white
+                      //                     : Theme.of(context).accentColor,
+                      //               ),
+                      //             );
+                      //           }),
+                      //     ),
+                      //   ),
+                      // ),
                     ],
                   ),
                 ],
@@ -757,7 +755,7 @@ class _JobDetailPageState extends State<JobDetailPage> {
               Container(
                 width: 250,
                 child: AutoSizeText(
-                  job.name!,
+                  job.title!,
                   style: const TextStyle(
                     fontSize: 20,
                     color: CustomColor.TEXT_DARK,
@@ -799,7 +797,7 @@ class _JobDetailPageState extends State<JobDetailPage> {
                           ),
                         )
                       : CachedNetworkImage(
-                          imageUrl: job.company!.logo,
+                          imageUrl: job.company!.logo!,
                           imageBuilder: (context, imageProvider) {
                             return Container(
                               decoration: BoxDecoration(
@@ -828,7 +826,7 @@ class _JobDetailPageState extends State<JobDetailPage> {
             ],
           ),
           AutoSizeText(
-            job.authorOrManufacturer!,
+            job.contractType!,
             style: TextStyle(
               color: Theme.of(context).primaryColor,
             ),
@@ -960,7 +958,7 @@ class _JobDetailPageState extends State<JobDetailPage> {
               ),
             ),
           ),
-          company.isVerified!
+          company.verified!
               ? Row(
                   children: const <Widget>[
                     Icon(
@@ -1018,20 +1016,20 @@ class _JobDetailPageState extends State<JobDetailPage> {
                         const SizedBox(
                           width: 10,
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            _lunchMapsUrl(company.coOrdinates![0],
-                                company.coOrdinates![1]);
-                            // Open map application to show the companys physical location
-                          },
-                          child: Text(
-                            "view on map",
-                            style: TextStyle(
-                              color: Theme.of(context).accentColor,
-                            ),
-                            textScaleFactor: 0.9,
-                          ),
-                        )
+                        // GestureDetector(
+                        //   onTap: () {
+                        //     _lunchMapsUrl(company.coOrdinates![0],
+                        //         company.coOrdinates![1]);
+                        //     // Open map application to show the companys physical location
+                        //   },
+                        //   child: Text(
+                        //     "view on map",
+                        //     style: TextStyle(
+                        //       color: Theme.of(context).accentColor,
+                        //     ),
+                        //     textScaleFactor: 0.9,
+                        //   ),
+                        // )
                       ],
                     ),
                     Row(
@@ -1071,7 +1069,7 @@ class _JobDetailPageState extends State<JobDetailPage> {
                         ),
                       )
                     : CachedNetworkImage(
-                        imageUrl: company.logo,
+                        imageUrl: company.logo!,
                         imageBuilder: (context, imageProvider) {
                           return Container(
                             decoration: BoxDecoration(
@@ -1139,41 +1137,43 @@ class _JobDetailPageState extends State<JobDetailPage> {
                                             context, RouteTo.JOB_DETAIL,
                                             arguments: newJobs[index]);
                                       },
-                                      child: CachedNetworkImage(
-                                        imageUrl: newJobs[index].image![0],
-                                        imageBuilder: (context, imageProvider) {
-                                          return Container(
-                                            decoration: BoxDecoration(
-                                                image: DecorationImage(
-                                                  image: imageProvider,
-                                                  fit: BoxFit.cover,
-                                                ),
-                                                borderRadius:
-                                                    BorderRadius.circular(20)),
-                                          );
-                                        },
-                                        useOldImageOnUrlChange: true,
-                                        placeholderFadeInDuration:
-                                            const Duration(microseconds: 100),
-                                        errorWidget: (BuildContext context,
-                                            String imageURL, dynamic) {
-                                          return JobPlaceholder(job: job);
-                                        },
-                                        placeholder: (BuildContext context,
-                                            String imageURL) {
-                                          return BackdropFilter(
-                                            filter: ImageFilter.blur(
-                                                sigmaX: 10.0, sigmaY: 10.0),
-                                            child: Container(
-                                              decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(20),
-                                                  color: Colors.grey
-                                                      .withOpacity(0.0)),
-                                            ),
-                                          );
-                                        },
-                                      ),
+                                      child: Container(
+                                          // child: CachedNetworkImage(
+                                          //   imageUrl: newJobs[index].image![0],
+                                          //   imageBuilder: (context, imageProvider) {
+                                          //     return Container(
+                                          //       decoration: BoxDecoration(
+                                          //           image: DecorationImage(
+                                          //             image: imageProvider,
+                                          //             fit: BoxFit.cover,
+                                          //           ),
+                                          //           borderRadius:
+                                          //               BorderRadius.circular(20)),
+                                          //     );
+                                          //   },
+                                          //   useOldImageOnUrlChange: true,
+                                          //   placeholderFadeInDuration:
+                                          //       const Duration(microseconds: 100),
+                                          //   errorWidget: (BuildContext context,
+                                          //       String imageURL, dynamic) {
+                                          //     return JobPlaceholder(job: job);
+                                          //   },
+                                          //   placeholder: (BuildContext context,
+                                          //       String imageURL) {
+                                          //     return BackdropFilter(
+                                          //       filter: ImageFilter.blur(
+                                          //           sigmaX: 10.0, sigmaY: 10.0),
+                                          //       child: Container(
+                                          //         decoration: BoxDecoration(
+                                          //             borderRadius:
+                                          //                 BorderRadius.circular(20),
+                                          //             color: Colors.grey
+                                          //                 .withOpacity(0.0)),
+                                          //       ),
+                                          //     );
+                                          //   },
+                                          // ),
+                                          ),
                                     ),
                                   ),
                                 );
@@ -1208,8 +1208,8 @@ class _JobDetailPageState extends State<JobDetailPage> {
     QuerySnapshot querySnapshot = await FirebaseFirestore.instance
         .collection(Job.COLLECTION_NAME)
         .where(Job.CATEGORY, isEqualTo: job.category)
-        .where(Job.SUB_CATEGORY, isEqualTo: job.subCategory)
-        .where(Job.TAG, arrayContainsAny: job.tag)
+        //.where(Job.SUB_CATEGORY, isEqualTo: job.subCategory)
+        .where(Job.TAGS, arrayContainsAny: job.tags)
         .limit(relatedJobLimit as int)
         .orderBy(Job.LAST_MODIFIED, descending: true)
         .get();
@@ -1218,7 +1218,7 @@ class _JobDetailPageState extends State<JobDetailPage> {
 
     List<Job> jobs = documentSnapshot.map((DocumentSnapshot documentSnapshot) {
       Job p = Job.toModel(documentSnapshot.data());
-      p.jobId = documentSnapshot.id;
+      p.id = documentSnapshot.id;
 
       return p;
     }).toList();

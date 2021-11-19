@@ -104,15 +104,15 @@ class _JobListState extends State<JobList> {
     });
 
     // listening on global config.
-    global.localConfig.addListener(() {
-      setState(() {
-        // Category value changed from the currently displayed.
-        // _jobs.removeRange(0, _jobs.length);
-        _category = global.localConfig.selectedCategory;
-        _subCategory = global.localConfig.selectedSubCategory;
-        search = global.localConfig.selectedSearchBook;
-      });
-    });
+    // global.localConfig.addListener(() {
+    //   setState(() {
+    //     // Category value changed from the currently displayed.
+    //     // _jobs.removeRange(0, _jobs.length);
+    //     _category = global.localConfig.selectedCategory;
+    //     _subCategory = global.localConfig.selectedSubCategory;
+    //     search = global.localConfig.selectedSearchBook;
+    //   });
+    // });
   }
 
   void dispose() {
@@ -285,7 +285,7 @@ class _JobListState extends State<JobList> {
 
                                               newJobs.insert(
                                                 i,
-                                                Job(name: "googleAdsKelem"),
+                                                Job(title: "googleAdsKelem"),
                                               );
                                               debugPrint("here must be ads 3");
                                             }
@@ -313,7 +313,7 @@ class _JobListState extends State<JobList> {
                                       },
                                       onLoading: () async {
                                         List<Job>? newJobs =
-                                            await getJobs() as List<Job> ;
+                                            await getJobs() as List<Job>;
                                         if (newJobs.isNotEmpty) {
                                           _initialJobsLoaded = false;
                                           await state.adState.initialized
@@ -325,7 +325,7 @@ class _JobListState extends State<JobList> {
 
                                               newJobs.insert(
                                                 i,
-                                                Job(name: "googleAdsKelem"),
+                                                Job(title: "googleAdsKelem"),
                                               );
                                               debugPrint("here must be ads 3");
                                             }
@@ -406,7 +406,7 @@ class _JobListState extends State<JobList> {
                                                               : 7 / 3,
                                                   child: JobView(
                                                     _jobs[index],
-                                                    fav: widget.fromWhere!,
+                                                    fav: widget.fromWhere ?? "",
                                                   ),
                                                 );
                                               }
@@ -789,7 +789,7 @@ class _JobListState extends State<JobList> {
                                       }
                                     },
                                     onLoading: () async {
-                                      List? newJobs = await getJobs() ;
+                                      List? newJobs = await getJobs();
                                       if (newJobs.isNotEmpty) {
                                         _jobs.addAll(newJobs);
                                         _initialJobsLoaded = false;
@@ -950,9 +950,9 @@ class _JobListState extends State<JobList> {
                                                                           .white,
                                                                     ),
                                                                     child:
-                                                                        Padding(
+                                                                        const Padding(
                                                                       padding:
-                                                                          const EdgeInsets.all(
+                                                                          EdgeInsets.all(
                                                                               4.0),
                                                                       child:
                                                                           Icon(
@@ -2165,7 +2165,7 @@ class _JobListState extends State<JobList> {
       DefaultTabController.of(context)!.index = 0;
       _subCategory = "all";
     }
-    if (widget.fromWhere == null) {
+    if (widget.fromWhere == null || widget.fromWhere == "") {
       fav = false;
 
       QuerySnapshot querySnapshot;
@@ -2237,9 +2237,8 @@ class _JobListState extends State<JobList> {
       }
 
       List<QueryDocumentSnapshot> documentSnapshot = querySnapshot.docs;
-
       // Assigning the last document snapshot for future query
-      if (documentSnapshot.length > 0) {
+      if (documentSnapshot.isNotEmpty) {
         _lastDocumentSnapShot = documentSnapshot.last;
 
         _noMoreItem = false;
@@ -2251,7 +2250,7 @@ class _JobListState extends State<JobList> {
         Job p = Job.toModel(documentSnapshot1.data());
         //this is only for test
 
-        p.jobId = documentSnapshot1.id;
+        p.id = documentSnapshot1.id;
         return p;
       }).toList();
       // _jobs.addAll(jobs);
@@ -2284,7 +2283,7 @@ class _JobListState extends State<JobList> {
             ? await FirebaseFirestore.instance
                 .collection(Job.COLLECTION_NAME)
                 .where(Job.CATEGORY, isEqualTo: widget._category!.name)
-                .where(Job.SUB_CATEGORY, isEqualTo: _subCategory)
+                //.where(Job.SUB_CATEGORY, isEqualTo: _subCategory)
                 .limit(JOB_LIMIT)
                 .orderBy("company.rank", descending: true)
                 .where(Job.APPROVED, isEqualTo: true)
@@ -2295,7 +2294,7 @@ class _JobListState extends State<JobList> {
             : await FirebaseFirestore.instance
                 .collection(Job.COLLECTION_NAME)
                 .where(Job.CATEGORY, isEqualTo: widget._category!.name)
-                .where(Job.SUB_CATEGORY, isEqualTo: _subCategory)
+                //.where(Job.SUB_CATEGORY, isEqualTo: _subCategory)
                 .orderBy("company.rank", descending: true)
                 .where(Job.APPROVED, isEqualTo: true)
                 .limit(JOB_LIMIT)
@@ -2318,7 +2317,7 @@ class _JobListState extends State<JobList> {
         Job p = Job.toModel(documentSnapshot1.data());
         //this is only for test
 
-        p.jobId = documentSnapshot1.id;
+        p.id = documentSnapshot1.id;
         return p;
       }).toList();
       jobs = sortFun(jobs);
@@ -2385,7 +2384,7 @@ class _JobListState extends State<JobList> {
           Job p = Job.toModel(documentSnapshot1.data());
           //this is only for test
 
-          p.jobId = documentSnapshot1.id;
+          p.id = documentSnapshot1.id;
           return p;
         }).toList();
         jobs = sortFun(jobs);
@@ -2401,34 +2400,34 @@ class _JobListState extends State<JobList> {
         querySnapshot = _lastDocumentSnapShot != null
             ? await FirebaseFirestore.instance
                 .collection("company")
-                .where(Company.IS_VERIFIED, isEqualTo: true)
+                .where(Company.VERIFIED, isEqualTo: true)
                 //.where(Company.TOTAL_APPROVED_JOBS, isNotEqualTo: "0")
-                .orderBy(Company.TOTAL_JOBS, descending: true)
+                //.orderBy(Company.TOTAL_JOBS, descending: true)
                 //.startAfterDocument(_lastDocumentSnapShot)
                 .get()
             // if there is a previous document query begins searching from the last document.
             : await FirebaseFirestore.instance
                 .collection("company")
-                .where(Company.IS_VERIFIED, isEqualTo: true)
+                .where(Company.VERIFIED, isEqualTo: true)
                 //.where(Company.TOTAL_APPROVED_JOBS, isNotEqualTo: "0")
-                .orderBy(Company.TOTAL_JOBS, descending: true)
+                // .orderBy(Company.TOTAL_JOBS, descending: true)
                 //.where(Job.CATEGORY, isEqualTo: _subCategory)
                 .get();
       } else {
         querySnapshot = _lastDocumentSnapShot != null
             ? await FirebaseFirestore.instance
                 .collection("company")
-                .where(Company.IS_VERIFIED, isEqualTo: true)
+                .where(Company.VERIFIED, isEqualTo: true)
                 .where(Company.CATEGORY, isEqualTo: widget._category!.name)
                 //.startAfterDocument(_lastDocumentSnapShot)
-                .orderBy(Company.TOTAL_JOBS, descending: true)
+                // .orderBy(Company.TOTAL_JOBS, descending: true)
                 .get()
             // if there is a previous document query begins searching from the last document.
             : await FirebaseFirestore.instance
                 .collection("company")
-                .where(Company.IS_VERIFIED, isEqualTo: true)
+                .where(Company.VERIFIED, isEqualTo: true)
                 .where(Company.CATEGORY, isEqualTo: widget._category!.name)
-                .orderBy(Company.TOTAL_JOBS, descending: true)
+                //.orderBy(Company.TOTAL_JOBS, descending: true)
                 //.where(Job.CATEGORY, isEqualTo: _subCategory)
                 .get();
       }
@@ -2449,7 +2448,7 @@ class _JobListState extends State<JobList> {
             Company.toModel(documentSnapshot1.data() as Map<String, dynamic>);
         //this is only for test
 
-        p.companyId = documentSnapshot1.id;
+        p.id = documentSnapshot1.id;
         return p;
       }).toList();
       return jobs;
@@ -2459,11 +2458,11 @@ class _JobListState extends State<JobList> {
   }
 
   List sortFun(List list) {
-    if (sortUp) {
-      list.sort((a, b) => a.price.compareTo(b.price));
-    } else {
-      list.sort((a, b) => b.price.compareTo(a.price));
-    }
+    // if (sortUp) {
+    //   list.sort((a, b) => a.price.compareTo(b.price));
+    // } else {
+    //   list.sort((a, b) => b.price.compareTo(a.price));
+    // }
     return list;
     // localSearch = true;
     // setState(() {});

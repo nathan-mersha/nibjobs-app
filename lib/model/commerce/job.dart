@@ -1,104 +1,87 @@
 import 'package:nibjobs/model/profile/company.dart';
 import 'package:nibjobs/model/profile/user.dart';
 
+import 'job_channel.dart';
+
 /// Defines job model
 class Job {
   /// Defines key values to extract from a map
 
   static const String COLLECTION_NAME = "job";
+  static const String ID = "id";
 
-  static const String JOB_ID = "jobId";
-  static const String NAME = "name";
+  static const String TITLE = "title";
   static const String CATEGORY = "category";
-  static const String SUB_CATEGORY = "subCategory";
-  static const String AUTHOR_OR_MANUFACTURER = "authorOrManufacturer";
-  static const String PRICE = "price";
-  static const String REGULAR_PRICE = "regularPrice";
-  static const String TAG = "tag";
-  static const String RANK = "rank";
-  static const String APPROVED = "approved";
-  static const String QUANTITY = "quantity";
+  static const String CONTRACT_TYPE = "contract_type";
+  static const String SALARY = "salary";
+  static const String AVAILABLE_POSITIONS = "available_positions";
+  static const String TAGS = "tags";
   static const String DESCRIPTION = "description";
-  static const String RATING = "rating";
-  static const String REFERENCE = "reference";
-  static const String AVAILABLE_STOCK = "availableStock";
-  static const String IMAGE = "image";
-  static const String DELIVERABLE = "deliverable";
-  static const String META_DATA = "metaData";
-  static const String PUBLISHED_STATUS = "publishedStatus";
-  static const String SHOP = "company";
-  static const String FIRST_MODIFIED = "firstModified";
-  static const String LAST_MODIFIED = "lastModified";
+  static const String APPLY_VIA = "apply_via";
+  static const String APPLY_LINK = "apply_link";
+  static const String COMPANY = "company";
+  static const String JOB_CHANNEL = "job_channel";
+  static const String APPROVED = "approved";
+  static const String DELETED = "deleted";
+  static const String RAW_POST = "raw_post";
+  static const String FIRST_MODIFIED = "first_modified";
+  static const String LAST_MODIFIED = "last_modified";
 
-  String? jobId;
-  String? name;
+  String? id;
+  String? title;
   String? category;
-  bool? approved;
-  String? subCategory;
-  num? rank;
-  String? authorOrManufacturer;
-  num? price;
-  num? regularPrice;
-  List<dynamic>? tag;
+  String? contractType;
+  String? salary;
+  num? availablePositions;
+  List<String>? tags;
   String? description;
-  String? quantity;
-  num? rating;
-  String? reference;
-  num? availableStock;
-  List? image;
-  bool? deliverable;
-  dynamic? metaData;
-  String? publishedStatus;
+  String? applyVia;
+  String? applyLink;
   Company? company;
+  JobChannel? jobChannel;
+  bool? approved;
+  bool? deleted;
+  String? rawPost;
   DateTime? firstModified;
   DateTime? lastModified;
 
   Job(
-      {this.jobId,
-      this.name,
+      {this.id,
+      this.title,
       this.category,
-      this.subCategory,
-      this.authorOrManufacturer,
-      this.price,
-      this.rank = 1,
-      this.regularPrice,
-      this.tag,
-      this.approved = false,
-      this.quantity = "1",
+      this.contractType,
+      this.salary,
+      this.availablePositions,
+      this.tags,
       this.description,
-      this.rating,
-      this.reference,
-      this.availableStock,
-      this.image,
-      this.deliverable,
-      this.metaData,
-      this.publishedStatus,
+      this.applyVia,
+      this.applyLink,
       this.company,
+      this.jobChannel,
+      this.approved,
+      this.deleted,
+      this.rawPost,
       this.firstModified,
       this.lastModified});
 
   /// Converts Model to Map
   static Map<String, dynamic> toMap(Job job) {
     return {
-      JOB_ID: job.jobId,
-      NAME: job.name,
+      ID: job.id,
+      TITLE: job.title,
       CATEGORY: job.category,
-      RANK: job.rank,
-      SUB_CATEGORY: job.subCategory,
-      AUTHOR_OR_MANUFACTURER: job.authorOrManufacturer,
-      PRICE: job.price,
-      REGULAR_PRICE: job.regularPrice,
-      TAG: job.tag,
-      APPROVED: job.approved,
+      CONTRACT_TYPE: job.contractType,
+      SALARY: job.salary,
+      AVAILABLE_POSITIONS: job.availablePositions,
+      TAGS: job.tags,
       DESCRIPTION: job.description,
-      RATING: job.rating,
-      REFERENCE: job.reference,
-      AVAILABLE_STOCK: job.availableStock,
-      IMAGE: job.image,
-      DELIVERABLE: job.deliverable,
-      META_DATA: job.metaData,
-      PUBLISHED_STATUS: job.publishedStatus,
-      SHOP: job.company == null ? null : Company.toMap(job.company!),
+      APPLY_VIA: job.applyVia,
+      APPLY_LINK: job.applyLink,
+      COMPANY: job.company,
+      JOB_CHANNEL: job.jobChannel,
+      APPROVED: job.approved,
+      DELETED: job.deleted,
+      RAW_POST: job.rawPost,
       FIRST_MODIFIED: job.firstModified == null
           ? null
           : job.firstModified!.toIso8601String(),
@@ -110,25 +93,22 @@ class Job {
   /// Converts Map to Model
   static Job toModel(dynamic map) {
     return Job(
-        jobId: map[JOB_ID],
-        name: map[NAME],
-        rank: map[RANK],
+        id: map[ID],
+        title: map[TITLE],
         category: map[CATEGORY],
-        subCategory: map[SUB_CATEGORY],
-        authorOrManufacturer: map[AUTHOR_OR_MANUFACTURER],
-        price: map[PRICE],
-        regularPrice: map[REGULAR_PRICE],
-        tag: map[TAG],
-        approved: map[APPROVED],
+        contractType: map[CONTRACT_TYPE],
+        salary: map[SALARY],
+        availablePositions: map[AVAILABLE_POSITIONS],
+        tags: map[TAGS],
         description: map[DESCRIPTION],
-        rating: map[RATING] ?? 0.0,
-        reference: map[REFERENCE].toString(),
-        availableStock: map[AVAILABLE_STOCK],
-        image: map[IMAGE] ?? [],
-        deliverable: map[DELIVERABLE],
-        metaData: map[META_DATA],
-        publishedStatus: map[PUBLISHED_STATUS],
-        company: map[SHOP] == null ? Company() : Company.toModel(map[SHOP]),
+        applyVia: map[APPLY_VIA],
+        applyLink: map[APPLY_LINK],
+        jobChannel: map[JOB_CHANNEL],
+        approved: map[APPROVED],
+        deleted: map[DELETED],
+        rawPost: map[RAW_POST],
+        company:
+            map[CATEGORY] == null ? Company() : Company.toModel(map[CATEGORY]),
         firstModified: DateTime.parse(
             map[FIRST_MODIFIED] ?? DateTime.now().toIso8601String()),
         lastModified: DateTime.parse(
@@ -138,18 +118,18 @@ class Job {
   /// Changes List of Map to List of Model
   static List<Job> toModelList(List<dynamic> maps) {
     List<Job> modelList = [];
-    maps.forEach((dynamic map) {
+    for (var map in maps) {
       modelList.add(toModel(map));
-    });
+    }
     return modelList;
   }
 
   /// Changes List of Model to List of Map
   static List<Map<String, dynamic>> toMapList(List<Job> models) {
     List<Map<String, dynamic>> mapList = [];
-    models.forEach((Job model) {
+    for (var model in models) {
       mapList.add(toMap(model));
-    });
+    }
     return mapList;
   }
 }
@@ -186,18 +166,18 @@ class CalledJob {
   /// Changes List of Map to List of Model
   static List<CalledJob> toModelList(List<dynamic> maps) {
     List<CalledJob> modelList = [];
-    maps.forEach((dynamic map) {
+    for (var map in maps) {
       modelList.add(toModel(map));
-    });
+    }
     return modelList;
   }
 
   /// Changes List of Model to List of Map
   static List<Map<String, dynamic>> toMapList(List<CalledJob> models) {
     List<Map<String, dynamic>> mapList = [];
-    models.forEach((CalledJob model) {
+    for (var model in models) {
       mapList.add(toMap(model));
-    });
+    }
     return mapList;
   }
 }

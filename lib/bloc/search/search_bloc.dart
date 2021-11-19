@@ -32,7 +32,7 @@ class SearchBloc extends Bloc<SearchEvent, SearchViewState> {
 
           searchData.insert(
             i,
-            Job(name: "googleAdsKelem"),
+            Job(title: "googleAdsKelem"),
           );
           debugPrint("here must be ads 3");
         }

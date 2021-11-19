@@ -336,7 +336,7 @@ class _EditCompanyPageState extends State<EditCompanyPage> {
                               child: imageFile != null || allSeen
                                   ? allSeen && !imageSelected
                                       ? CachedNetworkImage(
-                                          imageUrl: company.logo,
+                                          imageUrl: company.logo!,
                                           fit: BoxFit.cover,
                                           useOldImageOnUrlChange: false,
                                           imageBuilder: (context, imagePath) {
@@ -704,13 +704,11 @@ class _EditCompanyPageState extends State<EditCompanyPage> {
                                                     secondaryPhoneController
                                                         .text
                                                 : secondaryPhoneController.text,
-                                            coOrdinates: ["0", "0"],
                                             email: emailController.text,
                                             website: websiteController.text,
                                             physicalAddress:
                                                 physicalAddressController.text,
-                                            isVerified: false,
-                                            isVirtual: false,
+                                            verified: false,
                                           );
                                           // todo edit or add job
                                           if (company.firstModified != null) {

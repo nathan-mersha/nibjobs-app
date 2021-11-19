@@ -89,7 +89,7 @@ class _CompanyAdminPageState extends State<CompanyAdminPage> {
                                                 ),
                                               )
                                             : CachedNetworkImage(
-                                                imageUrl: company!.logo,
+                                                imageUrl: company!.logo!,
                                                 useOldImageOnUrlChange: false,
                                                 placeholderFadeInDuration:
                                                     Duration(seconds: 1),
@@ -208,7 +208,7 @@ class _CompanyAdminPageState extends State<CompanyAdminPage> {
                                             height: 10,
                                           ),
                                           // Text("click here to verify company", style: const TextStyle(fontSize: 10,color: Colors.red[200]),),
-                                          if (company!.isVerified!)
+                                          if (company!.verified!)
                                             Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment.center,
@@ -267,12 +267,12 @@ class _CompanyAdminPageState extends State<CompanyAdminPage> {
                                             ),
                                             GestureDetector(
                                               onTap: () {
-                                                if (company!.isVerified!) {
+                                                if (company!.verified!) {
                                                   Navigator.pushNamed(context,
                                                       RouteTo.SHOP_ADD_ITEM,
                                                       arguments: company);
                                                 } else if (!company!
-                                                        .isVerified! &&
+                                                        .verified! &&
                                                     newJobs!.length < 3) {
                                                   Navigator.pushNamed(context,
                                                       RouteTo.SHOP_ADD_ITEM,
@@ -304,7 +304,7 @@ class _CompanyAdminPageState extends State<CompanyAdminPage> {
                                                         'you have reached the limit of this account get a pro account to add more items',
                                                     showCloseIcon: true,
                                                     btnOkOnPress: () {},
-                                                  )..show();
+                                                  ).show();
                                                 }
                                               },
                                               child: Column(
@@ -454,7 +454,7 @@ class _CompanyAdminPageState extends State<CompanyAdminPage> {
 
     List<Job> jobs = documentSnapshot.map((DocumentSnapshot documentSnapshot) {
       Job p = Job.toModel(documentSnapshot.data());
-      p.jobId = documentSnapshot.id;
+      p.id = documentSnapshot.id;
       return p;
     }).toList();
 

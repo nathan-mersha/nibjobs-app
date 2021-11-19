@@ -603,14 +603,16 @@ class Category {
   static const String CATEGORY_ID = "categoryId";
   static const String NAME = "name";
   static const String ICON = "icon";
-  static const String SUB_CATEGORIES = "subCategories";
+  static const String TAGS = "tags";
+  static const String KEYS = "keys";
   static const String FIRST_MODIFIED = "firstModified";
   static const String LAST_MODIFIED = "lastModified";
 
   String? categoryId;
   String? name;
   String? icon;
-  List<dynamic>? subCategories;
+  List<dynamic>? tags;
+  List<dynamic>? keys;
   DateTime? firstModified;
   DateTime? lastModified;
 
@@ -619,7 +621,8 @@ class Category {
       {this.categoryId,
       this.name,
       this.icon,
-      this.subCategories,
+      this.tags,
+      this.keys,
       this.firstModified,
       this.lastModified});
 
@@ -629,7 +632,8 @@ class Category {
       CATEGORY_ID: category.categoryId,
       NAME: category.name,
       ICON: category.icon,
-      SUB_CATEGORIES: category.subCategories,
+      TAGS: category.tags,
+      KEYS: category.keys,
       FIRST_MODIFIED: category.firstModified,
       LAST_MODIFIED: category.lastModified
     };
@@ -641,7 +645,8 @@ class Category {
         categoryId: map[CATEGORY_ID],
         name: map[NAME],
         icon: map[ICON],
-        subCategories: map[SUB_CATEGORIES],
+        tags: map[TAGS],
+        keys: map[KEYS],
         firstModified: map[FIRST_MODIFIED],
         lastModified: map[LAST_MODIFIED]);
   }

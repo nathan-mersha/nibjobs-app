@@ -5,7 +5,6 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:nibjobs/model/commerce/job.dart';
 import 'package:nibjobs/rsr/theme/color.dart';
-import 'package:nibjobs/widget/product/product_view.dart';
 
 Widget buildJobViewSectionBottomSheet(Job job, BuildContext context) {
   return Container(
@@ -157,12 +156,12 @@ Expanded buildJobViewCart(Job job, BuildContext context, int index) {
         Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[
-            Expanded(
-                flex: 1,
-                child: Center(
-                  child:
-                      JobView.getThumbnailView(job, size: JobView.SIZE_SMALL),
-                )),
+            // Expanded(
+            //     flex: 1,
+            //     child: Center(
+            //       child:
+            //           JobView.getThumbnailView(job, size: JobView.SIZE_SMALL),
+            //     )),
             Expanded(
               flex: 3,
               child: Column(
@@ -177,7 +176,7 @@ Expanded buildJobViewCart(Job job, BuildContext context, int index) {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: <Widget>[
                           AutoSizeText(
-                            job.name!,
+                            job.title!,
                             style: const TextStyle(
                               fontSize: 15,
                             ),
@@ -185,12 +184,12 @@ Expanded buildJobViewCart(Job job, BuildContext context, int index) {
                             overflow: TextOverflow.fade,
                           ),
                           AutoSizeText(
-                            job.authorOrManufacturer!,
+                            job.contractType!,
                             style:
                                 const TextStyle(color: CustomColor.GRAY_LIGHT),
                           ),
                           AutoSizeText(
-                            "${job.price.toString()} br",
+                            "${job.salary.toString()} br",
                             style:
                                 TextStyle(color: Theme.of(context).accentColor),
                           ),
@@ -204,9 +203,9 @@ Expanded buildJobViewCart(Job job, BuildContext context, int index) {
                       children: [
                         IconButton(
                             onPressed: () {
-                              if (num.parse(job.quantity!) <= 1) return;
-                              job.quantity =
-                                  (num.parse(job.quantity!) - 1).toString();
+                              // if (num.parse(job.quantity!) <= 1) return;
+                              // job.quantity =
+                              //     (num.parse(job.quantity!) - 1).toString();
                               // BlocProvider.of<CartBloc>(context).add(
                               //     ReplaceCartDetails(
                               //         cartItem: job, index: index));
@@ -228,12 +227,11 @@ Expanded buildJobViewCart(Job job, BuildContext context, int index) {
                         //     )),
                         TextButton(
                           onPressed: () {},
-                          child: Text(job.quantity!),
+                          child: Text(job.salary!),
                         ),
                         IconButton(
                             onPressed: () {
-                              job.quantity =
-                                  (num.parse(job.quantity!) + 1).toString();
+                              // job.quantity = (num.parse(job.quantity!) + 1).toString();
                               // BlocProvider.of<CartBloc>(context).add(
                               //     ReplaceCartDetails(
                               //         cartItem: job, index: index));

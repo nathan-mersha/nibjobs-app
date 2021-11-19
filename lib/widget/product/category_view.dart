@@ -172,7 +172,7 @@ class _CategoryViewState extends State<CategoryView> {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 15.0),
                         child: Text(
-                          "${widget._job.subCategories!.length} sub jobs",
+                          "${widget._job.tags!.length} sub jobs",
                           maxLines: 1,
                           overflow: TextOverflow.fade,
                           textAlign: TextAlign.left,

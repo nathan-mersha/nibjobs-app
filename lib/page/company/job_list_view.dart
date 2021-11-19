@@ -126,7 +126,7 @@ class _CompanyJobPageState extends State<CompanyJobPage> {
     try {
       querySnapshot = await FirebaseFirestore.instance
           .collection(Job.COLLECTION_NAME)
-          .where("company.companyId", isEqualTo: company.companyId)
+          .where("company.id", isEqualTo: company.id)
           .limit(JOB_LIMIT)
           .orderBy(Job.LAST_MODIFIED, descending: true)
           .get();
@@ -151,7 +151,7 @@ class _CompanyJobPageState extends State<CompanyJobPage> {
       querySnapshot = _lastDocumentSnapShot != null
           ? await FirebaseFirestore.instance
               .collection(Job.COLLECTION_NAME)
-              .where("company.companyId", isEqualTo: company.companyId)
+              .where("company.id", isEqualTo: company.id)
               .limit(JOB_LIMIT)
               .orderBy(Job.LAST_MODIFIED, descending: true)
               .startAfterDocument(_lastDocumentSnapShot!)
@@ -159,7 +159,7 @@ class _CompanyJobPageState extends State<CompanyJobPage> {
           // if there is a previous document query begins searching from the last document.
           : await FirebaseFirestore.instance
               .collection(Job.COLLECTION_NAME)
-              .where("company.companyId", isEqualTo: company.companyId)
+              .where("company.id", isEqualTo: company.id)
               .limit(JOB_LIMIT)
               .orderBy(Job.LAST_MODIFIED, descending: true)
               .get();

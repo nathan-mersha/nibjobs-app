@@ -52,7 +52,7 @@ class _CompanyDetailPageState extends State<CompanyDetailPage> {
                                     ),
                                   )
                                 : CachedNetworkImage(
-                                    imageUrl: company.logo,
+                                    imageUrl: company.logo!,
                                     useOldImageOnUrlChange: false,
                                     placeholderFadeInDuration:
                                         const Duration(seconds: 1),
@@ -157,10 +157,10 @@ class _CompanyDetailPageState extends State<CompanyDetailPage> {
                                   height: 10,
                                 ),
                                 // Text("click here to verify company", style: const TextStyle(fontSize: 10,color: Colors.red[200]),),
-                                if (company.isVerified!)
+                                if (company.verified!)
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
+                                    children: const <Widget>[
                                       Icon(
                                         Icons.verified_user,
                                         color: Colors.lightGreen,
@@ -169,7 +169,7 @@ class _CompanyDetailPageState extends State<CompanyDetailPage> {
                                       Text(
                                         "verified",
                                         textScaleFactor: 0.9,
-                                        style: const TextStyle(
+                                        style: TextStyle(
                                             color: Colors.lightGreen),
                                       )
                                     ],
@@ -257,10 +257,10 @@ class _CompanyDetailPageState extends State<CompanyDetailPage> {
                       const SizedBox(
                         width: 5,
                       ),
-                      Text(
+                      const Text(
                         "to upgrade to premium package",
                         textScaleFactor: 1.2,
-                        style: const TextStyle(
+                        style: TextStyle(
                           color: CustomColor.GRAY,
                         ),
                       )
@@ -288,7 +288,7 @@ class _CompanyDetailPageState extends State<CompanyDetailPage> {
 
     List<Job> jobs = documentSnapshot.map((DocumentSnapshot documentSnapshot) {
       Job p = Job.toModel(documentSnapshot.data());
-      p.jobId = documentSnapshot.id;
+      p.id = documentSnapshot.id;
       return p;
     }).toList();
 

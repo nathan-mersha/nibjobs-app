@@ -50,7 +50,7 @@ class _JobNavigationState extends State<JobNavigation> {
           amCategories = global.localConfig.amCategory;
           categories = global.localConfig.categories;
           category = global.localConfig.selectedCategory;
-          subCategories = global.localConfig.selectedCategory.subCategories;
+          subCategories = global.localConfig.selectedCategory.tags;
         });
       });
     }

@@ -93,13 +93,13 @@ class _KelemSearchPageState extends State<KelemSearchPage> {
       // set state for sub categories.
       setState(() {
         category = global.localConfig.selectedCategory;
-        subCategories = global.localConfig.selectedCategory.subCategories;
+        subCategories = global.localConfig.selectedCategory.tags;
         //debugPrint("here subCategories $subCategories");
       });
     });
     if (global.localConfig.selectedCategory != null) {
       category = global.localConfig.selectedCategory;
-      subCategories = global.localConfig.selectedCategory.subCategories;
+      subCategories = global.localConfig.selectedCategory.tags;
     }
   }
 
@@ -112,11 +112,11 @@ class _KelemSearchPageState extends State<KelemSearchPage> {
 
   List<Job> sortFun(List<Job> list) {
     //debugPrint("sortFun sortFun");
-    if (sortUp) {
-      list.sort((a, b) => a.price!.compareTo(b.price!));
-    } else {
-      list.sort((a, b) => b.price!.compareTo(a.price!));
-    }
+    // if (sortUp) {
+    //   list.sort((a, b) => a.price!.compareTo(b.price!));
+    // } else {
+    //   list.sort((a, b) => b.price!.compareTo(a.price!));
+    // }
 
     return list;
     // localSearch = true;
@@ -510,7 +510,7 @@ class _KelemSearchPageState extends State<KelemSearchPage> {
     }
     _jobs.forEach((p) {
       //debugPrint(p.name);
-      if (p.name!
+      if (p.title!
           .toLowerCase()
           .contains(_searchController.text.toLowerCase())) {
         searchJobs.add(p);
@@ -613,7 +613,7 @@ class _KelemSearchPageState extends State<KelemSearchPage> {
           onTap: () async {
             /// todo : here
             String url =
-                "https://kelem.page.link/?link=https://kelem.et/job?companyId=${company.companyId}&apn=com.kelem.kelemapp&isi=1588695130&ibi=com.kelem.kelemapp";
+                "https://kelem.page.link/?link=https://kelem.et/job?companyId=${company.id}&apn=com.kelem.kelemapp&isi=1588695130&ibi=com.kelem.kelemapp";
             Share.share(url);
           },
           child: Container(
@@ -1020,7 +1020,7 @@ class _KelemSearchPageState extends State<KelemSearchPage> {
                                       ),
                                     ),
                                     Visibility(
-                                      visible: company!.isVerified!,
+                                      visible: company!.verified!,
                                       child: const Padding(
                                         padding: EdgeInsets.only(
                                             right: 8.0, left: 2.0),
@@ -1128,7 +1128,7 @@ class _KelemSearchPageState extends State<KelemSearchPage> {
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: CachedNetworkImage(
-                              imageUrl: company!.logo,
+                              imageUrl: company!.logo!,
                               imageBuilder: (context, imageProvider) {
                                 return Container(
                                   width: 20,
@@ -1190,7 +1190,7 @@ class _KelemSearchPageState extends State<KelemSearchPage> {
 
     List<QueryDocumentSnapshot> documentSnapshot = querySnapshot.docs;
     //debugPrint("documentSnapshot er $documentSnapshot");
-    if (documentSnapshot.length > 0) {
+    if (documentSnapshot.isNotEmpty) {
       _lastDocumentSnapShot = documentSnapshot.last;
 
       _noMoreItem = false;
@@ -1202,12 +1202,12 @@ class _KelemSearchPageState extends State<KelemSearchPage> {
       //debugPrint("documentSnapshot1 ${documentSnapshot1.data()}");
       Job p = Job.toModel(documentSnapshot1.data());
       //this is only for test
-      p.jobId = documentSnapshot1.id;
+      p.id = documentSnapshot1.id;
       return p;
     }).toList();
 
     //debugPrint("jobs ${jobs.length > 0}");
-    if (!(jobs.length > 0)) {
+    if (!(jobs.isNotEmpty)) {
       jobs = [];
     }
     return jobs;

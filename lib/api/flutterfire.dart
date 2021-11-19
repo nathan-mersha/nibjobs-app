@@ -33,6 +33,7 @@ Future<void> makeWebCall(String url) async {
     throw 'Could not launch $url';
   }
 }
+
 void notificationFunctionSave(RemoteMessage? message) {
   if (message != null) {
     NotificationModel notificationModel = NotificationModel(
@@ -316,7 +317,7 @@ Future<bool> updateUser(String userId, List<String> list) async {
 Future<bool> addJob(Job job) async {
   try {
     //var uid = FirebaseAuth.instance.currentUser.uid;
-    var uid = job.jobId;
+    var uid = job.id;
     job.approved = false;
     //var uid = "mixWxOCNn0eI84R1A8Fa";
     DocumentReference documentReference =
@@ -365,13 +366,13 @@ Future<bool> addFavJob(Job job) async {
     HSharedPreference hSharedPreference = GetHSPInstance.hSharedPreference;
     var uid = await hSharedPreference.get(HSharedPreference.KEY_USER_ID);
 
-    //var uid = job.jobId;
+    //var uid = job.id;
     //var uid = "mixWxOCNn0eI84R1A8Fa";
     DocumentReference documentReference = FirebaseFirestore.instance
         .collection("favoriteJob")
         .doc(uid)
         .collection("job")
-        .doc(job.jobId);
+        .doc(job.id);
 
     FirebaseFirestore.instance.runTransaction((transaction) async {
       DocumentSnapshot snapshot = await transaction.get(documentReference);
@@ -392,13 +393,13 @@ Future<bool> addCallJob(CalledJob calledJob) async {
   try {
     HSharedPreference hSharedPreference = GetHSPInstance.hSharedPreference;
     var uid = await hSharedPreference.get(HSharedPreference.KEY_USER_ID);
-    //var uid = job.jobId;
+    //var uid = job.id;
     //var uid = "mixWxOCNn0eI84R1A8Fa";
     DocumentReference documentReference = FirebaseFirestore.instance
         .collection("calledJob")
         .doc(uid ?? FirebaseAuth.instance.currentUser!.uid)
         .collection("job")
-        .doc(calledJob.job!.jobId);
+        .doc(calledJob.job!.id);
 
     FirebaseFirestore.instance.runTransaction((transaction) async {
       DocumentSnapshot snapshot = await transaction.get(documentReference);
@@ -422,18 +423,18 @@ Future<bool> addCallJob(CalledJob calledJob) async {
 
 Future<bool> deleteFavJob(Job job) async {
   try {
-    // var uid = job.jobId;
+    // var uid = job.id;
     HSharedPreference hSharedPreference = GetHSPInstance.hSharedPreference;
     var uid = await hSharedPreference.get(HSharedPreference.KEY_USER_ID);
 
-    //var uid = job.jobId;
+    //var uid = job.id;
     //var uid = "mixWxOCNn0eI84R1A8Fa";
     //DocumentReference documentReference =
     await FirebaseFirestore.instance
         .collection("favoriteJob")
         .doc(uid)
         .collection("job")
-        .doc(job.jobId)
+        .doc(job.id)
         .delete();
     // await FirebaseFirestore.instance
     //     .collection(Job.COLLECTION_NAME)
@@ -447,7 +448,7 @@ Future<bool> deleteFavJob(Job job) async {
 
 Future<bool> deleteJob(Job job) async {
   try {
-    var uid = job.jobId;
+    var uid = job.id;
 
     await FirebaseFirestore.instance
         .collection(Job.COLLECTION_NAME)
@@ -465,7 +466,7 @@ Future<bool> addCompany(Company company) async {
     var uid = await hSharedPreference.get(HSharedPreference.KEY_USER_ID);
 
     company.userId = uid;
-    company.companyId = uid;
+    company.id = uid;
     //var uid = "VHSWxOCNn0eI84R1A8Fa";
     DocumentReference documentReference =
         FirebaseFirestore.instance.collection(Company.COLLECTION_NAME).doc(uid);

@@ -47,7 +47,7 @@ class JobPlaceholder extends StatelessWidget {
                     child: FittedBox(
                       fit: BoxFit.fitWidth,
                       child: Text(
-                        job.name!,
+                        job.title!,
                         style: const TextStyle(
                           color: Colors.white,
                         ),
@@ -59,7 +59,7 @@ class JobPlaceholder extends StatelessWidget {
                   )
                 else
                   Text(
-                    job.name!,
+                    job.title!,
                     style: const TextStyle(
                       color: Colors.white,
                     ),
@@ -68,7 +68,7 @@ class JobPlaceholder extends StatelessWidget {
                     maxLines: 3,
                   ),
                 const Text("by",
-                    style: const TextStyle(
+                    style: TextStyle(
                         fontStyle: FontStyle.italic, color: Colors.white),
                     textScaleFactor: 0.7,
                     textAlign: TextAlign.center),
@@ -80,7 +80,7 @@ class JobPlaceholder extends StatelessWidget {
                   child: FittedBox(
                     fit: BoxFit.contain,
                     child: Text(
-                      job.authorOrManufacturer!,
+                      job.contractType!,
                       style: const TextStyle(color: Colors.white),
                       textAlign: TextAlign.center,
                       maxLines: 2,
@@ -90,7 +90,7 @@ class JobPlaceholder extends StatelessWidget {
                   ),
                 ),
                 Text(
-                  job.subCategory!,
+                  job.contractType!,
                   style: const TextStyle(fontSize: 12, color: Colors.white),
                   textAlign: TextAlign.center,
                   maxLines: 1,

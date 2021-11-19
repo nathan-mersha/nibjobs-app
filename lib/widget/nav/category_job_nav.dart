@@ -35,14 +35,14 @@ class _CategoryJobNavigationState extends State<CategoryJobNavigation> {
       setState(() {
         categories = global.localConfig.categories;
         category = global.localConfig.selectedCategory;
-        subCategories = global.localConfig.selectedCategory.subCategories;
+        subCategories = global.localConfig.selectedCategory.tags;
       });
     });
   }
 // else {
 //   categories = global.localConfig.categories;
 //   category = global.localConfig.selectedCategory;
-//   subCategories = global.localConfig.selectedCategory.subCategories;
+//   subCategories = global.localConfig.selectedCategory.tags;
 //
 // }
 
