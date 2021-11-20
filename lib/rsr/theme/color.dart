@@ -8,6 +8,7 @@ class CustomColor {
   static const GRAY = Color(0xff808080);
   static const GRAY_DARK = Color(0xff404040);
   static const PRIM_DARK = Color(0xffffcc00);
+  static const PRIM_GREEN = Color(0xff669900);
   static const RAD_DARK = Color(0xff404040);
   static const TEXT_DARK = Color(0xff1e1e1e);
 }

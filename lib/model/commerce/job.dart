@@ -12,6 +12,7 @@ class Job {
 
   static const String TITLE = "title";
   static const String CATEGORY = "category";
+  static const String STATUS = "status";
   static const String CONTRACT_TYPE = "contract_type";
   static const String SALARY = "salary";
   static const String AVAILABLE_POSITIONS = "available_positions";
@@ -29,6 +30,7 @@ class Job {
 
   String? id;
   String? title;
+  String? status;
   String? category;
   String? contractType;
   String? salary;
@@ -48,8 +50,9 @@ class Job {
   Job(
       {this.id,
       this.title,
+      this.status = "opened",
       this.category,
-      this.contractType,
+      this.contractType = "",
       this.salary,
       this.availablePositions,
       this.tags,
@@ -69,6 +72,7 @@ class Job {
     return {
       ID: job.id,
       TITLE: job.title,
+      STATUS: job.status,
       CATEGORY: job.category,
       CONTRACT_TYPE: job.contractType,
       SALARY: job.salary,
@@ -95,8 +99,9 @@ class Job {
     return Job(
         id: map[ID],
         title: map[TITLE],
+        status: map[STATUS] ?? "opened",
         category: map[CATEGORY],
-        contractType: map[CONTRACT_TYPE],
+        contractType: map[CONTRACT_TYPE] ?? "unavailable",
         salary: map[SALARY],
         availablePositions: map[AVAILABLE_POSITIONS],
         tags: map[TAGS],

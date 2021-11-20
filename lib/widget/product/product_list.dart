@@ -420,7 +420,8 @@ class _JobListState extends State<JobList> {
                                                           .bannerAdUnitId,
                                                       listener: state
                                                           .adState.listener,
-                                                      request: AdRequest())
+                                                      request:
+                                                          const AdRequest())
                                                     ..load(),
                                                 ),
                                               );
