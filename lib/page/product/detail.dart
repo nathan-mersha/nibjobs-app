@@ -246,7 +246,7 @@ class _JobDetailPageState extends State<JobDetailPage> {
                           children: [
                             //buildJobViewSection(job!, context),
                             buildInfoData(job!),
-                            buildCompanyInfoData(job!.company!),
+                            //buildCompanyInfoData(job!.company!),
                           ],
                         ),
                       ),
