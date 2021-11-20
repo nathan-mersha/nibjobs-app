@@ -5,6 +5,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/painting.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
@@ -767,8 +768,18 @@ class _JobDetailPageState extends State<JobDetailPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              AutoSizeText(
-                "by ${job.company!.name!}",
+              Row(
+                children: [
+                  const AutoSizeText(
+                    "by",
+                  ),
+                  AutoSizeText(
+                    " ${job.company!.name!}",
+                    style: const TextStyle(
+                        color: CustomColor.TEXT_COLOR_GRAY,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ],
               ),
               Container(
                 alignment: Alignment.topRight,
@@ -852,6 +863,55 @@ class _JobDetailPageState extends State<JobDetailPage> {
           ),
           const SizedBox(
             height: 5,
+          ),
+          Column(
+            children: [
+              AutoSizeText(
+                "${job.availablePositions!.toString()} number of position",
+                style: const TextStyle(
+                    color: CustomColor.TEXT_COLOR_GRAY,
+                    fontWeight: FontWeight.bold),
+              ),
+              Row(
+                children: [
+                  Container(
+                    padding: const EdgeInsets.only(
+                        left: 8, right: 8, top: 3, bottom: 3),
+                    decoration: BoxDecoration(
+                        color: CustomColor.PRIM_DARK,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: Text(
+                      //"${currencyFormat.format(job.price).toString()}",
+                      job.contractType!,
+                      maxLines: 1,
+                      overflow: TextOverflow.fade,
+                      textAlign: TextAlign.left,
+                      softWrap: false,
+                      style: const TextStyle(
+                          color: CustomColor.TEXT_DARK, fontSize: 12),
+                    ),
+                  ),
+                  const SizedBox(
+                    width: 5,
+                  ),
+                  Container(
+                    padding: const EdgeInsets.only(
+                        left: 8, right: 8, top: 3, bottom: 3),
+                    decoration: BoxDecoration(
+                        color: CustomColor.PRIM_GREEN,
+                        borderRadius: BorderRadius.circular(10)),
+                    child: const Text(
+                      "Opened",
+                      maxLines: 1,
+                      overflow: TextOverflow.fade,
+                      textAlign: TextAlign.left,
+                      softWrap: false,
+                      style: TextStyle(color: Colors.white, fontSize: 12),
+                    ),
+                  ),
+                ],
+              ),
+            ],
           ),
         ],
       ),
@@ -1029,7 +1089,7 @@ class _JobDetailPageState extends State<JobDetailPage> {
         if (state is DescriptionInitial && state.showDescription) {
           return Container(
             padding: const EdgeInsets.only(top: 4),
-            height: AppTheme.fullWidth(context) >= 800 ? 500 : 100,
+            // height: AppTheme.fullWidth(context) >= 800 ? 500 : 100,
             width: AppTheme.fullWidth(context),
             child: SingleChildScrollView(
               child: Text(
