@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nibjobs/bloc/nav/nav_bloc.dart';
 import 'package:nibjobs/bloc/search/search_bloc.dart';
 import 'package:nibjobs/global.dart' as global;
 import 'package:nibjobs/model/ad_model.dart';
@@ -45,13 +46,22 @@ class _JobNavigationState extends State<JobNavigation> {
     if (widget.fromWhere == null) {
       global.localConfig.addListener(() {
         // set state for sub categories.
-        setState(() {
-          adList = global.globalConfig.ad!;
-          amCategories = global.localConfig.amCategory;
-          categories = global.localConfig.categories;
-          category = global.localConfig.selectedCategory;
-          subCategories = global.localConfig.selectedCategory.tags;
-        });
+        // setState(() {
+        //   adList = global.globalConfig.ad!;
+        //   amCategories = global.localConfig.amCategory;
+        //   categories = global.localConfig.categories;
+        //   category = global.localConfig.selectedCategory;
+        //   subCategories = global.localConfig.selectedCategory.tags;
+        // });
+        if (mounted) {
+          BlocProvider.of<NavBloc>(context).add(NavStatusEvent(
+            adList: global.globalConfig.ad!,
+            amCategories: global.localConfig.amCategory,
+            categories: global.localConfig.categories,
+            category: global.localConfig.selectedCategory,
+            subCategories: global.localConfig.selectedCategory.tags!,
+          ));
+        }
       });
     }
   }
@@ -59,92 +69,205 @@ class _JobNavigationState extends State<JobNavigation> {
   @override
   void dispose() {
     super.dispose();
-    // if (widget.fromWhere == null) {
-    //   global.localConfig.dispose();
-    // }
+    if (widget.fromWhere == null) {
+      global.localConfig.removeListener(() {});
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    return subCategories == null
-        ? Center(
-            child: Message(
+    return BlocBuilder<NavBloc, NavState>(
+      builder: (context, state) {
+        if (state is NavInitial) {
+          return Center(
+              child: Message(
             icon: CustomIcons.getHorizontalLoading(),
             message:
                 StringRsr.get(LanguageKey.WAITING_FOR_DATA, firstCap: true),
-          ))
-        : Container(
-            color: LightColor.lightGrey,
-            child: Column(
-              children: <Widget>[
-                SearchView(
-                  onComplete: (String search) {
-                    //global.localConfig.selectedSearchBook = search;
-                    BlocProvider.of<SearchBloc>(context).add(SearchJobEvent(
-                        document: "job", searchData: search, fields: "name"));
-                    // getBookByQuery(search);
-                  },
-                ),
-                // buildAdsContainer(context, imageList, adList),
-                Expanded(
-                  child: Padding(
-                    padding:
-                        const EdgeInsets.symmetric(horizontal: 20, vertical: 8),
-                    child: DefaultTabController(
-                      length: categories!.length,
-                      child: Scaffold(
-                        backgroundColor: LightColor.lightGrey,
-                        body: SafeArea(
-                          child: Column(
-                            children: [
-                              TabBar(
-                                  //controller: _tabController,
-                                  isScrollable: true,
-                                  indicatorColor:
-                                      Theme.of(context).primaryColor,
-                                  unselectedLabelColor: CustomColor.GRAY,
-                                  indicatorSize: TabBarIndicatorSize.tab,
-                                  labelColor: Colors.white,
-                                  indicator: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      color: Theme.of(context).primaryColor),
-                                  tabs: categories!.map((Category category) {
-                                    //  var index = categories.indexOf(category);
-                                    return Tab(
-                                      child: Text(
-                                        category.name.toString() == "all"
-                                            ? StringRsr.get(LanguageKey.LATEST)
-                                            : StringRsr.locale != "et_am"
-                                                ? category.name.toString()
-                                                : amCategories!["am"]
-                                                    [category.name.toString()],
+          ));
+        } else if (state is NavLoaded) {
+          adList = state.adList;
+          amCategories = state.amCategories;
+          categories = state.categories;
+          category = state.category;
+          subCategories = state.adList;
+          return subCategories == null
+              ? Center(
+                  child: Message(
+                  icon: CustomIcons.getHorizontalLoading(),
+                  message: StringRsr.get(LanguageKey.WAITING_FOR_DATA,
+                      firstCap: true),
+                ))
+              : Container(
+                  color: LightColor.lightGrey,
+                  child: Column(
+                    children: <Widget>[
+                      SearchView(
+                        onComplete: (String search) {
+                          //global.localConfig.selectedSearchBook = search;
+                          BlocProvider.of<SearchBloc>(context).add(
+                              SearchJobEvent(
+                                  document: "job",
+                                  searchData: search,
+                                  fields: "name"));
+                          // getBookByQuery(search);
+                        },
+                      ),
+                      // buildAdsContainer(context, imageList, adList),
+                      Expanded(
+                        child: Padding(
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 20, vertical: 8),
+                          child: DefaultTabController(
+                            length: categories!.length,
+                            child: Scaffold(
+                              backgroundColor: LightColor.lightGrey,
+                              body: SafeArea(
+                                child: Column(
+                                  children: [
+                                    TabBar(
+                                        //controller: _tabController,
+                                        isScrollable: true,
+                                        indicatorColor:
+                                            Theme.of(context).primaryColor,
+                                        unselectedLabelColor: CustomColor.GRAY,
+                                        indicatorSize: TabBarIndicatorSize.tab,
+                                        labelColor: Colors.white,
+                                        indicator: BoxDecoration(
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                            color:
+                                                Theme.of(context).primaryColor),
+                                        tabs: categories!
+                                            .map((Category category) {
+                                          //  var index = categories.indexOf(category);
+                                          return Tab(
+                                            child: Text(
+                                              category.name.toString() == "all"
+                                                  ? StringRsr.get(
+                                                      LanguageKey.LATEST)
+                                                  : StringRsr.locale != "et_am"
+                                                      ? category.name.toString()
+                                                      : amCategories!["am"][
+                                                          category.name
+                                                              .toString()],
+                                            ),
+                                          );
+                                        }).toList()),
+                                    Expanded(
+                                      child: Container(
+                                        // margin: EdgeInsets.only(top: 3),
+                                        child: TabBarView(
+                                            children: categories!
+                                                .map((Category category) {
+                                          return JobList(
+                                            category,
+                                            category.name.toString(),
+                                            searchBooks,
+                                            fromWhere: widget.fromWhere,
+                                          );
+                                        }).toList()),
                                       ),
-                                    );
-                                  }).toList()),
-                              Expanded(
-                                child: Container(
-                                  // margin: EdgeInsets.only(top: 3),
-                                  child: TabBarView(
-                                      children:
-                                          categories!.map((Category category) {
-                                    return JobList(
-                                      category,
-                                      category.name.toString(),
-                                      searchBooks,
-                                      fromWhere: widget.fromWhere,
-                                    );
-                                  }).toList()),
+                                    ),
+                                  ],
                                 ),
                               ),
-                            ],
+                            ),
+                          ),
+                        ),
+                      )
+                    ],
+                  ),
+                );
+        }
+        return subCategories == null
+            ? Center(
+                child: Message(
+                icon: CustomIcons.getHorizontalLoading(),
+                message:
+                    StringRsr.get(LanguageKey.WAITING_FOR_DATA, firstCap: true),
+              ))
+            : Container(
+                color: LightColor.lightGrey,
+                child: Column(
+                  children: <Widget>[
+                    SearchView(
+                      onComplete: (String search) {
+                        //global.localConfig.selectedSearchBook = search;
+                        BlocProvider.of<SearchBloc>(context).add(SearchJobEvent(
+                            document: "job",
+                            searchData: search,
+                            fields: "name"));
+                        // getBookByQuery(search);
+                      },
+                    ),
+                    // buildAdsContainer(context, imageList, adList),
+                    Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 20, vertical: 8),
+                        child: DefaultTabController(
+                          length: categories!.length,
+                          child: Scaffold(
+                            backgroundColor: LightColor.lightGrey,
+                            body: SafeArea(
+                              child: Column(
+                                children: [
+                                  TabBar(
+                                      //controller: _tabController,
+                                      isScrollable: true,
+                                      indicatorColor:
+                                          Theme.of(context).primaryColor,
+                                      unselectedLabelColor: CustomColor.GRAY,
+                                      indicatorSize: TabBarIndicatorSize.tab,
+                                      labelColor: Colors.white,
+                                      indicator: BoxDecoration(
+                                          borderRadius:
+                                              BorderRadius.circular(20),
+                                          color:
+                                              Theme.of(context).primaryColor),
+                                      tabs:
+                                          categories!.map((Category category) {
+                                        //  var index = categories.indexOf(category);
+                                        return Tab(
+                                          child: Text(
+                                            category.name.toString() == "all"
+                                                ? StringRsr.get(
+                                                    LanguageKey.LATEST)
+                                                : StringRsr.locale != "et_am"
+                                                    ? category.name.toString()
+                                                    : amCategories!["am"][
+                                                        category.name
+                                                            .toString()],
+                                          ),
+                                        );
+                                      }).toList()),
+                                  Expanded(
+                                    child: Container(
+                                      // margin: EdgeInsets.only(top: 3),
+                                      child: TabBarView(
+                                          children: categories!
+                                              .map((Category category) {
+                                        return JobList(
+                                          category,
+                                          category.name.toString(),
+                                          searchBooks,
+                                          fromWhere: widget.fromWhere,
+                                        );
+                                      }).toList()),
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                           ),
                         ),
                       ),
-                    ),
-                  ),
-                )
-              ],
-            ),
-          );
+                    )
+                  ],
+                ),
+              );
+      },
+    );
   }
 }

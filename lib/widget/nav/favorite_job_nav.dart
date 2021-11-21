@@ -26,10 +26,10 @@ class _FavoriteJobNavigationState extends State<FavoriteJobNavigation> {
   Map<String, dynamic>? amCategories;
   List<Category>? categories;
   List<dynamic>? subCategories;
+  List<Ad> adList = [];
   List googleBooks = [];
   String searchBooks = "a";
   bool seter = false;
-  List<Ad> adList = [];
 
   static const String _ad1 = "assets/images/covid19_prevention/ad1.png";
   static const String _ad2 = "assets/images/covid19_prevention/ad2.png";
@@ -44,14 +44,16 @@ class _FavoriteJobNavigationState extends State<FavoriteJobNavigation> {
 
     global.localConfig.addListener(() {
       // set state for sub categories.
-      setState(() {
-        adList = global.globalConfig.ad!;
+      if (mounted) {
+        setState(() {
+          adList = global.globalConfig.ad!;
 
-        amCategories = global.localConfig.amCategory;
-        categories = global.localConfig.categories;
-        category = global.localConfig.selectedCategory;
-        subCategories = global.localConfig.selectedCategory.tags;
-      });
+          amCategories = global.localConfig.amCategory;
+          categories = global.localConfig.categories;
+          category = global.localConfig.selectedCategory;
+          subCategories = global.localConfig.selectedCategory.tags;
+        });
+      }
     });
   }
 // else {

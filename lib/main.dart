@@ -23,6 +23,7 @@ import 'bloc/down/down_bloc.dart';
 import 'bloc/images/image_cubit.dart';
 import 'bloc/internet/internet_bloc.dart';
 import 'bloc/mybloc.dart';
+import 'bloc/nav/nav_bloc.dart';
 import 'bloc/search/search_bloc.dart';
 import 'bloc/sort/sort_bloc.dart';
 import 'bloc/theme/theme_bloc.dart';
@@ -109,6 +110,9 @@ class MyAppState extends State<MyApp> {
 
     return MultiBlocProvider(
       providers: [
+        BlocProvider(
+          create: (context) => NavBloc(),
+        ),
         BlocProvider(
           create: (context) => AdsesCubit(adState: adState!),
         ),

@@ -51,13 +51,15 @@ class _CompanyJobNavigationState extends State<CompanyJobNavigation> {
 
     global.localConfig.addListener(() {
       // set state for sub categories.
-      setState(() {
-        adList = global.globalConfig.ad!;
-        amCategories = global.localConfig.amCategory;
-        categories = global.localConfig.categories;
-        category = global.localConfig.selectedCategory;
-        subCategories = global.localConfig.selectedCategory.tags;
-      });
+      if (mounted) {
+        setState(() {
+          adList = global.globalConfig.ad!;
+          amCategories = global.localConfig.amCategory;
+          categories = global.localConfig.categories;
+          category = global.localConfig.selectedCategory;
+          subCategories = global.localConfig.selectedCategory.tags;
+        });
+      }
     });
   }
 // else {
@@ -70,9 +72,9 @@ class _CompanyJobNavigationState extends State<CompanyJobNavigation> {
   @override
   void dispose() {
     super.dispose();
-    //if (widget.fromWhere == null) {
-    //global.localConfig.dispose();
-    //}
+    if (widget.fromWhere == null) {
+      global.localConfig.removeListener(() {});
+    }
   }
 
   @override

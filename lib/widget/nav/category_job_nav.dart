@@ -32,11 +32,13 @@ class _CategoryJobNavigationState extends State<CategoryJobNavigation> {
     // Will be called when there is a change in the local config.
     global.localConfig.addListener(() {
       // set state for sub categories.
-      setState(() {
-        categories = global.localConfig.categories;
-        category = global.localConfig.selectedCategory;
-        subCategories = global.localConfig.selectedCategory.tags;
-      });
+      if (mounted) {
+        setState(() {
+          categories = global.localConfig.categories;
+          category = global.localConfig.selectedCategory;
+          subCategories = global.localConfig.selectedCategory.tags;
+        });
+      }
     });
   }
 // else {
@@ -49,9 +51,9 @@ class _CategoryJobNavigationState extends State<CategoryJobNavigation> {
   @override
   void dispose() {
     super.dispose();
-    //if (widget.fromWhere == null) {
-    //global.localConfig.dispose();
-    //}
+    if (widget.fromWhere == null) {
+      global.localConfig.removeListener(() {});
+    }
   }
 
   @override
