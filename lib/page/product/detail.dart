@@ -715,7 +715,7 @@ class _JobDetailPageState extends State<JobDetailPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               AutoSizeText(
-                "${job.availablePositions ?? 1} number of position",
+                "${job.availablePositions.toString()} number of position",
                 style: const TextStyle(
                     color: CustomColor.TEXT_COLOR_GRAY,
                     fontWeight: FontWeight.bold),
