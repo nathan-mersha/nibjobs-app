@@ -7,7 +7,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:fluttertoast/fluttertoast.dart';
 import 'package:intl/intl.dart';
 import 'package:nibjobs/api/flutterfire.dart';
 import 'package:nibjobs/bloc/description/description_cubit.dart';
@@ -83,37 +82,6 @@ class _JobDetailPageState extends State<JobDetailPage> {
     super.initState();
   }
 
-  Future<void> seeInList() async {
-    List<String> proFavList =
-        await hSharedPreference.get(HSharedPreference.LIST_OF_FAV) ?? [];
-    if (proFavList.contains(job!.id)) {
-      isSet = true;
-      setState(() {
-        isSelected = true;
-      });
-    } else {
-      isSet = true;
-      setState(() {
-        isSelected = false;
-      });
-    }
-  }
-
-  Future<void> addToList() async {
-    List<String> proFavList =
-        await hSharedPreference.get(HSharedPreference.LIST_OF_FAV) ?? [];
-    proFavList.add(job!.id!);
-
-    await hSharedPreference.set(HSharedPreference.LIST_OF_FAV, proFavList);
-  }
-
-  Future<void> removeInList() async {
-    List<String> proFavList =
-        await hSharedPreference.get(HSharedPreference.LIST_OF_FAV) ?? [];
-    proFavList.remove(job!.id);
-    await hSharedPreference.set(HSharedPreference.LIST_OF_FAV, proFavList);
-  }
-
   Widget getAppBar2(BuildContext context, Job job,
       {bool showCategory = false}) {
     return AppBar(
@@ -126,56 +94,6 @@ class _JobDetailPageState extends State<JobDetailPage> {
         icon: const Icon(Icons.arrow_back_outlined),
       ),
       actions: <Widget>[
-        GestureDetector(
-          onTap: () async {
-            isSelected = !isSelected;
-            if (isSelected) {
-              final result = await addFavJob(job);
-              if (result) {
-                addToList();
-                Fluttertoast.showToast(
-                    msg:
-                        "${job.title} ${StringRsr.get(LanguageKey.JOB_ADDED_TO_FAVORITE_LIST)}",
-                    toastLength: Toast.LENGTH_SHORT,
-                    gravity: ToastGravity.CENTER,
-                    timeInSecForIosWeb: 1,
-                    backgroundColor: Colors.green,
-                    textColor: Colors.white,
-                    fontSize: 16.0);
-              } else {}
-            } else {
-              final result = await deleteFavJob(job);
-              if (result) {
-                removeInList();
-                Fluttertoast.showToast(
-                    msg:
-                        "${job.title} ${StringRsr.get(LanguageKey.JOB_REMOVED_FROM_FAVORITE_LIST)}",
-                    toastLength: Toast.LENGTH_SHORT,
-                    gravity: ToastGravity.CENTER,
-                    timeInSecForIosWeb: 1,
-                    backgroundColor: Colors.red,
-                    textColor: Colors.white,
-                    fontSize: 16.0);
-              } else {}
-            }
-            setState(() {});
-          },
-          child: Container(
-            padding: const EdgeInsets.only(right: 20),
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(24),
-              color: Colors.white,
-            ),
-            child: Padding(
-              padding: const EdgeInsets.all(4.0),
-              child: Icon(
-                Icons.favorite,
-                color: isSelected ? Colors.red : LightColor.lightGrey,
-                size: 20,
-              ),
-            ),
-          ),
-        ),
         GestureDetector(
           onTap: () async {
             /// todo : here
@@ -209,9 +127,7 @@ class _JobDetailPageState extends State<JobDetailPage> {
   @override
   Widget build(BuildContext context) {
     job = ModalRoute.of(context)!.settings.arguments as Job?;
-    if (!isSet) {
-      seeInList();
-    }
+
     return Scaffold(
       key: _scaffoldKey,
       appBar: PreferredSize(
@@ -854,8 +770,8 @@ class _JobDetailPageState extends State<JobDetailPage> {
                             .emitDescription();
                       },
                       icon: state.showDescription
-                          ? Icon(Icons.keyboard_arrow_up_outlined)
-                          : Icon(Icons.keyboard_arrow_down_outlined));
+                          ? const Icon(Icons.keyboard_arrow_up_outlined)
+                          : const Icon(Icons.keyboard_arrow_down_outlined));
                 }
                 return Container();
               },
@@ -873,7 +789,9 @@ class _JobDetailPageState extends State<JobDetailPage> {
                     color: CustomColor.TEXT_COLOR_GRAY,
                     fontWeight: FontWeight.bold),
               ),
-              const SizedBox(height: 5,),
+              const SizedBox(
+                height: 5,
+              ),
               Row(
                 children: [
                   Container(
@@ -1091,7 +1009,7 @@ class _JobDetailPageState extends State<JobDetailPage> {
         if (state is DescriptionInitial && state.showDescription) {
           return Container(
             padding: const EdgeInsets.only(top: 4),
-            // height: AppTheme.fullWidth(context) >= 800 ? 500 : 100,
+            height: AppTheme.fullWidth(context) >= 800 ? 500 : 100,
             width: AppTheme.fullWidth(context),
             child: SingleChildScrollView(
               child: Text(
