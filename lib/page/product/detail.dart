@@ -865,13 +865,15 @@ class _JobDetailPageState extends State<JobDetailPage> {
             height: 5,
           ),
           Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               AutoSizeText(
-                "${job.availablePositions!.toString()} number of position",
+                "${job.availablePositions ?? 1} number of position",
                 style: const TextStyle(
                     color: CustomColor.TEXT_COLOR_GRAY,
                     fontWeight: FontWeight.bold),
               ),
+              const SizedBox(height: 5,),
               Row(
                 children: [
                   Container(
