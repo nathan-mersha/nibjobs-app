@@ -2,7 +2,6 @@ import 'dart:ui';
 
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
@@ -14,7 +13,6 @@ import 'package:nibjobs/bloc/images/image_cubit.dart';
 import 'package:nibjobs/db/k_shared_preference.dart';
 import 'package:nibjobs/model/commerce/job.dart';
 import 'package:nibjobs/model/profile/company.dart';
-import 'package:nibjobs/model/profile/user.dart';
 import 'package:nibjobs/route/route.dart';
 import 'package:nibjobs/rsr/locale/lang/language_key.dart';
 import 'package:nibjobs/rsr/locale/string_rsr.dart';
@@ -179,88 +177,21 @@ class _JobDetailPageState extends State<JobDetailPage> {
                               Padding(
                                 padding: const EdgeInsets.all(8.0),
                                 child: Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    Row(
-                                      children: [
-                                        Text(
-                                          //   currencyFormat
-                                          //       .format(job!.salary)
-                                          //       .toString(),
-                                          job!.salary!,
-                                          style: const TextStyle(
-                                            fontSize: 30,
-                                            color: Color(0xff404040),
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                        Text(
-                                          StringRsr.get(LanguageKey.BR)!,
-                                          style: const TextStyle(
-                                            color: Color(0xff404040),
-                                            fontWeight: FontWeight.bold,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    GestureDetector(
-                                      onTap: () async {
-                                        var uid = await hSharedPreference
-                                            .get(HSharedPreference.KEY_USER_ID);
-                                        var email = await hSharedPreference.get(
-                                            HSharedPreference.KEY_USER_EMAIL);
-                                        var phone = await hSharedPreference.get(
-                                            HSharedPreference.KEY_USER_PHONE);
-                                        var userName = await hSharedPreference
-                                            .get(HSharedPreference
-                                                .KEY_USER_NAME);
-                                        var userImage = await hSharedPreference
-                                            .get(HSharedPreference
-                                                .KEY_USER_IMAGE_URL);
-                                        List<String> list =
-                                            await hSharedPreference.get(
-                                                    HSharedPreference
-                                                        .LIST_OF_FAV_CATEGORY) ??
-                                                [];
-                                        UserModel user = UserModel(
-                                          userId: uid ??
-                                              FirebaseAuth
-                                                  .instance.currentUser!.uid,
-                                          email: email,
-                                          profilePicture: userImage,
-                                          phoneNumber: phone,
-                                          userName: userName,
-                                          categoryList: list,
-                                        );
-
-                                        CalledJob calledJob = CalledJob(
-                                          job: job,
-                                          user: user,
-                                          lastModified: DateTime.now(),
-                                        );
-                                        await addCallJob(calledJob);
-                                        makePhoneCall(
-                                            "tel://${job!.company!.primaryPhone!.replaceAll(" ", "")}");
-                                      },
-                                      child: Container(
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                            color: Color(0xff9c0044)),
-                                        padding: const EdgeInsets.only(
-                                          left: 15,
-                                          top: 5,
-                                          bottom: 10,
-                                          right: 15,
-                                        ),
-                                        child: Text(
-                                          StringRsr.get(LanguageKey.CALL)!,
-                                          style: const TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 17),
-                                        ),
-                                      ),
+                                    SizedBox(
+                                      width: 200,
+                                      height: 40,
+                                      child: ElevatedButton(
+                                          onPressed: () {
+                                            makeWebCall(job!.applyLink!);
+                                          },
+                                          child: Text(
+                                            "apply by ${job!.applyVia!}",
+                                            style: TextStyle(
+                                                color: Theme.of(context)
+                                                    .primaryColor),
+                                          )),
                                     ),
                                   ],
                                 ),
