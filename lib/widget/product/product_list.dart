@@ -431,333 +431,7 @@ class _JobListState extends State<JobList> {
                                             //     .requestLoading,
                                           );
                                         } else {
-                                          return GridView.builder(
-                                            gridDelegate:
-                                                SliverGridDelegateWithFixedCrossAxisCount(
-                                                    crossAxisCount: jobViewH(
-                                                                    context) ==
-                                                                .20 ||
-                                                            jobViewH(context) ==
-                                                                .37 ||
-                                                            jobViewH(context) ==
-                                                                .36
-                                                        ? 2
-                                                        : 1,
-                                                    mainAxisSpacing: 10,
-                                                    childAspectRatio: jobViewH(
-                                                                context) ==
-                                                            .7
-                                                        ? 7 / 4
-                                                        : jobViewH(context) ==
-                                                                .20
-                                                            ? 7 / 3
-                                                            : 7 / 3),
-                                            itemBuilder: (_, __) => Padding(
-                                              padding: const EdgeInsets.only(
-                                                  bottom: 8.0),
-                                              child: Container(
-                                                decoration: BoxDecoration(
-                                                  border: Border.all(
-                                                      color:
-                                                          LightColor.iconColor,
-                                                      style: BorderStyle.none),
-                                                  borderRadius:
-                                                      BorderRadius.all(
-                                                          Radius.circular(10)),
-                                                  // color:
-                                                  // isOutLine ? Colors.transparent : Theme.of(context).backgroundColor,
-                                                ),
-                                                child: Card(
-                                                  elevation: 0,
-                                                  shape: RoundedRectangleBorder(
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            20),
-                                                  ),
-                                                  child: Row(
-                                                    crossAxisAlignment:
-                                                        CrossAxisAlignment
-                                                            .center,
-                                                    children: <Widget>[
-                                                      // Image thumbnail or image place holder
-                                                      Expanded(
-                                                        flex: 1,
-                                                        child: Padding(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                  .all(8.0),
-                                                          child: Stack(
-                                                            fit:
-                                                                StackFit.expand,
-                                                            children: [
-                                                              Shimmer
-                                                                  .fromColors(
-                                                                baseColor:
-                                                                    Colors.grey[
-                                                                        300]!,
-                                                                highlightColor:
-                                                                    Colors.grey[
-                                                                        100]!,
-                                                                child:
-                                                                    Container(
-                                                                  decoration:
-                                                                      BoxDecoration(
-                                                                    color: Colors
-                                                                        .grey,
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            24),
-                                                                  ),
-                                                                ),
-                                                              ),
-                                                              Align(
-                                                                alignment:
-                                                                    Alignment
-                                                                        .topRight,
-                                                                child: Padding(
-                                                                  padding: const EdgeInsets
-                                                                          .only(
-                                                                      right:
-                                                                          10.0,
-                                                                      top: 5),
-                                                                  child:
-                                                                      GestureDetector(
-                                                                    onTap:
-                                                                        () async {},
-                                                                    child:
-                                                                        Container(
-                                                                      decoration:
-                                                                          BoxDecoration(
-                                                                        borderRadius:
-                                                                            BorderRadius.circular(24),
-                                                                        color: Colors
-                                                                            .white,
-                                                                      ),
-                                                                      child:
-                                                                          Padding(
-                                                                        padding:
-                                                                            const EdgeInsets.all(4.0),
-                                                                        child:
-                                                                            Icon(
-                                                                          Icons
-                                                                              .favorite,
-                                                                          color:
-                                                                              Colors.red,
-                                                                          size:
-                                                                              15,
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ),
-                                                              )
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      ),
-
-                                                      Expanded(
-                                                        flex: 1,
-                                                        child: Container(
-                                                          padding:
-                                                              const EdgeInsets
-                                                                      .symmetric(
-                                                                  vertical: 3,
-                                                                  horizontal:
-                                                                      15),
-                                                          child: Column(
-                                                            crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                            mainAxisAlignment:
-                                                                MainAxisAlignment
-                                                                    .spaceAround,
-                                                            children: <Widget>[
-                                                              // Job name
-                                                              Column(
-                                                                crossAxisAlignment:
-                                                                    CrossAxisAlignment
-                                                                        .start,
-                                                                children: [
-                                                                  Shimmer
-                                                                      .fromColors(
-                                                                    baseColor:
-                                                                        Colors.grey[
-                                                                            300]!,
-                                                                    highlightColor:
-                                                                        Colors.grey[
-                                                                            100]!,
-                                                                    child:
-                                                                        Container(
-                                                                      width:
-                                                                          150,
-                                                                      height:
-                                                                          20.0,
-                                                                      color: Colors
-                                                                          .white,
-                                                                    ),
-                                                                  ),
-
-                                                                  // Job Author / Manufacturer
-                                                                  Shimmer
-                                                                      .fromColors(
-                                                                    baseColor:
-                                                                        Colors.grey[
-                                                                            300]!,
-                                                                    highlightColor:
-                                                                        Colors.grey[
-                                                                            100]!,
-                                                                    child:
-                                                                        Container(
-                                                                      width: 70,
-                                                                      height:
-                                                                          20.0,
-                                                                      color: Colors
-                                                                          .white,
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              ),
-
-                                                              const SizedBox(
-                                                                height: 1,
-                                                              ),
-                                                              Shimmer
-                                                                  .fromColors(
-                                                                baseColor:
-                                                                    Colors.grey[
-                                                                        300]!,
-                                                                highlightColor:
-                                                                    Colors.grey[
-                                                                        100]!,
-                                                                child:
-                                                                    Container(
-                                                                  width: 150,
-                                                                  height: 20.0,
-                                                                  color: Colors
-                                                                      .white,
-                                                                ),
-                                                              ),
-                                                              Shimmer
-                                                                  .fromColors(
-                                                                baseColor:
-                                                                    Colors.grey[
-                                                                        300]!,
-                                                                highlightColor:
-                                                                    Colors.grey[
-                                                                        100]!,
-                                                                child:
-                                                                    Container(
-                                                                  width: 70,
-                                                                  height: 20.0,
-                                                                  color: Colors
-                                                                      .white,
-                                                                ),
-                                                              ),
-                                                              const SizedBox(
-                                                                height: 1,
-                                                              ),
-                                                              Shimmer
-                                                                  .fromColors(
-                                                                baseColor:
-                                                                    Colors.grey[
-                                                                        300]!,
-                                                                highlightColor:
-                                                                    Colors.grey[
-                                                                        100]!,
-                                                                child:
-                                                                    Container(
-                                                                  width: 60,
-                                                                  height: 20.0,
-                                                                  color: Colors
-                                                                      .white,
-                                                                ),
-                                                              ),
-
-                                                              // Price and regular price
-                                                              const SizedBox(
-                                                                height: 1,
-                                                              ),
-
-                                                              Row(
-                                                                mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceBetween,
-                                                                mainAxisSize:
-                                                                    MainAxisSize
-                                                                        .max,
-                                                                children: [
-                                                                  SingleChildScrollView(
-                                                                    scrollDirection:
-                                                                        Axis.horizontal,
-                                                                    child: Shimmer
-                                                                        .fromColors(
-                                                                      baseColor:
-                                                                          Colors
-                                                                              .grey[300]!,
-                                                                      highlightColor:
-                                                                          Colors
-                                                                              .grey[100]!,
-                                                                      child:
-                                                                          Container(
-                                                                        width:
-                                                                            30,
-                                                                        height:
-                                                                            20.0,
-                                                                        color: Colors
-                                                                            .white,
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                  SingleChildScrollView(
-                                                                    scrollDirection:
-                                                                        Axis.horizontal,
-                                                                    child:
-                                                                        GestureDetector(
-                                                                      onTap:
-                                                                          () {},
-                                                                      child:
-                                                                          Container(
-                                                                        decoration: BoxDecoration(
-                                                                            borderRadius:
-                                                                                BorderRadius.circular(20),
-                                                                            color: Theme.of(context).primaryColor),
-                                                                        padding:
-                                                                            EdgeInsets.only(
-                                                                          left:
-                                                                              15,
-                                                                          top:
-                                                                              5,
-                                                                          bottom:
-                                                                              5,
-                                                                          right:
-                                                                              15,
-                                                                        ),
-                                                                        child:
-                                                                            Text(
-                                                                          StringRsr.get(
-                                                                              LanguageKey.CALL)!,
-                                                                          style:
-                                                                              const TextStyle(color: Colors.white),
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  ),
-                                                                ],
-                                                              )
-
-                                                              // Job price and regular price
-                                                            ],
-                                                          ),
-                                                        ),
-                                                      )
-                                                    ],
-                                                  ),
-                                                ),
-                                              ),
-                                            ),
-                                            itemCount: 20,
-                                          );
+                                          return buildGridViewLoading(context);
                                         }
                                       }),
                                     );
@@ -1240,252 +914,7 @@ class _JobListState extends State<JobList> {
                                     return CategoryView(newCategories[index]);
                                   });
                         } else {
-                          return GridView.builder(
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: jobViewH(context) == .20 ||
-                                            jobViewH(context) == .37 ||
-                                            jobViewH(context) == .36 ||
-                                            jobViewH(context) == .35
-                                        ? 2
-                                        : 1,
-                                    mainAxisSpacing: 10,
-                                    childAspectRatio: jobViewH(context) == .7
-                                        ? 7 / 4
-                                        : jobViewH(context) == .20
-                                            ? 7 / 3
-                                            : 7 / 3),
-                            itemBuilder: (_, __) => Padding(
-                              padding: const EdgeInsets.only(bottom: 8.0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: LightColor.iconColor,
-                                      style: BorderStyle.none),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10)),
-                                  // color:
-                                  // isOutLine ? Colors.transparent : Theme.of(context).backgroundColor,
-                                ),
-                                child: Card(
-                                  elevation: 0,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      // Image thumbnail or image place holder
-                                      Expanded(
-                                        flex: 1,
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Stack(
-                                            fit: StackFit.expand,
-                                            children: [
-                                              Shimmer.fromColors(
-                                                baseColor: Colors.grey[300]!,
-                                                highlightColor:
-                                                    Colors.grey[100]!,
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.grey,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            24),
-                                                  ),
-                                                ),
-                                              ),
-                                              Align(
-                                                alignment: Alignment.topRight,
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          right: 10.0, top: 5),
-                                                  child: GestureDetector(
-                                                    onTap: () async {},
-                                                    child: Container(
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(24),
-                                                        color: Colors.white,
-                                                      ),
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(4.0),
-                                                        child: Icon(
-                                                          Icons.favorite,
-                                                          color: Colors.red,
-                                                          size: 15,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-
-                                      Expanded(
-                                        flex: 1,
-                                        child: Container(
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 3, horizontal: 15),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceAround,
-                                            children: <Widget>[
-                                              // Job name
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Shimmer.fromColors(
-                                                    baseColor:
-                                                        Colors.grey[300]!,
-                                                    highlightColor:
-                                                        Colors.grey[100]!,
-                                                    child: Container(
-                                                      width: 150,
-                                                      height: 20.0,
-                                                      color: Colors.white,
-                                                    ),
-                                                  ),
-
-                                                  // Job Author / Manufacturer
-                                                  Shimmer.fromColors(
-                                                    baseColor:
-                                                        Colors.grey[300]!,
-                                                    highlightColor:
-                                                        Colors.grey[100]!,
-                                                    child: Container(
-                                                      width: 70,
-                                                      height: 20.0,
-                                                      color: Colors.white,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-
-                                              const SizedBox(
-                                                height: 1,
-                                              ),
-                                              Shimmer.fromColors(
-                                                baseColor: Colors.grey[300]!,
-                                                highlightColor:
-                                                    Colors.grey[100]!,
-                                                child: Container(
-                                                  width: 150,
-                                                  height: 20.0,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                              Shimmer.fromColors(
-                                                baseColor: Colors.grey[300]!,
-                                                highlightColor:
-                                                    Colors.grey[100]!,
-                                                child: Container(
-                                                  width: 70,
-                                                  height: 20.0,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                              const SizedBox(
-                                                height: 1,
-                                              ),
-                                              Shimmer.fromColors(
-                                                baseColor: Colors.grey[300]!,
-                                                highlightColor:
-                                                    Colors.grey[100]!,
-                                                child: Container(
-                                                  width: 60,
-                                                  height: 20.0,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-
-                                              // Price and regular price
-                                              const SizedBox(
-                                                height: 1,
-                                              ),
-
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  SingleChildScrollView(
-                                                    scrollDirection:
-                                                        Axis.horizontal,
-                                                    child: Shimmer.fromColors(
-                                                      baseColor:
-                                                          Colors.grey[300]!,
-                                                      highlightColor:
-                                                          Colors.grey[100]!,
-                                                      child: Container(
-                                                        width: 30,
-                                                        height: 20.0,
-                                                        color: Colors.white,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  SingleChildScrollView(
-                                                    scrollDirection:
-                                                        Axis.horizontal,
-                                                    child: GestureDetector(
-                                                      onTap: () {},
-                                                      child: Container(
-                                                        decoration: BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        20),
-                                                            color: Theme.of(
-                                                                    context)
-                                                                .primaryColor),
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .only(
-                                                          left: 15,
-                                                          top: 5,
-                                                          bottom: 5,
-                                                          right: 15,
-                                                        ),
-                                                        child: Text(
-                                                          StringRsr.get(
-                                                              LanguageKey
-                                                                  .CALL)!,
-                                                          style:
-                                                              const TextStyle(
-                                                                  color: Colors
-                                                                      .white),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              )
-
-                                              // Job price and regular price
-                                            ],
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                            itemCount: 20,
-                          );
+                          return buildGridViewLoading(context);
                         }
                       },
                     ),
@@ -1555,251 +984,7 @@ class _JobListState extends State<JobList> {
                             ),
                           );
                         } else if (state is SearchLoading) {
-                          return GridView.builder(
-                            gridDelegate:
-                                SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisCount: jobViewH(context) == .20 ||
-                                            jobViewH(context) == .37 ||
-                                            jobViewH(context) == .36 ||
-                                            jobViewH(context) == .35
-                                        ? 2
-                                        : 1,
-                                    mainAxisSpacing: 10,
-                                    childAspectRatio: jobViewH(context) == .7
-                                        ? 7 / 4
-                                        : jobViewH(context) == .20
-                                            ? 7 / 3
-                                            : 7 / 3),
-                            itemBuilder: (_, __) => Padding(
-                              padding: const EdgeInsets.only(bottom: 8.0),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                  border: Border.all(
-                                      color: LightColor.iconColor,
-                                      style: BorderStyle.none),
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10)),
-                                  // color:
-                                  // isOutLine ? Colors.transparent : Theme.of(context).backgroundColor,
-                                ),
-                                child: Card(
-                                  elevation: 0,
-                                  shape: RoundedRectangleBorder(
-                                    borderRadius: BorderRadius.circular(20),
-                                  ),
-                                  child: Row(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.center,
-                                    children: <Widget>[
-                                      // Image thumbnail or image place holder
-                                      Expanded(
-                                        flex: 1,
-                                        child: Padding(
-                                          padding: const EdgeInsets.all(8.0),
-                                          child: Stack(
-                                            fit: StackFit.expand,
-                                            children: [
-                                              Shimmer.fromColors(
-                                                baseColor: Colors.grey[300]!,
-                                                highlightColor:
-                                                    Colors.grey[100]!,
-                                                child: Container(
-                                                  decoration: BoxDecoration(
-                                                    color: Colors.grey,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            24),
-                                                  ),
-                                                ),
-                                              ),
-                                              Align(
-                                                alignment: Alignment.topRight,
-                                                child: Padding(
-                                                  padding:
-                                                      const EdgeInsets.only(
-                                                          right: 10.0, top: 5),
-                                                  child: GestureDetector(
-                                                    onTap: () async {},
-                                                    child: Container(
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(24),
-                                                        color: Colors.white,
-                                                      ),
-                                                      child: Padding(
-                                                        padding:
-                                                            const EdgeInsets
-                                                                .all(4.0),
-                                                        child: Icon(
-                                                          Icons.favorite,
-                                                          color: Colors.red,
-                                                          size: 15,
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ),
-                                              )
-                                            ],
-                                          ),
-                                        ),
-                                      ),
-
-                                      Expanded(
-                                        flex: 1,
-                                        child: Container(
-                                          padding: const EdgeInsets.symmetric(
-                                              vertical: 3, horizontal: 15),
-                                          child: Column(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.spaceAround,
-                                            children: <Widget>[
-                                              // Job name
-                                              Column(
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.start,
-                                                children: [
-                                                  Shimmer.fromColors(
-                                                    baseColor:
-                                                        Colors.grey[300]!,
-                                                    highlightColor:
-                                                        Colors.grey[100]!,
-                                                    child: Container(
-                                                      width: 150,
-                                                      height: 20.0,
-                                                      color: Colors.white,
-                                                    ),
-                                                  ),
-
-                                                  // Job Author / Manufacturer
-                                                  Shimmer.fromColors(
-                                                    baseColor:
-                                                        Colors.grey[300]!,
-                                                    highlightColor:
-                                                        Colors.grey[100]!,
-                                                    child: Container(
-                                                      width: 70,
-                                                      height: 20.0,
-                                                      color: Colors.white,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-
-                                              const SizedBox(
-                                                height: 1,
-                                              ),
-                                              Shimmer.fromColors(
-                                                baseColor: Colors.grey[300]!,
-                                                highlightColor:
-                                                    Colors.grey[100]!,
-                                                child: Container(
-                                                  width: 150,
-                                                  height: 20.0,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                              Shimmer.fromColors(
-                                                baseColor: Colors.grey[300]!,
-                                                highlightColor:
-                                                    Colors.grey[100]!,
-                                                child: Container(
-                                                  width: 70,
-                                                  height: 20.0,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-                                              const SizedBox(
-                                                height: 1,
-                                              ),
-                                              Shimmer.fromColors(
-                                                baseColor: Colors.grey[300]!,
-                                                highlightColor:
-                                                    Colors.grey[100]!,
-                                                child: Container(
-                                                  width: 60,
-                                                  height: 20.0,
-                                                  color: Colors.white,
-                                                ),
-                                              ),
-
-                                              // Price and regular price
-                                              const SizedBox(
-                                                height: 1,
-                                              ),
-
-                                              Row(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceBetween,
-                                                mainAxisSize: MainAxisSize.max,
-                                                children: [
-                                                  SingleChildScrollView(
-                                                    scrollDirection:
-                                                        Axis.horizontal,
-                                                    child: Shimmer.fromColors(
-                                                      baseColor:
-                                                          Colors.grey[300]!,
-                                                      highlightColor:
-                                                          Colors.grey[100]!,
-                                                      child: Container(
-                                                        width: 30,
-                                                        height: 20.0,
-                                                        color: Colors.white,
-                                                      ),
-                                                    ),
-                                                  ),
-                                                  SingleChildScrollView(
-                                                    scrollDirection:
-                                                        Axis.horizontal,
-                                                    child: GestureDetector(
-                                                      onTap: () {},
-                                                      child: Container(
-                                                        decoration: BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadius
-                                                                    .circular(
-                                                                        20),
-                                                            color: Theme.of(
-                                                                    context)
-                                                                .primaryColor),
-                                                        padding:
-                                                            EdgeInsets.only(
-                                                          left: 15,
-                                                          top: 5,
-                                                          bottom: 5,
-                                                          right: 15,
-                                                        ),
-                                                        child: Text(
-                                                          StringRsr.get(
-                                                              LanguageKey
-                                                                  .CALL)!,
-                                                          style:
-                                                              const TextStyle(
-                                                                  color: Colors
-                                                                      .white),
-                                                        ),
-                                                      ),
-                                                    ),
-                                                  ),
-                                                ],
-                                              )
-
-                                              // Job price and regular price
-                                            ],
-                                          ),
-                                        ),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              ),
-                            ),
-                            itemCount: 20,
-                          );
+                          return buildGridViewLoading(context);
                         }
 
                         return FutureBuilder(
@@ -2153,6 +1338,167 @@ class _JobListState extends State<JobList> {
           ],
         ),
       ],
+    );
+  }
+
+  GridView buildGridViewLoading(BuildContext context) {
+    return GridView.builder(
+      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: jobViewH(context) == .20 ||
+                  jobViewH(context) == .37 ||
+                  jobViewH(context) == .36
+              ? 2
+              : 1,
+          mainAxisSpacing: 10,
+          childAspectRatio: jobViewH(context) == .7
+              ? 7 / 4
+              : jobViewH(context) == .20
+                  ? 7 / 3
+                  : 7 / 3),
+      itemBuilder: (_, __) => Padding(
+        padding: const EdgeInsets.only(bottom: 8.0),
+        child: Container(
+          decoration: BoxDecoration(
+            border: Border.all(
+                color: LightColor.iconColor, style: BorderStyle.none),
+            borderRadius: const BorderRadius.all(Radius.circular(10)),
+            // color:
+            // isOutLine ? Colors.transparent : Theme.of(context).backgroundColor,
+          ),
+          child: Card(
+            elevation: 0,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: <Widget>[
+                // Image thumbnail or image place holder
+
+                Expanded(
+                  flex: 1,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(
+                        vertical: 10, horizontal: 15),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: <Widget>[
+                        // Job name
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Shimmer.fromColors(
+                                  baseColor: Colors.grey[300]!,
+                                  highlightColor: Colors.grey[100]!,
+                                  child: Container(
+                                    width: 240,
+                                    height: 20.0,
+                                    color: Colors.white,
+                                  ),
+                                ),
+                                Shimmer.fromColors(
+                                  baseColor: Colors.grey[300]!,
+                                  highlightColor: Colors.grey[100]!,
+                                  child: Container(
+                                    width: 40,
+                                    height: 40.0,
+                                    decoration: BoxDecoration(
+                                      color: Colors.white,
+                                      borderRadius: BorderRadius.circular(40),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
+                            const SizedBox(
+                              height: 1,
+                            ),
+                            // Job Author / Manufacturer
+                            Shimmer.fromColors(
+                              baseColor: Colors.grey[300]!,
+                              highlightColor: Colors.grey[100]!,
+                              child: Container(
+                                width: 200,
+                                height: 15.0,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ],
+                        ),
+
+                        const SizedBox(
+                          height: 3,
+                        ),
+                        Shimmer.fromColors(
+                          baseColor: Colors.grey[300]!,
+                          highlightColor: Colors.grey[100]!,
+                          child: Container(
+                            width: 350,
+                            height: 15.0,
+                            color: Colors.white,
+                          ),
+                        ),
+                        Shimmer.fromColors(
+                          baseColor: Colors.grey[300]!,
+                          highlightColor: Colors.grey[100]!,
+                          child: Container(
+                            width: 300,
+                            height: 15.0,
+                            color: Colors.white,
+                          ),
+                        ),
+                        const SizedBox(
+                          height: 3,
+                        ),
+                        Shimmer.fromColors(
+                          baseColor: Colors.grey[300]!,
+                          highlightColor: Colors.grey[100]!,
+                          child: Container(
+                            width: 80,
+                            height: 15.0,
+                            color: Colors.white,
+                          ),
+                        ),
+
+                        // Price and regular price
+                        const SizedBox(
+                          height: 2,
+                        ),
+
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          mainAxisSize: MainAxisSize.max,
+                          children: [
+                            SingleChildScrollView(
+                              scrollDirection: Axis.horizontal,
+                              child: Shimmer.fromColors(
+                                baseColor: Colors.grey[300]!,
+                                highlightColor: Colors.grey[100]!,
+                                child: Container(
+                                  width: 60,
+                                  height: 15.0,
+                                  color: Colors.white,
+                                ),
+                              ),
+                            ),
+                          ],
+                        )
+
+                        // Job price and regular price
+                      ],
+                    ),
+                  ),
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
+      itemCount: 20,
     );
   }
 
