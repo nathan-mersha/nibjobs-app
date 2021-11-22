@@ -32,11 +32,13 @@ class JobView extends StatefulWidget {
       this.onComplete});
 
   static Widget getThumbnailView(Job job,
-      {bool expand = true, String size = SIZE_MEDIUM}) {
+      {bool expand = true,
+      String size = SIZE_MEDIUM,
+      bool detailPage = false}) {
     return job.company!.logo == null || job.company!.logo!.isEmpty
         ? Container()
         : CachedNetworkImage(
-            imageUrl: job.company!.logo!,
+            imageUrl: detailPage ? job.jobChannel!.logo! : job.company!.logo!,
             useOldImageOnUrlChange: true,
             imageBuilder: (context, imagePath) {
               return Image(
@@ -47,7 +49,9 @@ class JobView extends StatefulWidget {
             placeholderFadeInDuration: const Duration(seconds: 1),
             placeholder: (BuildContext context, String imageURL) {
               return Text(
-                "${job.company!.name![0].toUpperCase()} ${job.company!.name![1].toUpperCase()}",
+                detailPage
+                    ? "${job.jobChannel!.name![0].toUpperCase()}${job.jobChannel!.name![1].toUpperCase()}"
+                    : "${job.company!.name![0].toUpperCase()} ${job.company!.name![1].toUpperCase()}",
                 style: const TextStyle(
                   fontSize: 20,
                   color: CustomColor.TEXT_COLOR_GRAY,
@@ -57,7 +61,9 @@ class JobView extends StatefulWidget {
             errorWidget: (BuildContext context, String imageURL, dynamic) {
               return Center(
                 child: Text(
-                  "${job.company!.name![0].replaceAll(" ", "").toUpperCase()}${job.company!.name![1].replaceAll(" ", "").toUpperCase()}",
+                  detailPage
+                      ? "${job.jobChannel!.name![0].toUpperCase()}${job.jobChannel!.name![1].toUpperCase()}"
+                      : "${job.company!.name![0].replaceAll(" ", "").toUpperCase()}${job.company!.name![1].replaceAll(" ", "").toUpperCase()}",
                   style: const TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.bold,

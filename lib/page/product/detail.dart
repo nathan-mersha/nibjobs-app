@@ -21,6 +21,7 @@ import 'package:nibjobs/themes/light_color.dart';
 import 'package:nibjobs/themes/nib_custom_icons_icons.dart';
 import 'package:nibjobs/themes/theme.dart';
 import 'package:nibjobs/widget/product/product_placeholder.dart';
+import 'package:nibjobs/widget/product/product_view.dart';
 import 'package:share/share.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:url_launcher/url_launcher.dart';
@@ -711,56 +712,129 @@ class _JobDetailPageState extends State<JobDetailPage> {
           const SizedBox(
             height: 5,
           ),
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              AutoSizeText(
-                "${job.availablePositions.toString()} number of position",
-                style: const TextStyle(
-                    color: CustomColor.TEXT_COLOR_GRAY,
-                    fontWeight: FontWeight.bold),
-              ),
-              const SizedBox(
-                height: 5,
-              ),
-              Row(
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Container(
-                    padding: const EdgeInsets.only(
-                        left: 8, right: 8, top: 3, bottom: 3),
-                    decoration: BoxDecoration(
-                        color: CustomColor.PRIM_DARK,
-                        borderRadius: BorderRadius.circular(10)),
-                    child: Text(
-                      //"${currencyFormat.format(job.price).toString()}",
-                      job.contractType!,
-                      maxLines: 1,
-                      overflow: TextOverflow.fade,
-                      textAlign: TextAlign.left,
-                      softWrap: false,
-                      style: const TextStyle(
-                          color: CustomColor.TEXT_DARK, fontSize: 12),
-                    ),
+                  AutoSizeText(
+                    "${job.availablePositions.toString()} number of position",
+                    style: const TextStyle(
+                        color: CustomColor.TEXT_COLOR_GRAY,
+                        fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(
-                    width: 5,
+                    height: 5,
                   ),
-                  Container(
-                    padding: const EdgeInsets.only(
-                        left: 8, right: 8, top: 3, bottom: 3),
-                    decoration: BoxDecoration(
-                        color: CustomColor.PRIM_GREEN,
-                        borderRadius: BorderRadius.circular(10)),
-                    child: const Text(
-                      "Opened",
-                      maxLines: 1,
-                      overflow: TextOverflow.fade,
-                      textAlign: TextAlign.left,
-                      softWrap: false,
-                      style: TextStyle(color: Colors.white, fontSize: 12),
-                    ),
+                  Row(
+                    children: [
+                      Container(
+                        padding: const EdgeInsets.only(
+                            left: 8, right: 8, top: 3, bottom: 3),
+                        decoration: BoxDecoration(
+                            color: CustomColor.PRIM_DARK,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: Text(
+                          //"${currencyFormat.format(job.price).toString()}",
+                          job.contractType!,
+                          maxLines: 1,
+                          overflow: TextOverflow.fade,
+                          textAlign: TextAlign.left,
+                          softWrap: false,
+                          style: const TextStyle(
+                              color: CustomColor.TEXT_DARK, fontSize: 12),
+                        ),
+                      ),
+                      const SizedBox(
+                        width: 5,
+                      ),
+                      Container(
+                        padding: const EdgeInsets.only(
+                            left: 8, right: 8, top: 3, bottom: 3),
+                        decoration: BoxDecoration(
+                            color: CustomColor.PRIM_GREEN,
+                            borderRadius: BorderRadius.circular(10)),
+                        child: const Text(
+                          "Opened",
+                          maxLines: 1,
+                          overflow: TextOverflow.fade,
+                          textAlign: TextAlign.left,
+                          softWrap: false,
+                          style: TextStyle(color: Colors.white, fontSize: 12),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
+              ),
+              Container(
+                margin: const EdgeInsets.symmetric(
+                  vertical: 3,
+                ),
+                height: AppTheme.fullWidth(context) < 330 ? 40 : 41,
+                width: AppTheme.fullWidth(context) < 330 ? 40 : 41,
+                decoration: BoxDecoration(
+                    color: CustomColor.PRIM_DARK,
+                    borderRadius: BorderRadius.circular(40)),
+                child: Padding(
+                  padding: const EdgeInsets.all(3.0),
+                  child:
+                      JobView.getThumbnailView(job, size: JobView.SIZE_MEDIUM),
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(
+            height: 5,
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AutoSizeText(
+                    "source",
+                    style: Theme.of(context)
+                        .textTheme
+                        .subtitle2!
+                        .copyWith(fontSize: 20),
+                  ),
+                  const SizedBox(
+                    height: 10,
+                  ),
+                  Row(
+                    children: [
+                      AutoSizeText(
+                        "by ",
+                        style: Theme.of(context).textTheme.bodyText1,
+                      ),
+                      AutoSizeText(
+                        job.jobChannel!.name!,
+                        style: Theme.of(context)
+                            .textTheme
+                            .subtitle1!
+                            .copyWith(fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              Container(
+                margin: const EdgeInsets.symmetric(
+                  vertical: 3,
+                ),
+                height: AppTheme.fullWidth(context) < 330 ? 40 : 41,
+                width: AppTheme.fullWidth(context) < 330 ? 40 : 41,
+                decoration: BoxDecoration(
+                    color: CustomColor.PRIM_DARK,
+                    borderRadius: BorderRadius.circular(40)),
+                child: Padding(
+                  padding: const EdgeInsets.all(3.0),
+                  child: JobView.getThumbnailView(job,
+                      size: JobView.SIZE_MEDIUM, detailPage: true),
+                ),
               ),
             ],
           ),
