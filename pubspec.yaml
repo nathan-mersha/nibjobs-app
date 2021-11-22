@@ -70,6 +70,7 @@ flutter:
     - assets/images/select_language.png
     - assets/images/signup.png
     - assets/images/default_avatar.png
+    - assets/images/download.png
 
 
   fonts:

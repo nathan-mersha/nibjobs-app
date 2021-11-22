@@ -45,9 +45,9 @@ class Menu {
                             width: 40,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(40),
-                              image: DecorationImage(
+                              image: const DecorationImage(
                                 image: AssetImage(
-                                  "assets/images/default_avatar.png",
+                                  "assets/images/download.png",
                                 ),
                                 fit: BoxFit.cover,
                               ),
@@ -72,9 +72,9 @@ class Menu {
                       width: 40,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(40),
-                        image: DecorationImage(
+                        image: const DecorationImage(
                           image: AssetImage(
-                            "assets/images/default_avatar.png",
+                            "assets/images/download.png",
                           ),
                           fit: BoxFit.cover,
                         ),
@@ -550,6 +550,16 @@ class Menu {
         },
       ),
       actions: <Widget>[
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Icon(
+            NibCustomIcons.notification,
+            color: Theme.of(context).primaryColor,
+          ),
+        ),
+        const SizedBox(
+          width: 5,
+        ),
         ClipRRect(
           borderRadius: BorderRadius.all(Radius.circular(13)),
           child: Container(
@@ -629,7 +639,7 @@ class Menu {
                               borderRadius: BorderRadius.circular(25),
                               image: const DecorationImage(
                                 image: AssetImage(
-                                  "assets/images/default_avatar.png",
+                                  "assets/images/download.png",
                                 ),
                                 fit: BoxFit.cover,
                               ),
@@ -662,7 +672,7 @@ class Menu {
                       borderRadius: BorderRadius.circular(25),
                       image: const DecorationImage(
                         image: AssetImage(
-                          "assets/images/default_avatar.png",
+                          "assets/images/download.png",
                         ),
                         fit: BoxFit.cover,
                       ),
@@ -676,86 +686,90 @@ class Menu {
             }),
           ),
         ),
-        Container(
-          padding: const EdgeInsets.all(20),
-          child: BlocBuilder<UserBloc, UserState>(builder: (context, state) {
-            if (state is UserSignedInState) {
-              return GestureDetector(
-                onTap: () {
-                  AwesomeDialog(
-                    btnOkText: StringRsr.get(LanguageKey.OK, firstCap: true),
-                    btnCancelText:
-                        StringRsr.get(LanguageKey.CANCEL, firstCap: true),
-                    context: context,
-                    dialogType: DialogType.INFO_REVERSED,
-                    borderSide: BorderSide(color: Colors.transparent, width: 2),
-                    width: 380,
-                    buttonsBorderRadius: BorderRadius.all(Radius.circular(2)),
-                    headerAnimationLoop: false,
-                    animType: AnimType.BOTTOMSLIDE,
-                    title: StringRsr.get(LanguageKey.SIGN_OUT, firstCap: true),
-                    desc: StringRsr.get(LanguageKey.DO_YOU_WANT_TO_SIGN_OUT,
-                        firstCap: true),
-                    showCloseIcon: true,
-                    btnCancelOnPress: () {},
-                    btnOkOnPress: () async {
-                      BlocProvider.of<UserBloc>(context).add(UserSignOut());
-                      Navigator.pushNamed(context, RouteTo.PROFILE_SIGN_IN);
-                      BlocListener<UserBloc, UserState>(
-                        listener: (context, state) {
-                          // TODO: implement listener}
-                          if (state is UserSignedOutState) {
-                            AwesomeDialog(
-                              btnOkText:
-                                  StringRsr.get(LanguageKey.OK, firstCap: true),
-                              btnCancelText: StringRsr.get(LanguageKey.CANCEL,
-                                  firstCap: true),
-                              context: context,
-                              dialogType: DialogType.SUCCES,
-                              borderSide: BorderSide(
-                                  color: Colors.transparent, width: 2),
-                              width: 380,
-                              buttonsBorderRadius:
-                                  BorderRadius.all(Radius.circular(2)),
-                              headerAnimationLoop: false,
-                              animType: AnimType.BOTTOMSLIDE,
-                              title: StringRsr.get(LanguageKey.SUCCESSFUL,
-                                  firstCap: true),
-                              desc: StringRsr.get(
-                                  LanguageKey.YOU_HAVE_SUCCESSFUL_SIGN_OUT,
-                                  firstCap: true),
-                              showCloseIcon: true,
-                              btnOkOnPress: () {
-                                Navigator.pushNamed(
-                                    context, RouteTo.PROFILE_SIGN_IN);
-                              },
-                            ).show();
-                          }
-                        },
-                      );
-                    },
-                  ).show();
-                },
-                child: const Icon(
-                  Icons.logout,
-                  color: Colors.grey,
-                ),
-              );
-            } else if (state is UserSignedOutState) {
-              return GestureDetector(
-                  onTap: () {
-                    Navigator.pushNamed(context, RouteTo.PROFILE_SIGN_IN);
-                  },
-                  child: Icon(
-                    Icons.login,
-                    color: Colors.grey,
-                  ));
-            } else if (state is UserInitial) {
-              return Container();
-            }
-            return Container();
-          }),
+        const SizedBox(
+          width: 20,
         ),
+        // Container(
+        //   padding: const EdgeInsets.all(20),
+        //   child: BlocBuilder<UserBloc, UserState>(builder: (context, state) {
+        //     if (state is UserSignedInState) {
+        //       return GestureDetector(
+        //         onTap: () {
+        //           AwesomeDialog(
+        //             btnOkText: StringRsr.get(LanguageKey.OK, firstCap: true),
+        //             btnCancelText:
+        //                 StringRsr.get(LanguageKey.CANCEL, firstCap: true),
+        //             context: context,
+        //             dialogType: DialogType.INFO_REVERSED,
+        //             borderSide: BorderSide(color: Colors.transparent, width: 2),
+        //             width: 380,
+        //             buttonsBorderRadius: BorderRadius.all(Radius.circular(2)),
+        //             headerAnimationLoop: false,
+        //             animType: AnimType.BOTTOMSLIDE,
+        //             title: StringRsr.get(LanguageKey.SIGN_OUT, firstCap: true),
+        //             desc: StringRsr.get(LanguageKey.DO_YOU_WANT_TO_SIGN_OUT,
+        //                 firstCap: true),
+        //             showCloseIcon: true,
+        //             btnCancelOnPress: () {},
+        //             btnOkOnPress: () async {
+        //               BlocProvider.of<UserBloc>(context).add(UserSignOut());
+        //               Navigator.pushNamed(context, RouteTo.PROFILE_SIGN_IN);
+        //               BlocListener<UserBloc, UserState>(
+        //                 listener: (context, state) {
+        //                   // TODO: implement listener}
+        //                   if (state is UserSignedOutState) {
+        //                     AwesomeDialog(
+        //                       btnOkText:
+        //                           StringRsr.get(LanguageKey.OK, firstCap: true),
+        //                       btnCancelText: StringRsr.get(LanguageKey.CANCEL,
+        //                           firstCap: true),
+        //                       context: context,
+        //                       dialogType: DialogType.SUCCES,
+        //                       borderSide: BorderSide(
+        //                           color: Colors.transparent, width: 2),
+        //                       width: 380,
+        //                       buttonsBorderRadius:
+        //                           BorderRadius.all(Radius.circular(2)),
+        //                       headerAnimationLoop: false,
+        //                       animType: AnimType.BOTTOMSLIDE,
+        //                       title: StringRsr.get(LanguageKey.SUCCESSFUL,
+        //                           firstCap: true),
+        //                       desc: StringRsr.get(
+        //                           LanguageKey.YOU_HAVE_SUCCESSFUL_SIGN_OUT,
+        //                           firstCap: true),
+        //                       showCloseIcon: true,
+        //                       btnOkOnPress: () {
+        //                         Navigator.pushNamed(
+        //                             context, RouteTo.PROFILE_SIGN_IN);
+        //                       },
+        //                     ).show();
+        //                   }
+        //                 },
+        //               );
+        //             },
+        //           ).show();
+        //         },
+        //         child: const Icon(
+        //           Icons.logout,
+        //           color: Colors.grey,
+        //         ),
+        //       );
+        //     } else if (state is UserSignedOutState) {
+        //       return GestureDetector(
+        //           onTap: () {
+        //             Navigator.pushNamed(context, RouteTo.PROFILE_SIGN_IN);
+        //           },
+        //           child: Icon(
+        //             Icons.login,
+        //             color: Colors.grey,
+        //           ));
+        //     } else if (state is UserInitial) {
+        //       return Container();
+        //     }
+        //     return Container();
+        //   }),
+        // ),
+        //
       ],
       //showCategory ? CategoryMenu() : Container()
       //backgroundColor: LightColor.lightGrey,
