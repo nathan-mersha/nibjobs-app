@@ -51,7 +51,7 @@ class _CategoryPreferencePageState extends State<CategoryPreferencePage> {
       body: Container(
         width: double.infinity,
         color: LightColor.lightGrey,
-        child: Container(
+        child: SizedBox(
           width: AppTheme.fullWidth(context),
           child: SizedBox.expand(
             child: Container(

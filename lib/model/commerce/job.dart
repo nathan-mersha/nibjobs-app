@@ -13,7 +13,7 @@ class Job {
   static const String TITLE = "title";
   static const String CATEGORY = "category";
   static const String STATUS = "status";
-  static const String CONTRACT_TYPE = "contract_type";
+  static const String CONTRACT_TYPE = "contractType";
   static const String SALARY = "salary";
   static const String AVAILABLE_POSITIONS = "available_positions";
   static const String TAGS = "tags";
