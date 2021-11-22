@@ -51,7 +51,7 @@ class _CategoryPreferencePageState extends State<CategoryPreferencePage> {
       body: Container(
         width: double.infinity,
         color: LightColor.lightGrey,
-        child: SizedBox(
+        child: Container(
           width: AppTheme.fullWidth(context),
           child: SizedBox.expand(
             child: Container(
@@ -255,8 +255,8 @@ class _CategoryPreferencePageState extends State<CategoryPreferencePage> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
-      elevation: 0,
-      color: LightColor.lightGrey,
+      // elevation: 0,
+      // color: LightColor.lightGrey,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(

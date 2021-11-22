@@ -154,7 +154,7 @@ class MyAppState extends State<MyApp> {
             builder: (context, projectSnap) {
               if (projectSnap.connectionState == ConnectionState.none &&
                   projectSnap.hasData == null) {
-                return LoadingApp();
+                return const LoadingApp();
               } else {
                 if (projectSnap.data == true) {
                   return AppBuilder(builder: (context) {
