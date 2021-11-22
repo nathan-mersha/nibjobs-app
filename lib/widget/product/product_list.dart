@@ -1526,7 +1526,9 @@ class _JobListState extends State<JobList> {
               ? await FirebaseFirestore.instance
                   .collection(Job.COLLECTION_NAME)
                   .where(Job.APPROVED, isEqualTo: true)
-                  .where(Job.TAGS, arrayContainsAny: categoryList)
+                  .where(Job.TAGS,
+                      arrayContainsAny: categoryList.sublist(0,
+                          categoryList.length > 10 ? 10 : categoryList.length))
                   .limit(JOB_LIMIT)
                   .orderBy(Job.LAST_MODIFIED, descending: true)
                   .orderBy("company.rank", descending: true)
@@ -1536,7 +1538,9 @@ class _JobListState extends State<JobList> {
               : await FirebaseFirestore.instance
                   .collection(Job.COLLECTION_NAME)
                   .where(Job.APPROVED, isEqualTo: true)
-                  .where(Job.TAGS, arrayContainsAny: categoryList)
+                  .where(Job.TAGS,
+                      arrayContainsAny: categoryList.sublist(0,
+                          categoryList.length > 10 ? 10 : categoryList.length))
                   .limit(JOB_LIMIT)
                   .orderBy("company.rank", descending: true)
                   .orderBy(Job.LAST_MODIFIED, descending: true)
