@@ -41,8 +41,12 @@ class _CategoryPreferencePageState extends State<CategoryPreferencePage> {
             size: 20,
           ),
         ),
+        title: Text(
+          "Notify me for jobs",
+          style: Theme.of(context).textTheme.subtitle1,
+        ),
         elevation: 0,
-        backgroundColor: LightColor.lightGrey,
+        backgroundColor: Colors.white,
       ),
       body: Container(
         width: double.infinity,
@@ -251,13 +255,21 @@ class _CategoryPreferencePageState extends State<CategoryPreferencePage> {
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(20),
       ),
+      elevation: 0,
+      color: LightColor.lightGrey,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(newCategories[i].name!),
+            Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Text(
+                newCategories[i].name!,
+                style: Theme.of(context).textTheme.subtitle1,
+              ),
+            ),
             Expanded(
               child: ListView(
                 primary: true,

@@ -632,7 +632,7 @@ class _JobDetailPageState extends State<JobDetailPage> {
                 alignment: Alignment.topRight,
                 child: Text(
                   timeago.format(job.lastModified!),
-                  maxLines: 1,
+                  maxLines: 2,
                   overflow: TextOverflow.fade,
                   textAlign: TextAlign.right,
                   softWrap: false,
