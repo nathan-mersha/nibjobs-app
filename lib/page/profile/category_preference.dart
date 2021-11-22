@@ -164,7 +164,7 @@ class _CategoryPreferencePageState extends State<CategoryPreferencePage> {
                                                     childAspectRatio: jobViewH(
                                                                 context) ==
                                                             .7
-                                                        ? 7 / 3
+                                                        ? 7 / 5
                                                         : jobViewH(context) ==
                                                                 .20
                                                             ? 7 / 3
