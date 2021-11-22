@@ -54,7 +54,7 @@ class JobView extends StatefulWidget {
                     ? "${job.jobChannel!.name![0].toUpperCase()}${job.jobChannel!.name![1].toUpperCase()}"
                     : "${job.company!.name![0].toUpperCase()}${job.company!.name![1].toUpperCase()}",
                 style: const TextStyle(
-                  fontSize: 20,
+                  fontSize: 12,
                   color: CustomColor.TEXT_COLOR_GRAY,
                 ),
               );
@@ -119,13 +119,13 @@ class _JobViewState extends State<JobView> {
             decoration: BoxDecoration(
                 color: CustomColor.PRIM_GREEN,
                 borderRadius: BorderRadius.circular(10)),
-            child: const Text(
-              "Opened",
+            child: Text(
+              job.status!,
               maxLines: 1,
               overflow: TextOverflow.fade,
               textAlign: TextAlign.left,
               softWrap: false,
-              style: TextStyle(color: Colors.white, fontSize: 12),
+              style: const TextStyle(color: Colors.white, fontSize: 12),
             ),
           ),
           const SizedBox(

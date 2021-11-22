@@ -50,7 +50,7 @@ class Job {
   Job(
       {this.id,
       this.title,
-      this.status = "opened",
+      this.status,
       this.category,
       this.contractType = "",
       this.salary,

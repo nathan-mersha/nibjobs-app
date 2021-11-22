@@ -763,13 +763,14 @@ class _JobDetailPageState extends State<JobDetailPage> {
                         decoration: BoxDecoration(
                             color: CustomColor.PRIM_GREEN,
                             borderRadius: BorderRadius.circular(10)),
-                        child: const Text(
-                          "Opened",
+                        child: Text(
+                          job.status!,
                           maxLines: 1,
                           overflow: TextOverflow.fade,
                           textAlign: TextAlign.left,
                           softWrap: false,
-                          style: TextStyle(color: Colors.white, fontSize: 12),
+                          style: const TextStyle(
+                              color: Colors.white, fontSize: 12),
                         ),
                       ),
                     ],
@@ -1213,131 +1214,6 @@ class _JobDetailPageState extends State<JobDetailPage> {
       ),
     );
   }
-
-  // Widget buildSimilarItemsSection(Job job) {
-  //   return Container(
-  //     height: 155,
-  //     child: Column(
-  //       children: [
-  //         FutureBuilder(
-  //             future: getRelatedJob(job),
-  //             builder: (BuildContext context, AsyncSnapshot snapshot) {
-  //               if (snapshot.connectionState == ConnectionState.done &&
-  //                   !snapshot.hasData) {
-  //                 return Message(
-  //                   message: "Could not find related items",
-  //                 );
-  //               } else if (snapshot.connectionState == ConnectionState.done &&
-  //                   snapshot.hasData) {
-  //                 List<Job> newJobs = snapshot.data;
-  //                 return newJobs.isEmpty
-  //                     ? Message(
-  //                         message: "Could not find related items",
-  //                       )
-  //                     : Expanded(
-  //                         child: ListView.builder(
-  //                             shrinkWrap: false,
-  //                             scrollDirection: Axis.horizontal,
-  //                             itemCount: newJobs.length,
-  //                             itemBuilder: (BuildContext context, int index) {
-  //                               return Padding(
-  //                                 padding: const EdgeInsets.all(8.0),
-  //                                 child: AspectRatio(
-  //                                   aspectRatio: 0.7,
-  //                                   child: GestureDetector(
-  //                                     onTap: () {
-  //                                       Navigator.pushNamed(
-  //                                           context, RouteTo.JOB_DETAIL,
-  //                                           arguments: newJobs[index]);
-  //                                     },
-  //                                     child: Container(
-  //                                         // child: CachedNetworkImage(
-  //                                         //   imageUrl: newJobs[index].image![0],
-  //                                         //   imageBuilder: (context, imageProvider) {
-  //                                         //     return Container(
-  //                                         //       decoration: BoxDecoration(
-  //                                         //           image: DecorationImage(
-  //                                         //             image: imageProvider,
-  //                                         //             fit: BoxFit.cover,
-  //                                         //           ),
-  //                                         //           borderRadius:
-  //                                         //               BorderRadius.circular(20)),
-  //                                         //     );
-  //                                         //   },
-  //                                         //   useOldImageOnUrlChange: true,
-  //                                         //   placeholderFadeInDuration:
-  //                                         //       const Duration(microseconds: 100),
-  //                                         //   errorWidget: (BuildContext context,
-  //                                         //       String imageURL, dynamic) {
-  //                                         //     return JobPlaceholder(job: job);
-  //                                         //   },
-  //                                         //   placeholder: (BuildContext context,
-  //                                         //       String imageURL) {
-  //                                         //     return BackdropFilter(
-  //                                         //       filter: ImageFilter.blur(
-  //                                         //           sigmaX: 10.0, sigmaY: 10.0),
-  //                                         //       child: Container(
-  //                                         //         decoration: BoxDecoration(
-  //                                         //             borderRadius:
-  //                                         //                 BorderRadius.circular(20),
-  //                                         //             color: Colors.grey
-  //                                         //                 .withOpacity(0.0)),
-  //                                         //       ),
-  //                                         //     );
-  //                                         //   },
-  //                                         // ),
-  //                                         ),
-  //                                   ),
-  //                                 ),
-  //                               );
-  //                             }),
-  //                       );
-  //               } else if (snapshot.hasError) {
-  //                 return Container(
-  //                   child: Center(
-  //                       child: Text(
-  //                     snapshot.error.toString(),
-  //                     style: const TextStyle(color: Colors.black45),
-  //                   )),
-  //                 );
-  //               } else {
-  //                 return Expanded(
-  //                   child: Center(
-  //                     child: Message(
-  //                       icon: CustomIcons.getHorizontalLoading(),
-  //                       message:
-  //                           StringRsr.get(LanguageKey.LOADING, firstCap: true),
-  //                     ),
-  //                   ),
-  //                 );
-  //               }
-  //             }),
-  //       ],
-  //     ),
-  //   );
-  // }
-
-  // Future<List<Job>> getRelatedJob(Job job) async {
-  //   QuerySnapshot querySnapshot = await FirebaseFirestore.instance
-  //       .collection(Job.COLLECTION_NAME)
-  //       .where(Job.CATEGORY, isEqualTo: job.category)
-  //       //.where(Job.SUB_CATEGORY, isEqualTo: job.subCategory)
-  //       .where(Job.TAGS, arrayContainsAny: job.tags)
-  //       .limit(relatedJobLimit as int)
-  //       .orderBy(Job.LAST_MODIFIED, descending: true)
-  //       .get();
-  //
-  //   List<DocumentSnapshot> documentSnapshot = querySnapshot.docs;
-  //
-  //   List<Job> jobs = documentSnapshot.map((DocumentSnapshot documentSnapshot) {
-  //     Job p = Job.toModel(documentSnapshot.data());
-  //     p.id = documentSnapshot.id;
-  //
-  //     return p;
-  //   }).toList();
-  //
-  //   return jobs;
-  // }
 
   void _lunchMapsUrl(double lat, double long) async {
     final url = 'https://www.google.com/maps/search/?api=1&query=$lat,$long';
