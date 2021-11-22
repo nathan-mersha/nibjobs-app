@@ -727,7 +727,7 @@ class _JobDetailPageState extends State<JobDetailPage> {
                             fontWeight: FontWeight.bold),
                       ),
                       AutoSizeText(
-                        "number of position",
+                        " number of position",
                         style: Theme.of(context).textTheme.subtitle2,
                       ),
                     ],
