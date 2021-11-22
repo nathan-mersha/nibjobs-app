@@ -718,11 +718,19 @@ class _JobDetailPageState extends State<JobDetailPage> {
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  AutoSizeText(
-                    "${job.availablePositions.toString()} number of position",
-                    style: const TextStyle(
-                        color: CustomColor.TEXT_COLOR_GRAY,
-                        fontWeight: FontWeight.bold),
+                  Row(
+                    children: [
+                      AutoSizeText(
+                        job.availablePositions.toString(),
+                        style: const TextStyle(
+                            color: CustomColor.TEXT_COLOR_GRAY,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      AutoSizeText(
+                        "number of position",
+                        style: Theme.of(context).textTheme.subtitle2,
+                      ),
+                    ],
                   ),
                   const SizedBox(
                     height: 5,
