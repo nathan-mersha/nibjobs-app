@@ -52,7 +52,7 @@ class JobView extends StatefulWidget {
               return Text(
                 detailPage
                     ? "${job.jobChannel!.name![0].toUpperCase()}${job.jobChannel!.name![1].toUpperCase()}"
-                    : "${job.company!.name![0].toUpperCase()} ${job.company!.name![1].toUpperCase()}",
+                    : "${job.company!.name![0].toUpperCase()}${job.company!.name![1].toUpperCase()}",
                 style: const TextStyle(
                   fontSize: 20,
                   color: CustomColor.TEXT_COLOR_GRAY,
