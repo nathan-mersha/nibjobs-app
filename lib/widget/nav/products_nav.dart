@@ -55,11 +55,11 @@ class _JobNavigationState extends State<JobNavigation> {
         // });
         if (mounted) {
           BlocProvider.of<NavBloc>(context).add(NavStatusEvent(
-            adList: global.globalConfig.ad!,
+            adList: global.globalConfig.ad ?? [],
             amCategories: global.localConfig.amCategory,
             categories: global.localConfig.categories,
             category: global.localConfig.selectedCategory,
-            subCategories: global.localConfig.selectedCategory.tags!,
+            subCategories: global.localConfig.selectedCategory.tags ?? [],
           ));
         }
       });

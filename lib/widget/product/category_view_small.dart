@@ -1,17 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:nibjobs/bloc/category/category_bloc.dart';
 import 'package:nibjobs/db/k_shared_preference.dart';
 import 'package:nibjobs/global.dart' as global;
 import 'package:nibjobs/model/config/global.dart';
-import 'package:nibjobs/rsr/locale/string_rsr.dart';
 import 'package:nibjobs/rsr/theme/color.dart';
-import 'package:nibjobs/themes/light_color.dart';
-import 'package:nibjobs/themes/theme.dart';
 
 class CategoryViewSmall extends StatefulWidget {
-  final Category _job;
+  final String _job;
   final String size;
   final bool pageAdmin;
   static const String SIZE_SMALL = "SIZE_SMALL";
@@ -65,7 +60,7 @@ class _CategoryViewSmallState extends State<CategoryViewSmall> {
     List<String> proFavList =
         await hSharedPreference.get(HSharedPreference.LIST_OF_FAV_CATEGORY) ??
             [];
-    if (proFavList.contains(widget._job.name)) {
+    if (proFavList.contains(widget._job)) {
       setState(() {
         isSelected = true;
       });
@@ -80,7 +75,7 @@ class _CategoryViewSmallState extends State<CategoryViewSmall> {
     List<String> proFavList =
         await hSharedPreference.get(HSharedPreference.LIST_OF_FAV_CATEGORY) ??
             [];
-    proFavList.add(widget._job.name!);
+    proFavList.add(widget._job);
 
     await hSharedPreference.set(
         HSharedPreference.LIST_OF_FAV_CATEGORY, proFavList);
@@ -90,112 +85,71 @@ class _CategoryViewSmallState extends State<CategoryViewSmall> {
     List<String> proFavList =
         await hSharedPreference.get(HSharedPreference.LIST_OF_FAV_CATEGORY) ??
             [];
-    proFavList.remove(widget._job.name);
+    proFavList.remove(widget._job);
 
     await hSharedPreference.set(
         HSharedPreference.LIST_OF_FAV_CATEGORY, proFavList);
-    BlocProvider.of<CategoryBloc>(context)
-        .add(CategoryNumber(categoryNumber: 5 - proFavList.length));
+    // BlocProvider.of<CategoryBloc>(context)
+    //     .add(CategoryNumber(categoryNumber: 5 - proFavList.length));
   }
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () async {
-        ///here
-
+    return ElevatedButton(
+      style: ButtonStyle(
+        backgroundColor: MaterialStateProperty.all<Color>(
+            isSelected ? CustomColor.RAD_DARK : CustomColor.GRAY_VERY_LIGHT),
+      ),
+      onPressed: () async {
         isSelected = !isSelected;
         if (isSelected) {
           List<String> number = await hSharedPreference
                   .get(HSharedPreference.LIST_OF_FAV_CATEGORY) ??
               [];
-          if (number.length < 5) {
-            addToList();
-            BlocProvider.of<CategoryBloc>(context)
-                .add(CategoryNumber(categoryNumber: 5 - (number.length + 1)));
-          } else {
-            isSelected = false;
-          }
+
+          addToList();
+          // BlocProvider.of<CategoryBloc>(context)
+          //     .add(CategoryNumber(categoryNumber: 5 - (number.length + 1)));
+
         } else {
           removeInList();
         }
         setState(() {});
       },
-      child: Container(
-        decoration: BoxDecoration(
-          border:
-              Border.all(color: LightColor.iconColor, style: BorderStyle.none),
-          borderRadius: BorderRadius.all(Radius.circular(10)),
-          // color:
-          // isOutLine ? Colors.transparent : Theme.of(context).backgroundColor,
-        ),
-        child: Card(
-          elevation: 0,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-          child: Stack(
-            fit: StackFit.expand,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                children: <Widget>[
-                  // Image thumbnail or image place holder
-                  Container(
-                    margin: EdgeInsets.symmetric(vertical: 8, horizontal: 20),
-                    height: AppTheme.fullWidth(context) < 330 ? 40 : 40,
-                    width: AppTheme.fullWidth(context) < 330 ? 40 : 40,
-                    decoration: BoxDecoration(
-                        color: CustomColor.RAD_DARK,
-                        borderRadius: BorderRadius.circular(40)),
-                    child: Padding(
-                      padding: const EdgeInsets.all(6.0),
-                      child: CategoryViewSmall.getThumbnailView(widget._job,
-                          size: CategoryViewSmall.SIZE_MEDIUM),
-                    ),
-                  ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: <Widget>[
+          // Image thumbnail or image place holder
 
-                  Container(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      children: <Widget>[
-                        // Category name
-                        Text(
-                          StringRsr.locale != "et_am"
-                              ? widget._job.name
-                              : amCategories!["am"][widget._job.name],
-                          maxLines: 2,
-                          overflow: TextOverflow.ellipsis,
-                          textAlign: TextAlign.center,
-                          softWrap: false,
-                          style:
-                              Theme.of(context).textTheme.subtitle2!.copyWith(
-                                    color: Colors.black54,
-                                  ),
-                          // style: const TextStyle(
-                          //     color: Colors.black54,
-                          //     fontSize: AppTheme.fullWidth(context) < 330 ? 12 : 19),
-                        ),
-
-                        // Category price and regular price
-                      ],
+          Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              // Category name
+              Text(
+                // StringRsr.locale != "et_am"
+                //     ? widget._job.name!
+                //     : amCategories!["am"][widget._job.name],
+                widget._job,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+                textAlign: TextAlign.center,
+                softWrap: false,
+                style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                      color: isSelected
+                          ? Theme.of(context).primaryColor
+                          : Colors.black54,
                     ),
-                  )
-                ],
+                // style: const TextStyle(
+                //     color: Colors.black54,
+                //     fontSize: AppTheme.fullWidth(context) < 330 ? 12 : 19),
               ),
-              Visibility(
-                visible: !isSelected,
-                child: Container(
-                  decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(20),
-                      color: CustomColor.GRAY_LIGHT.withOpacity(0.7)),
-                ),
-              ),
+
+              // Category price and regular price
             ],
-          ),
-        ),
+          )
+        ],
       ),
     );
   }

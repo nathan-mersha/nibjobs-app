@@ -274,6 +274,9 @@ class _JobViewState extends State<JobView> {
                 }
                 Navigator.pushNamed(context, RouteTo.JOB_DETAIL,
                     arguments: widget._job);
+              } else {
+                Navigator.pushNamed(context, RouteTo.JOB_DETAIL,
+                    arguments: widget._job);
               }
             } else {
               Navigator.pop(context);
