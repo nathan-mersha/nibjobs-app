@@ -97,7 +97,7 @@ class _JobDetailPageState extends State<JobDetailPage> {
           onTap: () async {
             /// todo : here
             String url =
-                "https://kelem.page.link/?link=https://kelem.et/job?id=${job.id}&apn=com.kelem.kelemapp&isi=1588695130&ibi=com.kelem.kelemapp";
+                "https://nibjobs.page.link/?link=https://nibjobs.et/job?id=${job.id}&apn=com.kelem.nibjobs&isi=1588695130&ibi=com.kelem.nibjobs";
             Share.share(url);
           },
           child: Container(

@@ -1,7 +1,10 @@
+import 'dart:io';
+
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nibjobs/api/flutterfire.dart';
 import 'package:nibjobs/bloc/user/user_bloc.dart';
 import 'package:nibjobs/db/k_shared_preference.dart';
 import 'package:nibjobs/model/profile/company.dart';
@@ -420,6 +423,27 @@ class Menu {
                   "\n\nPlaystore\nhttps://bit.ly/kelem_app_playstore_v1"
                   "\n\nAppstore\nhttps://bit.ly/kelem_app_appstore_v1";
               Share.share(shareMessage);
+            },
+          ),
+        ),
+        Padding(
+          padding: const EdgeInsets.only(left: 30.0),
+          child: ListTile(
+            leading: const Icon(
+              NibCustomIcons.share,
+              color: Color(0xff808080),
+            ),
+            title: const Text(
+              //StringRsr.get(LanguageKey.SHARE, firstCap: true)!,
+              "Rate us",
+              style: TextStyle(color: Color(0xff000000)),
+            ),
+            onTap: () {
+              if (Platform.isAndroid) {
+                makeWebCall('https://bit.ly/kelem_app_playstore_v1');
+              } else {
+                makeWebCall('https://bit.ly/kelem_app_appstore_v1');
+              }
             },
           ),
         ),
