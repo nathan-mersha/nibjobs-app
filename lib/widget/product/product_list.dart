@@ -222,10 +222,9 @@ class _JobListState extends State<JobList> {
                                       ),
                                     );
                                   }
-
                                   return BlocBuilder<AdsesCubit, AdsesState>(
                                     builder: (context, state) {
-                                      return Container(
+                                      return SizedBox(
                                         height: 50,
                                         child: AdWidget(
                                           ad: BannerAd(
@@ -235,8 +234,8 @@ class _JobListState extends State<JobList> {
                                                   : "",
                                               listener: state is AdsesInitial
                                                   ? state.adState.listener
-                                                  : BannerAdListener(),
-                                              request: AdRequest())
+                                                  : const BannerAdListener(),
+                                              request: const AdRequest())
                                             ..load(),
                                         ),
                                       );
@@ -411,7 +410,7 @@ class _JobListState extends State<JobList> {
                                                 );
                                               }
 
-                                              return Container(
+                                              return SizedBox(
                                                 height: 50,
                                                 child: AdWidget(
                                                   ad: BannerAd(

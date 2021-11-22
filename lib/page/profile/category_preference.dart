@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nibjobs/api/flutterfire.dart';
+import 'package:nibjobs/bloc/button/button_bloc.dart';
 import 'package:nibjobs/db/k_shared_preference.dart';
 import 'package:nibjobs/global.dart' as global;
 import 'package:nibjobs/model/config/global.dart';
@@ -50,143 +52,167 @@ class _CategoryPreferencePageState extends State<CategoryPreferencePage> {
       ),
       body: Container(
         width: double.infinity,
-        color: LightColor.lightGrey,
+        color: Colors.white,
         child: Container(
           width: AppTheme.fullWidth(context),
           child: SizedBox.expand(
             child: Container(
-              color: LightColor.lightGrey,
-              child: Container(
-                child: Card(
-                    color: LightColor.lightGrey,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12.0)),
-                    elevation: 0.3,
-                    child: Container(
-                      padding: EdgeInsets.symmetric(
-                          horizontal:
-                              AppTheme.fullWidth(context) < 361 ? 10 : 15),
-                      child: Column(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: <Widget>[
-                            // Padding(
-                            //   padding:
-                            //       const EdgeInsets.only(left: 28.0, bottom: 20),
-                            //   child: Column(
-                            //     mainAxisAlignment: MainAxisAlignment.center,
-                            //     crossAxisAlignment: CrossAxisAlignment.start,
-                            //     children: [
-                            //       // Text(
-                            //       //   StringRsr.get(
-                            //       //       LanguageKey.CATEGORY_PREFERENCES,
-                            //       //       firstCap: true)!,
-                            //       //   style: Theme.of(context)
-                            //       //       .textTheme
-                            //       //       .headline5!
-                            //       //       .copyWith(
-                            //       //           color: CustomColor.TEXT_DARK,
-                            //       //           fontWeight: FontWeight.bold),
-                            //       // ),
-                            //       // const SizedBox(
-                            //       //   height: 5,
-                            //       // ),
-                            //       // BlocBuilder<CategoryBloc, CategoryState>(
-                            //       //   builder: (context, state) {
-                            //       //     if (state is CategoryInitial) {
-                            //       //       debugPrint(
-                            //       //           "state ${state.categoryNumber}");
-                            //       //       return Text(
-                            //       //         StringRsr.get(LanguageKey
-                            //       //                 .SELECT_UP_TO_5_CATEGORIES)!
-                            //       //             .replaceAll(
-                            //       //                 "5",
-                            //       //                 state.categoryNumber
-                            //       //                     .toString()),
-                            //       //         style: Theme.of(context)
-                            //       //             .textTheme
-                            //       //             .subtitle2!
-                            //       //             .copyWith(
-                            //       //                 color: CustomColor.GRAY_LIGHT,
-                            //       //                 fontWeight: FontWeight.bold),
-                            //       //       );
-                            //       //     }
-                            //       //     return Container();
-                            //       //   },
-                            //       // ),
-                            //     ],
-                            //   ),
-                            // ),
-                            Expanded(
-                              child: FutureBuilder(
-                                future: getCategory(),
-                                builder: (BuildContext context,
-                                    AsyncSnapshot snapshot) {
-                                  if (snapshot.hasData &&
-                                      snapshot.connectionState ==
-                                          ConnectionState.done) {
-                                    // Got data and connection is done
-                                    Category? allCategory;
-                                    List<Category> newCategories =
-                                        snapshot.data;
-                                    for (var element in newCategories) {
-                                      if (element.name == "all") {
-                                        allCategory = element;
-                                      }
+              color: Colors.white,
+              child: Card(
+                  color: Colors.white,
+                  shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(12.0)),
+                  elevation: 0.3,
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                        horizontal:
+                            AppTheme.fullWidth(context) < 361 ? 10 : 15),
+                    child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: <Widget>[
+                          Padding(
+                            padding:
+                                const EdgeInsets.only(left: 28.0, bottom: 20),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  "Job Notification",
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .headline5!
+                                      .copyWith(
+                                          color: CustomColor.TEXT_DARK,
+                                          fontWeight: FontWeight.bold),
+                                ),
+                                const SizedBox(
+                                  height: 5,
+                                ),
+                                BlocBuilder<ButtonBloc, ButtonState>(
+                                  builder: (context, state) {
+                                    if (state is ButtonInitial) {
+                                      return Row(
+                                        children: [
+                                          Text(
+                                            "you will be notified for",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .subtitle2!
+                                                .copyWith(
+                                                    color:
+                                                        CustomColor.GRAY_LIGHT,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                          ),
+                                          Text(
+                                            " ${state.categoryList.length} ",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .subtitle2!
+                                                .copyWith(
+                                                    color: Theme.of(context)
+                                                        .primaryColor,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                          ),
+                                          Text(
+                                            "jobs",
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .subtitle2!
+                                                .copyWith(
+                                                    color:
+                                                        CustomColor.GRAY_LIGHT,
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                          ),
+                                        ],
+                                      );
                                     }
-                                    if (allCategory != null) {
-                                      newCategories.remove(allCategory);
+                                    return Container();
+                                  },
+                                ),
+                              ],
+                            ),
+                          ),
+                          Expanded(
+                            child: FutureBuilder(
+                              future: getCategory(),
+                              builder: (BuildContext context,
+                                  AsyncSnapshot snapshot) {
+                                if (snapshot.hasData &&
+                                    snapshot.connectionState ==
+                                        ConnectionState.done) {
+                                  // Got data and connection is done
+                                  Category? allCategory;
+                                  List<Category> newCategories = snapshot.data;
+                                  for (var element in newCategories) {
+                                    if (element.name == "all") {
+                                      allCategory = element;
                                     }
-
-                                    // Got data here
-                                    return newCategories.isEmpty
-                                        ? Message(
-                                            message:
-                                                "${StringRsr.get(LanguageKey.NO, firstCap: true)} ${StringRsr.get(LanguageKey.FOUND)}",
-                                            icon: Icon(
-                                              Icons.whatshot,
-                                              color: Theme.of(context)
-                                                  .primaryColor,
-                                              size: 45,
-                                            ),
-                                          )
-                                        : GridView.builder(
-                                            // controller:
-                                            // _scrollController,
-                                            shrinkWrap: false,
-                                            gridDelegate:
-                                                SliverGridDelegateWithFixedCrossAxisCount(
-                                                    crossAxisCount:
-                                                        jobViewH(context) != .70
-                                                            ? 1
-                                                            : 1,
-                                                    mainAxisSpacing: 5,
-                                                    childAspectRatio: jobViewH(
-                                                                context) ==
-                                                            .7
-                                                        ? 7 / 5
-                                                        : jobViewH(context) ==
-                                                                .20
-                                                            ? 7 / 3
-                                                            : 7 / 3),
-                                            itemCount: newCategories.length,
-                                            itemBuilder: (BuildContext context,
-                                                int index) {
-                                              return buildCategoryViewSmall(
-                                                  newCategories, index);
-                                            });
-                                  } else {
-                                    return buildGridViewLoading(context);
                                   }
-                                },
-                              ),
+                                  if (allCategory != null) {
+                                    newCategories.remove(allCategory);
+                                  }
+
+                                  // Got data here
+                                  return newCategories.isEmpty
+                                      ? Message(
+                                          message:
+                                              "${StringRsr.get(LanguageKey.NO, firstCap: true)} ${StringRsr.get(LanguageKey.FOUND)}",
+                                          icon: Icon(
+                                            Icons.whatshot,
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                            size: 45,
+                                          ),
+                                        )
+                                      : ListView.builder(
+                                          // controller:
+                                          // _scrollController,
+                                          // shrinkWrap: false,
+                                          // gridDelegate:
+                                          //     SliverGridDelegateWithFixedCrossAxisCount(
+                                          //         crossAxisCount:
+                                          //             jobViewH(context) != .70
+                                          //                 ? 1
+                                          //                 : 1,
+                                          //         mainAxisSpacing: 5,
+                                          //         childAspectRatio: jobViewH(
+                                          //                     context) ==
+                                          //                 .7
+                                          //             ? 7 / 5
+                                          //             : jobViewH(context) ==
+                                          //                     .20
+                                          //                 ? 7 / 3
+                                          //                 : 7 / 3),
+                                          itemCount: newCategories.length,
+                                          itemBuilder: (BuildContext context,
+                                              int index) {
+                                            return Padding(
+                                              padding: const EdgeInsets.only(
+                                                  bottom: 10.0),
+                                              child: buildCategoryViewSmall(
+                                                  newCategories, index),
+                                            );
+                                          });
+                                } else {
+                                  return buildGridViewLoading(context);
+                                }
+                              },
                             ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            Center(
-                              child: GestureDetector(
-                                onTap: () async {
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          Center(
+                            child: SizedBox(
+                              width: 200,
+                              height: 40,
+                              child: ElevatedButton(
+                                onPressed: () async {
                                   hSharedPreference.set(
                                       HSharedPreference.SELECT_PREFERENCE,
                                       true);
@@ -214,34 +240,21 @@ class _CategoryPreferencePageState extends State<CategoryPreferencePage> {
                                   //   showInfo = false;
                                   // });
                                 },
-                                child: Container(
-                                  width: 200,
-                                  height: 40,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      color: Theme.of(context).primaryColor),
-                                  padding: const EdgeInsets.only(
-                                    left: 15,
-                                    top: 5,
-                                    bottom: 10,
-                                    right: 15,
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      StringRsr.get(LanguageKey.CONTINUE)!,
-                                      style:
-                                          const TextStyle(color: Colors.white),
-                                    ),
+                                child: Center(
+                                  child: Text(
+                                    StringRsr.get(LanguageKey.CONTINUE)!,
+                                    style: TextStyle(
+                                        color: Theme.of(context).primaryColor),
                                   ),
                                 ),
                               ),
                             ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                          ]),
-                    )),
-              ),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                        ]),
+                  )),
             ),
           ),
         ),
@@ -251,46 +264,9 @@ class _CategoryPreferencePageState extends State<CategoryPreferencePage> {
 
   Widget buildCategoryViewSmall(List<Category> newCategories, int i) {
     //return CategoryViewSmall(newCategories[index]);
-    return Card(
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(20),
-      ),
-      // elevation: 0,
-      // color: LightColor.lightGrey,
-      child: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            Padding(
-              padding: const EdgeInsets.all(8.0),
-              child: Text(
-                newCategories[i].name!,
-                style: Theme.of(context).textTheme.subtitle1,
-              ),
-            ),
-            Expanded(
-              child: ListView(
-                primary: true,
-                shrinkWrap: false,
-                children: [
-                  Wrap(
-                    alignment: WrapAlignment.start,
-                    runSpacing: 4,
-                    spacing: 3,
-                    children: newCategories[i]
-                        .tags!
-                        .map((e) => CategoryViewSmall(e))
-                        .toSet()
-                        .toList(),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
+    return ListForCategory(
+      category: newCategories[i],
+      viewJob: i == 0,
     );
   }
 

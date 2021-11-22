@@ -17,6 +17,7 @@ import 'api/app_builder.dart';
 import 'api/config/global.dart';
 import 'api/flutterfire.dart';
 import 'bloc/ads/ad_helper.dart';
+import 'bloc/button/button_bloc.dart';
 import 'bloc/category/category_bloc.dart';
 import 'bloc/description/description_cubit.dart';
 import 'bloc/down/down_bloc.dart';
@@ -110,6 +111,9 @@ class MyAppState extends State<MyApp> {
 
     return MultiBlocProvider(
       providers: [
+        BlocProvider(
+          create: (context) => ButtonBloc(proFavList!),
+        ),
         BlocProvider(
           create: (context) => NavBloc(),
         ),
