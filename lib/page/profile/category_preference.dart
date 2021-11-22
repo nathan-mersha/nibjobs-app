@@ -70,53 +70,53 @@ class _CategoryPreferencePageState extends State<CategoryPreferencePage> {
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: <Widget>[
-                            Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 28.0, bottom: 20),
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  // Text(
-                                  //   StringRsr.get(
-                                  //       LanguageKey.CATEGORY_PREFERENCES,
-                                  //       firstCap: true)!,
-                                  //   style: Theme.of(context)
-                                  //       .textTheme
-                                  //       .headline5!
-                                  //       .copyWith(
-                                  //           color: CustomColor.TEXT_DARK,
-                                  //           fontWeight: FontWeight.bold),
-                                  // ),
-                                  const SizedBox(
-                                    height: 5,
-                                  ),
-                                  // BlocBuilder<CategoryBloc, CategoryState>(
-                                  //   builder: (context, state) {
-                                  //     if (state is CategoryInitial) {
-                                  //       debugPrint(
-                                  //           "state ${state.categoryNumber}");
-                                  //       return Text(
-                                  //         StringRsr.get(LanguageKey
-                                  //                 .SELECT_UP_TO_5_CATEGORIES)!
-                                  //             .replaceAll(
-                                  //                 "5",
-                                  //                 state.categoryNumber
-                                  //                     .toString()),
-                                  //         style: Theme.of(context)
-                                  //             .textTheme
-                                  //             .subtitle2!
-                                  //             .copyWith(
-                                  //                 color: CustomColor.GRAY_LIGHT,
-                                  //                 fontWeight: FontWeight.bold),
-                                  //       );
-                                  //     }
-                                  //     return Container();
-                                  //   },
-                                  // ),
-                                ],
-                              ),
-                            ),
+                            // Padding(
+                            //   padding:
+                            //       const EdgeInsets.only(left: 28.0, bottom: 20),
+                            //   child: Column(
+                            //     mainAxisAlignment: MainAxisAlignment.center,
+                            //     crossAxisAlignment: CrossAxisAlignment.start,
+                            //     children: [
+                            //       // Text(
+                            //       //   StringRsr.get(
+                            //       //       LanguageKey.CATEGORY_PREFERENCES,
+                            //       //       firstCap: true)!,
+                            //       //   style: Theme.of(context)
+                            //       //       .textTheme
+                            //       //       .headline5!
+                            //       //       .copyWith(
+                            //       //           color: CustomColor.TEXT_DARK,
+                            //       //           fontWeight: FontWeight.bold),
+                            //       // ),
+                            //       // const SizedBox(
+                            //       //   height: 5,
+                            //       // ),
+                            //       // BlocBuilder<CategoryBloc, CategoryState>(
+                            //       //   builder: (context, state) {
+                            //       //     if (state is CategoryInitial) {
+                            //       //       debugPrint(
+                            //       //           "state ${state.categoryNumber}");
+                            //       //       return Text(
+                            //       //         StringRsr.get(LanguageKey
+                            //       //                 .SELECT_UP_TO_5_CATEGORIES)!
+                            //       //             .replaceAll(
+                            //       //                 "5",
+                            //       //                 state.categoryNumber
+                            //       //                     .toString()),
+                            //       //         style: Theme.of(context)
+                            //       //             .textTheme
+                            //       //             .subtitle2!
+                            //       //             .copyWith(
+                            //       //                 color: CustomColor.GRAY_LIGHT,
+                            //       //                 fontWeight: FontWeight.bold),
+                            //       //       );
+                            //       //     }
+                            //       //     return Container();
+                            //       //   },
+                            //       // ),
+                            //     ],
+                            //   ),
+                            // ),
                             Expanded(
                               child: FutureBuilder(
                                 future: getCategory(),
