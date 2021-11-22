@@ -15,7 +15,7 @@ class Job {
   static const String STATUS = "status";
   static const String CONTRACT_TYPE = "contractType";
   static const String SALARY = "salary";
-  static const String AVAILABLE_POSITIONS = "available_positions";
+  static const String AVAILABLE_POSITIONS = "availablePositions";
   static const String TAGS = "tags";
   static const String DESCRIPTION = "description";
   static const String APPLY_VIA = "applyVia";

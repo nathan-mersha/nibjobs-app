@@ -35,6 +35,7 @@ class JobView extends StatefulWidget {
       {bool expand = true,
       String size = SIZE_MEDIUM,
       bool detailPage = false}) {
+    print("job.jobChannel!.logo! ${job.jobChannel!.logo!}");
     return job.company!.logo == null || job.company!.logo!.isEmpty
         ? Container()
         : CachedNetworkImage(
