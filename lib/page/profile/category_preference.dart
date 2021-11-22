@@ -65,7 +65,7 @@ class _CategoryPreferencePageState extends State<CategoryPreferencePage> {
                     child: Container(
                       padding: EdgeInsets.symmetric(
                           horizontal:
-                              AppTheme.fullWidth(context) < 361 ? 30 : 40),
+                              AppTheme.fullWidth(context) < 361 ? 10 : 15),
                       child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           crossAxisAlignment: CrossAxisAlignment.start,
@@ -77,17 +77,17 @@ class _CategoryPreferencePageState extends State<CategoryPreferencePage> {
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Text(
-                                    StringRsr.get(
-                                        LanguageKey.CATEGORY_PREFERENCES,
-                                        firstCap: true)!,
-                                    style: Theme.of(context)
-                                        .textTheme
-                                        .headline5!
-                                        .copyWith(
-                                            color: CustomColor.TEXT_DARK,
-                                            fontWeight: FontWeight.bold),
-                                  ),
+                                  // Text(
+                                  //   StringRsr.get(
+                                  //       LanguageKey.CATEGORY_PREFERENCES,
+                                  //       firstCap: true)!,
+                                  //   style: Theme.of(context)
+                                  //       .textTheme
+                                  //       .headline5!
+                                  //       .copyWith(
+                                  //           color: CustomColor.TEXT_DARK,
+                                  //           fontWeight: FontWeight.bold),
+                                  // ),
                                   const SizedBox(
                                     height: 5,
                                   ),
