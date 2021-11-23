@@ -43,10 +43,6 @@ class _CategoryPreferencePageState extends State<CategoryPreferencePage> {
             size: 20,
           ),
         ),
-        title: Text(
-          "Notify me for jobs",
-          style: Theme.of(context).textTheme.subtitle1,
-        ),
         elevation: 0,
         backgroundColor: Colors.white,
       ),
@@ -101,8 +97,8 @@ class _CategoryPreferencePageState extends State<CategoryPreferencePage> {
                                                 .textTheme
                                                 .subtitle2!
                                                 .copyWith(
-                                                    color:
-                                                        CustomColor.GRAY_LIGHT,
+                                                    color: CustomColor
+                                                        .TEXT_COLOR_GRAY_LIGHT,
                                                     fontWeight:
                                                         FontWeight.bold),
                                           ),
@@ -110,12 +106,11 @@ class _CategoryPreferencePageState extends State<CategoryPreferencePage> {
                                             " ${state.categoryList.length} ",
                                             style: Theme.of(context)
                                                 .textTheme
-                                                .subtitle2!
+                                                .subtitle1!
                                                 .copyWith(
-                                                    color: Theme.of(context)
-                                                        .primaryColor,
-                                                    fontWeight:
-                                                        FontWeight.bold),
+                                                  color: Colors.orange,
+                                                  fontWeight: FontWeight.bold,
+                                                ),
                                           ),
                                           Text(
                                             "jobs",
@@ -123,8 +118,8 @@ class _CategoryPreferencePageState extends State<CategoryPreferencePage> {
                                                 .textTheme
                                                 .subtitle2!
                                                 .copyWith(
-                                                    color:
-                                                        CustomColor.GRAY_LIGHT,
+                                                    color: CustomColor
+                                                        .TEXT_COLOR_GRAY_LIGHT,
                                                     fontWeight:
                                                         FontWeight.bold),
                                           ),
