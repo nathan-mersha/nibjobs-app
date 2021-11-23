@@ -80,7 +80,7 @@ class _CategoryPreferencePageState extends State<CategoryPreferencePage> {
                                       .textTheme
                                       .headline5!
                                       .copyWith(
-                                          color: CustomColor.TEXT_DARK,
+                                          color: CustomColor.TEXT_COLOR_GRAY,
                                           fontWeight: FontWeight.bold),
                                 ),
                                 const SizedBox(
