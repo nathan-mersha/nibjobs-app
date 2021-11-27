@@ -145,79 +145,88 @@ class _JobDetailPageState extends State<JobDetailPage> {
           },
           child: Stack(
             children: [
-              ListView(
-                shrinkWrap: false,
-                primary: true,
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Column(
-                    mainAxisSize: MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      // Section 1, Image, title, add to cart rating.
-                      Container(
-                        padding: AppTheme.padding,
-                        child: Column(
-                          mainAxisSize: MainAxisSize.max,
+                  Expanded(
+                    child: ListView(
+                      shrinkWrap: false,
+                      primary: true,
+                      children: [
+                        Column(
+                          mainAxisSize: MainAxisSize.min,
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            //buildJobViewSection(job!, context),
-                            buildInfoData(job!),
-                            //buildCompanyInfoData(job!.company!),
+                          children: <Widget>[
+                            // Section 1, Image, title, add to cart rating.
+                            Container(
+                              padding: AppTheme.padding,
+                              child: Column(
+                                mainAxisSize: MainAxisSize.max,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  //buildJobViewSection(job!, context),
+                                  buildInfoData(job!),
+                                  //buildCompanyInfoData(job!.company!),
+                                ],
+                              ),
+                            ),
+
+                            // Section 2, Introduction
+                            //buildIntroductionSection(job),
+
+                            // Divider(
+                            //   height: 20,
+                            // ),
+                            // Section 3, Company Information
+
+                            //buildCompanyInformationSection(company, context, job),
+
+                            // Divider(
+                            //   color: Theme.of(context).primaryColor,
+                            //   height: 20,
+                            // ),
+                            // Section 4, Similar Items
+                            //buildSimilarItemsSection(job)
                           ],
                         ),
-                      ),
-                      Align(
-                        alignment: Alignment.bottomCenter,
-                        child: Container(
-                          alignment: Alignment.bottomCenter,
-                          padding: AppTheme.padding,
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.end,
-                            children: [
-                              //buildSimilarItemsSection(job!),
-                              Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    SizedBox(
-                                      width: 200,
-                                      height: 40,
-                                      child: ElevatedButton(
-                                          onPressed: () {
-                                            makeWebCall(job!.applyLink!);
-                                          },
-                                          child: Text(
-                                            "apply by ${job!.applyVia!}",
-                                            style: TextStyle(
-                                                color: Theme.of(context)
-                                                    .primaryColor),
-                                          )),
-                                    ),
-                                  ],
+                      ],
+                    ),
+                  ),
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                      alignment: Alignment.bottomCenter,
+                      padding: AppTheme.padding,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          //buildSimilarItemsSection(job!),
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                SizedBox(
+                                  width: 200,
+                                  height: 40,
+                                  child: ElevatedButton(
+                                      onPressed: () {
+                                        makeWebCall(job!.applyLink!);
+                                      },
+                                      child: Text(
+                                        "apply by ${job!.applyVia!}",
+                                        style: TextStyle(
+                                            color:
+                                                Theme.of(context).primaryColor),
+                                      )),
                                 ),
-                              ),
-                            ],
+                              ],
+                            ),
                           ),
-                        ),
+                        ],
                       ),
-                      // Section 2, Introduction
-                      //buildIntroductionSection(job),
-
-                      // Divider(
-                      //   height: 20,
-                      // ),
-                      // Section 3, Company Information
-
-                      //buildCompanyInformationSection(company, context, job),
-
-                      // Divider(
-                      //   color: Theme.of(context).primaryColor,
-                      //   height: 20,
-                      // ),
-                      // Section 4, Similar Items
-                      //buildSimilarItemsSection(job)
-                    ],
+                    ),
                   ),
                 ],
               ),
@@ -616,34 +625,56 @@ class _JobDetailPageState extends State<JobDetailPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Row(
-                children: [
-                  const AutoSizeText(
-                    "by",
-                  ),
-                  AutoSizeText(
-                    " ${job.company!.name!}",
-                    style: const TextStyle(
-                        color: CustomColor.TEXT_COLOR_GRAY,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ],
-              ),
-              Container(
-                alignment: Alignment.topRight,
-                child: Text(
-                  timeago.format(job.lastModified!),
-                  maxLines: 2,
-                  overflow: TextOverflow.fade,
-                  textAlign: TextAlign.right,
-                  softWrap: false,
-                  style: const TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.bold,
-                    color: CustomColor.PRIM_GREEN,
-                  ),
+              Text.rich(
+                TextSpan(
+                  children: [
+                    const TextSpan(text: 'by'),
+                    TextSpan(
+                      text: job.company!.name!,
+                      style: const TextStyle(
+                          color: CustomColor.TEXT_COLOR_GRAY,
+                          fontWeight: FontWeight.bold),
+                    ),
+                    TextSpan(
+                      text: timeago.format(job.lastModified!),
+                      style: const TextStyle(
+                        fontSize: 10,
+                        fontWeight: FontWeight.bold,
+                        color: CustomColor.PRIM_GREEN,
+                      ),
+                    ),
+                  ],
                 ),
               ),
+              // Row(
+              //   children: [
+              //     const AutoSizeText(
+              //       "by",
+              //     ),
+              //     AutoSizeText(
+              //       " ${job.company!.name!}",
+              //       style: const TextStyle(
+              //           color: CustomColor.TEXT_COLOR_GRAY,
+              //           fontWeight: FontWeight.bold),
+              //     ),
+              //
+              //   ],
+              // ),
+              // Container(
+              //   alignment: Alignment.topRight,
+              //   child: Text(
+              //     timeago.format(job.lastModified!),
+              //     maxLines: 2,
+              //     overflow: TextOverflow.fade,
+              //     textAlign: TextAlign.right,
+              //     softWrap: false,
+              //     style: const TextStyle(
+              //       fontSize: 10,
+              //       fontWeight: FontWeight.bold,
+              //       color: CustomColor.PRIM_GREEN,
+              //     ),
+              //   ),
+              // ),
             ],
           ),
           // Column(

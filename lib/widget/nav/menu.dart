@@ -134,10 +134,10 @@ class Menu {
                         ),
                       );
                     } else if (state is UserSignedOutState) {
-                      return Text(
-                        StringRsr.get(LanguageKey.LET_US_KNOW_YOU,
-                            firstCap: true)!,
-                        style: const TextStyle(
+                      return const Text(
+                        //StringRsr.get(LanguageKey.LET_US_KNOW_YOU, firstCap: true)!,
+                        "welcome to Nib free",
+                        style: TextStyle(
                           color: CustomColor.GRAY_LIGHT,
                           fontWeight: FontWeight.bold,
                         ),
@@ -171,7 +171,7 @@ class Menu {
               color: Color(0xff808080),
             ),
             title: Text(
-              StringRsr.get(LanguageKey.HOME, firstCap: true)!,
+              StringRsr.get(LanguageKey.JOBS, firstCap: true)!,
               style: const TextStyle(color: Color(0xff000000)),
             ),
             onTap: () {
@@ -320,7 +320,7 @@ class Menu {
         Padding(
           padding: const EdgeInsets.only(left: 30.0),
           child: ListTile(
-            leading: Icon(
+            leading: const Icon(
               NibCustomIcons.category,
               color: Color(0xff808080),
             ),
@@ -331,7 +331,7 @@ class Menu {
             onTap: () {
               Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (_) {
-                return HomePage(
+                return const HomePage(
                   isSubCategoryPageSelected: true,
                 );
               }));
@@ -345,7 +345,7 @@ class Menu {
         Padding(
           padding: const EdgeInsets.only(left: 30.0),
           child: ListTile(
-            leading: Icon(
+            leading: const Icon(
               NibCustomIcons.notification,
               color: Color(0xff808080),
             ),
@@ -369,7 +369,7 @@ class Menu {
         Padding(
           padding: const EdgeInsets.only(left: 30.0),
           child: ListTile(
-            leading: Icon(
+            leading: const Icon(
               NibCustomIcons.settings,
               color: Color(0xff808080),
             ),

@@ -119,7 +119,7 @@ class _CompanyJobNavigationState extends State<CompanyJobNavigation> {
                                       Theme.of(context).primaryColor,
                                   unselectedLabelColor: CustomColor.GRAY,
                                   indicatorSize: TabBarIndicatorSize.tab,
-                                  labelColor: Colors.white,
+                                  labelColor: CustomColor.TEXT_COLOR_GRAY,
                                   indicator: BoxDecoration(
                                       borderRadius: BorderRadius.circular(20),
                                       color: Theme.of(context).primaryColor),
