@@ -613,7 +613,7 @@ class _KelemSearchPageState extends State<KelemSearchPage> {
           onTap: () async {
             /// todo : here
             String url =
-                "https://nibjobs.page.link/?link=https://nibjobs.et/job?companyId=${company.id}&apn=com.kelem.nibjobs&isi=1588695130&ibi=com.kelem.nibjobs";
+                "https://nibjobs.page.link/?link=https://nibjobs.com/job?companyId=${company.id}&apn=com.kelem.nibjobs&isi=1588695130&ibi=com.kelem.nibjobs";
             Share.share(url);
           },
           child: Container(

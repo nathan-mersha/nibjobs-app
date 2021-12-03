@@ -82,14 +82,14 @@ class _LanguagePageState extends State<LanguagePage> {
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: <Widget>[
                             Column(
-                              children: [
-                                const Text(
+                              children: const [
+                                Text(
                                   "እባክዎ ቋንቋ ይምረጡ",
                                   style: TextStyle(
                                       fontSize: 16,
                                       color: CustomColor.GRAY_DARK),
                                 ),
-                                const Text(
+                                Text(
                                   "please select a language",
                                   style: TextStyle(
                                       fontSize: 16, color: CustomColor.GRAY),
