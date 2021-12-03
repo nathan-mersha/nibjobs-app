@@ -35,6 +35,7 @@ import 'package:nibjobs/page/wallet/dashboard.dart';
 import 'package:nibjobs/page/wallet/login.dart';
 import 'package:nibjobs/page/wallet/send_credit.dart';
 import 'package:nibjobs/widget/nav/category_job_selected.dart';
+import 'package:nibjobs/widget/nav/notification_job_nav.dart';
 
 class RouteTo {
   // Root path
@@ -98,6 +99,8 @@ class RouteTo {
   static const String WALLET_LOGIN = "/wallet/login";
   static const String WALLET_SEND_CREDIT = "/wallet/send/credit";
   static const String CATEGORY_PREFERENCE = "/info/preference";
+
+  static const String JOB_Notification = "/notification/job";
 
   var routes;
   RouteTo() {
@@ -171,6 +174,8 @@ class RouteTo {
           SafeArea(child: CompanyJobPage()),
       NOTIFICATION: (BuildContext context) =>
           SafeArea(child: NotificationsPage()),
+      JOB_Notification: (BuildContext context) =>
+          SafeArea(child: NotificationJobNav()),
 
       /// Wallet pages
       WALLET_CASH_OUT: (BuildContext context) => SafeArea(child: CashOutPage()),

@@ -78,7 +78,7 @@ class _HelpPageState extends State<HelpPage> {
     setDeviceSpecificValues(context);
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(100),
+          preferredSize: const Size.fromHeight(50),
           child: getAppBar2(context, "Help")),
       drawer: Menu.getSideDrawer(context),
       body: Container(
@@ -94,12 +94,12 @@ class _HelpPageState extends State<HelpPage> {
                 children: <Widget>[
                   Text(
                     StringRsr.get(LanguageKey.FAQL, firstCap: true)!,
-                    style:  TextStyle(
+                    style: TextStyle(
                         fontSize: titleFont, fontWeight: FontWeight.bold),
                   ),
                   Text(
                     StringRsr.get(LanguageKey.FAQ, firstCap: true)!,
-                    style:  TextStyle(
+                    style: TextStyle(
                         fontSize: subTitleFont,
                         color: const Color(AppTheme.gray99),
                         fontWeight: FontWeight.bold),
@@ -126,7 +126,7 @@ class _HelpPageState extends State<HelpPage> {
                       ),
                       title: Text(
                         StringRsr.get(LanguageKey.Q1, firstCap: true)!,
-                        style:  TextStyle(
+                        style: TextStyle(
                             color: Theme.of(context).primaryColor,
                             fontSize: questionFont),
                       ),
@@ -135,7 +135,7 @@ class _HelpPageState extends State<HelpPage> {
                           child: Text(
                             StringRsr.get(LanguageKey.A1, firstCap: true)!,
                             textAlign: TextAlign.justify,
-                            style:  TextStyle(
+                            style: TextStyle(
                               color: Color(AppTheme.gray99),
                               fontSize: answerFont,
                             ),
@@ -154,7 +154,7 @@ class _HelpPageState extends State<HelpPage> {
                       ),
                       title: Text(
                         StringRsr.get(LanguageKey.Q2, firstCap: true)!,
-                        style:  TextStyle(
+                        style: TextStyle(
                             color: Theme.of(context).primaryColor,
                             fontSize: questionFont),
                       ),
@@ -163,7 +163,7 @@ class _HelpPageState extends State<HelpPage> {
                           child: Text(
                             StringRsr.get(LanguageKey.A2, firstCap: true)!,
                             textAlign: TextAlign.justify,
-                            style:  TextStyle(
+                            style: TextStyle(
                               color: Color(AppTheme.gray99),
                               fontSize: answerFont,
                             ),
@@ -182,7 +182,7 @@ class _HelpPageState extends State<HelpPage> {
                       ),
                       title: Text(
                         StringRsr.get(LanguageKey.Q3, firstCap: true)!,
-                        style:  TextStyle(
+                        style: TextStyle(
                             color: Theme.of(context).primaryColor,
                             fontSize: questionFont),
                       ),
@@ -191,7 +191,7 @@ class _HelpPageState extends State<HelpPage> {
                           child: Text(
                             StringRsr.get(LanguageKey.A3, firstCap: true)!,
                             textAlign: TextAlign.justify,
-                            style:  TextStyle(
+                            style: TextStyle(
                               color: Color(AppTheme.gray99),
                               fontSize: answerFont,
                             ),
@@ -210,7 +210,7 @@ class _HelpPageState extends State<HelpPage> {
                       ),
                       title: Text(
                         StringRsr.get(LanguageKey.Q4, firstCap: true)!,
-                        style:  TextStyle(
+                        style: TextStyle(
                             color: Theme.of(context).primaryColor,
                             fontSize: questionFont),
                       ),
@@ -219,7 +219,7 @@ class _HelpPageState extends State<HelpPage> {
                           child: Text(
                             StringRsr.get(LanguageKey.A4, firstCap: true)!,
                             textAlign: TextAlign.justify,
-                            style:  TextStyle(
+                            style: TextStyle(
                               color: Color(AppTheme.gray99),
                               fontSize: answerFont,
                             ),
@@ -238,7 +238,7 @@ class _HelpPageState extends State<HelpPage> {
                       ),
                       title: Text(
                         StringRsr.get(LanguageKey.Q5, firstCap: true)!,
-                        style:  TextStyle(
+                        style: TextStyle(
                             color: Theme.of(context).primaryColor,
                             fontSize: questionFont),
                       ),
@@ -247,7 +247,7 @@ class _HelpPageState extends State<HelpPage> {
                           child: Text(
                             StringRsr.get(LanguageKey.A5, firstCap: true)!,
                             textAlign: TextAlign.justify,
-                            style:  TextStyle(
+                            style: TextStyle(
                               color: Color(AppTheme.gray99),
                               fontSize: answerFont,
                             ),
@@ -266,7 +266,7 @@ class _HelpPageState extends State<HelpPage> {
                       ),
                       title: Text(
                         StringRsr.get(LanguageKey.Q6, firstCap: true)!,
-                        style:  TextStyle(
+                        style: TextStyle(
                             color: Theme.of(context).primaryColor,
                             fontSize: questionFont),
                       ),
@@ -275,7 +275,7 @@ class _HelpPageState extends State<HelpPage> {
                           child: Text(
                             StringRsr.get(LanguageKey.A6, firstCap: true)!,
                             textAlign: TextAlign.justify,
-                            style:  TextStyle(
+                            style: TextStyle(
                               color: Color(AppTheme.gray99),
                               fontSize: answerFont,
                             ),
@@ -294,7 +294,7 @@ class _HelpPageState extends State<HelpPage> {
                       ),
                       title: Text(
                         StringRsr.get(LanguageKey.Q7, firstCap: true)!,
-                        style:  TextStyle(
+                        style: TextStyle(
                             color: Theme.of(context).primaryColor,
                             fontSize: questionFont),
                       ),
@@ -303,7 +303,7 @@ class _HelpPageState extends State<HelpPage> {
                           child: Text(
                             StringRsr.get(LanguageKey.A7, firstCap: true)!,
                             textAlign: TextAlign.justify,
-                            style:  TextStyle(
+                            style: TextStyle(
                               color: Color(AppTheme.gray99),
                               fontSize: answerFont,
                             ),
@@ -322,7 +322,7 @@ class _HelpPageState extends State<HelpPage> {
                       ),
                       title: Text(
                         StringRsr.get(LanguageKey.Q8, firstCap: true)!,
-                        style:  TextStyle(
+                        style: TextStyle(
                             color: Theme.of(context).primaryColor,
                             fontSize: questionFont),
                       ),
@@ -331,7 +331,7 @@ class _HelpPageState extends State<HelpPage> {
                           child: Text(
                             StringRsr.get(LanguageKey.A8, firstCap: true)!,
                             textAlign: TextAlign.justify,
-                            style:  TextStyle(
+                            style: TextStyle(
                               color: Color(AppTheme.gray99),
                               fontSize: answerFont,
                             ),

@@ -645,7 +645,7 @@ class _KelemSearchPageState extends State<KelemSearchPage> {
 
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(100),
+          preferredSize: const Size.fromHeight(50),
           child: getAppBar2(context, company!, showCategory: true)),
       body: SafeArea(
         child: WillPopScope(

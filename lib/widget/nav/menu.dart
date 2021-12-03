@@ -576,9 +576,14 @@ class Menu {
       actions: <Widget>[
         Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Icon(
-            NibCustomIcons.notification,
-            color: Theme.of(context).primaryColor,
+          child: GestureDetector(
+            onTap: () {
+              Navigator.of(context).pushNamed(RouteTo.JOB_Notification);
+            },
+            child: const Icon(
+              NibCustomIcons.notification,
+              color: Colors.orange,
+            ),
           ),
         ),
         const SizedBox(

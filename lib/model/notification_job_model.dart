@@ -1,12 +1,10 @@
 import 'dart:convert';
 
 import 'package:nibjobs/model/profile/company.dart';
-import 'package:nibjobs/model/profile/user.dart';
 
-import 'job_channel.dart';
+import 'commerce/job_channel.dart';
 
-/// Defines job model
-class Job {
+class NotificationJobModel {
   /// Defines key values to extract from a map
 
   static const String COLLECTION_NAME = "job";
@@ -49,7 +47,7 @@ class Job {
   DateTime? firstModified;
   DateTime? lastModified;
 
-  Job(
+  NotificationJobModel(
       {this.id,
       this.title,
       this.status,
@@ -70,7 +68,7 @@ class Job {
       this.lastModified});
 
   /// Converts Model to Map
-  static Map<String, dynamic> toMap(Job job) {
+  static Map<String, dynamic> toMap(NotificationJobModel job) {
     return {
       ID: job.id,
       TITLE: job.title,
@@ -96,9 +94,36 @@ class Job {
     };
   }
 
+  /// Converts Model to db
+  static Map<String, dynamic> toMapDb(NotificationJobModel job) {
+    return {
+      ID: job.id,
+      TITLE: job.title,
+      STATUS: job.status,
+      CATEGORY: job.category,
+      CONTRACT_TYPE: job.contractType,
+      SALARY: job.salary,
+      AVAILABLE_POSITIONS: job.availablePositions ?? 1,
+      TAGS: job.tags.toString(),
+      DESCRIPTION: job.description,
+      APPLY_VIA: job.applyVia,
+      APPLY_LINK: job.applyLink,
+      COMPANY: jsonEncode(job.company),
+      JOB_CHANNEL: jsonEncode(job.jobChannel),
+      APPROVED: job.approved.toString(),
+      DELETED: job.deleted.toString(),
+      RAW_POST: job.rawPost,
+      FIRST_MODIFIED: job.firstModified == null
+          ? null
+          : job.firstModified!.toIso8601String(),
+      LAST_MODIFIED:
+          job.lastModified == null ? null : job.lastModified!.toIso8601String()
+    };
+  }
+
   /// Converts Map to Model
-  static Job toModel(dynamic map) {
-    return Job(
+  static NotificationJobModel toModel(dynamic map) {
+    return NotificationJobModel(
         id: map[ID],
         title: map[TITLE],
         status: map[STATUS] ?? "opened",
@@ -124,8 +149,9 @@ class Job {
             map[LAST_MODIFIED] ?? DateTime.now().toIso8601String()));
   }
 
-  static Job toModelDB(dynamic map) {
-    return Job(
+  /// Converts Map to Model
+  static NotificationJobModel toModelDB(dynamic map) {
+    return NotificationJobModel(
         id: map[ID],
         title: map[TITLE],
         status: map[STATUS] ?? "opened",
@@ -153,8 +179,8 @@ class Job {
   }
 
   /// Changes List of Map to List of Model
-  static List<Job> toModelList(List<dynamic> maps) {
-    List<Job> modelList = [];
+  static List<NotificationJobModel> toModelList(List<dynamic> maps) {
+    List<NotificationJobModel> modelList = [];
     for (var map in maps) {
       modelList.add(toModel(map));
     }
@@ -162,55 +188,8 @@ class Job {
   }
 
   /// Changes List of Model to List of Map
-  static List<Map<String, dynamic>> toMapList(List<Job> models) {
-    List<Map<String, dynamic>> mapList = [];
-    for (var model in models) {
-      mapList.add(toMap(model));
-    }
-    return mapList;
-  }
-}
-
-class CalledJob {
-  static const String COLLECTION_NAME = "job";
-
-  static const String JOB = "job";
-  static const String USER = "user";
-  static const String LAST_MODIFIED = "lastModified";
-  Job? job;
-  UserModel? user;
-  DateTime? lastModified;
-  CalledJob({this.job, this.user, this.lastModified});
-
-  /// Converts Model to Map
-  static Map<String, dynamic> toMap(CalledJob calledJob) {
-    return {
-      JOB: Job.toMap(calledJob.job!),
-      USER: UserModel.toMap(calledJob.user!),
-      LAST_MODIFIED: DateTime.now().toIso8601String(),
-    };
-  }
-
-  /// Converts Map to Model
-  static CalledJob toModel(dynamic map) {
-    return CalledJob(
-        job: Job.toModel(map[JOB]),
-        user: UserModel.toModel(map[USER]),
-        lastModified: DateTime.parse(
-            map[LAST_MODIFIED] ?? DateTime.now().toIso8601String()));
-  }
-
-  /// Changes List of Map to List of Model
-  static List<CalledJob> toModelList(List<dynamic> maps) {
-    List<CalledJob> modelList = [];
-    for (var map in maps) {
-      modelList.add(toModel(map));
-    }
-    return modelList;
-  }
-
-  /// Changes List of Model to List of Map
-  static List<Map<String, dynamic>> toMapList(List<CalledJob> models) {
+  static List<Map<String, dynamic>> toMapList(
+      List<NotificationJobModel> models) {
     List<Map<String, dynamic>> mapList = [];
     for (var model in models) {
       mapList.add(toMap(model));

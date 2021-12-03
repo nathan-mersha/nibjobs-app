@@ -145,12 +145,12 @@ class _JobNavigationState extends State<JobNavigation> {
                                             child: Text(
                                               category.name.toString() == "all"
                                                   ? StringRsr.get(
-                                                      LanguageKey.LATEST)
+                                                      LanguageKey.LATEST)!
                                                   : StringRsr.locale != "et_am"
                                                       ? category.name.toString()
-                                                      : amCategories!["am"][
-                                                          category.name
-                                                              .toString()],
+                                                      : category.name
+                                                          .toString(),
+                                              // : amCategories!["am"][category.name.toString()],
                                             ),
                                           );
                                         }).toList()),

@@ -8,6 +8,7 @@ import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:nibjobs/bloc/ads/adses_cubit.dart';
 import 'package:nibjobs/bloc/search/search_bloc.dart';
 import 'package:nibjobs/bloc/sort/sort_bloc.dart';
+import 'package:nibjobs/dal/notification_job_dal.dart';
 import 'package:nibjobs/db/k_shared_preference.dart';
 import 'package:nibjobs/global.dart' as global;
 import 'package:nibjobs/model/commerce/job.dart';
@@ -1739,6 +1740,23 @@ class _JobListState extends State<JobList> {
         }).toList();
         jobs = sortFun(jobs);
         return jobs;
+      }
+
+      return [];
+    } //
+    else if (widget.fromWhere == "notification") {
+      print("job notification");
+      List<Job> listJob;
+      fav = true;
+      if (uId != null || uId != "") {
+        if (_subCategory == "all") {
+          listJob = await NotificationJobDAL.find();
+        } else {
+          listJob = await NotificationJobDAL.find();
+        }
+
+        //listJob = sortFun(listJob);
+        return listJob;
       }
 
       return [];

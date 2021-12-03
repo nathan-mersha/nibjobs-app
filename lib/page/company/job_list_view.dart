@@ -108,7 +108,7 @@ class _CompanyJobPageState extends State<CompanyJobPage> {
 
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(100),
+          preferredSize: const Size.fromHeight(50),
           child: getAppBar2(context, "company list")),
 //      drawer: Menu.getSideDrawer(context),
       body: Container(

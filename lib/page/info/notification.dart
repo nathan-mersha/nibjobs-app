@@ -213,7 +213,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
     return Scaffold(
       backgroundColor: LightColor.lightGrey,
       appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(100),
+          preferredSize: const Size.fromHeight(50),
           child: getAppBar2(context, "NOTIFICATION")),
       body: FutureBuilder(
         future: getRecentNotifications(),

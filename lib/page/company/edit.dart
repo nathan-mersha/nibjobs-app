@@ -194,7 +194,7 @@ class _EditCompanyPageState extends State<EditCompanyPage> {
     }
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(100),
+          preferredSize: const Size.fromHeight(50),
           child: getAppBar2(context, company!)),
       // drawer: Menu.getSideDrawer(context),
       body: WillPopScope(

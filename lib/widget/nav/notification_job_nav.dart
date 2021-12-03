@@ -13,20 +13,19 @@ import 'package:nibjobs/widget/info/message.dart';
 import 'package:nibjobs/widget/nav/search.dart';
 import 'package:nibjobs/widget/product/product_list.dart';
 
-class CategorySelectedJobNavigation extends StatefulWidget {
+class NotificationJobNav extends StatefulWidget {
   final String? fromWhere;
-  CategorySelectedJobNavigation({this.fromWhere});
+  NotificationJobNav({this.fromWhere});
   @override
   State<StatefulWidget> createState() {
-    return _CategorySelectedJobNavigationState();
+    return _NotificationJobNavState();
   }
 }
 
-class _CategorySelectedJobNavigationState
-    extends State<CategorySelectedJobNavigation> {
+class _NotificationJobNavState extends State<NotificationJobNav> {
   Category? category;
   List<Category>? categories;
-  List<dynamic>? subCategories;
+  List<Category>? subCategories;
   List googleBooks = [];
   String searchBooks = "a";
   bool seter = false;
@@ -40,8 +39,29 @@ class _CategorySelectedJobNavigationState
   @override
   void initState() {
     super.initState();
+    category = global.localConfig.selectedCategory;
     amCategories = global.localConfig.amCategory;
 
+    if (widget.fromWhere == null) {
+      global.localConfig.addListener(() {
+        // set state for sub categories.
+        // setState(() {
+        //   adList = global.globalConfig.ad!;
+        //   amCategories = global.localConfig.amCategory;
+        //   categories = global.localConfig.categories;
+        //   category = global.localConfig.selectedCategory;
+        //   subCategories = global.localConfig.selectedCategory.tags;
+        // });
+        // if (mounted) {
+        //   setState(() {
+        //     amCategories = global.localConfig.amCategory;
+        //     categories = global.localConfig.categories;
+        //     category1 = global.localConfig.selectedCategory;
+        //     subCategories = global.localConfig.selectedCategory.tags;
+        //   });
+        // }
+      });
+    }
     // Will be called when there is a change in the local config.
   }
 
@@ -78,13 +98,13 @@ class _CategorySelectedJobNavigationState
 
   @override
   Widget build(BuildContext context) {
-    Category category1 = ModalRoute.of(context)!.settings.arguments as Category;
-    subCategories = category1.tags;
+    Category category1 = global.localConfig.selectedCategory;
+    subCategories = global.localConfig.categories;
 
     return Scaffold(
         appBar: PreferredSize(
             preferredSize: const Size.fromHeight(50),
-            child: getAppBar2(context, category1.name!)),
+            child: getAppBar2(context, "job notification")),
         body: subCategories == null
             ? Center(
                 child: Message(
@@ -133,7 +153,7 @@ class _CategorySelectedJobNavigationState
                                         //  var index = categories.indexOf(category);
                                         return Tab(
                                           child: Text(
-                                            category,
+                                            category.name!,
                                           ),
                                         );
                                       }).toList()),
@@ -145,7 +165,7 @@ class _CategorySelectedJobNavigationState
                                         category1,
                                         category.toString(),
                                         searchBooks,
-                                        fromWhere: "nu",
+                                        fromWhere: "notification",
                                       );
                                     }).toList()),
                                   ),

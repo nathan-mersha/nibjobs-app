@@ -42,9 +42,12 @@ class JobView extends StatefulWidget {
             imageUrl: detailPage ? job.jobChannel!.logo! : job.company!.logo!,
             useOldImageOnUrlChange: true,
             imageBuilder: (context, imagePath) {
-              return Image(
-                image: imagePath,
-                fit: BoxFit.fitHeight,
+              return ClipRRect(
+                borderRadius: const BorderRadius.all(Radius.circular(20)),
+                child: Image(
+                  image: imagePath,
+                  fit: BoxFit.cover,
+                ),
               );
             },
             placeholderFadeInDuration: const Duration(seconds: 1),

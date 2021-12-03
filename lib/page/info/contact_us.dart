@@ -105,7 +105,7 @@ class _ContactUsPageState extends State<ContactUsPage> {
     setDeviceSpecificValues(context);
     return Scaffold(
       appBar: PreferredSize(
-          preferredSize: const Size.fromHeight(100),
+          preferredSize: const Size.fromHeight(50),
           child: getAppBar2(context, "Contact us")),
       // drawer: Menu.getSideDrawer(context),
       body: Container(
