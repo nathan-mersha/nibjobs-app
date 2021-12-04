@@ -129,7 +129,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
                 const SizedBox(
                   height: 10,
                 ),
-                Container(
+                SizedBox(
                   height: 100,
                   child: SingleChildScrollView(
                     child: Column(
@@ -222,10 +222,10 @@ class _NotificationsPageState extends State<NotificationsPage> {
               projectSnap.hasData == null) {
             return noNotifications();
           } else {
-            List<NotificationModel> transactionLists =
-                projectSnap.data as List<NotificationModel>;
+            List<NotificationModel>? transactionLists =
+                projectSnap.data as List<NotificationModel>? ?? [];
             if (transactionLists != null) {
-              if (transactionLists.length == 0) {
+              if (transactionLists.isEmpty) {
                 return noNotifications();
               } else {
                 notificationCount = transactionLists.length;

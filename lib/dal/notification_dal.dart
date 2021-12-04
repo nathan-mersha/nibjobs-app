@@ -58,7 +58,9 @@ class NotificationDAL {
             orderBy: "$ID DESC",
           )
         : await db.query(TABLE_NAME, where: where, whereArgs: whereArgs);
-
+    if (maps.isEmpty) {
+      return [];
+    }
     return List.generate(maps.length, (i) {
       return NotificationModel(
           id: maps[i][ID],
