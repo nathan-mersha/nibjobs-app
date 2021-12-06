@@ -283,15 +283,15 @@ Future<bool> addUser(UserModel user) async {
     DocumentReference documentReference =
         FirebaseFirestore.instance.collection("Users").doc(uid);
 
-    FirebaseFirestore.instance.runTransaction((transaction) async {
-      DocumentSnapshot snapshot = await transaction.get(documentReference);
-      if (!snapshot.exists) {
-        documentReference.set(UserModel.toMap(user));
-        return true;
-      }
-      return true;
-    });
-
+    // FirebaseFirestore.instance.runTransaction((transaction) async {
+    //   DocumentSnapshot snapshot = await transaction.get(documentReference);
+    //   if (!snapshot.exists) {
+    //     documentReference.set(UserModel.toMap(user));
+    //     return true;
+    //   }
+    //   return true;
+    // });
+    documentReference.set(UserModel.toMap(user));
     return true;
   } catch (e) {}
   return false;
