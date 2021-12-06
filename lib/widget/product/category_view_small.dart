@@ -81,6 +81,8 @@ class CategoryViewSmallState extends State<CategoryViewSmall> {
 
     await hSharedPreference.set(
         HSharedPreference.LIST_OF_FAV_CATEGORY, proFavList);
+    BlocProvider.of<ButtonBloc>(context)
+        .add(ButtonSet(categoryList: proFavList));
   }
 
   Future<void> removeInList() async {
@@ -91,6 +93,8 @@ class CategoryViewSmallState extends State<CategoryViewSmall> {
 
     await hSharedPreference.set(
         HSharedPreference.LIST_OF_FAV_CATEGORY, proFavList);
+    BlocProvider.of<ButtonBloc>(context)
+        .add(ButtonSet(categoryList: proFavList));
     // BlocProvider.of<CategoryBloc>(context)
     //     .add(CategoryNumber(categoryNumber: 5 - proFavList.length));
   }
