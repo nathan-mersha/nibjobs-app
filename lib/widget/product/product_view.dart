@@ -59,7 +59,7 @@ class JobView extends StatefulWidget {
                       : "${job.company!.name![0].toUpperCase()}${job.company!.name![1].toUpperCase()}",
                   style: const TextStyle(
                     fontSize: 12,
-                    color: CustomColor.TEXT_COLOR_GRAY,
+                    color: CustomColor.PRIM_DARK,
                   ),
                 ),
               );
@@ -73,7 +73,7 @@ class JobView extends StatefulWidget {
                   style: const TextStyle(
                     fontSize: 12,
                     fontWeight: FontWeight.bold,
-                    color: CustomColor.TEXT_COLOR_GRAY,
+                    color: CustomColor.PRIM_DARK,
                   ),
                 ),
               );
@@ -479,7 +479,7 @@ class _JobViewState extends State<JobView> {
                                           ? 30
                                           : 31,
                                       decoration: BoxDecoration(
-                                          color: CustomColor.PRIM_DARK,
+                                          color: CustomColor.RAD_DARK,
                                           borderRadius:
                                               BorderRadius.circular(40)),
                                       child: Padding(

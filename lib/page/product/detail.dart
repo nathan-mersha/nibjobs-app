@@ -266,7 +266,7 @@ class _JobDetailPageState extends State<JobDetailPage> {
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     Text(
-                                      job!.company!.name!,
+                                      job!.jobChannel!.name!,
                                       style: const TextStyle(
                                         fontSize: 24,
                                         fontWeight: FontWeight.bold,
@@ -274,7 +274,7 @@ class _JobDetailPageState extends State<JobDetailPage> {
                                       ),
                                     ),
                                     Visibility(
-                                      visible: job!.company!.verified!,
+                                      visible: true,
                                       child: const Padding(
                                         padding: EdgeInsets.only(
                                             right: 8.0, left: 2.0),
@@ -290,86 +290,86 @@ class _JobDetailPageState extends State<JobDetailPage> {
                                 const SizedBox(
                                   height: 10,
                                 ),
-                                Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    GestureDetector(
-                                      onTap: () {
-                                        if (job!.company!.primaryPhone !=
-                                            null) {
-                                          makePhoneCall(
-                                              "tel://${job!.company!.primaryPhone!.replaceAll(" ", "")}");
-                                        }
-                                      },
-                                      child: Text(
-                                        job!.company!.primaryPhone!,
-                                        style: const TextStyle(
-                                          fontSize: 17,
-                                          fontWeight: FontWeight.bold,
-                                          color: CustomColor.GRAY,
-                                        ),
-                                      ),
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        if (job!.company!.secondaryPhone !=
-                                            null) {
-                                          makePhoneCall(
-                                              "tel://${job!.company!.secondaryPhone!.replaceAll(" ", "")}");
-                                        }
-                                      },
-                                      child: Text(
-                                        job!.company!.secondaryPhone!,
-                                        style: const TextStyle(
-                                          fontSize: 17,
-                                          fontWeight: FontWeight.bold,
-                                          color: CustomColor.GRAY,
-                                        ),
-                                      ),
-                                    ),
-                                  ],
-                                ),
+                                // Column(
+                                //   crossAxisAlignment: CrossAxisAlignment.start,
+                                //   children: [
+                                //     GestureDetector(
+                                //       onTap: () {
+                                //         if (job!.company!.primaryPhone !=
+                                //             null) {
+                                //           makePhoneCall(
+                                //               "tel://${job!.company!.primaryPhone!.replaceAll(" ", "")}");
+                                //         }
+                                //       },
+                                //       child: Text(
+                                //         job!.company!.primaryPhone!,
+                                //         style: const TextStyle(
+                                //           fontSize: 17,
+                                //           fontWeight: FontWeight.bold,
+                                //           color: CustomColor.GRAY,
+                                //         ),
+                                //       ),
+                                //     ),
+                                //     GestureDetector(
+                                //       onTap: () {
+                                //         if (job!.company!.secondaryPhone !=
+                                //             null) {
+                                //           makePhoneCall(
+                                //               "tel://${job!.company!.secondaryPhone!.replaceAll(" ", "")}");
+                                //         }
+                                //       },
+                                //       child: Text(
+                                //         job!.company!.secondaryPhone!,
+                                //         style: const TextStyle(
+                                //           fontSize: 17,
+                                //           fontWeight: FontWeight.bold,
+                                //           color: CustomColor.GRAY,
+                                //         ),
+                                //       ),
+                                //     ),
+                                //   ],
+                                // ),
                               ],
                             ),
-                            Padding(
-                              padding: const EdgeInsets.only(bottom: 10.0),
-                              child: Column(
-                                children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      if (job!.company!.website != "") {
-                                        makeWebCall(
-                                            "https:${job!.company!.website}");
-                                      }
-                                    },
-                                    child: Text(
-                                      job!.company!.website != ""
-                                          ? job!.company!.website!
-                                          : StringRsr.get(
-                                              LanguageKey.NO_WEBSITE,
-                                              firstCap: true)!,
-                                      style: const TextStyle(
-                                        fontSize: 15,
-                                        fontWeight: FontWeight.bold,
-                                        color: CustomColor.GRAY_LIGHT,
-                                      ),
-                                    ),
-                                  ),
-                                  Text(
-                                    job!.company!.physicalAddress != ""
-                                        ? job!.company!.physicalAddress!
-                                        : StringRsr.get(
-                                            LanguageKey.NO_PHYSICAL_ADDRESS,
-                                            firstCap: true)!,
-                                    style: const TextStyle(
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.bold,
-                                      color: CustomColor.GRAY_LIGHT,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            )
+                            // Padding(
+                            //   padding: const EdgeInsets.only(bottom: 10.0),
+                            //   child: Column(
+                            //     children: [
+                            //       GestureDetector(
+                            //         onTap: () {
+                            //           if (job!.company!.website != "") {
+                            //             makeWebCall(
+                            //                 "https:${job!.company!.website}");
+                            //           }
+                            //         },
+                            //         child: Text(
+                            //           job!.company!.website != ""
+                            //               ? job!.company!.website!
+                            //               : StringRsr.get(
+                            //                   LanguageKey.NO_WEBSITE,
+                            //                   firstCap: true)!,
+                            //           style: const TextStyle(
+                            //             fontSize: 15,
+                            //             fontWeight: FontWeight.bold,
+                            //             color: CustomColor.GRAY_LIGHT,
+                            //           ),
+                            //         ),
+                            //       ),
+                            //       Text(
+                            //         job!.company!.physicalAddress != ""
+                            //             ? job!.company!.physicalAddress!
+                            //             : StringRsr.get(
+                            //                 LanguageKey.NO_PHYSICAL_ADDRESS,
+                            //                 firstCap: true)!,
+                            //         style: const TextStyle(
+                            //           fontSize: 13,
+                            //           fontWeight: FontWeight.bold,
+                            //           color: CustomColor.GRAY_LIGHT,
+                            //         ),
+                            //       ),
+                            //     ],
+                            //   ),
+                            // )
                           ],
                         ),
                       ),
@@ -384,7 +384,7 @@ class _JobDetailPageState extends State<JobDetailPage> {
                           child: Padding(
                             padding: const EdgeInsets.all(8.0),
                             child: CachedNetworkImage(
-                              imageUrl: job!.company!.logo!,
+                              imageUrl: job!.jobChannel!.logo!,
                               imageBuilder: (context, imageProvider) {
                                 return Container(
                                   width: 20,
@@ -401,7 +401,7 @@ class _JobDetailPageState extends State<JobDetailPage> {
                               useOldImageOnUrlChange: true,
                               fit: BoxFit.cover,
                               placeholderFadeInDuration:
-                                  Duration(microseconds: 200),
+                                  const Duration(microseconds: 200),
                               placeholder:
                                   (BuildContext context, String imageURL) {
                                 return JobPlaceholder(job: job);
@@ -610,7 +610,7 @@ class _JobDetailPageState extends State<JobDetailPage> {
             children: [
               Expanded(
                 child: AutoSizeText(
-                  job.title!,
+                  "${job.title!.substring(0, 1).toUpperCase()}${job.title!.substring(1, job.title!.length).toLowerCase()}",
                   style: const TextStyle(
                     fontSize: 20,
                     color: CustomColor.TEXT_DARK,
@@ -625,12 +625,18 @@ class _JobDetailPageState extends State<JobDetailPage> {
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Text.rich(
-                TextSpan(
+              RichText(
+                text: TextSpan(
                   children: [
-                    const TextSpan(text: 'by'),
+                    const TextSpan(
+                      text: 'by ',
+                      style: TextStyle(
+                        color: CustomColor.TEXT_COLOR_GRAY,
+                      ),
+                    ),
                     TextSpan(
-                      text: job.company!.name!,
+                      text:
+                          "${job.company!.name!.substring(0, 1).toUpperCase()}${job.company!.name!.substring(1, job.company!.name!.length).toLowerCase()} ",
                       style: const TextStyle(
                           color: CustomColor.TEXT_COLOR_GRAY,
                           fontWeight: FontWeight.bold),
@@ -645,6 +651,8 @@ class _JobDetailPageState extends State<JobDetailPage> {
                     ),
                   ],
                 ),
+                maxLines: 2,
+                overflow: TextOverflow.fade,
               ),
               // Row(
               //   children: [
@@ -815,13 +823,9 @@ class _JobDetailPageState extends State<JobDetailPage> {
                 height: AppTheme.fullWidth(context) < 330 ? 40 : 41,
                 width: AppTheme.fullWidth(context) < 330 ? 40 : 41,
                 decoration: BoxDecoration(
-                    color: CustomColor.PRIM_DARK,
+                    color: CustomColor.RAD_DARK,
                     borderRadius: BorderRadius.circular(40)),
-                child: Padding(
-                  padding: const EdgeInsets.all(3.0),
-                  child:
-                      JobView.getThumbnailView(job, size: JobView.SIZE_MEDIUM),
-                ),
+                child: JobView.getThumbnailView(job, size: JobView.SIZE_MEDIUM),
               ),
             ],
           ),
@@ -851,7 +855,7 @@ class _JobDetailPageState extends State<JobDetailPage> {
                         style: Theme.of(context).textTheme.bodyText1,
                       ),
                       AutoSizeText(
-                        job.jobChannel!.name!,
+                        "${job.jobChannel!.name!.substring(0, 1).toUpperCase()}${job.jobChannel!.name!.substring(1, job.jobChannel!.name!.length).toLowerCase()}",
                         style: Theme.of(context)
                             .textTheme
                             .subtitle1!
@@ -861,17 +865,21 @@ class _JobDetailPageState extends State<JobDetailPage> {
                   ),
                 ],
               ),
-              Container(
-                margin: const EdgeInsets.symmetric(
-                  vertical: 3,
-                ),
-                height: AppTheme.fullWidth(context) < 330 ? 40 : 41,
-                width: AppTheme.fullWidth(context) < 330 ? 40 : 41,
-                decoration: BoxDecoration(
-                    color: CustomColor.PRIM_DARK,
-                    borderRadius: BorderRadius.circular(40)),
-                child: Padding(
-                  padding: const EdgeInsets.all(3.0),
+              GestureDetector(
+                onTap: () {
+                  setState(() {
+                    isCompanyInfo = true;
+                  });
+                },
+                child: Container(
+                  margin: const EdgeInsets.symmetric(
+                    vertical: 3,
+                  ),
+                  height: AppTheme.fullWidth(context) < 330 ? 40 : 41,
+                  width: AppTheme.fullWidth(context) < 330 ? 40 : 41,
+                  decoration: BoxDecoration(
+                      color: CustomColor.RAD_DARK,
+                      borderRadius: BorderRadius.circular(40)),
                   child: JobView.getThumbnailView(job,
                       size: JobView.SIZE_MEDIUM, detailPage: true),
                 ),
@@ -1054,7 +1062,7 @@ class _JobDetailPageState extends State<JobDetailPage> {
         if (state is DescriptionInitial && state.showDescription) {
           return Container(
             padding: const EdgeInsets.only(top: 4),
-            height: AppTheme.fullWidth(context) >= 800 ? 500 : 100,
+            height: AppTheme.fullWidth(context) >= 800 ? 600 : 300,
             width: AppTheme.fullWidth(context),
             child: SingleChildScrollView(
               child: Text(
@@ -1083,166 +1091,163 @@ class _JobDetailPageState extends State<JobDetailPage> {
     );
   }
 
-  Container buildCompanyInformationSection(
+  Column buildCompanyInformationSection(
       Company company, BuildContext context, Job _job) {
-    return Container(
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          GestureDetector(
-            onTap: () {
-              /// Navigating to item company page
-              Navigator.pushNamed(context, RouteTo.SHOP_DETAIL,
-                  arguments: _job);
-            },
-            child: Text(
-              company.name ?? "a",
-              textScaleFactor: 1.2,
-              style: const TextStyle(
-                color: CustomColor.GRAY_DARK,
-              ),
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: <Widget>[
+        GestureDetector(
+          onTap: () {
+            /// Navigating to item company page
+            Navigator.pushNamed(context, RouteTo.SHOP_DETAIL, arguments: _job);
+          },
+          child: Text(
+            company.name ?? "a",
+            textScaleFactor: 1.2,
+            style: const TextStyle(
+              color: CustomColor.GRAY_DARK,
             ),
           ),
-          company.verified!
-              ? Row(
-                  children: const <Widget>[
-                    Icon(
-                      Icons.verified_user,
-                      color: Colors.lightGreen,
-                      size: 12,
-                    ),
-                    Text(
-                      "verified",
-                      textScaleFactor: 0.9,
-                      style: TextStyle(color: Colors.lightGreen),
-                    )
-                  ],
-                )
-              : Row(
-                  children: <Widget>[
-                    Icon(Icons.security, color: Colors.red.withOpacity(0.6)),
-                    const Text("unverified")
-                  ],
-                ),
-          const SizedBox(
-            height: 8,
-          ),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: <Widget>[
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.end,
-                  mainAxisSize: MainAxisSize.min,
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: <Widget>[
-                    Text(
-                      company.primaryPhone ?? "no phone number found",
-                      style: const TextStyle(color: CustomColor.GRAY_LIGHT),
-                      textScaleFactor: 0.9,
-                    ),
-                    Text(
-                      company.secondaryPhone ?? "-",
-                      style: const TextStyle(color: CustomColor.GRAY_LIGHT),
-                      textScaleFactor: 0.9,
-                    ),
-                    Text(
-                      company.email ?? "no email found",
-                      style: const TextStyle(color: CustomColor.GRAY_LIGHT),
-                      textScaleFactor: 0.9,
-                    ),
-                    Row(
-                      children: <Widget>[
-                        Text(
-                          company.physicalAddress ?? "no physical address",
-                          style: const TextStyle(color: CustomColor.GRAY),
-                          textScaleFactor: 0.7,
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        // GestureDetector(
-                        //   onTap: () {
-                        //     _lunchMapsUrl(company.coOrdinates![0],
-                        //         company.coOrdinates![1]);
-                        //     // Open map application to show the companys physical location
-                        //   },
-                        //   child: Text(
-                        //     "view on map",
-                        //     style: TextStyle(
-                        //       color: Theme.of(context).accentColor,
-                        //     ),
-                        //     textScaleFactor: 0.9,
-                        //   ),
-                        // )
-                      ],
-                    ),
-                    Row(
-                      children: [
-                        Icon(
-                          Icons.facebook,
-                          color: Theme.of(context).accentColor,
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Icon(
-                          Icons.facebook,
-                          color: Theme.of(context).accentColor,
-                        ),
-                        const SizedBox(
-                          width: 10,
-                        ),
-                        Icon(
-                          Icons.facebook,
-                          color: Theme.of(context).accentColor,
-                        ),
-                      ],
-                    )
-                  ],
-                ),
+        ),
+        company.verified!
+            ? Row(
+                children: const <Widget>[
+                  Icon(
+                    Icons.verified_user,
+                    color: Colors.lightGreen,
+                    size: 12,
+                  ),
+                  Text(
+                    "verified",
+                    textScaleFactor: 0.9,
+                    style: TextStyle(color: Colors.lightGreen),
+                  )
+                ],
+              )
+            : Row(
+                children: <Widget>[
+                  Icon(Icons.security, color: Colors.red.withOpacity(0.6)),
+                  const Text("unverified")
+                ],
               ),
-
-              // todo : change this with company's logo
-              CircleAvatar(
-                child: company.logo == null
-                    ? Text(
-                        company.name!.substring(0, 1),
-                        style: const TextStyle(
-                          color: Colors.white,
-                          fontSize: 20,
-                        ),
-                      )
-                    : CachedNetworkImage(
-                        imageUrl: company.logo!,
-                        imageBuilder: (context, imageProvider) {
-                          return Container(
-                            decoration: BoxDecoration(
-                                image: DecorationImage(
-                                  image: imageProvider,
-                                  fit: BoxFit.cover,
-                                ),
-                                borderRadius: BorderRadius.circular(40)),
-                          );
-                        },
-                        useOldImageOnUrlChange: false,
-                        placeholderFadeInDuration: Duration(seconds: 1),
-                        placeholder: (BuildContext context, String imageURL) {
-                          return Text(
-                            company.name!.substring(0, 1).toUpperCase(),
-                            style: const TextStyle(
-                              color: Colors.white,
-                              fontSize: 40,
-                            ),
-                          );
-                        },
+        const SizedBox(
+          height: 8,
+        ),
+        Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: <Widget>[
+                  Text(
+                    company.primaryPhone ?? "no phone number found",
+                    style: const TextStyle(color: CustomColor.GRAY_LIGHT),
+                    textScaleFactor: 0.9,
+                  ),
+                  Text(
+                    company.secondaryPhone ?? "-",
+                    style: const TextStyle(color: CustomColor.GRAY_LIGHT),
+                    textScaleFactor: 0.9,
+                  ),
+                  Text(
+                    company.email ?? "no email found",
+                    style: const TextStyle(color: CustomColor.GRAY_LIGHT),
+                    textScaleFactor: 0.9,
+                  ),
+                  Row(
+                    children: <Widget>[
+                      Text(
+                        company.physicalAddress ?? "no physical address",
+                        style: const TextStyle(color: CustomColor.GRAY),
+                        textScaleFactor: 0.7,
                       ),
-                backgroundColor: Theme.of(context).accentColor,
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      // GestureDetector(
+                      //   onTap: () {
+                      //     _lunchMapsUrl(company.coOrdinates![0],
+                      //         company.coOrdinates![1]);
+                      //     // Open map application to show the companys physical location
+                      //   },
+                      //   child: Text(
+                      //     "view on map",
+                      //     style: TextStyle(
+                      //       color: Theme.of(context).accentColor,
+                      //     ),
+                      //     textScaleFactor: 0.9,
+                      //   ),
+                      // )
+                    ],
+                  ),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.facebook,
+                        color: Theme.of(context).accentColor,
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Icon(
+                        Icons.facebook,
+                        color: Theme.of(context).accentColor,
+                      ),
+                      const SizedBox(
+                        width: 10,
+                      ),
+                      Icon(
+                        Icons.facebook,
+                        color: Theme.of(context).accentColor,
+                      ),
+                    ],
+                  )
+                ],
               ),
-            ],
-          )
-        ],
-      ),
+            ),
+
+            // todo : change this with company's logo
+            CircleAvatar(
+              child: company.logo == null
+                  ? Text(
+                      company.name!.substring(0, 1),
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 20,
+                      ),
+                    )
+                  : CachedNetworkImage(
+                      imageUrl: company.logo!,
+                      imageBuilder: (context, imageProvider) {
+                        return Container(
+                          decoration: BoxDecoration(
+                              image: DecorationImage(
+                                image: imageProvider,
+                                fit: BoxFit.cover,
+                              ),
+                              borderRadius: BorderRadius.circular(40)),
+                        );
+                      },
+                      useOldImageOnUrlChange: false,
+                      placeholderFadeInDuration: Duration(seconds: 1),
+                      placeholder: (BuildContext context, String imageURL) {
+                        return Text(
+                          company.name!.substring(0, 1).toUpperCase(),
+                          style: const TextStyle(
+                            color: Colors.white,
+                            fontSize: 40,
+                          ),
+                        );
+                      },
+                    ),
+              backgroundColor: Theme.of(context).accentColor,
+            ),
+          ],
+        )
+      ],
     );
   }
 
