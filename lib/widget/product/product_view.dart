@@ -35,7 +35,6 @@ class JobView extends StatefulWidget {
       {bool expand = true,
       String size = SIZE_MEDIUM,
       bool detailPage = false}) {
-    print("job.jobChannel!.logo! ${job.jobChannel!.logo!}");
     return job.company!.logo == null || job.company!.logo!.isEmpty
         ? Container()
         : CachedNetworkImage(
@@ -170,9 +169,13 @@ class _JobViewState extends State<JobView> {
                         child: Padding(
                           padding: const EdgeInsets.all(4.0),
                           child: Icon(
-                            Icons.favorite,
-                            color:
-                                isSelected ? Colors.red : LightColor.lightGrey,
+                            isSelected
+                                ? Icons.visibility
+                                : Icons.visibility_off,
+                            // color:
+                            //     isSelected ? Colors.red : LightColor.lightGrey,
+                            color: LightColor.lightGrey,
+
                             size: 15,
                           ),
                         ),
@@ -300,7 +303,7 @@ class _JobViewState extends State<JobView> {
             decoration: BoxDecoration(
               border: Border.all(
                   color: LightColor.iconColor, style: BorderStyle.none),
-              borderRadius: BorderRadius.all(Radius.circular(10)),
+              borderRadius: const BorderRadius.all(Radius.circular(10)),
               // color:
               // isOutLine ? Colors.transparent : Theme.of(context).backgroundColor,
             ),
@@ -498,7 +501,7 @@ class _JobViewState extends State<JobView> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     SizedBox(
-                                      width: 240,
+                                      width: 200,
                                       child: Text(
                                         "by ${widget._job!.company!.name}",
                                         maxLines: 1,
@@ -510,20 +513,17 @@ class _JobViewState extends State<JobView> {
                                         ),
                                       ),
                                     ),
-                                    Container(
-                                      alignment: Alignment.topRight,
-                                      child: Text(
-                                        timeago
-                                            .format(widget._job!.lastModified!),
-                                        maxLines: 1,
-                                        overflow: TextOverflow.fade,
-                                        textAlign: TextAlign.right,
-                                        softWrap: false,
-                                        style: const TextStyle(
-                                          fontSize: 10,
-                                          fontWeight: FontWeight.bold,
-                                          color: CustomColor.RAD_DARK,
-                                        ),
+                                    Text(
+                                      timeago
+                                          .format(widget._job!.lastModified!),
+                                      maxLines: 1,
+                                      overflow: TextOverflow.clip,
+                                      textAlign: TextAlign.right,
+                                      softWrap: false,
+                                      style: const TextStyle(
+                                        fontSize: 10,
+                                        fontWeight: FontWeight.bold,
+                                        color: CustomColor.RAD_DARK,
                                       ),
                                     ),
                                   ],

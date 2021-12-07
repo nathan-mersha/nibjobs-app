@@ -165,13 +165,12 @@ class NotificationJobModel {
         applyLink: map[APPLY_LINK],
         jobChannel: map[JOB_CHANNEL] == null
             ? JobChannel()
-            : JobChannel.toModel(jsonDecode(map[JOB_CHANNEL])),
+            : JobChannel.toModel(map[JOB_CHANNEL]),
         approved: map[APPROVED] as bool,
         deleted: map[DELETED] as bool,
         rawPost: map[RAW_POST],
-        company: map[COMPANY] == null
-            ? Company()
-            : Company.toModel(jsonDecode(map[COMPANY])),
+        company:
+            map[COMPANY] == null ? Company() : Company.toModel(map[COMPANY]),
         firstModified: DateTime.parse(
             map[FIRST_MODIFIED] ?? DateTime.now().toIso8601String()),
         lastModified: DateTime.parse(

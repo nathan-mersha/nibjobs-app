@@ -50,8 +50,10 @@ void notificationFunctionSave(RemoteMessage? message) {
       );
       NotificationDAL.create(notificationModel);
     } else {
-      print("message.data ${message.data}");
-      NotificationJobDAL.create(NotificationJobModel.toModel(message.data));
+      print("message.data ${message.data["body"]}");
+
+      NotificationJobDAL.create(
+          NotificationJobModel.toModelDB(jsonDecode(message.data["body"])));
     }
   }
 }
@@ -126,8 +128,10 @@ Future<bool> userDataSeter(User? user, UserCredential userCredential) async {
   String? deviceFCM;
   try {
     deviceFCM = await FirebaseMessaging.instance.getToken();
+    print(" print(deviceFCM); $deviceFCM");
   } on PlatformException {
     deviceFCM = 'Failed to get FCM.';
+    print(deviceFCM);
   }
   String? userEmail;
   userEmail = user.email;
@@ -283,15 +287,15 @@ Future<bool> addUser(UserModel user) async {
     DocumentReference documentReference =
         FirebaseFirestore.instance.collection("Users").doc(uid);
 
-    // FirebaseFirestore.instance.runTransaction((transaction) async {
-    //   DocumentSnapshot snapshot = await transaction.get(documentReference);
-    //   if (!snapshot.exists) {
-    //     documentReference.set(UserModel.toMap(user));
-    //     return true;
-    //   }
-    //   return true;
-    // });
-    documentReference.set(UserModel.toMap(user));
+    FirebaseFirestore.instance.runTransaction((transaction) async {
+      DocumentSnapshot snapshot = await transaction.get(documentReference);
+      // if (!snapshot.exists) {
+      documentReference.set(UserModel.toMap(user));
+      //documentReference.set(UserModel.toMap(user));
+      //  return true;
+      //}
+      return true;
+    });
     return true;
   } catch (e) {}
   return false;
