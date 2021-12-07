@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nibjobs/api/flutterfire.dart';
@@ -48,8 +49,22 @@ class _CategoryPreferencePageState extends State<CategoryPreferencePage> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          onPressed: () {
-            Navigator.of(context).pop();
+          onPressed: () async {
+            List<String> list = await hSharedPreference
+                    .get(HSharedPreference.LIST_OF_FAV_CATEGORY) ??
+                [];
+            if (list.isNotEmpty) {
+              Navigator.of(context).pop();
+            } else {
+              showInfoToUser(
+                context,
+                DialogType.ERROR,
+                StringRsr.get(LanguageKey.ERROR, firstCap: true),
+                StringRsr.get(LanguageKey.PLEASE_CHOOSE_A_CATEGORY,
+                    firstCap: true),
+                onOk: () {},
+              );
+            }
           },
           icon: const Icon(
             Icons.arrow_back_ios,
@@ -63,7 +78,7 @@ class _CategoryPreferencePageState extends State<CategoryPreferencePage> {
       body: Container(
         width: double.infinity,
         color: Colors.white,
-        child: Container(
+        child: SizedBox(
           width: AppTheme.fullWidth(context),
           child: SizedBox.expand(
             child: Container(
@@ -241,10 +256,23 @@ class _CategoryPreferencePageState extends State<CategoryPreferencePage> {
                                       } else {
                                         debugPrint("data error ");
                                       }
+                                      Navigator.pushReplacementNamed(
+                                          context, RouteTo.HOME);
+                                    } else {
+                                      showInfoToUser(
+                                        context,
+                                        DialogType.ERROR,
+                                        StringRsr.get(LanguageKey.ERROR,
+                                            firstCap: true),
+                                        StringRsr.get(
+                                            LanguageKey
+                                                .PLEASE_CHOOSE_A_CATEGORY,
+                                            firstCap: true),
+                                        onOk: () {},
+                                      );
                                     }
                                   }
-                                  Navigator.pushReplacementNamed(
-                                      context, RouteTo.HOME);
+
                                   // // setState(() {
                                   //   showInfo = false;
                                   // });
