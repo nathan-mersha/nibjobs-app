@@ -75,95 +75,86 @@ class _LanguagePageState extends State<LanguagePage> {
                       ),
                     ),
                     const Spacer(),
-                    Expanded(
-                      child: Container(
-                        alignment: Alignment.bottomCenter,
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            Column(
-                              children: const [
-                                Text(
-                                  "እባክዎ ቋንቋ ይምረጡ",
-                                  style: TextStyle(
-                                      fontSize: 16,
-                                      color: CustomColor.GRAY_DARK),
-                                ),
-                                Text(
-                                  "please select a language",
-                                  style: TextStyle(
-                                      fontSize: 16, color: CustomColor.GRAY),
-                                ),
-                              ],
+                    Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Column(
+                          children: const [
+                            Text(
+                              "እባክዎ ቋንቋ ይምረጡ",
+                              style: TextStyle(
+                                  fontSize: 16, color: CustomColor.GRAY_DARK),
                             ),
-                            const SizedBox(
-                              height: 40,
+                            Text(
+                              "please select a language",
+                              style: TextStyle(
+                                  fontSize: 16, color: CustomColor.GRAY),
                             ),
-                            DropdownButton<String>(
-                              isExpanded: true,
-                              hint: const Text(
-                                "please select language / እባክዎ ቋንቋ ይምረጡ",
-                              ),
-                              onChanged: (studentId) {
-                                // on package change
-                                setSelectedLanguage(studentId!);
-                              },
-                              value: selectedLanguage,
-                              items:
-                                  //"english", "amharic"
-                                  [
-                                StringRsr.get(LanguageKey.ENGLISH_LC)!,
-                                StringRsr.get(LanguageKey.AMHARIC_LC,
-                                    lcl: LanguageKey.AMHARIC_LC)!
-                              ].map((String package) {
-                                return DropdownMenuItem<String>(
-                                    value: package, child: Text(package));
-                              }).toList(),
-                            ),
-                            const SizedBox(
-                              height: 25,
-                            ),
-                            SizedBox(
-                              width: 300,
-                              height: 40,
-                              child: ElevatedButton(
-                                // style: ElevatedButton.styleFrom(
-                                //   primary: Theme.of(context).primaryColorDark,
-                                //   shape: RoundedRectangleBorder(
-                                //     borderRadius: BorderRadius.circular(30.0),
-                                //   ),
-                                // ),
-                                child: Text(
-                                  proceedButtonTxt,
-                                  style: TextStyle(
-                                      color: Theme.of(context).primaryColor),
-                                ),
-                                onPressed: () async {
-                                  // todo : set first time flag to false
-                                  // todo : navigate to welcome page
-
-                                  String locale = StringRsr
-                                      .languageMapping[selectedLanguage]!;
-                                  if (locale != null) {
-                                    await localPreference
-                                        .set(HSharedPreference.LOCALE, locale)
-                                        .then((value) async {
-                                      StringRsr.locale = locale;
-                                      await localPreference.set(
-                                          HSharedPreference.KEY_FIRST_TIME,
-                                          true);
-                                      Navigator.pushReplacementNamed(
-                                          context,
-                                          RouteTo
-                                              .INFO_WELCOME); //HRoutes.WELCOME
-                                    });
-                                  }
-                                },
-                              ),
-                            )
                           ],
                         ),
-                      ),
+                        const SizedBox(
+                          height: 40,
+                        ),
+                        DropdownButton<String>(
+                          isExpanded: true,
+                          hint: const Text(
+                            "please select language / እባክዎ ቋንቋ ይምረጡ",
+                          ),
+                          onChanged: (studentId) {
+                            // on package change
+                            setSelectedLanguage(studentId!);
+                          },
+                          value: selectedLanguage,
+                          items:
+                              //"english", "amharic"
+                              [
+                            StringRsr.get(LanguageKey.ENGLISH_LC)!,
+                            StringRsr.get(LanguageKey.AMHARIC_LC,
+                                lcl: LanguageKey.AMHARIC_LC)!
+                          ].map((String package) {
+                            return DropdownMenuItem<String>(
+                                value: package, child: Text(package));
+                          }).toList(),
+                        ),
+                        const SizedBox(
+                          height: 25,
+                        ),
+                        SizedBox(
+                          width: 300,
+                          height: 40,
+                          child: ElevatedButton(
+                            // style: ElevatedButton.styleFrom(
+                            //   primary: Theme.of(context).primaryColorDark,
+                            //   shape: RoundedRectangleBorder(
+                            //     borderRadius: BorderRadius.circular(30.0),
+                            //   ),
+                            // ),
+                            child: Text(
+                              proceedButtonTxt,
+                              style: TextStyle(
+                                  color: Theme.of(context).primaryColor),
+                            ),
+                            onPressed: () async {
+                              // todo : set first time flag to false
+                              // todo : navigate to welcome page
+
+                              String locale =
+                                  StringRsr.languageMapping[selectedLanguage]!;
+                              if (locale != null) {
+                                await localPreference
+                                    .set(HSharedPreference.LOCALE, locale)
+                                    .then((value) async {
+                                  StringRsr.locale = locale;
+                                  await localPreference.set(
+                                      HSharedPreference.KEY_FIRST_TIME, true);
+                                  Navigator.pushReplacementNamed(context,
+                                      RouteTo.INFO_WELCOME); //HRoutes.WELCOME
+                                });
+                              }
+                            },
+                          ),
+                        )
+                      ],
                     )
                   ],
                 ),
