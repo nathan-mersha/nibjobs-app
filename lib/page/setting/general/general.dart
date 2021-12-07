@@ -145,7 +145,7 @@ class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
                             child: Text(
                               package,
                               style: const TextStyle(
-                                  color: CustomColor.GRAY_LIGHT,
+                                  color: CustomColor.TEXT_COLOR_GRAY_LIGHT,
                                   fontWeight: FontWeight.bold),
                             ));
                       }).toList(),
@@ -156,11 +156,11 @@ class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
                       Navigator.pushNamed(context, RouteTo.CATEGORY_PREFERENCE);
                     },
                     title: Text(
-                      StringRsr.get(LanguageKey.CATEGORY_PREFERENCES,
+                      StringRsr.get(LanguageKey.JOB_NOTIFICATION,
                           firstCap: true)!,
                       style: const TextStyle(
                           fontSize: 17,
-                          color: CustomColor.GRAY_LIGHT,
+                          color: CustomColor.TEXT_COLOR_GRAY_LIGHT,
                           fontWeight: FontWeight.bold),
                     ),
                   ),
@@ -238,7 +238,7 @@ class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
                       StringRsr.get(LanguageKey.FAQL, firstCap: true)!,
                       style: const TextStyle(
                           fontSize: 17,
-                          color: CustomColor.GRAY_LIGHT,
+                          color: CustomColor.TEXT_COLOR_GRAY_LIGHT,
                           fontWeight: FontWeight.bold),
                     ),
                   ),
@@ -253,7 +253,7 @@ class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
                       StringRsr.get(LanguageKey.CONTACT_US, firstCap: true)!,
                       style: const TextStyle(
                           fontSize: 17,
-                          color: CustomColor.GRAY_LIGHT,
+                          color: CustomColor.TEXT_COLOR_GRAY_LIGHT,
                           fontWeight: FontWeight.bold),
                     ),
                   ),
@@ -266,7 +266,7 @@ class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
                           firstCap: true)!,
                       style: const TextStyle(
                           fontSize: 17,
-                          color: CustomColor.GRAY_LIGHT,
+                          color: CustomColor.TEXT_COLOR_GRAY_LIGHT,
                           fontWeight: FontWeight.bold),
                     ),
                   ),
@@ -279,7 +279,7 @@ class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
                           firstCap: true)!,
                       style: const TextStyle(
                           fontSize: 17,
-                          color: CustomColor.GRAY_LIGHT,
+                          color: CustomColor.TEXT_COLOR_GRAY_LIGHT,
                           fontWeight: FontWeight.bold),
                     ),
                   ),

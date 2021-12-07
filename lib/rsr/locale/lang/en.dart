@@ -208,5 +208,6 @@ class EN {
     LanguageKey.SECONDARY_PHONE_SAME_AS_PRIMARY_PHONE:
         "secondary phone same as primary phone",
     LanguageKey.CLICK_HERE_TO_DIAL: "click here to dial",
+    LanguageKey.JOB_NOTIFICATION: "job notification",
   };
 }

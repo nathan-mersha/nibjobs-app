@@ -213,126 +213,107 @@ class _ContactUsPageState extends State<ContactUsPage> {
                     const SizedBox(
                       height: 50,
                     ),
-                    Container(
-                      padding: const EdgeInsets.only(right: 10, bottom: 5),
-                      alignment: Alignment.center,
-                      child: GestureDetector(
-                        onTap: () {
-                          if (_formKey.currentState!.validate()) {
-                            setState(() {
-                              _absorb = true;
-                            });
-                          }
-                        },
-                        child: _absorb
-                            ? const CircularProgressIndicator(
-                                backgroundColor: Colors.white,
-                                strokeWidth: 2,
-                              )
-                            : GestureDetector(
-                                onTap: () async {
-                                  if (_formKey.currentState!.validate()) {
-                                    var uid = Uuid();
-                                    HSharedPreference hSharedPreference =
-                                        GetHSPInstance.hSharedPreference;
-                                    String userId = await hSharedPreference.get(
-                                            HSharedPreference.KEY_USER_EMAIL) ??
-                                        "anonymous";
+                    Center(
+                      child: SizedBox(
+                        width: 200,
+                        height: 40,
+                        child: ElevatedButton(
+                          onPressed: () async {
+                            if (_formKey.currentState!.validate() && !_absorb) {
+                              setState(() {
+                                _absorb = true;
+                              });
+                              if (_formKey.currentState!.validate()) {
+                                var uid = Uuid();
+                                HSharedPreference hSharedPreference =
+                                    GetHSPInstance.hSharedPreference;
+                                String userId = await hSharedPreference.get(
+                                        HSharedPreference.KEY_USER_EMAIL) ??
+                                    "anonymous";
 
-                                    ContactUsModel contactUs = ContactUsModel(
-                                      id: uid.v1(),
-                                      from: userId,
-                                      title: nameController.text,
-                                      body: messageController.text,
-                                      resolved: false,
-                                      firstModified: DateTime.now(),
-                                      lastModified: DateTime.now(),
-                                    );
-                                    final result =
-                                        await addContactUs(contactUs);
-                                    if (result) {
-                                      AwesomeDialog(
-                                        btnOkText: StringRsr.get(LanguageKey.OK,
-                                            firstCap: true),
-                                        btnCancelText: StringRsr.get(
-                                            LanguageKey.CANCEL,
-                                            firstCap: true),
-                                        context: context,
-                                        dialogType: DialogType.SUCCES,
-                                        borderSide: const BorderSide(
-                                            color: Colors.transparent,
-                                            width: 2),
-                                        width: 380,
-                                        buttonsBorderRadius:
-                                            const BorderRadius.all(
-                                                Radius.circular(2)),
-                                        headerAnimationLoop: false,
-                                        animType: AnimType.BOTTOMSLIDE,
-                                        title: StringRsr.get(
-                                            LanguageKey.SUCCESSFUL,
-                                            firstCap: true),
-                                        desc: StringRsr.get(
-                                            LanguageKey
-                                                .THANK_YOU_FOR_YOUR_FEEDBACK,
-                                            firstCap: true),
-                                        showCloseIcon: true,
-                                        btnOkOnPress: () async {
-                                          nameController.text = "";
-                                          messageController.text = "";
-                                          Navigator.pop(context);
-                                        },
-                                      ).show();
-                                    } else {
-                                      AwesomeDialog(
-                                        btnOkText: StringRsr.get(LanguageKey.OK,
-                                            firstCap: true),
-                                        btnCancelText: StringRsr.get(
-                                            LanguageKey.CANCEL,
-                                            firstCap: true),
-                                        context: context,
-                                        dialogType: DialogType.ERROR,
-                                        borderSide: const BorderSide(
-                                            color: Colors.transparent,
-                                            width: 2),
-                                        width: 380,
-                                        buttonsBorderRadius:
-                                            const BorderRadius.all(
-                                                Radius.circular(2)),
-                                        headerAnimationLoop: false,
-                                        animType: AnimType.BOTTOMSLIDE,
-                                        title: StringRsr.get(LanguageKey.ERROR,
-                                            firstCap: true),
-                                        desc: StringRsr.get(
-                                            LanguageKey.PLEASE_TRY_AGAIN,
-                                            firstCap: true),
-                                        showCloseIcon: true,
-                                        btnCancelOnPress: () {},
-                                        btnOkOnPress: () async {},
-                                      ).show();
-                                    }
-                                  }
-                                },
-                                child: Container(
-                                  width: 200,
-                                  height: 40,
-                                  decoration: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      color: Theme.of(context).primaryColor),
-                                  padding: const EdgeInsets.only(
-                                    left: 15,
-                                    top: 5,
-                                    bottom: 10,
-                                    right: 15,
-                                  ),
-                                  child: Center(
-                                    child: Text(
-                                      StringRsr.get(LanguageKey.SEND)!,
-                                      style:
-                                          const TextStyle(color: Colors.white),
-                                    ),
+                                ContactUsModel contactUs = ContactUsModel(
+                                  id: uid.v1(),
+                                  from: userId,
+                                  title: nameController.text,
+                                  body: messageController.text,
+                                  resolved: false,
+                                  firstModified: DateTime.now(),
+                                  lastModified: DateTime.now(),
+                                );
+                                final result = await addContactUs(contactUs);
+                                if (result) {
+                                  // AwesomeDialog(
+                                  //   btnOkText: StringRsr.get(LanguageKey.OK,
+                                  //       firstCap: true),
+                                  //   btnCancelText: StringRsr.get(
+                                  //       LanguageKey.CANCEL,
+                                  //       firstCap: true),
+                                  //   context: context,
+                                  //   dialogType: DialogType.SUCCES,
+                                  //   borderSide: const BorderSide(
+                                  //       color: Colors.transparent,
+                                  //       width: 2),
+                                  //   width: 380,
+                                  //   buttonsBorderRadius:
+                                  //   const BorderRadius.all(
+                                  //       Radius.circular(2)),
+                                  //   headerAnimationLoop: false,
+                                  //   animType: AnimType.BOTTOMSLIDE,
+                                  //   title: StringRsr.get(
+                                  //       LanguageKey.SUCCESSFUL,
+                                  //       firstCap: true),
+                                  //   desc: StringRsr.get(
+                                  //       LanguageKey
+                                  //           .THANK_YOU_FOR_YOUR_FEEDBACK,
+                                  //       firstCap: true),
+                                  //   showCloseIcon: true,
+                                  //   btnOkOnPress: () async {
+                                  //     nameController.text = "";
+                                  //     messageController.text = "";
+                                  //     Navigator.pop(context);
+                                  //   },
+                                  // ).show();
+
+                                  showInfoToUser(
+                                    context,
+                                    DialogType.SUCCES,
+                                    StringRsr.get(LanguageKey.SUCCESSFUL,
+                                        firstCap: true),
+                                    StringRsr.get(
+                                        LanguageKey.THANK_YOU_FOR_YOUR_FEEDBACK,
+                                        firstCap: true),
+                                    onOk: () async {
+                                      nameController.text = "";
+                                      messageController.text = "";
+                                      Navigator.pop(context);
+                                    },
+                                  );
+                                } else {
+                                  showInfoToUser(
+                                    context,
+                                    DialogType.ERROR,
+                                    StringRsr.get(LanguageKey.ERROR,
+                                        firstCap: true),
+                                    StringRsr.get(LanguageKey.PLEASE_TRY_AGAIN,
+                                        firstCap: true),
+                                    onOk: () {},
+                                  );
+                                }
+                              }
+                            }
+                          },
+                          child: _absorb
+                              ? const CircularProgressIndicator(
+                                  backgroundColor: Colors.white,
+                                  strokeWidth: 2,
+                                )
+                              : Center(
+                                  child: Text(
+                                    StringRsr.get(LanguageKey.SEND)!,
+                                    style: const TextStyle(color: Colors.white),
                                   ),
                                 ),
-                              ),
+                        ),
                       ),
                     ),
                   ],
