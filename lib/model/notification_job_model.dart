@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:nibjobs/model/profile/company.dart';
 
 import 'commerce/job_channel.dart';
@@ -108,8 +106,8 @@ class NotificationJobModel {
       DESCRIPTION: job.description,
       APPLY_VIA: job.applyVia,
       APPLY_LINK: job.applyLink,
-      COMPANY: jsonEncode(job.company),
-      JOB_CHANNEL: jsonEncode(job.jobChannel),
+      COMPANY: Company.toMap(job.company!).toString(),
+      JOB_CHANNEL: JobChannel.toMap(job.jobChannel!).toString(),
       APPROVED: job.approved.toString(),
       DELETED: job.deleted.toString(),
       RAW_POST: job.rawPost,

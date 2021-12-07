@@ -132,7 +132,7 @@ class Job {
         category: map[CATEGORY],
         contractType: map[CONTRACT_TYPE] ?? "unavailable",
         salary: map[SALARY],
-        availablePositions: map[AVAILABLE_POSITIONS] as num,
+        availablePositions: map[AVAILABLE_POSITIONS],
         tags: map[TAGS] as List,
         description: map[DESCRIPTION],
         applyVia: map[APPLY_VIA],
