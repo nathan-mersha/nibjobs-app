@@ -10,11 +10,12 @@ import 'package:nibjobs/rsr/theme/color.dart';
 class CategoryViewSmall extends StatefulWidget {
   final String _job;
   final String size;
+  final Category? category;
   final bool pageAdmin;
   static const String SIZE_SMALL = "SIZE_SMALL";
   static const String SIZE_MEDIUM = "SIZE_MEDIUM";
   static const String SIZE_LARGE = "SIZE_LARGE";
-  CategoryViewSmall(this._job,
+  CategoryViewSmall(this._job, this.category,
       {this.size = SIZE_MEDIUM, this.pageAdmin = false});
 
   static Widget getThumbnailView(Category job,
@@ -77,10 +78,18 @@ class CategoryViewSmallState extends State<CategoryViewSmall> {
     List<String> proFavList =
         await hSharedPreference.get(HSharedPreference.LIST_OF_FAV_CATEGORY) ??
             [];
+    List<String> proOrderList =
+        await hSharedPreference.get(HSharedPreference.LIST_OF_CATEGORY_ORDER) ??
+            [];
     proFavList.add(widget._job);
-
+    if (!proOrderList.contains(widget.category!.name!)) {
+      proOrderList.add(widget.category!.name!);
+      await hSharedPreference.set(
+          HSharedPreference.LIST_OF_CATEGORY_ORDER, proOrderList);
+    }
     await hSharedPreference.set(
         HSharedPreference.LIST_OF_FAV_CATEGORY, proFavList);
+
     BlocProvider.of<ButtonBloc>(context)
         .add(ButtonSet(categoryList: proFavList));
   }
@@ -249,10 +258,10 @@ class _ListForCategoryState extends State<ListForCategory> {
   }
 
   Future<void> seeInList() async {
-    List<String> proFavList =
-        await hSharedPreference.get(HSharedPreference.LIST_OF_FAV_CATEGORY) ??
+    List<String> proOrderList =
+        await hSharedPreference.get(HSharedPreference.LIST_OF_CATEGORY_ORDER) ??
             [];
-    if (proFavList.contains(widget.category!.name)) {
+    if (proOrderList.contains(widget.category!.name)) {
       setState(() {
         isSelectedCategory = true;
       });
@@ -267,8 +276,11 @@ class _ListForCategoryState extends State<ListForCategory> {
     List<String> proFavList =
         await hSharedPreference.get(HSharedPreference.LIST_OF_FAV_CATEGORY) ??
             [];
-    proFavList.remove(widget.category!.name!);
-    proFavList.add(widget.category!.name!);
+    List<String> proOrderList =
+        await hSharedPreference.get(HSharedPreference.LIST_OF_CATEGORY_ORDER) ??
+            [];
+    proOrderList.remove(widget.category!.name!);
+    proOrderList.add(widget.category!.name!);
     //proFavList.addAll(widget.category!.tags! as List<String>);
     for (var element in widget.category!.tags!) {
       proFavList.remove(element);
@@ -277,6 +289,9 @@ class _ListForCategoryState extends State<ListForCategory> {
 
     await hSharedPreference.set(
         HSharedPreference.LIST_OF_FAV_CATEGORY, proFavList);
+    await hSharedPreference.set(
+        HSharedPreference.LIST_OF_CATEGORY_ORDER, proOrderList);
+
     BlocProvider.of<ButtonBloc>(context)
         .add(ButtonSet(categoryList: proFavList));
   }
@@ -285,13 +300,18 @@ class _ListForCategoryState extends State<ListForCategory> {
     List<String> proFavList =
         await hSharedPreference.get(HSharedPreference.LIST_OF_FAV_CATEGORY) ??
             [];
-    proFavList.remove(widget.category!.name!);
+    List<String> proOrderList =
+        await hSharedPreference.get(HSharedPreference.LIST_OF_CATEGORY_ORDER) ??
+            [];
+    proOrderList.remove(widget.category!.name!);
     //proFavList.removeAll(widget.category!.tags! as List<String>);
     for (var element in widget.category!.tags!) {
       proFavList.remove(element);
     }
     await hSharedPreference.set(
         HSharedPreference.LIST_OF_FAV_CATEGORY, proFavList);
+    await hSharedPreference.set(
+        HSharedPreference.LIST_OF_CATEGORY_ORDER, proOrderList);
     BlocProvider.of<ButtonBloc>(context)
         .add(ButtonSet(categoryList: proFavList));
 
@@ -335,7 +355,7 @@ class _ListForCategoryState extends State<ListForCategory> {
             runSpacing: 4,
             spacing: 3,
             children: widget.category!.tags!
-                .map((e) => CategoryViewSmall(e))
+                .map((e) => CategoryViewSmall(e, widget.category!))
                 .toSet()
                 .toList(),
           ),

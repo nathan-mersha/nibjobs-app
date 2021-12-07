@@ -12,6 +12,7 @@ class HSharedPreference {
   static const LIST_OF_FAV = "LIST_OF_FAV";
   static const SELECT_PREFERENCE = "SELECT_PREFERENCE";
   static const LIST_OF_FAV_CATEGORY = "LIST_OF_FAV_CATEGORY";
+  static const LIST_OF_CATEGORY_ORDER = "LIST_OF_CATEGORY_ORDER";
   static const LOCALE = "LOCALE";
   static const THEME = "THEME";
   static const SHOW_INFO = "SHOW_INFO";
@@ -38,7 +39,8 @@ class HSharedPreference {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     if (key == "LIST_OF_FAV" ||
         key == "LIST_RECENT_CITIES" ||
-        key == "LIST_OF_FAV_CATEGORY") {
+        key == "LIST_OF_FAV_CATEGORY" ||
+        key == "LIST_OF_CATEGORY_ORDER") {
       return prefs.getStringList(key);
     }
     return prefs.get(key);

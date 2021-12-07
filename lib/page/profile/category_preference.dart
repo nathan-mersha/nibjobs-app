@@ -27,18 +27,20 @@ class _CategoryPreferencePageState extends State<CategoryPreferencePage> {
   HSharedPreference hSharedPreference = GetHSPInstance.hSharedPreference;
   Future<List<Category>> getCategory() async {
     List<String> list =
-        await hSharedPreference.get(HSharedPreference.LIST_OF_FAV_CATEGORY) ??
+        await hSharedPreference.get(HSharedPreference.LIST_OF_CATEGORY_ORDER) ??
             [];
     List<Category> categories = global.localConfig.categories;
-    categories.map((e) {
+    List<Category> categoriesSorted = [];
+
+    for (var e in categories) {
       if (list.contains(e.name)) {
-        print("ccvcv");
-        int i = categories.indexOf(e);
-        categories.remove(e);
-        categories.insert(0, e);
+        categoriesSorted.insert(0, e);
+      } else {
+        categoriesSorted.add(e);
       }
-    });
-    return Future.value(categories);
+    }
+
+    return Future.value(categoriesSorted);
   }
 
   @override
