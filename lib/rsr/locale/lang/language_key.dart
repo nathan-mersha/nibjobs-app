@@ -208,4 +208,6 @@ class LanguageKey {
   static const String CLICK_HERE_TO_DIAL = "CLICK_HERE_TO_DIAL";
   static const String JOB_NOTIFICATION = "JOB_NOTIFICATION";
   static const String NEW = "NEW";
+  static const String YOU_WILL_BE_NOTIFIED_FOR = "YOU_WILL_BE_NOTIFIED_FOR";
+  static const String WELCOME_TO_NIBJOBS = "WELCOME_TO_NIBJOBS";
 }

@@ -146,8 +146,9 @@ class Menu {
                       );
                     } else if (state is UserSignedOutState) {
                       return Text(
-                        //StringRsr.get(LanguageKey.LET_US_KNOW_YOU, firstCap: true)!,
-                        "welcome to Nib free",
+                        StringRsr.get(LanguageKey.WELCOME_TO_NIBJOBS,
+                            firstCap: true)!,
+
                         // style: TextStyle(
                         //   color: CustomColor.GRAY_LIGHT,
                         //   fontWeight: FontWeight.bold,

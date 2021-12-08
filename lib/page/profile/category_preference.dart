@@ -103,7 +103,8 @@ class _CategoryPreferencePageState extends State<CategoryPreferencePage> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
-                                  "Job Notification",
+                                  StringRsr.get(LanguageKey.JOB_NOTIFICATION,
+                                      firstCap: true)!,
                                   style: Theme.of(context)
                                       .textTheme
                                       .headline6!
@@ -118,7 +119,10 @@ class _CategoryPreferencePageState extends State<CategoryPreferencePage> {
                                       return Row(
                                         children: [
                                           Text(
-                                            "you will be notified for",
+                                            StringRsr.get(
+                                                LanguageKey
+                                                    .YOU_WILL_BE_NOTIFIED_FOR,
+                                                firstCap: true)!,
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .subtitle2!
@@ -137,7 +141,8 @@ class _CategoryPreferencePageState extends State<CategoryPreferencePage> {
                                                 ),
                                           ),
                                           Text(
-                                            "jobs",
+                                            StringRsr.get(LanguageKey.JOBS,
+                                                firstCap: true)!,
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .subtitle2!

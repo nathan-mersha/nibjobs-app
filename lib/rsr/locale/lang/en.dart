@@ -210,5 +210,7 @@ class EN {
     LanguageKey.CLICK_HERE_TO_DIAL: "click here to dial",
     LanguageKey.JOB_NOTIFICATION: "job notification",
     LanguageKey.NEW: "new",
+    LanguageKey.YOU_WILL_BE_NOTIFIED_FOR: "you will be notified for ",
+    LanguageKey.WELCOME_TO_NIBJOBS: "welcome to Nibjobs",
   };
 }
