@@ -65,14 +65,33 @@ class MyApp extends StatefulWidget {
   }
 }
 
-class MyAppState extends State<MyApp> {
+class MyAppState extends State<MyApp> with WidgetsBindingObserver {
   static var routes;
   List<String>? proFavList;
   HSharedPreference hSharedPreference = HSharedPreference();
 
+  @override
   void initState() {
     super.initState();
+    WidgetsBinding.instance!.addObserver(this);
     func();
+  }
+
+  @override
+  void dispose() {
+    WidgetsBinding.instance!.removeObserver(this);
+    super.dispose();
+  }
+
+  @override
+  Future<void> didChangeAppLifecycleState(AppLifecycleState state) async {
+    if (state == AppLifecycleState.detached) {
+      await hSharedPreference.set(HSharedPreference.KEY_USER_LAST_SEEN,
+          DateTime.now().toIso8601String());
+    } else if (state == AppLifecycleState.paused) {
+      await hSharedPreference.set(HSharedPreference.KEY_USER_LAST_SEEN,
+          DateTime.now().toIso8601String());
+    } else if (state == AppLifecycleState.resumed) {}
   }
 
   void func() async {
