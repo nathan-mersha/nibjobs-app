@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -8,6 +10,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:nibjobs/bloc/ads/adses_cubit.dart';
 import 'package:nibjobs/bloc/dialog/dialog_bloc.dart';
+import 'package:nibjobs/bloc/notification/notification_bloc.dart';
 import 'package:nibjobs/route/route.dart';
 import 'package:nibjobs/rsr/locale/string_rsr.dart';
 import 'package:nibjobs/rsr/theme/color.dart';
@@ -78,10 +81,18 @@ class MyAppState extends State<MyApp> {
             [];
   }
 
+  void timeSetter() async {
+    Timer.periodic(const Duration(minutes: 2, seconds: 1), (timer) {
+      //code to run on every 30 minutes 1 seconds
+      hSharedPreference.set(HSharedPreference.KEY_USER_LAST_SEEN,
+          DateTime.now().toIso8601String());
+    });
+  }
+
   @override
   Widget build(BuildContext context) {
     CreateAllDAL.createDatabase();
-
+    timeSetter();
     routes = RouteTo().routes;
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
@@ -113,6 +124,9 @@ class MyAppState extends State<MyApp> {
       providers: [
         BlocProvider(
           create: (context) => ButtonBloc(proFavList!),
+        ),
+        BlocProvider(
+          create: (context) => NotificationBloc(),
         ),
         BlocProvider(
           create: (context) => NavBloc(),

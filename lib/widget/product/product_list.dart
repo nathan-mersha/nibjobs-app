@@ -7,6 +7,7 @@ import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:nibjobs/api/flutterfire.dart';
 import 'package:nibjobs/bloc/ads/adses_cubit.dart';
+import 'package:nibjobs/bloc/notification/notification_bloc.dart';
 import 'package:nibjobs/bloc/search/search_bloc.dart';
 import 'package:nibjobs/bloc/sort/sort_bloc.dart';
 import 'package:nibjobs/dal/notification_job_dal.dart';
@@ -49,6 +50,7 @@ class _JobListState extends State<JobList> {
   HSharedPreference hSharedPreference = GetHSPInstance
       .hSharedPreference; // total amount of data to be retrieved once.
   static const int JOB_LIMIT = 20;
+  int jobUnSeen = 0;
 
   List googleBooks = [];
   String? uId;
@@ -275,8 +277,10 @@ class _JobListState extends State<JobList> {
                                         _refresherController.refreshCompleted();
                                         List? newJobs = await getJobs();
                                         if (newJobs.isNotEmpty) {
+                                          jobUnSeen = 0;
+
                                           await state.adState.initialized
-                                              .then((value) {
+                                              .then((value) async {
                                             for (var i = newJobs.length - 4;
                                                 i >= 1;
                                                 i -= 4) {
@@ -289,12 +293,14 @@ class _JobListState extends State<JobList> {
                                               debugPrint("here must be ads 3");
                                             }
                                             _jobs.addAll(newJobs);
+                                            await counterUpdater(_jobs);
                                           });
 
                                           //       _jobs = sortFun(_jobs);
                                           _refresherController
                                               .refreshCompleted();
                                           _initialJobsLoaded = false;
+
                                           if (mounted) setState(() {});
                                         } else if (newJobs.isEmpty) {
                                           _refresherController.resetNoData();
@@ -315,8 +321,9 @@ class _JobListState extends State<JobList> {
                                             await getJobs() as List<Job>;
                                         if (newJobs.isNotEmpty) {
                                           _initialJobsLoaded = false;
+
                                           await state.adState.initialized
-                                              .then((value) {
+                                              .then((value) async {
                                             for (var i = newJobs.length - 4;
                                                 i >= 1;
                                                 i -= 4) {
@@ -329,6 +336,7 @@ class _JobListState extends State<JobList> {
                                               debugPrint("here must be ads 3");
                                             }
                                             _jobs.addAll(newJobs);
+                                            await counterUpdater(_jobs);
                                           });
                                           if (mounted) setState(() {});
                                           _refresherController.loadComplete();
@@ -769,6 +777,29 @@ class _JobListState extends State<JobList> {
     );
   }
 
+  Future<void> counterUpdater(List _jobs) async {
+    String dateFile = await hSharedPreference.get(
+          HSharedPreference.KEY_USER_LAST_SEEN,
+        ) ??
+        "";
+    for (int i = 0; i < _jobs.length; i++) {
+      if (_jobs[i].title != "googleAdsKelem") {
+        if (dateFile == "") {
+          jobUnSeen += 1;
+          BlocProvider.of<NotificationBloc>(context)
+              .add(NotificationEventAdder(counter: jobUnSeen));
+        } else {
+          DateTime dateLast = DateTime.parse(dateFile);
+          if (dateLast.isBefore(_jobs[i].lastModified!)) {
+            BlocProvider.of<NotificationBloc>(context)
+                .add(NotificationEventAdder(counter: jobUnSeen));
+            jobUnSeen += 1;
+          }
+        }
+      }
+    }
+  }
+
   Future<List<Category>> getCategory() async {
     return Future.value(global.localConfig.categories);
   }
@@ -781,7 +812,7 @@ class _JobListState extends State<JobList> {
     }
     if (widget.fromWhere == null || widget.fromWhere == "") {
       fav = false;
-
+      jobUnSeen = 0;
       QuerySnapshot querySnapshot;
       debugPrint("_subCategory $_subCategory");
       if (_subCategory == "all") {
@@ -873,6 +904,7 @@ class _JobListState extends State<JobList> {
       }).toList();
       // _jobs.addAll(jobs);
       jobs = sortFun(jobs);
+
       return jobs;
     } else if (widget.fromWhere == "nu") {
       fav = false;

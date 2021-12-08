@@ -3,10 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 import 'package:nibjobs/api/flutterfire.dart';
+import 'package:nibjobs/bloc/notification/notification_bloc.dart';
 import 'package:nibjobs/bloc/user/user_bloc.dart';
 import 'package:nibjobs/db/k_shared_preference.dart';
 import 'package:nibjobs/model/commerce/job.dart';
 import 'package:nibjobs/route/route.dart';
+import 'package:nibjobs/rsr/locale/lang/language_key.dart';
+import 'package:nibjobs/rsr/locale/string_rsr.dart';
 import 'package:nibjobs/rsr/theme/color.dart';
 import 'package:nibjobs/themes/light_color.dart';
 import 'package:nibjobs/themes/theme.dart';
@@ -15,7 +18,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 class JobView extends StatefulWidget {
   final Job? _job;
-
+  int counter;
   final String size;
   bool pageAdmin;
   String fav;
@@ -27,6 +30,7 @@ class JobView extends StatefulWidget {
 
   JobView(this._job,
       {this.size = SIZE_MEDIUM,
+      this.counter = 0,
       this.pageAdmin = false,
       this.fav = "",
       this.onComplete});
@@ -94,6 +98,7 @@ class JobView extends StatefulWidget {
 
 class _JobViewState extends State<JobView> {
   bool isSelected = false;
+  bool isNew = false;
   HSharedPreference hSharedPreference = HSharedPreference();
   Widget getPricingView(BuildContext context, Job job,
       {double priceFontSize = 15,
@@ -207,7 +212,7 @@ class _JobViewState extends State<JobView> {
                 );
               }),
             ),
-          )
+          ),
         ],
       ),
     );
@@ -218,6 +223,31 @@ class _JobViewState extends State<JobView> {
     // TODO: implement initState
     super.initState();
     seeInList();
+    setterAllData();
+  }
+
+  Future<void> setterAllData() async {
+    String dateFile = await hSharedPreference.get(
+          HSharedPreference.KEY_USER_LAST_SEEN,
+        ) ??
+        "";
+    if (dateFile == "") {
+      // print("dateFile $dateFile");
+      // BlocProvider.of<NotificationBloc>(context)
+      //     .add(NotificationEventAdder(counter: widget.counter + 1));
+      setState(() {
+        isNew = true;
+      });
+    } else {
+      DateTime dateLast = DateTime.parse(dateFile);
+      if (dateLast.isBefore(widget._job!.lastModified!)) {
+        // BlocProvider.of<NotificationBloc>(context)
+        //     .add(NotificationEventAdder(counter: widget.counter + 1));
+        setState(() {
+          isNew = true;
+        });
+      }
+    }
   }
 
   Future<void> seeInList() async {
@@ -271,333 +301,375 @@ class _JobViewState extends State<JobView> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<UserBloc, UserState>(
+    // setterAllData();
+    return BlocBuilder<NotificationBloc, NotificationState>(
       builder: (context, state) {
-        return GestureDetector(
-          onTap: () async {
-            /// Navigating to item detail page
-            if (!widget.pageAdmin) {
-              // BlocProvider.of<DownBloc>(context).add(
-              //     DownSelectedEvent(job: widget._job, context: context));
-              if (state is UserSignedInState) {
-                if (!isSelected) {
-                  setState(() {
-                    isSelected = true;
-                  });
-                  final result = await addFavJob(widget._job!);
-                  if (result) {
-                    addToList();
-                    // Fluttertoast.showToast(
-                    //     msg:
-                    //     "${widget._product.name} ${StringRsr.get(LanguageKey.PRODUCT_ADDED_TO_FAVORITE_LIST)}",
-                    //     toastLength: Toast.LENGTH_SHORT,
-                    //     gravity: ToastGravity.CENTER,
-                    //     timeInSecForIosWeb: 1,
-                    //     backgroundColor: Colors.green,
-                    //     textColor: Colors.white,
-                    //     fontSize: 16.0);
-                  } else {}
+        if (state is NotificationInitial) {
+          widget.counter = state.counter;
+        }
+        return BlocBuilder<UserBloc, UserState>(
+          builder: (context, state) {
+            return GestureDetector(
+              onTap: () async {
+                /// Navigating to item detail page
+                if (!widget.pageAdmin) {
+                  // BlocProvider.of<DownBloc>(context).add(
+                  //     DownSelectedEvent(job: widget._job, context: context));
+                  if (state is UserSignedInState) {
+                    if (!isSelected) {
+                      setState(() {
+                        isSelected = true;
+                      });
+                      final result = await addFavJob(widget._job!);
+                      if (result) {
+                        addToList();
+                        // Fluttertoast.showToast(
+                        //     msg:
+                        //     "${widget._product.name} ${StringRsr.get(LanguageKey.PRODUCT_ADDED_TO_FAVORITE_LIST)}",
+                        //     toastLength: Toast.LENGTH_SHORT,
+                        //     gravity: ToastGravity.CENTER,
+                        //     timeInSecForIosWeb: 1,
+                        //     backgroundColor: Colors.green,
+                        //     textColor: Colors.white,
+                        //     fontSize: 16.0);
+                      } else {}
+                    }
+                    Navigator.pushNamed(context, RouteTo.JOB_DETAIL,
+                        arguments: widget._job);
+                  } else {
+                    Navigator.pushNamed(context, RouteTo.JOB_DETAIL,
+                        arguments: widget._job);
+                  }
+                } else {
+                  Navigator.pop(context);
+                  Navigator.pushNamed(context, RouteTo.SHOP_ADD_ITEM,
+                      arguments: widget._job);
                 }
-                Navigator.pushNamed(context, RouteTo.JOB_DETAIL,
-                    arguments: widget._job);
-              } else {
-                Navigator.pushNamed(context, RouteTo.JOB_DETAIL,
-                    arguments: widget._job);
-              }
-            } else {
-              Navigator.pop(context);
-              Navigator.pushNamed(context, RouteTo.SHOP_ADD_ITEM,
-                  arguments: widget._job);
-            }
-          },
-          child: Container(
-            decoration: BoxDecoration(
-              border: Border.all(
-                  color: LightColor.iconColor, style: BorderStyle.none),
-              borderRadius: const BorderRadius.all(Radius.circular(10)),
-              // color:
-              // isOutLine ? Colors.transparent : Theme.of(context).backgroundColor,
-            ),
-            child: Card(
-              elevation: 0,
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(20),
-              ),
-              child: Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    // Image thumbnail or image place holder
-                    // Expanded(
-                    //   flex: 1,
-                    //   child: Padding(
-                    //     padding: const EdgeInsets.all(8.0),
-                    //     child: Stack(
-                    //       fit: StackFit.expand,
-                    //       children: [
-                    //         // JobView.getThumbnailView(widget._job!,
-                    //         //     size: JobView.SIZE_MEDIUM),
-                    //         Align(
-                    //           alignment: Alignment.topRight,
-                    //           child: Padding(
-                    //             padding: const EdgeInsets.only(right: 10.0, top: 5),
-                    //             child: Builder(builder: (context) {
-                    //               if (widget.pageAdmin) {
-                    //                 return Container(
-                    //                   decoration: BoxDecoration(
-                    //                     borderRadius: BorderRadius.circular(24),
-                    //                     color: Colors.white,
-                    //                   ),
-                    //                   child: Padding(
-                    //                     padding: const EdgeInsets.all(4.0),
-                    //                     child: Icon(
-                    //                       Icons.verified_user,
-                    //                       color: widget._job!.approved!
-                    //                           ? Colors.lightGreen
-                    //                           : LightColor.lightGrey,
-                    //                       size: 20,
-                    //                     ),
-                    //                   ),
-                    //                 );
-                    //               }
-                    //               return BlocBuilder<UserBloc, UserState>(
-                    //                 builder: (context, state) {
-                    //                   if (state is UserSignedInState) {
-                    //                     return GestureDetector(
-                    //                       onTap: () async {
-                    //                         isSelected = !isSelected;
-                    //                         if (isSelected) {
-                    //                           final result =
-                    //                               await addFavJob(widget._job!);
-                    //                           if (result) {
-                    //                             addToList();
-                    //                             Fluttertoast.showToast(
-                    //                                 msg:
-                    //                                     "${widget._job!.title} ${StringRsr.get(LanguageKey.JOB_ADDED_TO_FAVORITE_LIST)}",
-                    //                                 toastLength: Toast.LENGTH_SHORT,
-                    //                                 gravity: ToastGravity.CENTER,
-                    //                                 timeInSecForIosWeb: 1,
-                    //                                 backgroundColor: Colors.green,
-                    //                                 textColor: Colors.white,
-                    //                                 fontSize: 16.0);
-                    //                           } else {}
-                    //                         } else {
-                    //                           final result =
-                    //                               await deleteFavJob(widget._job!);
-                    //                           if (result) {
-                    //                             removeInList();
-                    //                             Fluttertoast.showToast(
-                    //                                 msg:
-                    //                                     "${widget._job!.title} ${StringRsr.get(LanguageKey.JOB_REMOVED_FROM_FAVORITE_LIST)}",
-                    //                                 toastLength: Toast.LENGTH_SHORT,
-                    //                                 gravity: ToastGravity.CENTER,
-                    //                                 timeInSecForIosWeb: 1,
-                    //                                 backgroundColor: Colors.red,
-                    //                                 textColor: Colors.white,
-                    //                                 fontSize: 16.0);
-                    //                           } else {}
-                    //                         }
-                    //                         setState(() {});
-                    //                       },
-                    //                       child: Container(
-                    //                         decoration: BoxDecoration(
-                    //                           borderRadius: BorderRadius.circular(24),
-                    //                           color: Colors.white,
-                    //                         ),
-                    //                         child: Padding(
-                    //                           padding: const EdgeInsets.all(4.0),
-                    //                           child: Icon(
-                    //                             Icons.favorite,
-                    //                             color: isSelected
-                    //                                 ? Colors.red
-                    //                                 : LightColor.lightGrey,
-                    //                             size: 15,
-                    //                           ),
-                    //                         ),
-                    //                       ),
-                    //                     );
-                    //                   }
-                    //                   return GestureDetector(
-                    //                     onTap: () async {
-                    //                       Navigator.pushNamed(
-                    //                           context, RouteTo.PROFILE_SIGN_IN);
-                    //                     },
-                    //                     child: Container(
-                    //                       decoration: BoxDecoration(
-                    //                         borderRadius: BorderRadius.circular(24),
-                    //                         color: Colors.white,
-                    //                       ),
-                    //                       child: Padding(
-                    //                         padding: const EdgeInsets.all(4.0),
-                    //                         child: Icon(
-                    //                           Icons.favorite,
-                    //                           color: isSelected
-                    //                               ? Colors.red
-                    //                               : LightColor.lightGrey,
-                    //                           size: 15,
-                    //                         ),
-                    //                       ),
-                    //                     ),
-                    //                   );
-                    //                 },
-                    //               );
-                    //             }),
-                    //           ),
-                    //         )
-                    //       ],
-                    //     ),
-                    //   ),
-                    // ),
+              },
+              child: Container(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                      color: LightColor.iconColor, style: BorderStyle.none),
+                  borderRadius: const BorderRadius.all(Radius.circular(10)),
+                  // color:
+                  // isOutLine ? Colors.transparent : Theme.of(context).backgroundColor,
+                ),
+                child: Card(
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: <Widget>[
+                        // Image thumbnail or image place holder
+                        // Expanded(
+                        //   flex: 1,
+                        //   child: Padding(
+                        //     padding: const EdgeInsets.all(8.0),
+                        //     child: Stack(
+                        //       fit: StackFit.expand,
+                        //       children: [
+                        //         // JobView.getThumbnailView(widget._job!,
+                        //         //     size: JobView.SIZE_MEDIUM),
+                        //         Align(
+                        //           alignment: Alignment.topRight,
+                        //           child: Padding(
+                        //             padding: const EdgeInsets.only(right: 10.0, top: 5),
+                        //             child: Builder(builder: (context) {
+                        //               if (widget.pageAdmin) {
+                        //                 return Container(
+                        //                   decoration: BoxDecoration(
+                        //                     borderRadius: BorderRadius.circular(24),
+                        //                     color: Colors.white,
+                        //                   ),
+                        //                   child: Padding(
+                        //                     padding: const EdgeInsets.all(4.0),
+                        //                     child: Icon(
+                        //                       Icons.verified_user,
+                        //                       color: widget._job!.approved!
+                        //                           ? Colors.lightGreen
+                        //                           : LightColor.lightGrey,
+                        //                       size: 20,
+                        //                     ),
+                        //                   ),
+                        //                 );
+                        //               }
+                        //               return BlocBuilder<UserBloc, UserState>(
+                        //                 builder: (context, state) {
+                        //                   if (state is UserSignedInState) {
+                        //                     return GestureDetector(
+                        //                       onTap: () async {
+                        //                         isSelected = !isSelected;
+                        //                         if (isSelected) {
+                        //                           final result =
+                        //                               await addFavJob(widget._job!);
+                        //                           if (result) {
+                        //                             addToList();
+                        //                             Fluttertoast.showToast(
+                        //                                 msg:
+                        //                                     "${widget._job!.title} ${StringRsr.get(LanguageKey.JOB_ADDED_TO_FAVORITE_LIST)}",
+                        //                                 toastLength: Toast.LENGTH_SHORT,
+                        //                                 gravity: ToastGravity.CENTER,
+                        //                                 timeInSecForIosWeb: 1,
+                        //                                 backgroundColor: Colors.green,
+                        //                                 textColor: Colors.white,
+                        //                                 fontSize: 16.0);
+                        //                           } else {}
+                        //                         } else {
+                        //                           final result =
+                        //                               await deleteFavJob(widget._job!);
+                        //                           if (result) {
+                        //                             removeInList();
+                        //                             Fluttertoast.showToast(
+                        //                                 msg:
+                        //                                     "${widget._job!.title} ${StringRsr.get(LanguageKey.JOB_REMOVED_FROM_FAVORITE_LIST)}",
+                        //                                 toastLength: Toast.LENGTH_SHORT,
+                        //                                 gravity: ToastGravity.CENTER,
+                        //                                 timeInSecForIosWeb: 1,
+                        //                                 backgroundColor: Colors.red,
+                        //                                 textColor: Colors.white,
+                        //                                 fontSize: 16.0);
+                        //                           } else {}
+                        //                         }
+                        //                         setState(() {});
+                        //                       },
+                        //                       child: Container(
+                        //                         decoration: BoxDecoration(
+                        //                           borderRadius: BorderRadius.circular(24),
+                        //                           color: Colors.white,
+                        //                         ),
+                        //                         child: Padding(
+                        //                           padding: const EdgeInsets.all(4.0),
+                        //                           child: Icon(
+                        //                             Icons.favorite,
+                        //                             color: isSelected
+                        //                                 ? Colors.red
+                        //                                 : LightColor.lightGrey,
+                        //                             size: 15,
+                        //                           ),
+                        //                         ),
+                        //                       ),
+                        //                     );
+                        //                   }
+                        //                   return GestureDetector(
+                        //                     onTap: () async {
+                        //                       Navigator.pushNamed(
+                        //                           context, RouteTo.PROFILE_SIGN_IN);
+                        //                     },
+                        //                     child: Container(
+                        //                       decoration: BoxDecoration(
+                        //                         borderRadius: BorderRadius.circular(24),
+                        //                         color: Colors.white,
+                        //                       ),
+                        //                       child: Padding(
+                        //                         padding: const EdgeInsets.all(4.0),
+                        //                         child: Icon(
+                        //                           Icons.favorite,
+                        //                           color: isSelected
+                        //                               ? Colors.red
+                        //                               : LightColor.lightGrey,
+                        //                           size: 15,
+                        //                         ),
+                        //                       ),
+                        //                     ),
+                        //                   );
+                        //                 },
+                        //               );
+                        //             }),
+                        //           ),
+                        //         )
+                        //       ],
+                        //     ),
+                        //   ),
+                        // ),
 
-                    Expanded(
-                      flex: 1,
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 2, horizontal: 15),
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: <Widget>[
-                            // Job name
-                            Column(
+                        Expanded(
+                          flex: 1,
+                          child: Container(
+                            padding: const EdgeInsets.symmetric(
+                                vertical: 2, horizontal: 15),
+                            child: Column(
                               crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    SizedBox(
-                                      width: 240,
-                                      child: Text(
-                                        "${widget._job!.title![0].toUpperCase()}${widget._job!.title!.substring(1).toLowerCase()}",
-                                        maxLines: 1,
-                                        overflow: TextOverflow.fade,
-                                        textAlign: TextAlign.left,
-                                        softWrap: false,
-                                        // style: const TextStyle(
-                                        //   color: CustomColor.TEXT_DARK,
-                                        //   fontSize: 16,
-                                        //   fontWeight: FontWeight.bold,
-                                        // ),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .subtitle1!
-                                            .copyWith(
-                                                fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                    Container(
-                                      margin: const EdgeInsets.symmetric(
-                                        vertical: 3,
-                                      ),
-                                      height: AppTheme.fullWidth(context) < 330
-                                          ? 30
-                                          : 31,
-                                      width: AppTheme.fullWidth(context) < 330
-                                          ? 30
-                                          : 31,
-                                      decoration: BoxDecoration(
-                                          color: Theme.of(context)
-                                              .primaryColorDark,
-                                          borderRadius:
-                                              BorderRadius.circular(40)),
-                                      child: Padding(
-                                        padding: const EdgeInsets.all(3.0),
-                                        child: JobView.getThumbnailView(
-                                            widget._job!,
-                                            size: JobView.SIZE_MEDIUM),
-                                      ),
-                                    ),
-                                  ],
-                                ),
-
-                                // Job Author / Manufacturer
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    SizedBox(
-                                      width: 200,
-                                      child: Text(
-                                        "by ${widget._job!.company!.name}",
-                                        maxLines: 1,
-                                        overflow: TextOverflow.fade,
-                                        textAlign: TextAlign.left,
-                                        softWrap: false,
-                                        // style: const TextStyle(
-                                        //   color: CustomColor.TEXT_DARK,
-                                        // ),
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .bodyText1,
-                                      ),
-                                    ),
-                                    Text(
-                                      timeago
-                                          .format(widget._job!.lastModified!),
-                                      maxLines: 1,
-                                      overflow: TextOverflow.clip,
-                                      textAlign: TextAlign.right,
-                                      softWrap: false,
-                                      // style: const TextStyle(
-                                      //   fontSize: 10,
-                                      //   fontWeight: FontWeight.bold,
-                                      //   color: CustomColor.RAD_DARK,
-                                      // ),
-                                      style: Theme.of(context)
-                                          .textTheme
-                                          .bodyText2!
-                                          .copyWith(
-                                              fontSize: 10,
-                                              fontWeight: FontWeight.bold),
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-
-                            const SizedBox(
-                              height: 1,
-                            ),
-                            Text(
-                              widget._job!.description!,
-                              maxLines: 2,
-                              overflow: TextOverflow.ellipsis,
-                              textAlign: TextAlign.left,
-                              softWrap: false,
-                              // style: const TextStyle(
-                              //   fontSize: 12,
-                              //   color: CustomColor.TEXT_DARK,
-                              // ),
-                              style: Theme.of(context)
-                                  .textTheme
-                                  .bodyText1!
-                                  .copyWith(
-                                    fontSize: 12,
-                                  ),
-                            ),
-                            const SizedBox(
-                              height: 1,
-                            ),
-                            Row(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              mainAxisSize: MainAxisSize.max,
-                              children: [
-                                getPricingView(context, widget._job!),
-                              ],
-                            )
+                              children: <Widget>[
+                                // Job name
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        SizedBox(
+                                          width: 240,
+                                          child: Text(
+                                            "${widget._job!.title![0].toUpperCase()}${widget._job!.title!.substring(1).toLowerCase()}",
+                                            maxLines: 1,
+                                            overflow: TextOverflow.fade,
+                                            textAlign: TextAlign.left,
+                                            softWrap: false,
+                                            // style: const TextStyle(
+                                            //   color: CustomColor.TEXT_DARK,
+                                            //   fontSize: 16,
+                                            //   fontWeight: FontWeight.bold,
+                                            // ),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .subtitle1!
+                                                .copyWith(
+                                                    fontWeight:
+                                                        FontWeight.bold),
+                                          ),
+                                        ),
+                                        Container(
+                                          margin: const EdgeInsets.symmetric(
+                                            vertical: 3,
+                                          ),
+                                          height:
+                                              AppTheme.fullWidth(context) < 330
+                                                  ? 30
+                                                  : 31,
+                                          width:
+                                              AppTheme.fullWidth(context) < 330
+                                                  ? 30
+                                                  : 31,
+                                          decoration: BoxDecoration(
+                                              color: Theme.of(context)
+                                                  .primaryColorDark,
+                                              borderRadius:
+                                                  BorderRadius.circular(40)),
+                                          child: Padding(
+                                            padding: const EdgeInsets.all(3.0),
+                                            child: JobView.getThumbnailView(
+                                                widget._job!,
+                                                size: JobView.SIZE_MEDIUM),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
 
-                            // Job price and regular price
-                          ],
-                        ),
-                      ),
-                    )
-                  ],
+                                    // Job Author / Manufacturer
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        SizedBox(
+                                          width: 200,
+                                          child: Text(
+                                            "by ${widget._job!.company!.name}",
+                                            maxLines: 1,
+                                            overflow: TextOverflow.fade,
+                                            textAlign: TextAlign.left,
+                                            softWrap: false,
+                                            // style: const TextStyle(
+                                            //   color: CustomColor.TEXT_DARK,
+                                            // ),
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .bodyText1,
+                                          ),
+                                        ),
+                                        Text(
+                                          timeago.format(
+                                              widget._job!.lastModified!),
+                                          maxLines: 1,
+                                          overflow: TextOverflow.clip,
+                                          textAlign: TextAlign.right,
+                                          softWrap: false,
+                                          // style: const TextStyle(
+                                          //   fontSize: 10,
+                                          //   fontWeight: FontWeight.bold,
+                                          //   color: CustomColor.RAD_DARK,
+                                          // ),
+                                          style: Theme.of(context)
+                                              .textTheme
+                                              .bodyText2!
+                                              .copyWith(
+                                                  fontSize: 10,
+                                                  fontWeight: FontWeight.bold),
+                                        ),
+                                      ],
+                                    ),
+                                  ],
+                                ),
+
+                                const SizedBox(
+                                  height: 1,
+                                ),
+                                Text(
+                                  widget._job!.description!,
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                  textAlign: TextAlign.left,
+                                  softWrap: false,
+                                  // style: const TextStyle(
+                                  //   fontSize: 12,
+                                  //   color: CustomColor.TEXT_DARK,
+                                  // ),
+                                  style: Theme.of(context)
+                                      .textTheme
+                                      .bodyText1!
+                                      .copyWith(
+                                        fontSize: 12,
+                                      ),
+                                ),
+                                const SizedBox(
+                                  height: 1,
+                                ),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  mainAxisSize: MainAxisSize.max,
+                                  children: [
+                                    getPricingView(context, widget._job!),
+                                    BlocBuilder<NotificationBloc,
+                                        NotificationState>(
+                                      builder: (context, state) {
+                                        return Visibility(
+                                          visible: isNew,
+                                          child: Container(
+                                            padding: const EdgeInsets.only(
+                                                left: 8,
+                                                right: 8,
+                                                top: 3,
+                                                bottom: 3),
+                                            decoration: BoxDecoration(
+                                                color: CustomColor.PRIM_GREEN,
+                                                borderRadius:
+                                                    BorderRadius.circular(10)),
+                                            child: Text(
+                                              StringRsr.get(LanguageKey.NEW,
+                                                  firstCap: true)!,
+                                              maxLines: 1,
+                                              overflow: TextOverflow.fade,
+                                              textAlign: TextAlign.left,
+                                              softWrap: false,
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 12),
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    ),
+                                  ],
+                                )
+
+                                // Job price and regular price
+                              ],
+                            ),
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
                 ),
               ),
-            ),
-          ),
+            );
+          },
         );
       },
     );

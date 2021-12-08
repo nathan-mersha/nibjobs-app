@@ -207,4 +207,5 @@ class LanguageKey {
       "SECONDARY_PHONE_SAME_AS_PRIMARY_PHONE";
   static const String CLICK_HERE_TO_DIAL = "CLICK_HERE_TO_DIAL";
   static const String JOB_NOTIFICATION = "JOB_NOTIFICATION";
+  static const String NEW = "NEW";
 }

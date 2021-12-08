@@ -4,6 +4,7 @@ class HSharedPreference {
   static const KEY_FIRST_TIME = "FIRST_TIME";
   static const KEY_FIRST_INVOICE_NUMBER = "FIRST_INVOICE_NUMBER";
   static const KEY_USER_ID = "KEY_USER_ID";
+  static const KEY_USER_LAST_SEEN = "KEY_USER_LAST_SEEN";
   static const KEY_USER_NAME = "KEY_USER_NAME";
   static const KEY_USER_EMAIL = "KEY_USER_EMAIL";
   static const KEY_USER_PHONE = "KEY_USER_PHONE";

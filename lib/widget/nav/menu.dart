@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nibjobs/api/flutterfire.dart';
+import 'package:nibjobs/bloc/notification/notification_bloc.dart';
 import 'package:nibjobs/bloc/theme/theme_bloc.dart';
 import 'package:nibjobs/bloc/user/user_bloc.dart';
 import 'package:nibjobs/consetance/enums.dart';
@@ -598,11 +599,30 @@ class Menu {
           padding: const EdgeInsets.all(8.0),
           child: GestureDetector(
             onTap: () {
-              Navigator.of(context).pushNamed(RouteTo.JOB_Notification);
+              //Navigator.of(context).pushNamed(RouteTo.JOB_Notification);
             },
-            child: const Icon(
-              NibCustomIcons.notification,
-              color: Colors.orange,
+            child: Stack(
+              fit: StackFit.passthrough,
+              children: [
+                const Icon(
+                  NibCustomIcons.notification,
+                  color: Colors.orange,
+                ),
+                BlocBuilder<NotificationBloc, NotificationState>(
+                  builder: (context, state) {
+                    if (state is NotificationInitial && state.counter != 0) {
+                      return Container(
+                        alignment: Alignment.centerRight,
+                        child: Text(
+                          state.counter.toString(),
+                          style: Theme.of(context).textTheme.bodyText1,
+                        ),
+                      );
+                    }
+                    return Container();
+                  },
+                )
+              ],
             ),
           ),
         ),
