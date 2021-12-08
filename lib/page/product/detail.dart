@@ -17,7 +17,6 @@ import 'package:nibjobs/route/route.dart';
 import 'package:nibjobs/rsr/locale/lang/language_key.dart';
 import 'package:nibjobs/rsr/locale/string_rsr.dart';
 import 'package:nibjobs/rsr/theme/color.dart';
-import 'package:nibjobs/themes/light_color.dart';
 import 'package:nibjobs/themes/nib_custom_icons_icons.dart';
 import 'package:nibjobs/themes/theme.dart';
 import 'package:nibjobs/widget/product/product_placeholder.dart';
@@ -84,12 +83,12 @@ class _JobDetailPageState extends State<JobDetailPage> {
   Widget getAppBar2(BuildContext context, Job job,
       {bool showCategory = false}) {
     return AppBar(
-      backgroundColor: LightColor.background,
+      backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
       leading: IconButton(
         onPressed: () {
           Navigator.pop(context);
         },
-        color: CustomColor.GRAY_DARK,
+        color: Theme.of(context).iconTheme.color,
         icon: const Icon(Icons.arrow_back_outlined),
       ),
       actions: <Widget>[
@@ -104,13 +103,12 @@ class _JobDetailPageState extends State<JobDetailPage> {
             padding: const EdgeInsets.only(right: 20),
             decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(24),
-              color: Colors.white,
             ),
             child: Padding(
               padding: const EdgeInsets.all(4.0),
               child: Icon(
                 NibCustomIcons.share,
-                color: Theme.of(context).primaryColor,
+                color: Theme.of(context).iconTheme.color,
                 size: 20,
               ),
             ),
@@ -611,11 +609,15 @@ class _JobDetailPageState extends State<JobDetailPage> {
               Expanded(
                 child: AutoSizeText(
                   "${job.title!.substring(0, 1).toUpperCase()}${job.title!.substring(1, job.title!.length).toLowerCase()}",
-                  style: const TextStyle(
-                    fontSize: 20,
-                    color: CustomColor.TEXT_DARK,
-                    fontWeight: FontWeight.bold,
-                  ),
+                  // style: const TextStyle(
+                  //   fontSize: 20,
+                  //   color: CustomColor.TEXT_DARK,
+                  //   fontWeight: FontWeight.bold,
+                  // ),
+                  style: Theme.of(context)
+                      .textTheme
+                      .subtitle1!
+                      .copyWith(fontWeight: FontWeight.bold),
                   maxLines: 3,
                   overflow: TextOverflow.fade,
                 ),
@@ -628,26 +630,29 @@ class _JobDetailPageState extends State<JobDetailPage> {
               RichText(
                 text: TextSpan(
                   children: [
-                    const TextSpan(
+                    TextSpan(
                       text: 'by ',
-                      style: TextStyle(
-                        color: CustomColor.TEXT_COLOR_GRAY,
-                      ),
+                      style: Theme.of(context).textTheme.bodyText1!,
                     ),
                     TextSpan(
                       text:
                           "${job.company!.name!.substring(0, 1).toUpperCase()}${job.company!.name!.substring(1, job.company!.name!.length).toLowerCase()} ",
-                      style: const TextStyle(
-                          color: CustomColor.TEXT_COLOR_GRAY,
-                          fontWeight: FontWeight.bold),
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyText1!
+                          .copyWith(fontWeight: FontWeight.bold),
                     ),
                     TextSpan(
                       text: timeago.format(job.lastModified!),
-                      style: const TextStyle(
-                        fontSize: 10,
-                        fontWeight: FontWeight.bold,
-                        color: CustomColor.PRIM_GREEN,
-                      ),
+                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                          fontSize: 10,
+                          color: CustomColor.PRIM_GREEN,
+                          fontWeight: FontWeight.bold),
+                      // style: const TextStyle(
+                      //   fontSize: 10,
+                      //   fontWeight: FontWeight.bold,
+                      //   color: CustomColor.PRIM_GREEN,
+                      // ),
                     ),
                   ],
                 ),
@@ -761,9 +766,13 @@ class _JobDetailPageState extends State<JobDetailPage> {
                     children: [
                       AutoSizeText(
                         job.availablePositions.toString(),
-                        style: const TextStyle(
-                            color: CustomColor.TEXT_COLOR_GRAY,
-                            fontWeight: FontWeight.bold),
+                        style: Theme.of(context)
+                            .textTheme
+                            .bodyText1!
+                            .copyWith(fontWeight: FontWeight.bold),
+                        // style: const TextStyle(
+                        //     color: CustomColor.TEXT_COLOR_GRAY,
+                        //     fontWeight: FontWeight.bold),
                       ),
                       AutoSizeText(
                         " number of position",
@@ -1068,9 +1077,7 @@ class _JobDetailPageState extends State<JobDetailPage> {
               child: Text(
                 description,
                 softWrap: true,
-                style: const TextStyle(
-                  color: CustomColor.TEXT_DARK,
-                ),
+                style: Theme.of(context).textTheme.bodyText2!,
               ),
             ),
           );
@@ -1084,7 +1091,7 @@ class _JobDetailPageState extends State<JobDetailPage> {
             maxLines: 2,
             overflow: TextOverflow.fade,
             textAlign: TextAlign.justify,
-            style: const TextStyle(color: CustomColor.TEXT_DARK),
+            style: Theme.of(context).textTheme.bodyText2!,
           ),
         );
       },

@@ -3,7 +3,6 @@ import 'package:nibjobs/global.dart' as global;
 import 'package:nibjobs/model/config/global.dart';
 import 'package:nibjobs/rsr/locale/lang/language_key.dart';
 import 'package:nibjobs/rsr/locale/string_rsr.dart';
-import 'package:nibjobs/themes/light_color.dart';
 import 'package:nibjobs/themes/theme.dart';
 import 'package:nibjobs/widget/icon/icons.dart';
 import 'package:nibjobs/widget/info/message.dart';
@@ -65,54 +64,59 @@ class _CategoryJobNavigationState extends State<CategoryJobNavigation> {
             message:
                 StringRsr.get(LanguageKey.WAITING_FOR_DATA, firstCap: true),
           ))
-        : Container(
-            color: LightColor.lightGrey,
-            child: Column(
-              children: <Widget>[
-                Expanded(
-                  child: Padding(
-                    padding: AppTheme.padding,
-                    child: DefaultTabController(
-                      length: categories!.length,
-                      child: Scaffold(
-                        backgroundColor: LightColor.lightGrey,
-                        body: SafeArea(
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Text(
-                                StringRsr.get(LanguageKey.CATEGORY,
-                                    firstCap: true)!,
-                                style: const TextStyle(
-                                    color: LightColor.black, fontSize: 20),
+        : Column(
+            children: <Widget>[
+              Expanded(
+                child: Padding(
+                  padding: AppTheme.padding,
+                  child: DefaultTabController(
+                    length: categories!.length,
+                    child: Scaffold(
+                      backgroundColor: Theme.of(context).backgroundColor,
+                      body: SafeArea(
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              StringRsr.get(LanguageKey.CATEGORY,
+                                  firstCap: true)!,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .headline6!
+                                  .copyWith(fontSize: 20),
+                              // style: const TextStyle(
+                              //     color: LightColor.black, fontSize: 20),
+                            ),
+                            Text(
+                              StringRsr.get(LanguageKey.LIST_OF_CATEGORIES,
+                                  firstCap: true)!,
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .subtitle1!
+                                  .copyWith(fontSize: 20),
+                              // style: const TextStyle(
+                              //     color: LightColor.darkgrey, fontSize: 20),
+                            ),
+                            const SizedBox(
+                              height: 30,
+                            ),
+                            Expanded(
+                              child: JobList(
+                                category!,
+                                category!.name.toString(),
+                                searchBooks,
+                                fromWhere: widget.fromWhere!,
                               ),
-                              Text(
-                                StringRsr.get(LanguageKey.LIST_OF_CATEGORIES,
-                                    firstCap: true)!,
-                                style: const TextStyle(
-                                    color: LightColor.darkgrey, fontSize: 20),
-                              ),
-                              const SizedBox(
-                                height: 30,
-                              ),
-                              Expanded(
-                                child: JobList(
-                                  category!,
-                                  category!.name.toString(),
-                                  searchBooks,
-                                  fromWhere: widget.fromWhere!,
-                                ),
-                              ),
-                            ],
-                          ),
+                            ),
+                          ],
                         ),
                       ),
                     ),
                   ),
-                )
-              ],
-            ),
+                ),
+              )
+            ],
           );
   }
 }

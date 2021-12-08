@@ -83,15 +83,14 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
           _handlePressed(index);
         },
         child: AnimatedContainer(
-          duration: Duration(milliseconds: 500),
+          duration: const Duration(milliseconds: 500),
           alignment: isEnable ? Alignment.topCenter : Alignment.center,
           child: AnimatedContainer(
               height: isEnable ? 40 : 20,
               duration: const Duration(milliseconds: 300),
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                  color:
-                      isEnable ? Theme.of(context).primaryColor : Colors.white,
+                  color: isEnable ? CustomColor.PRIM_DARK : Colors.transparent,
                   shape: BoxShape.circle),
               child: Opacity(
                 opacity: isEnable ? _yController!.value : 1,
@@ -106,7 +105,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
   }
 
   Widget _buildBackground() {
-    final inCurve = ElasticOutCurve(0.38);
+    const inCurve = ElasticOutCurve(0.38);
     return CustomPaint(
       painter: BackgroundCurvePainter(
           _xController!.value * MediaQuery.of(context).size.width,
@@ -114,7 +113,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
             begin: Curves.easeInExpo.transform(_yController!.value),
             end: inCurve.transform(_yController!.value),
           ).transform(_yController!.velocity.sign * 0.5 + 0.5),
-          Theme.of(context).backgroundColor),
+          Theme.of(context).bottomAppBarColor),
     );
   }
 
@@ -149,7 +148,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
   @override
   Widget build(BuildContext context) {
     final appSize = MediaQuery.of(context).size;
-    final height = 60.0;
+    const height = 60.0;
     return SizedBox(
       width: appSize.width,
       height: 60,

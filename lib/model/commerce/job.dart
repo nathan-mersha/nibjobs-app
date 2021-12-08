@@ -132,20 +132,20 @@ class Job {
         category: map[CATEGORY],
         contractType: map[CONTRACT_TYPE] ?? "unavailable",
         salary: map[SALARY],
-        availablePositions: map[AVAILABLE_POSITIONS],
-        tags: map[TAGS] as List,
+        availablePositions: num.parse(map[AVAILABLE_POSITIONS]),
+        tags: map[TAGS].toString().split(","),
         description: map[DESCRIPTION],
         applyVia: map[APPLY_VIA],
         applyLink: map[APPLY_LINK],
         jobChannel: map[JOB_CHANNEL] == null
             ? JobChannel()
-            : JobChannel.toModel(jsonDecode(map[JOB_CHANNEL])),
+            : JobChannel() ,//JobChannel.toModel(jsonDecode(map[JOB_CHANNEL])),
         approved: map[APPROVED] as bool,
         deleted: map[DELETED] as bool,
         rawPost: map[RAW_POST],
         company: map[COMPANY] == null
             ? Company()
-            : Company.toModel(jsonDecode(map[COMPANY])),
+            : Company(),//Company.toModel(jsonDecode(map[COMPANY])),
         firstModified: DateTime.parse(
             map[FIRST_MODIFIED] ?? DateTime.now().toIso8601String()),
         lastModified: DateTime.parse(

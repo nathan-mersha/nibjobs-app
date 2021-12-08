@@ -118,7 +118,7 @@ class _HelpPageState extends State<HelpPage> {
                   children: <Widget>[
                     ExpansionTile(
                       initiallyExpanded: true,
-                      trailing: RotatedBox(
+                      trailing: const RotatedBox(
                         quarterTurns: 1,
                         child: Icon(
                           Icons.navigate_next,
@@ -146,7 +146,7 @@ class _HelpPageState extends State<HelpPage> {
                       ],
                     ),
                     ExpansionTile(
-                      trailing: RotatedBox(
+                      trailing: const RotatedBox(
                         quarterTurns: 1,
                         child: Icon(
                           Icons.navigate_next,
@@ -174,7 +174,7 @@ class _HelpPageState extends State<HelpPage> {
                       ],
                     ),
                     ExpansionTile(
-                      trailing: RotatedBox(
+                      trailing: const RotatedBox(
                         quarterTurns: 1,
                         child: Icon(
                           Icons.navigate_next,
@@ -230,7 +230,7 @@ class _HelpPageState extends State<HelpPage> {
                       ],
                     ),
                     ExpansionTile(
-                      trailing: RotatedBox(
+                      trailing: const RotatedBox(
                         quarterTurns: 1,
                         child: Icon(
                           Icons.navigate_next,
@@ -252,95 +252,11 @@ class _HelpPageState extends State<HelpPage> {
                               fontSize: answerFont,
                             ),
                           ),
-                          margin:
-                              EdgeInsets.symmetric(vertical: 9, horizontal: 6),
+                          margin: const EdgeInsets.symmetric(
+                              vertical: 9, horizontal: 6),
                         )
                       ],
                     ),
-                    ExpansionTile(
-                      trailing: RotatedBox(
-                        quarterTurns: 1,
-                        child: Icon(
-                          Icons.navigate_next,
-                        ),
-                      ),
-                      title: Text(
-                        StringRsr.get(LanguageKey.Q6, firstCap: true)!,
-                        style: TextStyle(
-                            color: Theme.of(context).primaryColor,
-                            fontSize: questionFont),
-                      ),
-                      children: <Widget>[
-                        Container(
-                          child: Text(
-                            StringRsr.get(LanguageKey.A6, firstCap: true)!,
-                            textAlign: TextAlign.justify,
-                            style: TextStyle(
-                              color: Color(AppTheme.gray99),
-                              fontSize: answerFont,
-                            ),
-                          ),
-                          margin:
-                              EdgeInsets.symmetric(vertical: 9, horizontal: 6),
-                        )
-                      ],
-                    ),
-                    ExpansionTile(
-                      trailing: RotatedBox(
-                        quarterTurns: 1,
-                        child: Icon(
-                          Icons.navigate_next,
-                        ),
-                      ),
-                      title: Text(
-                        StringRsr.get(LanguageKey.Q7, firstCap: true)!,
-                        style: TextStyle(
-                            color: Theme.of(context).primaryColor,
-                            fontSize: questionFont),
-                      ),
-                      children: <Widget>[
-                        Container(
-                          child: Text(
-                            StringRsr.get(LanguageKey.A7, firstCap: true)!,
-                            textAlign: TextAlign.justify,
-                            style: TextStyle(
-                              color: Color(AppTheme.gray99),
-                              fontSize: answerFont,
-                            ),
-                          ),
-                          margin:
-                              EdgeInsets.symmetric(vertical: 9, horizontal: 6),
-                        )
-                      ],
-                    ),
-                    ExpansionTile(
-                      trailing: RotatedBox(
-                        quarterTurns: 1,
-                        child: Icon(
-                          Icons.navigate_next,
-                        ),
-                      ),
-                      title: Text(
-                        StringRsr.get(LanguageKey.Q8, firstCap: true)!,
-                        style: TextStyle(
-                            color: Theme.of(context).primaryColor,
-                            fontSize: questionFont),
-                      ),
-                      children: <Widget>[
-                        Container(
-                          child: Text(
-                            StringRsr.get(LanguageKey.A8, firstCap: true)!,
-                            textAlign: TextAlign.justify,
-                            style: TextStyle(
-                              color: Color(AppTheme.gray99),
-                              fontSize: answerFont,
-                            ),
-                          ),
-                          margin:
-                              EdgeInsets.symmetric(vertical: 9, horizontal: 6),
-                        )
-                      ],
-                    )
                   ],
                 ),
               ),

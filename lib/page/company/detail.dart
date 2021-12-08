@@ -14,6 +14,8 @@ import 'package:nibjobs/widget/product/product_view.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class CompanyDetailPage extends StatefulWidget {
+  const CompanyDetailPage({Key? key}) : super(key: key);
+
   @override
   _CompanyDetailPageState createState() => _CompanyDetailPageState();
 }
@@ -27,89 +29,177 @@ class _CompanyDetailPageState extends State<CompanyDetailPage> {
     return Scaffold(
       appBar: Menu.getAppBar(context, "Company Detail Page"),
       drawer: Menu.getSideDrawer(context),
-      body: Container(
-        child: Column(
-          children: [
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.fromLTRB(0.0, 10, 0.0, 0.0),
-                child: Container(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Column(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: [
-                          CircleAvatar(
-                            radius: 50,
-                            child: company!.logo == null
-                                ? Text(
-                                    company.name!.substring(0, 1),
-                                    style: const TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 20,
-                                    ),
-                                  )
-                                : CachedNetworkImage(
-                                    imageUrl: company.logo!,
-                                    useOldImageOnUrlChange: false,
-                                    placeholderFadeInDuration:
-                                        const Duration(seconds: 1),
-                                    placeholder: (BuildContext context,
-                                        String imageURL) {
-                                      return Text(
-                                        company.name!
-                                            .substring(0, 1)
-                                            .toUpperCase(),
-                                        style: const TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 40,
-                                        ),
-                                      );
-                                    },
+      body: Column(
+        children: [
+          Center(
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(0.0, 10, 0.0, 0.0),
+              child: Container(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        CircleAvatar(
+                          radius: 50,
+                          child: company!.logo == null
+                              ? Text(
+                                  company.name!.substring(0, 1),
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 20,
                                   ),
-                            backgroundColor: Theme.of(context).primaryColor,
+                                )
+                              : CachedNetworkImage(
+                                  imageUrl: company.logo!,
+                                  useOldImageOnUrlChange: false,
+                                  placeholderFadeInDuration:
+                                      const Duration(seconds: 1),
+                                  placeholder:
+                                      (BuildContext context, String imageURL) {
+                                    return Text(
+                                      company.name!
+                                          .substring(0, 1)
+                                          .toUpperCase(),
+                                      style: const TextStyle(
+                                        color: Colors.white,
+                                        fontSize: 40,
+                                      ),
+                                    );
+                                  },
+                                ),
+                          backgroundColor: Theme.of(context).primaryColor,
+                        ),
+                        const SizedBox(
+                          height: 10,
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Text(
+                              company.name ?? "companyName",
+                              textScaleFactor: 1.2,
+                              style: const TextStyle(
+                                  color: CustomColor.GRAY_DARK, fontSize: 20),
+                            ),
                           ),
-                          const SizedBox(
-                            height: 10,
-                          ),
+                        ),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.fromLTRB(0.0, 0.0, 10, 0.0),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        crossAxisAlignment: CrossAxisAlignment.end,
+                        children: [
                           Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: Text(
-                                company.name ?? "companyName",
-                                textScaleFactor: 1.2,
-                                style: const TextStyle(
-                                    color: CustomColor.GRAY_DARK, fontSize: 20),
+                            padding:
+                                const EdgeInsets.fromLTRB(8.0, 8.0, 0.0, 8.0),
+                            child: GestureDetector(
+                              onTap: () {
+                                Navigator.pushNamed(
+                                    context, RouteTo.SHOP_ISSUE_COUPON,
+                                    arguments: company);
+                              },
+                              child: Container(
+                                margin: const EdgeInsets.fromLTRB(
+                                    8.0, 8.0, 0.0, 8.0),
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.end,
+                                  children: [
+                                    Text("issue coupon",
+                                        style: TextStyle(
+                                            color:
+                                                Theme.of(context).primaryColor,
+                                            fontSize: 10)),
+                                  ],
+                                ),
                               ),
                             ),
                           ),
-                        ],
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(0.0, 0.0, 10, 0.0),
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          crossAxisAlignment: CrossAxisAlignment.end,
-                          children: [
-                            Padding(
-                              padding:
-                                  const EdgeInsets.fromLTRB(8.0, 8.0, 0.0, 8.0),
-                              child: GestureDetector(
-                                onTap: () {
-                                  Navigator.pushNamed(
-                                      context, RouteTo.SHOP_ISSUE_COUPON,
-                                      arguments: company);
-                                },
-                                child: Container(
-                                  margin: const EdgeInsets.fromLTRB(
-                                      8.0, 8.0, 0.0, 8.0),
+                          Column(
+                            children: [
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                company.primaryPhone ?? "primaryPhone",
+                                textScaleFactor: 1.2,
+                                style: const TextStyle(
+                                    color: CustomColor.GRAY_LIGHT,
+                                    fontSize: 10),
+                              ),
+                              const SizedBox(
+                                height: 1,
+                              ),
+                              Text(
+                                company.secondaryPhone ?? "secondaryPhone",
+                                textScaleFactor: 1.2,
+                                style: const TextStyle(
+                                    color: CustomColor.GRAY_LIGHT,
+                                    fontSize: 10),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              Text(
+                                // "abebe.company@gmail.com",
+                                // style: const TextStyle(fontSize: 10),
+                                company.email ?? "companyEmail",
+                                textScaleFactor: 1.2,
+                                style: const TextStyle(
+                                    color: CustomColor.GRAY_LIGHT,
+                                    fontSize: 10),
+                              ),
+                              const SizedBox(
+                                height: 10,
+                              ),
+                              // Text("click here to verify company", style: const TextStyle(fontSize: 10,color: Colors.red[200]),),
+                              if (company.verified!)
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: const <Widget>[
+                                    Icon(
+                                      Icons.verified_user,
+                                      color: Colors.lightGreen,
+                                      size: 12,
+                                    ),
+                                    Text(
+                                      "verified",
+                                      textScaleFactor: 0.9,
+                                      style:
+                                          TextStyle(color: Colors.lightGreen),
+                                    )
+                                  ],
+                                )
+                              else
+                                Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: <Widget>[
+                                    Icon(Icons.security,
+                                        color: Colors.red.withOpacity(0.6)),
+                                    Text("unverified")
+                                  ],
+                                ),
+                            ],
+                          ),
+                          Container(
+                            child: Column(
+                              children: [
+                                GestureDetector(
+                                  onTap: () {
+                                    _lunchMapsUrl();
+                                  },
                                   child: Column(
-                                    mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
-                                      Text("issue coupon",
+                                      Icon(
+                                        Icons.location_on,
+                                        color: Theme.of(context).primaryColor,
+                                      ),
+                                      Text("get Location",
                                           style: TextStyle(
                                               color: Theme.of(context)
                                                   .primaryColor,
@@ -117,161 +207,71 @@ class _CompanyDetailPageState extends State<CompanyDetailPage> {
                                     ],
                                   ),
                                 ),
-                              ),
-                            ),
-                            Column(
-                              children: [
                                 const SizedBox(
-                                  height: 10,
+                                  height: 40,
                                 ),
-                                Text(
-                                  company.primaryPhone ?? "primaryPhone",
-                                  textScaleFactor: 1.2,
-                                  style: const TextStyle(
-                                      color: CustomColor.GRAY_LIGHT,
-                                      fontSize: 10),
-                                ),
-                                const SizedBox(
-                                  height: 1,
-                                ),
-                                Text(
-                                  company.secondaryPhone ?? "secondaryPhone",
-                                  textScaleFactor: 1.2,
-                                  style: const TextStyle(
-                                      color: CustomColor.GRAY_LIGHT,
-                                      fontSize: 10),
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                Text(
-                                  // "abebe.company@gmail.com",
-                                  // style: const TextStyle(fontSize: 10),
-                                  company.email ?? "companyEmail",
-                                  textScaleFactor: 1.2,
-                                  style: const TextStyle(
-                                      color: CustomColor.GRAY_LIGHT,
-                                      fontSize: 10),
-                                ),
-                                const SizedBox(
-                                  height: 10,
-                                ),
-                                // Text("click here to verify company", style: const TextStyle(fontSize: 10,color: Colors.red[200]),),
-                                if (company.verified!)
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: const <Widget>[
+                                GestureDetector(
+                                  onTap: () {
+                                    Navigator.pushNamed(
+                                        context, RouteTo.SHOP_ADD_ITEM,
+                                        arguments: company);
+                                  },
+                                  child: Column(
+                                    children: [
                                       Icon(
-                                        Icons.verified_user,
-                                        color: Colors.lightGreen,
-                                        size: 12,
+                                        Icons.add,
+                                        color: Theme.of(context).primaryColor,
                                       ),
-                                      Text(
-                                        "verified",
-                                        textScaleFactor: 0.9,
-                                        style: TextStyle(
-                                            color: Colors.lightGreen),
-                                      )
-                                    ],
-                                  )
-                                else
-                                  Row(
-                                    mainAxisAlignment: MainAxisAlignment.center,
-                                    children: <Widget>[
-                                      Icon(Icons.security,
-                                          color: Colors.red.withOpacity(0.6)),
-                                      Text("unverified")
+                                      Text("Add Item",
+                                          style: TextStyle(
+                                              color: Theme.of(context)
+                                                  .primaryColor,
+                                              fontSize: 10)),
                                     ],
                                   ),
+                                ),
                               ],
                             ),
-                            Container(
-                              child: Column(
-                                children: [
-                                  GestureDetector(
-                                    onTap: () {
-                                      _lunchMapsUrl();
-                                    },
-                                    child: Column(
-                                      children: [
-                                        Icon(
-                                          Icons.location_on,
-                                          color: Theme.of(context).primaryColor,
-                                        ),
-                                        Text("get Location",
-                                            style: TextStyle(
-                                                color: Theme.of(context)
-                                                    .primaryColor,
-                                                fontSize: 10)),
-                                      ],
-                                    ),
-                                  ),
-                                  const SizedBox(
-                                    height: 40,
-                                  ),
-                                  GestureDetector(
-                                    onTap: () {
-                                      Navigator.pushNamed(
-                                          context, RouteTo.SHOP_ADD_ITEM,
-                                          arguments: company);
-                                    },
-                                    child: Column(
-                                      children: [
-                                        Icon(
-                                          Icons.add,
-                                          color: Theme.of(context).primaryColor,
-                                        ),
-                                        Text("Add Item",
-                                            style: TextStyle(
-                                                color: Theme.of(context)
-                                                    .primaryColor,
-                                                fontSize: 10)),
-                                      ],
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ],
-                        ),
+                          ),
+                        ],
                       ),
-                    ],
-                  ),
+                    ),
+                  ],
                 ),
               ),
             ),
-            Padding(
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
+            child: Container(
+              color: CustomColor.GRAY_VERY_LIGHT,
               padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-              child: Container(
-                color: CustomColor.GRAY_VERY_LIGHT,
-                padding: const EdgeInsets.fromLTRB(0, 10, 0, 10),
-                child: GestureDetector(
-                  onTap: () {},
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      Text(
-                        "click here",
-                        style: TextStyle(color: Theme.of(context).primaryColor),
+              child: GestureDetector(
+                onTap: () {},
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      "click here",
+                      style: TextStyle(color: Theme.of(context).primaryColor),
+                    ),
+                    const SizedBox(
+                      width: 5,
+                    ),
+                    const Text(
+                      "to upgrade to premium package",
+                      textScaleFactor: 1.2,
+                      style: TextStyle(
+                        color: CustomColor.GRAY,
                       ),
-                      const SizedBox(
-                        width: 5,
-                      ),
-                      const Text(
-                        "to upgrade to premium package",
-                        textScaleFactor: 1.2,
-                        style: TextStyle(
-                          color: CustomColor.GRAY,
-                        ),
-                      )
-                    ],
-                  ),
+                    )
+                  ],
                 ),
               ),
             ),
-            buildSimilarItemsSection(company)
-          ],
-        ),
+          ),
+          buildSimilarItemsSection(company)
+        ],
       ),
     );
   }

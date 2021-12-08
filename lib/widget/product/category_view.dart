@@ -5,7 +5,6 @@ import 'package:nibjobs/global.dart' as global;
 import 'package:nibjobs/model/config/global.dart';
 import 'package:nibjobs/route/route.dart';
 import 'package:nibjobs/rsr/locale/string_rsr.dart';
-import 'package:nibjobs/rsr/theme/color.dart';
 import 'package:nibjobs/themes/light_color.dart';
 import 'package:nibjobs/themes/theme.dart';
 
@@ -31,12 +30,34 @@ class CategoryView extends StatefulWidget {
                 fit: BoxFit.fitHeight,
               );
             },
-            placeholderFadeInDuration: Duration(seconds: 1),
+            placeholderFadeInDuration: const Duration(seconds: 1),
             placeholder: (BuildContext context, String imageURL) {
-              return Container();
+              return Center(
+                child: Text(
+                  "${job.name![0].toUpperCase()}${job.name![1].toUpperCase()}",
+                  // style: const TextStyle(
+                  //   fontSize: 12,
+                  //   color: CustomColor.PRIM_DARK,
+                  // ),
+                  style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                        fontSize: 12,
+                      ),
+                ),
+              );
             },
             errorWidget: (BuildContext context, String imageURL, dynamic) {
-              return Container();
+              return Center(
+                child: Text(
+                  "${job.name![0].toUpperCase()}${job.name![1].toUpperCase()}",
+                  // style: const TextStyle(
+                  //   fontSize: 12,
+                  //   color: CustomColor.PRIM_DARK,
+                  // ),
+                  style: Theme.of(context).textTheme.bodyText2!.copyWith(
+                        fontSize: 12,
+                      ),
+                ),
+              );
             },
           );
   }
@@ -128,17 +149,15 @@ class _CategoryViewState extends State<CategoryView> {
             children: <Widget>[
               // Image thumbnail or image place holder
               Container(
-                margin: EdgeInsets.symmetric(vertical: 14, horizontal: 20),
+                margin:
+                    const EdgeInsets.symmetric(vertical: 14, horizontal: 20),
                 height: AppTheme.fullWidth(context) < 330 ? 28 : 29,
                 width: AppTheme.fullWidth(context) < 330 ? 28 : 29,
                 decoration: BoxDecoration(
-                    color: CustomColor.RAD_DARK,
+                    color: Theme.of(context).primaryColor,
                     borderRadius: BorderRadius.circular(40)),
-                child: Padding(
-                  padding: const EdgeInsets.all(6.0),
-                  child: CategoryView.getThumbnailView(widget._job,
-                      size: CategoryView.SIZE_MEDIUM),
-                ),
+                child: CategoryView.getThumbnailView(widget._job,
+                    size: CategoryView.SIZE_MEDIUM),
               ),
 
               Expanded(
@@ -160,9 +179,8 @@ class _CategoryViewState extends State<CategoryView> {
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.left,
                         softWrap: false,
-                        style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                              color: Colors.black54,
-                            ),
+                        style:
+                            Theme.of(context).textTheme.subtitle1!.copyWith(),
                         // style: const TextStyle(
                         //     color: Colors.black54,
                         //     fontSize: AppTheme.fullWidth(context) < 330 ? 12 : 19),
@@ -178,9 +196,7 @@ class _CategoryViewState extends State<CategoryView> {
                           textAlign: TextAlign.left,
                           softWrap: false,
                           style:
-                              Theme.of(context).textTheme.bodyText1!.copyWith(
-                                    color: Colors.black26,
-                                  ),
+                              Theme.of(context).textTheme.bodyText1!.copyWith(),
                           // style: const TextStyle(
                           //     color: Colors.black26,
                           //     fontSize:

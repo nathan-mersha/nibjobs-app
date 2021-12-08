@@ -21,9 +21,14 @@ class MainTheme {
 final appThemeData = {
   AppData.Light: ThemeData(
       fontFamily: StringRsr.locale == "en" ? "Sofia" : "Noto",
-      backgroundColor: LightColor.background,
+      backgroundColor: LightColor.lightGrey,
       primaryColor: CustomColor.PRIM_DARK,
       primaryColorDark: CustomColor.RAD_DARK,
+      hoverColor: CustomColor.PRIM_DARK,
+      appBarTheme: const AppBarTheme(
+        color: LightColor.lightGrey,
+        elevation: 0,
+      ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           primary: CustomColor.RAD_DARK,
@@ -33,6 +38,7 @@ final appThemeData = {
         ),
       ),
       cardTheme: const CardTheme(color: LightColor.background),
+      unselectedWidgetColor: CustomColor.GRAY,
       textTheme: const TextTheme(
         bodyText1: TextStyle(color: CustomColor.TEXT_COLOR_GRAY),
         bodyText2: TextStyle(color: CustomColor.GRAY_LIGHT),
@@ -40,23 +46,42 @@ final appThemeData = {
         subtitle2: TextStyle(color: CustomColor.TEXT_COLOR_GRAY_LIGHT),
         headline6: TextStyle(color: CustomColor.TEXT_COLOR_GRAY),
       ),
-      iconTheme: const IconThemeData(color: CustomColor.GRAY_VERY_LIGHT),
+      iconTheme: const IconThemeData(
+        color: Color(0xff808080),
+      ),
       bottomAppBarColor: LightColor.background,
       dividerColor: LightColor.lightGrey,
       primaryTextTheme:
           const TextTheme(bodyText1: TextStyle(color: CustomColor.GRAY_LIGHT))),
   AppData.Dark: ThemeData(
-      fontFamily: "Sofia",
-      primaryColor: const Color(0xff9c0044),
-      backgroundColor: Colors.black,
-      cardTheme: const CardTheme(color: LightColor.background),
-      brightness: Brightness.dark,
-      iconTheme: const IconThemeData(color: CustomColor.GRAY_LIGHT),
-      textTheme:
-          const TextTheme(bodyText1: TextStyle(color: CustomColor.GRAY_LIGHT)),
-      bottomAppBarColor: LightColor.background,
-      dividerColor: LightColor.lightGrey,
-      buttonTheme: const ButtonThemeData(
-          buttonColor: Colors.deepOrangeAccent,
-          textTheme: ButtonTextTheme.primary)),
+    fontFamily: "Sofia",
+    // primaryColor: CustomColor.RAD_DARK,
+    // primaryColorDark: CustomColor.PRIM_DARK,
+    // backgroundColor: Colors.black,
+    // hoverColor: CustomColor.PRIM_DARK,
+    // appBarTheme: const AppBarTheme(
+    //   color: Colors.black,
+    // ),
+    // cardTheme: const CardTheme(color: CustomColor.RAD_DARK),
+    brightness: Brightness.dark,
+    elevatedButtonTheme: ElevatedButtonThemeData(
+      style: ElevatedButton.styleFrom(
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(30.0),
+        ),
+      ),
+    ),
+    // textTheme: const TextTheme(
+    //   bodyText1: TextStyle(color: CustomColor.TEXT_COLOR_GRAY),
+    //   bodyText2: TextStyle(color: CustomColor.GRAY_LIGHT),
+    //   subtitle1: TextStyle(color: CustomColor.TEXT_COLOR_GRAY_LIGHT),
+    //   subtitle2: TextStyle(color: CustomColor.TEXT_COLOR_GRAY),
+    //   headline6: TextStyle(color: CustomColor.TEXT_COLOR_GRAY),
+    // ),
+    // bottomAppBarColor: LightColor.background,
+    // dividerColor: Colors.black,
+    // buttonTheme: const ButtonThemeData(
+    //     buttonColor: Colors.deepOrangeAccent,
+    //     textTheme: ButtonTextTheme.primary)
+  ),
 };

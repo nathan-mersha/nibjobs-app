@@ -183,18 +183,18 @@ class _NotificationsPageState extends State<NotificationsPage> {
   Widget getAppBar2(BuildContext context, String job,
       {bool showCategory = false}) {
     return AppBar(
-      backgroundColor: LightColor.background,
-
+      // backgroundColor: LightColor.background,
+      backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
       leading: IconButton(
         onPressed: () {
           Navigator.pop(context);
         },
-        color: CustomColor.GRAY_DARK,
+        color: Theme.of(context).iconTheme.color,
         icon: const Icon(Icons.arrow_back_outlined),
       ),
       title: Text(
         StringRsr.get(LanguageKey.NOTIFICATION, firstCap: true)!,
-        style: const TextStyle(color: CustomColor.GRAY_LIGHT),
+        style: Theme.of(context).textTheme.subtitle1,
       ),
       actions: <Widget>[],
       //showCategory ? CategoryMenu() : Container()
@@ -211,7 +211,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
     // }
 
     return Scaffold(
-      backgroundColor: LightColor.lightGrey,
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(50),
           child: getAppBar2(context, "NOTIFICATION")),
@@ -232,7 +232,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
                 return Container(
                   padding:
                       const EdgeInsets.symmetric(horizontal: 3, vertical: 10),
-                  margin: EdgeInsets.fromLTRB(10, 10, 10, 10),
+                  margin: const EdgeInsets.fromLTRB(10, 10, 10, 10),
                   child: Column(
                     children: <Widget>[
                       Expanded(
@@ -268,30 +268,23 @@ class _NotificationsPageState extends State<NotificationsPage> {
           Icon(
             NibCustomIcons.notification,
             size: 40,
-            color: Theme.of(context).primaryColor,
+            color: Theme.of(context).iconTheme.color,
           ),
           SizedBox(
             height: spacingBetweenComponents,
           ),
           Text(
             StringRsr.get(LanguageKey.NO_NOTIFICATIONS_FOUND)!,
-            style: Theme.of(context)
-                .textTheme
-                .subtitle2!
-                .copyWith(color: CustomColor.TEXT_DARK),
+            style: Theme.of(context).textTheme.subtitle2!,
           ),
-          Container(
-            child: TextButton(
-              child: Text(
-                StringRsr.get(LanguageKey.REFRESH)!,
-                style: TextStyle(
-                    color: Theme.of(context).primaryColor,
-                    fontSize: buttonFont),
-              ),
-              onPressed: () {
-                // todo : refresh here.
-              },
+          TextButton(
+            child: Text(
+              StringRsr.get(LanguageKey.REFRESH)!,
+              style: Theme.of(context).textTheme.subtitle1,
             ),
+            onPressed: () {
+              // todo : refresh here.
+            },
           )
         ],
       ),

@@ -1,6 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart';
-import 'package:nibjobs/rsr/theme/color.dart';
 
 class Message extends StatelessWidget {
   final Function? onRetry;
@@ -26,7 +25,8 @@ class Message extends StatelessWidget {
                   padding: const EdgeInsets.only(left: 20.0, right: 20.0),
                   child: AutoSizeText(
                     message!,
-                    style: const TextStyle(color: CustomColor.GRAY),
+                    //style: const TextStyle(color: CustomColor.GRAY),
+                    style: Theme.of(context).textTheme.bodyText1,
                     maxLines: 3,
                     overflow: TextOverflow.fade,
                     textAlign: TextAlign.justify,

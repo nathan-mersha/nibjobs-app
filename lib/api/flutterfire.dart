@@ -24,7 +24,10 @@ import 'package:nibjobs/model/profile/contact_us.dart';
 import 'package:nibjobs/model/profile/user.dart';
 import 'package:nibjobs/rsr/locale/lang/language_key.dart';
 import 'package:nibjobs/rsr/locale/string_rsr.dart';
+import 'package:nibjobs/themes/light_color.dart';
+import 'package:nibjobs/themes/theme.dart';
 import 'package:platform_device_id/platform_device_id.dart';
+import 'package:shimmer/shimmer.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 import 'package:url_launcher/url_launcher.dart';
 
@@ -34,6 +37,167 @@ Future<void> makeWebCall(String url) async {
   } else {
     throw 'Could not launch $url';
   }
+}
+
+GridView buildGridViewLoading(BuildContext context) {
+  return GridView.builder(
+    gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+        crossAxisCount: jobViewH(context) == .20 ||
+                jobViewH(context) == .37 ||
+                jobViewH(context) == .36
+            ? 2
+            : 1,
+        mainAxisSpacing: 10,
+        childAspectRatio: jobViewH(context) == .7
+            ? 7 / 4
+            : jobViewH(context) == .20
+                ? 7 / 3
+                : 7 / 3),
+    itemBuilder: (_, __) => Padding(
+      padding: const EdgeInsets.only(bottom: 8.0),
+      child: Container(
+        decoration: BoxDecoration(
+          border:
+              Border.all(color: LightColor.iconColor, style: BorderStyle.none),
+          borderRadius: const BorderRadius.all(Radius.circular(10)),
+          // color:
+          // isOutLine ? Colors.transparent : Theme.of(context).backgroundColor,
+        ),
+        child: Card(
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(20),
+          ),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              // Image thumbnail or image place holder
+
+              Expanded(
+                flex: 1,
+                child: Container(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 10, horizontal: 15),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    children: <Widget>[
+                      // Job name
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Shimmer.fromColors(
+                                baseColor: Colors.grey[300]!,
+                                highlightColor: Colors.grey[100]!,
+                                child: Container(
+                                  width: 240,
+                                  height: 20.0,
+                                  color: Colors.white,
+                                ),
+                              ),
+                              Shimmer.fromColors(
+                                baseColor: Colors.grey[300]!,
+                                highlightColor: Colors.grey[100]!,
+                                child: Container(
+                                  width: 40,
+                                  height: 40.0,
+                                  decoration: BoxDecoration(
+                                    color: Colors.white,
+                                    borderRadius: BorderRadius.circular(40),
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                          const SizedBox(
+                            height: 1,
+                          ),
+                          // Job Author / Manufacturer
+                          Shimmer.fromColors(
+                            baseColor: Colors.grey[300]!,
+                            highlightColor: Colors.grey[100]!,
+                            child: Container(
+                              width: 200,
+                              height: 15.0,
+                              color: Colors.white,
+                            ),
+                          ),
+                        ],
+                      ),
+
+                      const SizedBox(
+                        height: 3,
+                      ),
+                      Shimmer.fromColors(
+                        baseColor: Colors.grey[300]!,
+                        highlightColor: Colors.grey[100]!,
+                        child: Container(
+                          width: 350,
+                          height: 15.0,
+                          color: Colors.white,
+                        ),
+                      ),
+                      Shimmer.fromColors(
+                        baseColor: Colors.grey[300]!,
+                        highlightColor: Colors.grey[100]!,
+                        child: Container(
+                          width: 300,
+                          height: 15.0,
+                          color: Colors.white,
+                        ),
+                      ),
+                      const SizedBox(
+                        height: 3,
+                      ),
+                      Shimmer.fromColors(
+                        baseColor: Colors.grey[300]!,
+                        highlightColor: Colors.grey[100]!,
+                        child: Container(
+                          width: 80,
+                          height: 15.0,
+                          color: Colors.white,
+                        ),
+                      ),
+
+                      // Price and regular price
+                      const SizedBox(
+                        height: 2,
+                      ),
+
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        mainAxisSize: MainAxisSize.max,
+                        children: [
+                          SingleChildScrollView(
+                            scrollDirection: Axis.horizontal,
+                            child: Shimmer.fromColors(
+                              baseColor: Colors.grey[300]!,
+                              highlightColor: Colors.grey[100]!,
+                              child: Container(
+                                width: 60,
+                                height: 15.0,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ],
+                      )
+
+                      // Job price and regular price
+                    ],
+                  ),
+                ),
+              )
+            ],
+          ),
+        ),
+      ),
+    ),
+    itemCount: 20,
+  );
 }
 
 void notificationFunctionSave(RemoteMessage? message) {

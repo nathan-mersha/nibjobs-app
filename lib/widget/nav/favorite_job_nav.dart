@@ -4,8 +4,6 @@ import 'package:nibjobs/model/ad_model.dart';
 import 'package:nibjobs/model/config/global.dart';
 import 'package:nibjobs/rsr/locale/lang/language_key.dart';
 import 'package:nibjobs/rsr/locale/string_rsr.dart';
-import 'package:nibjobs/rsr/theme/color.dart';
-import 'package:nibjobs/themes/light_color.dart';
 import 'package:nibjobs/themes/theme.dart';
 import 'package:nibjobs/widget/icon/icons.dart';
 import 'package:nibjobs/widget/info/message.dart';
@@ -80,71 +78,70 @@ class _FavoriteJobNavigationState extends State<FavoriteJobNavigation> {
             message:
                 StringRsr.get(LanguageKey.WAITING_FOR_DATA, firstCap: true),
           ))
-        : Container(
-            color: LightColor.lightGrey,
-            child: Column(
-              children: <Widget>[
-                SearchView(
-                  onComplete: (String search) {
-                    global.localConfig.selectedSearchBook = search;
+        : Column(
+            children: <Widget>[
+              SearchView(
+                onComplete: (String search) {
+                  global.localConfig.selectedSearchBook = search;
 
-                    // getBookByQuery(search);
-                  },
-                ),
-                //  buildAdsContainer(context, imageList, adList),
-                Expanded(
-                  child: Padding(
-                    padding: AppTheme.padding,
-                    child: DefaultTabController(
-                      length: categories!.length,
-                      child: Scaffold(
-                        backgroundColor: LightColor.lightGrey,
-                        body: SafeArea(
-                          child: Column(
-                            children: [
-                              TabBar(
-                                  isScrollable: true,
-                                  indicatorColor:
-                                      Theme.of(context).primaryColor,
-                                  unselectedLabelColor: CustomColor.GRAY,
-                                  indicatorSize: TabBarIndicatorSize.tab,
-                                  labelColor: CustomColor.TEXT_COLOR_GRAY,
-                                  indicator: BoxDecoration(
-                                      borderRadius: BorderRadius.circular(20),
-                                      color: Theme.of(context).primaryColor),
-                                  tabs: categories!.map((Category category) {
-                                    return Tab(
-                                      child: Text(
-                                        category.name.toString() == "all"
-                                            ? StringRsr.get(LanguageKey.ALL)
-                                            : StringRsr.locale != "et_am"
-                                                ? category.name.toString()
-                                                : amCategories!["am"]
-                                                    [category.name.toString()],
-                                      ),
-                                    );
-                                  }).toList()),
-                              Expanded(
-                                child: TabBarView(
-                                    children:
-                                        categories!.map((Category category) {
-                                  return JobList(
-                                    category,
-                                    category.name.toString(),
-                                    searchBooks,
-                                    fromWhere: widget.fromWhere!,
+                  // getBookByQuery(search);
+                },
+              ),
+              //  buildAdsContainer(context, imageList, adList),
+              Expanded(
+                child: Padding(
+                  padding: AppTheme.padding,
+                  child: DefaultTabController(
+                    length: categories!.length,
+                    child: Scaffold(
+                      backgroundColor: Theme.of(context).backgroundColor,
+                      body: SafeArea(
+                        child: Column(
+                          children: [
+                            TabBar(
+                                isScrollable: true,
+                                indicatorColor: Theme.of(context).primaryColor,
+                                unselectedLabelColor:
+                                    Theme.of(context).unselectedWidgetColor,
+                                indicatorSize: TabBarIndicatorSize.tab,
+                                //labelColor: CustomColor.TEXT_COLOR_GRAY,
+                                labelStyle:
+                                    Theme.of(context).textTheme.bodyText1,
+                                indicator: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    color: Theme.of(context).primaryColor),
+                                tabs: categories!.map((Category category) {
+                                  return Tab(
+                                    child: Text(
+                                      category.name.toString() == "all"
+                                          ? StringRsr.get(LanguageKey.ALL)
+                                          : StringRsr.locale != "et_am"
+                                              ? category.name.toString()
+                                              : amCategories!["am"]
+                                                  [category.name.toString()],
+                                    ),
                                   );
                                 }).toList()),
-                              ),
-                            ],
-                          ),
+                            Expanded(
+                              child: TabBarView(
+                                  children:
+                                      categories!.map((Category category) {
+                                return JobList(
+                                  category,
+                                  category.name.toString(),
+                                  searchBooks,
+                                  fromWhere: widget.fromWhere!,
+                                );
+                              }).toList()),
+                            ),
+                          ],
                         ),
                       ),
                     ),
                   ),
-                )
-              ],
-            ),
+                ),
+              )
+            ],
           );
   }
 }

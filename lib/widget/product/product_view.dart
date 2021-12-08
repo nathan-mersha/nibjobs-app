@@ -56,10 +56,14 @@ class JobView extends StatefulWidget {
                   detailPage
                       ? "${job.jobChannel!.name![0].toUpperCase()}${job.jobChannel!.name![1].toUpperCase()}"
                       : "${job.company!.name![0].toUpperCase()}${job.company!.name![1].toUpperCase()}",
-                  style: const TextStyle(
-                    fontSize: 12,
-                    color: CustomColor.PRIM_DARK,
-                  ),
+                  // style: const TextStyle(
+                  //   fontSize: 12,
+                  //   color: CustomColor.PRIM_DARK,
+                  // ),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText1!
+                      .copyWith(fontSize: 12, color: CustomColor.PRIM_DARK),
                 ),
               );
             },
@@ -69,11 +73,15 @@ class JobView extends StatefulWidget {
                   detailPage
                       ? "${job.jobChannel!.name![0].toUpperCase()}${job.jobChannel!.name![1].toUpperCase()}"
                       : "${job.company!.name![0].replaceAll(" ", "").toUpperCase()}${job.company!.name![1].replaceAll(" ", "").toUpperCase()}",
-                  style: const TextStyle(
-                    fontSize: 12,
-                    fontWeight: FontWeight.bold,
-                    color: CustomColor.PRIM_DARK,
-                  ),
+                  // style: const TextStyle(
+                  //   fontSize: 12,
+                  //   fontWeight: FontWeight.bold,
+                  //   color: CustomColor.PRIM_DARK,
+                  // ),
+                  style: Theme.of(context)
+                      .textTheme
+                      .bodyText1!
+                      .copyWith(fontSize: 12, color: CustomColor.PRIM_DARK),
                 ),
               );
             },
@@ -221,10 +229,12 @@ class _JobViewState extends State<JobView> {
         setState(() {
           isSelected = true;
         });
+        print("isSelected $isSelected");
       } else {
         setState(() {
           isSelected = false;
         });
+        print("isSelected $isSelected");
       }
     } else {
       setState(() {
@@ -271,8 +281,9 @@ class _JobViewState extends State<JobView> {
               //     DownSelectedEvent(job: widget._job, context: context));
               if (state is UserSignedInState) {
                 if (!isSelected) {
-                  isSelected = true;
-                  setState(() {});
+                  setState(() {
+                    isSelected = true;
+                  });
                   final result = await addFavJob(widget._job!);
                   if (result) {
                     addToList();
@@ -464,11 +475,16 @@ class _JobViewState extends State<JobView> {
                                         overflow: TextOverflow.fade,
                                         textAlign: TextAlign.left,
                                         softWrap: false,
-                                        style: const TextStyle(
-                                          color: CustomColor.TEXT_DARK,
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.bold,
-                                        ),
+                                        // style: const TextStyle(
+                                        //   color: CustomColor.TEXT_DARK,
+                                        //   fontSize: 16,
+                                        //   fontWeight: FontWeight.bold,
+                                        // ),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .subtitle1!
+                                            .copyWith(
+                                                fontWeight: FontWeight.bold),
                                       ),
                                     ),
                                     Container(
@@ -482,7 +498,8 @@ class _JobViewState extends State<JobView> {
                                           ? 30
                                           : 31,
                                       decoration: BoxDecoration(
-                                          color: CustomColor.RAD_DARK,
+                                          color: Theme.of(context)
+                                              .primaryColorDark,
                                           borderRadius:
                                               BorderRadius.circular(40)),
                                       child: Padding(
@@ -508,9 +525,12 @@ class _JobViewState extends State<JobView> {
                                         overflow: TextOverflow.fade,
                                         textAlign: TextAlign.left,
                                         softWrap: false,
-                                        style: const TextStyle(
-                                          color: CustomColor.TEXT_DARK,
-                                        ),
+                                        // style: const TextStyle(
+                                        //   color: CustomColor.TEXT_DARK,
+                                        // ),
+                                        style: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1,
                                       ),
                                     ),
                                     Text(
@@ -520,11 +540,17 @@ class _JobViewState extends State<JobView> {
                                       overflow: TextOverflow.clip,
                                       textAlign: TextAlign.right,
                                       softWrap: false,
-                                      style: const TextStyle(
-                                        fontSize: 10,
-                                        fontWeight: FontWeight.bold,
-                                        color: CustomColor.RAD_DARK,
-                                      ),
+                                      // style: const TextStyle(
+                                      //   fontSize: 10,
+                                      //   fontWeight: FontWeight.bold,
+                                      //   color: CustomColor.RAD_DARK,
+                                      // ),
+                                      style: Theme.of(context)
+                                          .textTheme
+                                          .bodyText2!
+                                          .copyWith(
+                                              fontSize: 10,
+                                              fontWeight: FontWeight.bold),
                                     ),
                                   ],
                                 ),
@@ -540,10 +566,16 @@ class _JobViewState extends State<JobView> {
                               overflow: TextOverflow.ellipsis,
                               textAlign: TextAlign.left,
                               softWrap: false,
-                              style: const TextStyle(
-                                fontSize: 12,
-                                color: CustomColor.TEXT_DARK,
-                              ),
+                              // style: const TextStyle(
+                              //   fontSize: 12,
+                              //   color: CustomColor.TEXT_DARK,
+                              // ),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1!
+                                  .copyWith(
+                                    fontSize: 12,
+                                  ),
                             ),
                             const SizedBox(
                               height: 1,

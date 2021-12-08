@@ -5,14 +5,14 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nibjobs/api/flutterfire.dart';
+import 'package:nibjobs/bloc/theme/theme_bloc.dart';
 import 'package:nibjobs/bloc/user/user_bloc.dart';
+import 'package:nibjobs/consetance/enums.dart';
 import 'package:nibjobs/db/k_shared_preference.dart';
 import 'package:nibjobs/model/profile/company.dart';
 import 'package:nibjobs/page/product/home.dart';
 import 'package:nibjobs/rsr/locale/lang/language_key.dart';
 import 'package:nibjobs/rsr/locale/string_rsr.dart';
-import 'package:nibjobs/rsr/theme/color.dart';
-import 'package:nibjobs/themes/light_color.dart';
 import 'package:nibjobs/themes/nib_custom_icons_icons.dart';
 import 'package:share/share.dart';
 
@@ -95,10 +95,14 @@ class Menu {
                           ? StringRsr.get(LanguageKey.NO_USERNAME_RETRIEVED,
                               firstCap: true)!
                           : state.userName,
-                      style: const TextStyle(
-                          color: CustomColor.GRAY_DARK,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 20),
+                      // style: const TextStyle(
+                      //     color: CustomColor.GRAY_DARK,
+                      //     fontWeight: FontWeight.bold,
+                      //     fontSize: 20),
+                      style: Theme.of(context)
+                          .textTheme
+                          .subtitle1!
+                          .copyWith(fontWeight: FontWeight.bold, fontSize: 20),
                     );
                   } else if (state is UserSignedOutState) {
                     return GestureDetector(
@@ -107,10 +111,12 @@ class Menu {
                       },
                       child: Text(
                         StringRsr.get(LanguageKey.SIGN_IN, firstCap: true)!,
-                        style: const TextStyle(
-                            color: CustomColor.GRAY_DARK,
-                            fontWeight: FontWeight.bold,
-                            fontSize: 20),
+                        // style: const TextStyle(
+                        //     color: CustomColor.GRAY_DARK,
+                        //     fontWeight: FontWeight.bold,
+                        //     fontSize: 20),
+                        style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                            fontWeight: FontWeight.bold, fontSize: 20),
                       ),
                     );
                   } else if (state is UserInitial) {
@@ -128,19 +134,27 @@ class Menu {
                             ? state.userEmail
                             : StringRsr.get(LanguageKey.NO_EMAIL_RETRIEVED,
                                 firstCap: true)!,
-                        style: const TextStyle(
-                          color: CustomColor.GRAY_LIGHT,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        // style: const TextStyle(
+                        //   color: CustomColor.GRAY_LIGHT,
+                        //   fontWeight: FontWeight.bold,
+                        // ),
+                        style: Theme.of(context)
+                            .textTheme
+                            .subtitle2!
+                            .copyWith(fontWeight: FontWeight.bold),
                       );
                     } else if (state is UserSignedOutState) {
-                      return const Text(
+                      return Text(
                         //StringRsr.get(LanguageKey.LET_US_KNOW_YOU, firstCap: true)!,
                         "welcome to Nib free",
-                        style: TextStyle(
-                          color: CustomColor.GRAY_LIGHT,
-                          fontWeight: FontWeight.bold,
-                        ),
+                        // style: TextStyle(
+                        //   color: CustomColor.GRAY_LIGHT,
+                        //   fontWeight: FontWeight.bold,
+                        // ),
+                        style: Theme.of(context)
+                            .textTheme
+                            .subtitle2!
+                            .copyWith(fontWeight: FontWeight.bold),
                       );
                     } else if (state is UserInitial) {
                       return Container();
@@ -158,7 +172,7 @@ class Menu {
         ),
         Divider(
           thickness: 3,
-          color: Theme.of(context).primaryColor.withOpacity(0.2),
+          color: Theme.of(context).dividerColor,
         ),
         const SizedBox(
           height: 25,
@@ -166,13 +180,13 @@ class Menu {
         Padding(
           padding: const EdgeInsets.only(left: 30.0),
           child: ListTile(
-            leading: const Icon(
+            leading: Icon(
               NibCustomIcons.home,
-              color: Color(0xff808080),
+              color: Theme.of(context).iconTheme.color,
             ),
             title: Text(
               StringRsr.get(LanguageKey.JOBS, firstCap: true)!,
-              style: const TextStyle(color: Color(0xff000000)),
+              style: Theme.of(context).textTheme.bodyText1,
             ),
             onTap: () {
               // todo : navigate to home
@@ -192,27 +206,28 @@ class Menu {
                       return Padding(
                         padding: const EdgeInsets.only(left: 30.0),
                         child: ListTile(
-                          leading: const Icon(
+                          leading: Icon(
                             NibCustomIcons.companies,
-                            color: Color(0xff808080),
+                            color: Theme.of(context).iconTheme.color,
                           ),
                           title: Text(
                             StringRsr.get(LanguageKey.MY_SHOP, firstCap: true)!,
-                            style: const TextStyle(color: Color(0xff000000)),
+                            style: Theme.of(context).textTheme.bodyText1,
                           ),
                           onTap: () async {
                             // todo : navigate
                             var uid = state.uId;
 
-                            DocumentSnapshot? documentSnapshot =
+                            DocumentSnapshot documentSnapshot =
                                 await FirebaseFirestore.instance
                                     .collection(Company.COLLECTION_NAME)
                                     .doc(uid)
                                     .get();
-                            // if (documentSnapshot.data() == null) return ;
+                            //if (documentSnapshot.data() == null) return;
                             Company companyData = Company.toModel(
-                                documentSnapshot.data()
-                                    as Map<String, dynamic>);
+                                documentSnapshot.data()!
+                                        as Map<String, dynamic> ??
+                                    {});
                             Navigator.of(context).pop();
                             Navigator.pushNamed(context, RouteTo.SHOP_EDIT,
                                 arguments: companyData);
@@ -223,14 +238,14 @@ class Menu {
                     return Padding(
                       padding: const EdgeInsets.only(left: 30.0),
                       child: ListTile(
-                        leading: const Icon(
+                        leading: Icon(
                           NibCustomIcons.companies,
-                          color: Color(0xff808080),
+                          color: Theme.of(context).iconTheme.color,
                         ),
                         title: Text(
                           StringRsr.get(LanguageKey.CREATE_SHOP,
                               firstCap: true)!,
-                          style: const TextStyle(color: Color(0xff000000)),
+                          style: Theme.of(context).textTheme.bodyText1,
                         ),
                         onTap: () async {
                           // todo : navigate
@@ -255,13 +270,13 @@ class Menu {
               return Padding(
                 padding: const EdgeInsets.only(left: 30.0),
                 child: ListTile(
-                  leading: const Icon(
+                  leading: Icon(
                     NibCustomIcons.companies,
-                    color: Color(0xff808080),
+                    color: Theme.of(context).iconTheme.color,
                   ),
                   title: Text(
                     StringRsr.get(LanguageKey.CREATE_SHOP, firstCap: true)!,
-                    style: const TextStyle(color: Color(0xff000000)),
+                    style: Theme.of(context).textTheme.bodyText1,
                   ),
                   onTap: () async {
                     AwesomeDialog(
@@ -271,9 +286,10 @@ class Menu {
                       context: context,
                       dialogType: DialogType.INFO_REVERSED,
                       borderSide:
-                          BorderSide(color: Colors.transparent, width: 2),
+                          const BorderSide(color: Colors.transparent, width: 2),
                       width: 380,
-                      buttonsBorderRadius: BorderRadius.all(Radius.circular(2)),
+                      buttonsBorderRadius:
+                          const BorderRadius.all(Radius.circular(2)),
                       headerAnimationLoop: false,
                       animType: AnimType.BOTTOMSLIDE,
                       title: StringRsr.get(LanguageKey.SIGN_IN, firstCap: true),
@@ -295,18 +311,18 @@ class Menu {
         Padding(
           padding: const EdgeInsets.only(left: 30.0),
           child: ListTile(
-            leading: const Icon(
+            leading: Icon(
               NibCustomIcons.favorite,
-              color: Color(0xff808080),
+              color: Theme.of(context).iconTheme.color,
             ),
             title: Text(
               StringRsr.get(LanguageKey.FAVORITE, firstCap: true)!,
-              style: const TextStyle(color: Color(0xff000000)),
+              style: Theme.of(context).textTheme.bodyText1,
             ),
             onTap: () {
               Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (_) {
-                return HomePage(
+                return const HomePage(
                   isFavPageSelected: true,
                 );
               }));
@@ -320,13 +336,13 @@ class Menu {
         Padding(
           padding: const EdgeInsets.only(left: 30.0),
           child: ListTile(
-            leading: const Icon(
+            leading: Icon(
               NibCustomIcons.category,
-              color: Color(0xff808080),
+              color: Theme.of(context).iconTheme.color,
             ),
             title: Text(
               StringRsr.get(LanguageKey.CATEGORY, firstCap: true)!,
-              style: const TextStyle(color: Color(0xff000000)),
+              style: Theme.of(context).textTheme.bodyText1,
             ),
             onTap: () {
               Navigator.pushReplacement(context,
@@ -345,13 +361,13 @@ class Menu {
         Padding(
           padding: const EdgeInsets.only(left: 30.0),
           child: ListTile(
-            leading: const Icon(
+            leading: Icon(
               NibCustomIcons.notification,
-              color: Color(0xff808080),
+              color: Theme.of(context).iconTheme.color,
             ),
             title: Text(
               StringRsr.get(LanguageKey.NOTIFICATION, firstCap: true)!,
-              style: const TextStyle(color: Color(0xff000000)),
+              style: Theme.of(context).textTheme.bodyText1,
             ),
             onTap: () {
               // todo : navigate to home
@@ -369,13 +385,13 @@ class Menu {
         Padding(
           padding: const EdgeInsets.only(left: 30.0),
           child: ListTile(
-            leading: const Icon(
+            leading: Icon(
               NibCustomIcons.settings,
-              color: Color(0xff808080),
+              color: Theme.of(context).iconTheme.color,
             ),
             title: Text(
               StringRsr.get(LanguageKey.SETTINGS, firstCap: true)!,
-              style: const TextStyle(color: Color(0xff000000)),
+              style: Theme.of(context).textTheme.bodyText1,
             ),
             onTap: () {
               Navigator.pop(context);
@@ -391,11 +407,11 @@ class Menu {
           child: ListTile(
             leading: Icon(
               NibCustomIcons.send,
-              color: Color(0xff808080),
+              color: Theme.of(context).iconTheme.color,
             ),
             title: Text(
               StringRsr.get(LanguageKey.CONTACT_US, firstCap: true)!,
-              style: const TextStyle(color: Color(0xff000000)),
+              style: Theme.of(context).textTheme.bodyText1,
             ),
             onTap: () {
               Navigator.pop(context); // Pops the navigation side drawer
@@ -409,11 +425,11 @@ class Menu {
           child: ListTile(
             leading: Icon(
               NibCustomIcons.share,
-              color: Color(0xff808080),
+              color: Theme.of(context).iconTheme.color,
             ),
             title: Text(
               StringRsr.get(LanguageKey.SHARE, firstCap: true)!,
-              style: const TextStyle(color: Color(0xff000000)),
+              style: Theme.of(context).textTheme.bodyText1,
             ),
             onTap: () {
               // todo : share here
@@ -429,14 +445,14 @@ class Menu {
         Padding(
           padding: const EdgeInsets.only(left: 30.0),
           child: ListTile(
-            leading: const Icon(
+            leading: Icon(
               NibCustomIcons.share,
-              color: Color(0xff808080),
+              color: Theme.of(context).iconTheme.color,
             ),
-            title: const Text(
+            title: Text(
               //StringRsr.get(LanguageKey.SHARE, firstCap: true)!,
               "Rate us",
-              style: TextStyle(color: Color(0xff000000)),
+              style: Theme.of(context).textTheme.bodyText1,
             ),
             onTap: () {
               if (Platform.isAndroid) {
@@ -448,27 +464,27 @@ class Menu {
           ),
         ),
 
-        // ListTile(
-        //   leading: Icon(Icons.help),
-        //   title: Text("change Theme"),
-        //   trailing: Switch(
-        //     value: isDark,
-        //     onChanged: (value) {
-        //       isDark = value;
-        //       if (value) {
-        //         BlocProvider.of<ThemeBloc>(context)
-        //             .add(ThemeChange(appData: AppData.Dark));
-        //       } else {
-        //         BlocProvider.of<ThemeBloc>(context)
-        //             .add(ThemeChange(appData: AppData.Light));
-        //       }
-        //     },
-        //   ),
-        //   onTap: () {
-        //     //Navigator.pop(context); // Pops the navigation side drawer
-        //     // todo : help page here.
-        //   },
-        // ),
+        ListTile(
+          leading: const Icon(Icons.help),
+          title: const Text("change Theme"),
+          trailing: Switch(
+            value: isDark,
+            onChanged: (value) {
+              isDark = value;
+              if (value) {
+                BlocProvider.of<ThemeBloc>(context)
+                    .add(ThemeChange(appData: AppData.Dark));
+              } else {
+                BlocProvider.of<ThemeBloc>(context)
+                    .add(ThemeChange(appData: AppData.Light));
+              }
+            },
+          ),
+          onTap: () {
+            //Navigator.pop(context); // Pops the navigation side drawer
+            // todo : help page here.
+          },
+        ),
         // BlocBuilder<UserBloc, UserState>(builder: (context, state) {
         //   if (state is UserSignedInState) {
         //     return ListTile(
@@ -562,7 +578,8 @@ class Menu {
   static getAppBar(BuildContext context, String title,
       {bool showCategory = false, GlobalKey<ScaffoldState>? scaffoldKey}) {
     return AppBar(
-      backgroundColor: LightColor.lightGrey,
+      backgroundColor: Theme.of(context).backgroundColor,
+
       leading: IconButton(
         icon: const Icon(
           NibCustomIcons.menu,
@@ -590,11 +607,11 @@ class Menu {
           width: 5,
         ),
         ClipRRect(
-          borderRadius: BorderRadius.all(Radius.circular(13)),
+          borderRadius: const BorderRadius.all(Radius.circular(13)),
           child: Container(
             //padding: const EdgeInsets.all(8),
             decoration: BoxDecoration(
-              color: LightColor.lightGrey,
+              color: Theme.of(context).appBarTheme.backgroundColor,
             ),
             child: BlocBuilder<UserBloc, UserState>(builder: (context, state) {
               if (state is UserSignedInState) {

@@ -6,8 +6,6 @@ import 'package:nibjobs/model/ad_model.dart';
 import 'package:nibjobs/model/config/global.dart';
 import 'package:nibjobs/rsr/locale/lang/language_key.dart';
 import 'package:nibjobs/rsr/locale/string_rsr.dart';
-import 'package:nibjobs/rsr/theme/color.dart';
-import 'package:nibjobs/themes/light_color.dart';
 import 'package:nibjobs/themes/theme.dart';
 import 'package:nibjobs/widget/icon/icons.dart';
 import 'package:nibjobs/widget/info/message.dart';
@@ -87,7 +85,7 @@ class _CompanyJobNavigationState extends State<CompanyJobNavigation> {
                 StringRsr.get(LanguageKey.WAITING_FOR_DATA, firstCap: true),
           ))
         : Container(
-            color: LightColor.lightGrey,
+            color: Theme.of(context).backgroundColor,
             child: Column(
               children: <Widget>[
                 SearchView(
@@ -109,7 +107,7 @@ class _CompanyJobNavigationState extends State<CompanyJobNavigation> {
                     child: DefaultTabController(
                       length: categories!.length,
                       child: Scaffold(
-                        backgroundColor: LightColor.lightGrey,
+                        backgroundColor: Theme.of(context).backgroundColor,
                         body: SafeArea(
                           child: Column(
                             children: [
@@ -117,9 +115,12 @@ class _CompanyJobNavigationState extends State<CompanyJobNavigation> {
                                   isScrollable: true,
                                   indicatorColor:
                                       Theme.of(context).primaryColor,
-                                  unselectedLabelColor: CustomColor.GRAY,
+                                  unselectedLabelColor:
+                                      Theme.of(context).unselectedWidgetColor,
                                   indicatorSize: TabBarIndicatorSize.tab,
-                                  labelColor: CustomColor.TEXT_COLOR_GRAY,
+                                  //labelColor: CustomColor.TEXT_COLOR_GRAY,
+                                  labelStyle:
+                                      Theme.of(context).textTheme.bodyText1,
                                   indicator: BoxDecoration(
                                       borderRadius: BorderRadius.circular(20),
                                       color: Theme.of(context).primaryColor),

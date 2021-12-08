@@ -46,11 +46,11 @@ class NotificationJobDAL {
     // Get a reference to the database.
     final Database db = await createDatabase();
 
-    // List<Job> list = await NotificationJobDAL.find();
-    //if (list.length >= 10) {
-    //   Job notificationModel = list.last;
-    // await NotificationJobDAL.delete(ID, notificationModel.id);
-    // }
+    List<Job> list = await NotificationJobDAL.find();
+    if (list.length >= 10) {
+      Job notificationModel = list.last;
+      await NotificationJobDAL.delete(ID, notificationModel.id);
+    }
 
     await db.insert(
       TABLE_NAME,

@@ -8,7 +8,6 @@ import 'package:nibjobs/model/config/global.dart';
 import 'package:nibjobs/rsr/locale/lang/language_key.dart';
 import 'package:nibjobs/rsr/locale/string_rsr.dart';
 import 'package:nibjobs/rsr/theme/color.dart';
-import 'package:nibjobs/themes/light_color.dart';
 import 'package:nibjobs/widget/icon/icons.dart';
 import 'package:nibjobs/widget/info/message.dart';
 import 'package:nibjobs/widget/nav/search.dart';
@@ -99,7 +98,8 @@ class _JobNavigationState extends State<JobNavigation> {
                       firstCap: true),
                 ))
               : Container(
-                  color: LightColor.lightGrey,
+                  color:
+                      Theme.of(context).backgroundColor, //LightColor.lightGrey,
                   child: Column(
                     children: <Widget>[
                       SearchView(
@@ -121,7 +121,9 @@ class _JobNavigationState extends State<JobNavigation> {
                           child: DefaultTabController(
                             length: categories!.length,
                             child: Scaffold(
-                              backgroundColor: LightColor.lightGrey,
+                              //backgroundColor: LightColor.lightGrey,
+                              backgroundColor:
+                                  Theme.of(context).backgroundColor,
                               body: SafeArea(
                                 child: Column(
                                   children: [
@@ -130,9 +132,12 @@ class _JobNavigationState extends State<JobNavigation> {
                                         isScrollable: true,
                                         indicatorColor:
                                             Theme.of(context).primaryColor,
-                                        unselectedLabelColor: CustomColor.GRAY,
+                                        unselectedLabelColor: Theme.of(context)
+                                            .unselectedWidgetColor,
                                         indicatorSize: TabBarIndicatorSize.tab,
-                                        labelColor: CustomColor.TEXT_COLOR_GRAY,
+                                        labelStyle: Theme.of(context)
+                                            .textTheme
+                                            .bodyText1,
                                         indicator: BoxDecoration(
                                             borderRadius:
                                                 BorderRadius.circular(20),
@@ -155,19 +160,16 @@ class _JobNavigationState extends State<JobNavigation> {
                                           );
                                         }).toList()),
                                     Expanded(
-                                      child: Container(
-                                        // margin: EdgeInsets.only(top: 3),
-                                        child: TabBarView(
-                                            children: categories!
-                                                .map((Category category) {
-                                          return JobList(
-                                            category,
-                                            category.name.toString(),
-                                            searchBooks,
-                                            fromWhere: widget.fromWhere,
-                                          );
-                                        }).toList()),
-                                      ),
+                                      child: TabBarView(
+                                          children: categories!
+                                              .map((Category category) {
+                                        return JobList(
+                                          category,
+                                          category.name.toString(),
+                                          searchBooks,
+                                          fromWhere: widget.fromWhere,
+                                        );
+                                      }).toList()),
                                     ),
                                   ],
                                 ),
@@ -188,7 +190,7 @@ class _JobNavigationState extends State<JobNavigation> {
                     StringRsr.get(LanguageKey.WAITING_FOR_DATA, firstCap: true),
               ))
             : Container(
-                color: LightColor.lightGrey,
+                color: Theme.of(context).dividerColor, //LightColor.lightGrey,
                 child: Column(
                   children: <Widget>[
                     SearchView(
@@ -209,7 +211,8 @@ class _JobNavigationState extends State<JobNavigation> {
                         child: DefaultTabController(
                           length: categories!.length,
                           child: Scaffold(
-                            backgroundColor: LightColor.lightGrey,
+                            //backgroundColor: LightColor.lightGrey,
+                            backgroundColor: Theme.of(context).dividerColor,
                             body: SafeArea(
                               child: Column(
                                 children: [
