@@ -121,12 +121,7 @@ class EN {
     LanguageKey.NO_NOTIFICATIONS_FOUND: "no notifications",
     LanguageKey.REFRESH: "refresh",
     LanguageKey.NOTIFICATION: "notification",
-    LanguageKey.Q1: "What is NibJobs?",
-    LanguageKey.Q2: "How can I add my Company on NibJobs",
-    LanguageKey.Q3: "Why is the company I created not visible to others",
-    LanguageKey.Q4: "Why is the job i created not visible to others",
-    LanguageKey.Q5:
-        "What makes NibJobs different from others Job Listing companies",
+
     LanguageKey.Q6:
         "I see my company is listed in the app, can I have full control of the company",
 
@@ -135,16 +130,6 @@ class EN {
     LanguageKey.Q8:
         "Why is the job I created not visible for other people", // todo translate to amharic
 
-    LanguageKey.A1:
-        "NibJobs is an Ethiopian based job indexing company that strives to bring each user tailored job notifications",
-    LanguageKey.A2:
-        "Go to the side menu bar and click on “My company” to add your company, after that you can begin posting jobs for free",
-    LanguageKey.A3:
-        "In NibJobs everything passes a strict approval process that includes company information as well. So your company may be waiting approval at this moment",
-    LanguageKey.A4:
-        "In NibJobs everything passes a strict approval process that includes job listings. So the job you created may be waiting for approval",
-    LanguageKey.A5:
-        "NibJobs’ main aim is to notify users with custom tailored job listings and not bombarded the user with unwanted job offers",
     LanguageKey.A6:
         "Yes, just prove that you own the company by calling us with the listed phone number and we will send you a link to a web dashboard which will give you full control to all your jobs",
 
@@ -212,5 +197,21 @@ class EN {
     LanguageKey.NEW: "new",
     LanguageKey.YOU_WILL_BE_NOTIFIED_FOR: "you will be notified for ",
     LanguageKey.WELCOME_TO_NIBJOBS: "welcome to Nibjobs",
+    LanguageKey.Q1: "What is NibJobs?",
+    LanguageKey.Q2: "How can I add my Company on NibJobs",
+    LanguageKey.Q3: "Why is the company I created not visible to others",
+    LanguageKey.Q4: "Why is the job i created not visible to others",
+    LanguageKey.Q5:
+        "What makes NibJobs different from others Job Listing companies",
+    LanguageKey.A1:
+        "NibJobs is an Ethiopian based job indexing company that strives to bring each user tailored job notifications",
+    LanguageKey.A2:
+        "Go to the side menu bar and click on “My company” to add your company, after that you can begin posting jobs for free",
+    LanguageKey.A3:
+        "In NibJobs everything passes a strict approval process that includes company information as well. So your company may be waiting approval at this moment",
+    LanguageKey.A4:
+        "In NibJobs everything passes a strict approval process that includes job listings. So the job you created may be waiting for approval",
+    LanguageKey.A5:
+        "NibJobs’ main aim is to notify users with custom tailored job listings and not bombarded the user with unwanted job offers",
   };
 }
