@@ -223,11 +223,14 @@ class Menu {
                                     .collection(Company.COLLECTION_NAME)
                                     .doc(uid)
                                     .get();
-                            //if (documentSnapshot.data() == null) return;
-                            Company companyData = Company.toModel(
-                                documentSnapshot.data()!
-                                        as Map<String, dynamic> ??
-                                    {});
+                            Company companyData;
+                            if (documentSnapshot.data() == null) {
+                              companyData = Company();
+                            } else {
+                              companyData = Company.toModel(documentSnapshot
+                                  .data()! as Map<String, dynamic>);
+                            }
+
                             Navigator.of(context).pop();
                             Navigator.pushNamed(context, RouteTo.SHOP_EDIT,
                                 arguments: companyData);

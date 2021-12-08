@@ -14,7 +14,6 @@ import 'package:nibjobs/route/route.dart';
 import 'package:nibjobs/rsr/locale/lang/language_key.dart';
 import 'package:nibjobs/rsr/locale/string_rsr.dart';
 import 'package:nibjobs/rsr/theme/color.dart';
-import 'package:nibjobs/themes/light_color.dart';
 import 'package:nibjobs/widget/icon/icons.dart';
 import 'package:nibjobs/widget/info/message.dart';
 import 'package:path/path.dart';
@@ -103,17 +102,17 @@ class _EditCompanyPageState extends State<EditCompanyPage> {
   Widget getAppBar2(BuildContext context, Company company,
       {bool showCategory = false}) {
     return AppBar(
-      backgroundColor: LightColor.background,
+      backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
       leading: IconButton(
         onPressed: () {
           Navigator.pop(context);
         },
-        color: CustomColor.GRAY_DARK,
+        color: Theme.of(context).iconTheme.color,
         icon: const Icon(Icons.arrow_back_outlined),
       ),
       title: Text(
         StringRsr.get(LanguageKey.MY_SHOP, firstCap: false)!,
-        style: const TextStyle(color: CustomColor.GRAY_LIGHT),
+        style: Theme.of(context).textTheme.subtitle1,
       ),
       actions: <Widget>[
         Padding(
@@ -173,10 +172,10 @@ class _EditCompanyPageState extends State<EditCompanyPage> {
   @override
   Widget build(BuildContext context) {
     Company? company = ModalRoute.of(context)!.settings.arguments as Company?;
-    if (company != null && !allSeen) {
+    if ((company != null && company.id != "" && company.id != null) &&
+        !allSeen) {
       // imageFile = File(company.logo);
       companyLogo = company.logo ?? "";
-
       nameController.text = company.name ?? "";
       tinController.text = company.category ?? "";
       selectedLanguage = company.category;
@@ -193,6 +192,7 @@ class _EditCompanyPageState extends State<EditCompanyPage> {
       setState(() {});
     }
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(50),
           child: getAppBar2(context, company!)),
@@ -220,112 +220,107 @@ class _EditCompanyPageState extends State<EditCompanyPage> {
                                   context: context,
                                   builder: (context) {
                                     return AlertDialog(
-                                      title: Container(
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.spaceBetween,
-                                          children: [
-                                            ElevatedButton(
-                                              onPressed: () {},
-                                              style: ButtonStyle(
-                                                backgroundColor:
-                                                    MaterialStateProperty.all<
-                                                        Color>(Colors.white),
-                                                elevation: MaterialStateProperty
-                                                    .all<double>(0),
-                                              ),
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceAround,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                  TextButton(
-                                                      onPressed: () {
-                                                        chooseImage(
-                                                            ImageSource.camera);
-                                                        Navigator.pop(context);
-                                                      },
-                                                      child: Icon(
-                                                        Icons.camera_alt,
-                                                        color: Theme.of(context)
-                                                            .primaryColor,
-                                                        size: 45,
-                                                      )),
-                                                  const SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  Text(
-                                                    StringRsr.get(
-                                                        LanguageKey.CAMERA)!,
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .subtitle1,
-                                                  ),
-                                                ],
-                                              ),
+                                      title: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          ElevatedButton(
+                                            onPressed: () {},
+                                            style: ButtonStyle(
+                                              backgroundColor:
+                                                  MaterialStateProperty.all<
+                                                      Color>(Colors.white),
+                                              elevation: MaterialStateProperty
+                                                  .all<double>(0),
                                             ),
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                TextButton(
+                                                    onPressed: () {
+                                                      chooseImage(
+                                                          ImageSource.camera);
+                                                      Navigator.pop(context);
+                                                    },
+                                                    child: Icon(
+                                                      Icons.camera_alt,
+                                                      color: Theme.of(context)
+                                                          .primaryColor,
+                                                      size: 45,
+                                                    )),
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Text(
+                                                  StringRsr.get(
+                                                      LanguageKey.CAMERA)!,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .subtitle1,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
 
-                                            ElevatedButton(
-                                              style: ButtonStyle(
-                                                backgroundColor:
-                                                    MaterialStateProperty.all<
-                                                        Color>(Colors.white),
-                                                elevation: MaterialStateProperty
-                                                    .all<double>(0),
-                                              ),
-                                              onPressed: () {},
-                                              child: Column(
-                                                mainAxisAlignment:
-                                                    MainAxisAlignment
-                                                        .spaceAround,
-                                                crossAxisAlignment:
-                                                    CrossAxisAlignment.center,
-                                                children: [
-                                                  TextButton(
-                                                      onPressed: () {
-                                                        chooseImage(ImageSource
-                                                            .gallery);
-                                                        Navigator.pop(context);
-                                                      },
-                                                      child: const Icon(
-                                                        Icons.image,
-                                                        color:
-                                                            Color(0xffb81d00),
-                                                        size: 45,
-                                                      )),
-                                                  const SizedBox(
-                                                    height: 10,
-                                                  ),
-                                                  Text(
-                                                    StringRsr.get(
-                                                        LanguageKey.GALLERY)!,
-                                                    style: Theme.of(context)
-                                                        .textTheme
-                                                        .subtitle1,
-                                                  ),
-                                                ],
-                                              ),
+                                          ElevatedButton(
+                                            style: ButtonStyle(
+                                              backgroundColor:
+                                                  MaterialStateProperty.all<
+                                                      Color>(Colors.white),
+                                              elevation: MaterialStateProperty
+                                                  .all<double>(0),
                                             ),
-                                            // ElevatedButton(
-                                            //     onPressed: () {
-                                            //       chooseImage(
-                                            //           ImageSource.camera);
-                                            //       Navigator.pop(context);
-                                            //     },
-                                            //     child: Text(StringRsr.get(
-                                            //         LanguageKey.CAMERA))),
-                                            // ElevatedButton(
-                                            //     onPressed: () {
-                                            //       chooseImage(
-                                            //           ImageSource.gallery);
-                                            //       Navigator.pop(context);
-                                            //     },
-                                            //     child: Text(StringRsr.get(
-                                            //         LanguageKey.GALLEY))),
-                                          ],
-                                        ),
+                                            onPressed: () {},
+                                            child: Column(
+                                              mainAxisAlignment:
+                                                  MainAxisAlignment.spaceAround,
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.center,
+                                              children: [
+                                                TextButton(
+                                                    onPressed: () {
+                                                      chooseImage(
+                                                          ImageSource.gallery);
+                                                      Navigator.pop(context);
+                                                    },
+                                                    child: const Icon(
+                                                      Icons.image,
+                                                      color: Color(0xffb81d00),
+                                                      size: 45,
+                                                    )),
+                                                const SizedBox(
+                                                  height: 10,
+                                                ),
+                                                Text(
+                                                  StringRsr.get(
+                                                      LanguageKey.GALLERY)!,
+                                                  style: Theme.of(context)
+                                                      .textTheme
+                                                      .subtitle1,
+                                                ),
+                                              ],
+                                            ),
+                                          ),
+                                          // ElevatedButton(
+                                          //     onPressed: () {
+                                          //       chooseImage(
+                                          //           ImageSource.camera);
+                                          //       Navigator.pop(context);
+                                          //     },
+                                          //     child: Text(StringRsr.get(
+                                          //         LanguageKey.CAMERA))),
+                                          // ElevatedButton(
+                                          //     onPressed: () {
+                                          //       chooseImage(
+                                          //           ImageSource.gallery);
+                                          //       Navigator.pop(context);
+                                          //     },
+                                          //     child: Text(StringRsr.get(
+                                          //         LanguageKey.GALLEY))),
+                                        ],
                                       ),
                                     );
                                   });
@@ -410,7 +405,8 @@ class _EditCompanyPageState extends State<EditCompanyPage> {
                                                 Icons.camera_alt,
                                                 size: 40,
                                                 color: Theme.of(context)
-                                                    .primaryColor,
+                                                    .iconTheme
+                                                    .color,
                                               ),
                                             )
                                   : Container(
@@ -423,7 +419,8 @@ class _EditCompanyPageState extends State<EditCompanyPage> {
                                       child: Icon(
                                         Icons.camera_alt,
                                         size: 40,
-                                        color: Theme.of(context).primaryColor,
+                                        color:
+                                            Theme.of(context).iconTheme.color,
                                       ),
                                     ),
                             ),
@@ -667,193 +664,381 @@ class _EditCompanyPageState extends State<EditCompanyPage> {
                                 Row(
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
-                                    GestureDetector(
-                                      onTap: () async {
-                                        debugPrint(
-                                            "primaryPhoneController ${primaryPhoneController.text}");
-                                        if (_globalAllFormStateKey.currentState!
-                                                .validate() &&
-                                            tinController.text != "") {
-                                          setState(() {
-                                            absorbing = true;
-                                          });
-                                          String? urlImage;
-                                          if (imageSelected) {
-                                            urlImage = await uploadFile();
-                                            if (urlImage == null &&
-                                                imageFile != null) {
-                                              setState(() {
-                                                absorbing = false;
-                                              });
-                                              return;
+                                    // GestureDetector(
+                                    //   onTap: () async {
+                                    //     debugPrint(
+                                    //         "primaryPhoneController ${primaryPhoneController.text}");
+                                    //     if (_globalAllFormStateKey.currentState!
+                                    //             .validate() &&
+                                    //         tinController.text != "") {
+                                    //       setState(() {
+                                    //         absorbing = true;
+                                    //       });
+                                    //       String? urlImage;
+                                    //       if (imageSelected) {
+                                    //         urlImage = await uploadFile();
+                                    //         if (urlImage == null &&
+                                    //             imageFile != null) {
+                                    //           setState(() {
+                                    //             absorbing = false;
+                                    //           });
+                                    //           return;
+                                    //         }
+                                    //       } else {
+                                    //         urlImage = companyLogo!;
+                                    //       }
+                                    //
+                                    //       Company companyUpdate = Company(
+                                    //         name: nameController.text,
+                                    //         logo: urlImage,
+                                    //         category: tinController.text,
+                                    //         primaryPhone: !allSeen
+                                    //             ? primaryPhoneCodeNumber +
+                                    //                 primaryPhoneController.text
+                                    //             : primaryPhoneController.text,
+                                    //         secondaryPhone: !allSeen
+                                    //             ? secondaryPhoneCodeNumber +
+                                    //                 secondaryPhoneController
+                                    //                     .text
+                                    //             : secondaryPhoneController.text,
+                                    //         email: emailController.text,
+                                    //         website: websiteController.text,
+                                    //         physicalAddress:
+                                    //             physicalAddressController.text,
+                                    //         verified: false,
+                                    //       );
+                                    //       // todo edit or add job
+                                    //       if (company.firstModified != null) {
+                                    //         companyUpdate.firstModified =
+                                    //             DateTime.now();
+                                    //         companyUpdate.lastModified =
+                                    //             DateTime.now();
+                                    //       } else {
+                                    //         companyUpdate.lastModified =
+                                    //             DateTime.now();
+                                    //       }
+                                    //
+                                    //       final result =
+                                    //           await addCompany(companyUpdate);
+                                    //       absorbing = false;
+                                    //       if (result) {
+                                    //         AwesomeDialog(
+                                    //           btnOkText: StringRsr.get(
+                                    //               LanguageKey.OK,
+                                    //               firstCap: true),
+                                    //           btnCancelText: StringRsr.get(
+                                    //               LanguageKey.CANCEL,
+                                    //               firstCap: true),
+                                    //           context: context,
+                                    //           dialogType: DialogType.SUCCES,
+                                    //           borderSide: const BorderSide(
+                                    //               color: Colors.transparent,
+                                    //               width: 2),
+                                    //           width: 380,
+                                    //           buttonsBorderRadius:
+                                    //               const BorderRadius.all(
+                                    //                   Radius.circular(2)),
+                                    //           headerAnimationLoop: false,
+                                    //           animType: AnimType.BOTTOMSLIDE,
+                                    //           title: StringRsr.get(
+                                    //               LanguageKey.SUCCESSFUL,
+                                    //               firstCap: true),
+                                    //           desc:
+                                    //               '${StringRsr.get(LanguageKey.YOU_HAVE_SUCCESSFUL_ADDED, firstCap: true)} ${company.name}',
+                                    //           showCloseIcon: true,
+                                    //           btnOkOnPress: () {
+                                    //             Navigator.pop(context);
+                                    //           },
+                                    //         ).show();
+                                    //         nameController.text = "";
+                                    //         tinController.text = "";
+                                    //         selectedLanguage = null;
+                                    //         primaryPhoneController.text = "";
+                                    //         secondaryPhoneController.text = "";
+                                    //         emailController.text = "";
+                                    //         websiteController.text = "";
+                                    //         physicalAddressController.text = "";
+                                    //
+                                    //         imageFile = null;
+                                    //
+                                    //         FocusScope.of(context).unfocus();
+                                    //       } else {
+                                    //         AwesomeDialog(
+                                    //           btnOkText: StringRsr.get(
+                                    //               LanguageKey.OK,
+                                    //               firstCap: true),
+                                    //           btnCancelText: StringRsr.get(
+                                    //               LanguageKey.CANCEL,
+                                    //               firstCap: true),
+                                    //           context: context,
+                                    //           dialogType: DialogType.ERROR,
+                                    //           borderSide: const BorderSide(
+                                    //               color: Colors.transparent,
+                                    //               width: 2),
+                                    //           width: 380,
+                                    //           buttonsBorderRadius:
+                                    //               const BorderRadius.all(
+                                    //                   Radius.circular(2)),
+                                    //           headerAnimationLoop: false,
+                                    //           animType: AnimType.BOTTOMSLIDE,
+                                    //           title: StringRsr.get(
+                                    //               LanguageKey.ERROR,
+                                    //               firstCap: true),
+                                    //           desc: StringRsr.get(
+                                    //               LanguageKey.PLEASE_TRY_AGAIN,
+                                    //               firstCap: true),
+                                    //           showCloseIcon: true,
+                                    //           btnOkOnPress: () {},
+                                    //         ).show();
+                                    //       }
+                                    //       setState(() {
+                                    //         absorbing = false;
+                                    //       });
+                                    //     } else if (tinController.text == "") {
+                                    //       // AwesomeDialog(
+                                    //       //   btnOkText: StringRsr.get(
+                                    //       //       LanguageKey.OK,
+                                    //       //       firstCap: true),
+                                    //       //   btnCancelText: StringRsr.get(
+                                    //       //       LanguageKey.CANCEL,
+                                    //       //       firstCap: true),
+                                    //       //   context: context,
+                                    //       //   dialogType: DialogType.ERROR,
+                                    //       //   borderSide: const BorderSide(
+                                    //       //       color: Colors.transparent,
+                                    //       //       width: 2),
+                                    //       //   width: 380,
+                                    //       //   buttonsBorderRadius:
+                                    //       //       const BorderRadius.all(
+                                    //       //           Radius.circular(2)),
+                                    //       //   headerAnimationLoop: false,
+                                    //       //   animType: AnimType.BOTTOMSLIDE,
+                                    //       //   title: StringRsr.get(
+                                    //       //       LanguageKey.ERROR,
+                                    //       //       firstCap: true),
+                                    //       //   desc: StringRsr.get(
+                                    //       //       LanguageKey
+                                    //       //           .PLEASE_CHOOSE_A_CATEGORY,
+                                    //       //       firstCap: true),
+                                    //       //   showCloseIcon: true,
+                                    //       //   btnOkOnPress: () {},
+                                    //       // ).show();
+                                    //
+                                    //       showInfoToUser(
+                                    //           context,
+                                    //           DialogType.ERROR,
+                                    //           StringRsr.get(LanguageKey.ERROR,
+                                    //               firstCap: true),
+                                    //           StringRsr.get(
+                                    //               LanguageKey
+                                    //                   .PLEASE_CHOOSE_A_CATEGORY,
+                                    //               firstCap: true),
+                                    //           onOk: () {});
+                                    //     }
+                                    //   },
+                                    //   child: Container(
+                                    //     width: 250,
+                                    //     height: 35,
+                                    //     alignment: Alignment.center,
+                                    //     decoration: BoxDecoration(
+                                    //         borderRadius:
+                                    //             BorderRadius.circular(20),
+                                    //         color:
+                                    //             Theme.of(context).primaryColor),
+                                    //     padding: const EdgeInsets.only(
+                                    //       left: 15,
+                                    //       top: 5,
+                                    //       bottom: 5,
+                                    //       right: 15,
+                                    //     ),
+                                    //     child: Center(
+                                    //       child: Text(
+                                    //         StringRsr.get(
+                                    //             allSeen
+                                    //                 ? LanguageKey.UPDATE
+                                    //                 : LanguageKey.CREATE,
+                                    //             firstCap: true)!,
+                                    //         style: const TextStyle(
+                                    //             color: Colors.white),
+                                    //       ),
+                                    //     ),
+                                    //   ),
+                                    // ),
+                                    SizedBox(
+                                      width: 250,
+                                      height: 40,
+                                      child: ElevatedButton(
+                                        onPressed: () async {
+                                          debugPrint(
+                                              "primaryPhoneController ${primaryPhoneController.text}");
+                                          if (_globalAllFormStateKey
+                                                  .currentState!
+                                                  .validate() &&
+                                              tinController.text != "") {
+                                            setState(() {
+                                              absorbing = true;
+                                            });
+                                            String? urlImage;
+                                            if (imageSelected) {
+                                              urlImage = await uploadFile();
+                                              if (urlImage == null &&
+                                                  imageFile != null) {
+                                                setState(() {
+                                                  absorbing = false;
+                                                });
+                                                return;
+                                              }
+                                            } else {
+                                              urlImage = companyLogo!;
                                             }
-                                          } else {
-                                            urlImage = companyLogo!;
-                                          }
 
-                                          Company companyUpdate = Company(
-                                            name: nameController.text,
-                                            logo: urlImage,
-                                            category: tinController.text,
-                                            primaryPhone: !allSeen
-                                                ? primaryPhoneCodeNumber +
-                                                    primaryPhoneController.text
-                                                : primaryPhoneController.text,
-                                            secondaryPhone: !allSeen
-                                                ? secondaryPhoneCodeNumber +
-                                                    secondaryPhoneController
-                                                        .text
-                                                : secondaryPhoneController.text,
-                                            email: emailController.text,
-                                            website: websiteController.text,
-                                            physicalAddress:
-                                                physicalAddressController.text,
-                                            verified: false,
-                                          );
-                                          // todo edit or add job
-                                          if (company.firstModified != null) {
-                                            companyUpdate.firstModified =
-                                                DateTime.now();
-                                            companyUpdate.lastModified =
-                                                DateTime.now();
-                                          } else {
-                                            companyUpdate.lastModified =
-                                                DateTime.now();
-                                          }
+                                            Company companyUpdate = Company(
+                                              name: nameController.text,
+                                              logo: urlImage,
+                                              category: tinController.text,
+                                              primaryPhone: !allSeen
+                                                  ? primaryPhoneCodeNumber +
+                                                      primaryPhoneController
+                                                          .text
+                                                  : primaryPhoneController.text,
+                                              secondaryPhone: !allSeen
+                                                  ? secondaryPhoneCodeNumber +
+                                                      secondaryPhoneController
+                                                          .text
+                                                  : secondaryPhoneController
+                                                      .text,
+                                              email: emailController.text,
+                                              website: websiteController.text,
+                                              physicalAddress:
+                                                  physicalAddressController
+                                                      .text,
+                                              verified: false,
+                                            );
+                                            // todo edit or add job
+                                            if (company.firstModified != null) {
+                                              companyUpdate.firstModified =
+                                                  DateTime.now();
+                                              companyUpdate.lastModified =
+                                                  DateTime.now();
+                                            } else {
+                                              companyUpdate.lastModified =
+                                                  DateTime.now();
+                                            }
 
-                                          final result =
-                                              await addCompany(companyUpdate);
-                                          absorbing = false;
-                                          if (result) {
-                                            AwesomeDialog(
-                                              btnOkText: StringRsr.get(
-                                                  LanguageKey.OK,
-                                                  firstCap: true),
-                                              btnCancelText: StringRsr.get(
-                                                  LanguageKey.CANCEL,
-                                                  firstCap: true),
-                                              context: context,
-                                              dialogType: DialogType.SUCCES,
-                                              borderSide: const BorderSide(
-                                                  color: Colors.transparent,
-                                                  width: 2),
-                                              width: 380,
-                                              buttonsBorderRadius:
-                                                  const BorderRadius.all(
-                                                      Radius.circular(2)),
-                                              headerAnimationLoop: false,
-                                              animType: AnimType.BOTTOMSLIDE,
-                                              title: StringRsr.get(
-                                                  LanguageKey.SUCCESSFUL,
-                                                  firstCap: true),
-                                              desc:
-                                                  '${StringRsr.get(LanguageKey.YOU_HAVE_SUCCESSFUL_ADDED, firstCap: true)} ${company.name}',
-                                              showCloseIcon: true,
-                                              btnOkOnPress: () {
-                                                Navigator.pop(context);
-                                              },
-                                            ).show();
-                                            nameController.text = "";
-                                            tinController.text = "";
-                                            selectedLanguage = null;
-                                            primaryPhoneController.text = "";
-                                            secondaryPhoneController.text = "";
-                                            emailController.text = "";
-                                            websiteController.text = "";
-                                            physicalAddressController.text = "";
-
-                                            imageFile = null;
-
-                                            FocusScope.of(context).unfocus();
-                                          } else {
-                                            AwesomeDialog(
-                                              btnOkText: StringRsr.get(
-                                                  LanguageKey.OK,
-                                                  firstCap: true),
-                                              btnCancelText: StringRsr.get(
-                                                  LanguageKey.CANCEL,
-                                                  firstCap: true),
-                                              context: context,
-                                              dialogType: DialogType.ERROR,
-                                              borderSide: const BorderSide(
-                                                  color: Colors.transparent,
-                                                  width: 2),
-                                              width: 380,
-                                              buttonsBorderRadius:
-                                                  const BorderRadius.all(
-                                                      Radius.circular(2)),
-                                              headerAnimationLoop: false,
-                                              animType: AnimType.BOTTOMSLIDE,
-                                              title: StringRsr.get(
-                                                  LanguageKey.ERROR,
-                                                  firstCap: true),
-                                              desc: StringRsr.get(
-                                                  LanguageKey.PLEASE_TRY_AGAIN,
-                                                  firstCap: true),
-                                              showCloseIcon: true,
-                                              btnOkOnPress: () {},
-                                            ).show();
-                                          }
-                                          setState(() {
+                                            final result =
+                                                await addCompany(companyUpdate);
                                             absorbing = false;
-                                          });
-                                        } else if (tinController.text == "") {
-                                          // AwesomeDialog(
-                                          //   btnOkText: StringRsr.get(
-                                          //       LanguageKey.OK,
-                                          //       firstCap: true),
-                                          //   btnCancelText: StringRsr.get(
-                                          //       LanguageKey.CANCEL,
-                                          //       firstCap: true),
-                                          //   context: context,
-                                          //   dialogType: DialogType.ERROR,
-                                          //   borderSide: const BorderSide(
-                                          //       color: Colors.transparent,
-                                          //       width: 2),
-                                          //   width: 380,
-                                          //   buttonsBorderRadius:
-                                          //       const BorderRadius.all(
-                                          //           Radius.circular(2)),
-                                          //   headerAnimationLoop: false,
-                                          //   animType: AnimType.BOTTOMSLIDE,
-                                          //   title: StringRsr.get(
-                                          //       LanguageKey.ERROR,
-                                          //       firstCap: true),
-                                          //   desc: StringRsr.get(
-                                          //       LanguageKey
-                                          //           .PLEASE_CHOOSE_A_CATEGORY,
-                                          //       firstCap: true),
-                                          //   showCloseIcon: true,
-                                          //   btnOkOnPress: () {},
-                                          // ).show();
+                                            if (result) {
+                                              // AwesomeDialog(
+                                              //   btnOkText: StringRsr.get(
+                                              //       LanguageKey.OK,
+                                              //       firstCap: true),
+                                              //   btnCancelText: StringRsr.get(
+                                              //       LanguageKey.CANCEL,
+                                              //       firstCap: true),
+                                              //   context: context,
+                                              //   dialogType: DialogType.SUCCES,
+                                              //   borderSide: const BorderSide(
+                                              //       color: Colors.transparent,
+                                              //       width: 2),
+                                              //   width: 380,
+                                              //   buttonsBorderRadius:
+                                              //       const BorderRadius.all(
+                                              //           Radius.circular(2)),
+                                              //   headerAnimationLoop: false,
+                                              //   animType: AnimType.BOTTOMSLIDE,
+                                              //   title: StringRsr.get(
+                                              //       LanguageKey.SUCCESSFUL,
+                                              //       firstCap: true),
+                                              //   desc:
+                                              //       '${StringRsr.get(LanguageKey.YOU_HAVE_SUCCESSFUL_ADDED, firstCap: true)} ${company.name}',
+                                              //   showCloseIcon: true,
+                                              //   btnOkOnPress: () {
+                                              //     Navigator.pop(context);
+                                              //   },
+                                              // ).show();S
+                                              showInfoToUser(
+                                                  context,
+                                                  DialogType.SUCCES,
+                                                  StringRsr.get(
+                                                      LanguageKey.SUCCESSFUL,
+                                                      firstCap: true),
+                                                  '${StringRsr.get(LanguageKey.YOU_HAVE_SUCCESSFUL_ADDED, firstCap: true)} ${company.name}',
+                                                  onOk: () {
+                                                Navigator.pop(context);
+                                              });
+                                              nameController.text = "";
+                                              tinController.text = "";
+                                              selectedLanguage = null;
+                                              primaryPhoneController.text = "";
+                                              secondaryPhoneController.text =
+                                                  "";
+                                              emailController.text = "";
+                                              websiteController.text = "";
+                                              physicalAddressController.text =
+                                                  "";
 
-                                          showInfoToUser(
-                                              context,
-                                              DialogType.ERROR,
-                                              StringRsr.get(LanguageKey.ERROR,
-                                                  firstCap: true),
-                                              StringRsr.get(
-                                                  LanguageKey
-                                                      .PLEASE_CHOOSE_A_CATEGORY,
-                                                  firstCap: true),
-                                              onOk: () {});
-                                        }
-                                      },
-                                      child: Container(
-                                        width: 250,
-                                        height: 35,
-                                        alignment: Alignment.center,
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(20),
-                                            color:
-                                                Theme.of(context).primaryColor),
-                                        padding: const EdgeInsets.only(
-                                          left: 15,
-                                          top: 5,
-                                          bottom: 5,
-                                          right: 15,
-                                        ),
+                                              imageFile = null;
+
+                                              FocusScope.of(context).unfocus();
+                                            } else {
+                                              showInfoToUser(
+                                                  context,
+                                                  DialogType.ERROR,
+                                                  StringRsr.get(
+                                                      LanguageKey.ERROR,
+                                                      firstCap: true),
+                                                  StringRsr.get(
+                                                      LanguageKey
+                                                          .PLEASE_CHOOSE_A_CATEGORY,
+                                                      firstCap: true),
+                                                  onOk: () {});
+                                            }
+                                            setState(() {
+                                              absorbing = false;
+                                            });
+                                          } else if (tinController.text == "") {
+                                            // AwesomeDialog(
+                                            //   btnOkText: StringRsr.get(
+                                            //       LanguageKey.OK,
+                                            //       firstCap: true),
+                                            //   btnCancelText: StringRsr.get(
+                                            //       LanguageKey.CANCEL,
+                                            //       firstCap: true),
+                                            //   context: context,
+                                            //   dialogType: DialogType.ERROR,
+                                            //   borderSide: const BorderSide(
+                                            //       color: Colors.transparent,
+                                            //       width: 2),
+                                            //   width: 380,
+                                            //   buttonsBorderRadius:
+                                            //       const BorderRadius.all(
+                                            //           Radius.circular(2)),
+                                            //   headerAnimationLoop: false,
+                                            //   animType: AnimType.BOTTOMSLIDE,
+                                            //   title: StringRsr.get(
+                                            //       LanguageKey.ERROR,
+                                            //       firstCap: true),
+                                            //   desc: StringRsr.get(
+                                            //       LanguageKey
+                                            //           .PLEASE_CHOOSE_A_CATEGORY,
+                                            //       firstCap: true),
+                                            //   showCloseIcon: true,
+                                            //   btnOkOnPress: () {},
+                                            // ).show();
+
+                                            showInfoToUser(
+                                                context,
+                                                DialogType.ERROR,
+                                                StringRsr.get(LanguageKey.ERROR,
+                                                    firstCap: true),
+                                                StringRsr.get(
+                                                    LanguageKey
+                                                        .PLEASE_CHOOSE_A_CATEGORY,
+                                                    firstCap: true),
+                                                onOk: () {});
+                                          }
+                                        },
                                         child: Center(
                                           child: Text(
                                             StringRsr.get(
@@ -866,7 +1051,7 @@ class _EditCompanyPageState extends State<EditCompanyPage> {
                                           ),
                                         ),
                                       ),
-                                    ),
+                                    )
                                     // const SizedBox(
                                     //   width: 10,
                                     // ),

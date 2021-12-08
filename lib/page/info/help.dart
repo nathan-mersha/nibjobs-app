@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:nibjobs/rsr/locale/lang/language_key.dart';
 import 'package:nibjobs/rsr/locale/string_rsr.dart';
-import 'package:nibjobs/rsr/theme/color.dart';
-import 'package:nibjobs/themes/light_color.dart';
-import 'package:nibjobs/themes/theme.dart';
 import 'package:nibjobs/widget/nav/menu.dart';
 
 class HelpPage extends StatefulWidget {
@@ -57,13 +54,13 @@ class _HelpPageState extends State<HelpPage> {
   Widget getAppBar2(BuildContext context, String job,
       {bool showCategory = false}) {
     return AppBar(
-      backgroundColor: LightColor.background,
+      backgroundColor: Theme.of(context).backgroundColor,
 
       leading: IconButton(
         onPressed: () {
           Navigator.pop(context);
         },
-        color: CustomColor.GRAY_DARK,
+        color: Theme.of(context).iconTheme.color,
         icon: const Icon(Icons.arrow_back_outlined),
       ),
       actions: <Widget>[],
@@ -83,7 +80,7 @@ class _HelpPageState extends State<HelpPage> {
       drawer: Menu.getSideDrawer(context),
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 8),
-        color: LightColor.background,
+        color: Theme.of(context).backgroundColor,
         child: Column(
           children: [
             Container(
@@ -94,15 +91,19 @@ class _HelpPageState extends State<HelpPage> {
                 children: <Widget>[
                   Text(
                     StringRsr.get(LanguageKey.FAQL, firstCap: true)!,
-                    style: TextStyle(
+                    style: Theme.of(context).textTheme.headline6!.copyWith(
                         fontSize: titleFont, fontWeight: FontWeight.bold),
+                    // style: TextStyle(
+                    //     fontSize: titleFont, fontWeight: FontWeight.bold),
                   ),
                   Text(
                     StringRsr.get(LanguageKey.FAQ, firstCap: true)!,
-                    style: TextStyle(
-                        fontSize: subTitleFont,
-                        color: const Color(AppTheme.gray99),
-                        fontWeight: FontWeight.bold),
+                    style: Theme.of(context).textTheme.subtitle1!.copyWith(
+                        fontSize: subTitleFont, fontWeight: FontWeight.bold),
+                    // style: TextStyle(
+                    //     fontSize: subTitleFont,
+                    //     color: const Color(AppTheme.gray99),
+                    //     fontWeight: FontWeight.bold),
                   )
                 ],
               ),
@@ -118,139 +119,188 @@ class _HelpPageState extends State<HelpPage> {
                   children: <Widget>[
                     ExpansionTile(
                       initiallyExpanded: true,
-                      trailing: const RotatedBox(
+                      trailing: RotatedBox(
                         quarterTurns: 1,
                         child: Icon(
                           Icons.navigate_next,
+                          color: Theme.of(context).iconTheme.color,
                         ),
                       ),
                       title: Text(
                         StringRsr.get(LanguageKey.Q1, firstCap: true)!,
-                        style: TextStyle(
-                            color: Theme.of(context).primaryColor,
-                            fontSize: questionFont),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline6!
+                            .copyWith(fontSize: questionFont),
+                        // style: TextStyle(
+                        //     color: Theme.of(context).primaryColor,
+                        //     fontSize: questionFont),
                       ),
                       children: <Widget>[
                         Container(
                           child: Text(
                             StringRsr.get(LanguageKey.A1, firstCap: true)!,
                             textAlign: TextAlign.justify,
-                            style: TextStyle(
-                              color: Color(AppTheme.gray99),
-                              fontSize: answerFont,
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText1!
+                                .copyWith(fontSize: answerFont),
+                            // style: TextStyle(
+                            //   color: const Color(AppTheme.gray99),
+                            //   fontSize: answerFont,
+                            // ),
                           ),
-                          margin:
-                              EdgeInsets.symmetric(vertical: 9, horizontal: 6),
+                          margin: const EdgeInsets.symmetric(
+                              vertical: 9, horizontal: 6),
                         )
                       ],
                     ),
                     ExpansionTile(
-                      trailing: const RotatedBox(
+                      initiallyExpanded: true,
+                      trailing: RotatedBox(
                         quarterTurns: 1,
                         child: Icon(
                           Icons.navigate_next,
+                          color: Theme.of(context).iconTheme.color,
                         ),
                       ),
                       title: Text(
                         StringRsr.get(LanguageKey.Q2, firstCap: true)!,
-                        style: TextStyle(
-                            color: Theme.of(context).primaryColor,
-                            fontSize: questionFont),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline6!
+                            .copyWith(fontSize: questionFont),
+                        // style: TextStyle(
+                        //     color: Theme.of(context).primaryColor,
+                        //     fontSize: questionFont),
                       ),
                       children: <Widget>[
                         Container(
                           child: Text(
                             StringRsr.get(LanguageKey.A2, firstCap: true)!,
                             textAlign: TextAlign.justify,
-                            style: TextStyle(
-                              color: Color(AppTheme.gray99),
-                              fontSize: answerFont,
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText1!
+                                .copyWith(fontSize: answerFont),
+                            // style: TextStyle(
+                            //   color: const Color(AppTheme.gray99),
+                            //   fontSize: answerFont,
+                            // ),
                           ),
-                          margin:
-                              EdgeInsets.symmetric(vertical: 9, horizontal: 6),
+                          margin: const EdgeInsets.symmetric(
+                              vertical: 9, horizontal: 6),
                         )
                       ],
                     ),
                     ExpansionTile(
-                      trailing: const RotatedBox(
+                      initiallyExpanded: true,
+                      trailing: RotatedBox(
                         quarterTurns: 1,
                         child: Icon(
                           Icons.navigate_next,
+                          color: Theme.of(context).iconTheme.color,
                         ),
                       ),
                       title: Text(
                         StringRsr.get(LanguageKey.Q3, firstCap: true)!,
-                        style: TextStyle(
-                            color: Theme.of(context).primaryColor,
-                            fontSize: questionFont),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline6!
+                            .copyWith(fontSize: questionFont),
+                        // style: TextStyle(
+                        //     color: Theme.of(context).primaryColor,
+                        //     fontSize: questionFont),
                       ),
                       children: <Widget>[
                         Container(
                           child: Text(
                             StringRsr.get(LanguageKey.A3, firstCap: true)!,
                             textAlign: TextAlign.justify,
-                            style: TextStyle(
-                              color: Color(AppTheme.gray99),
-                              fontSize: answerFont,
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText1!
+                                .copyWith(fontSize: answerFont),
+                            // style: TextStyle(
+                            //   color: const Color(AppTheme.gray99),
+                            //   fontSize: answerFont,
+                            // ),
                           ),
-                          margin:
-                              EdgeInsets.symmetric(vertical: 9, horizontal: 6),
+                          margin: const EdgeInsets.symmetric(
+                              vertical: 9, horizontal: 6),
                         )
                       ],
                     ),
                     ExpansionTile(
-                      trailing: const RotatedBox(
+                      initiallyExpanded: true,
+                      trailing: RotatedBox(
                         quarterTurns: 1,
                         child: Icon(
                           Icons.navigate_next,
+                          color: Theme.of(context).iconTheme.color,
                         ),
                       ),
                       title: Text(
                         StringRsr.get(LanguageKey.Q4, firstCap: true)!,
-                        style: TextStyle(
-                            color: Theme.of(context).primaryColor,
-                            fontSize: questionFont),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline6!
+                            .copyWith(fontSize: questionFont),
+                        // style: TextStyle(
+                        //     color: Theme.of(context).primaryColor,
+                        //     fontSize: questionFont),
                       ),
                       children: <Widget>[
                         Container(
                           child: Text(
                             StringRsr.get(LanguageKey.A4, firstCap: true)!,
                             textAlign: TextAlign.justify,
-                            style: TextStyle(
-                              color: Color(AppTheme.gray99),
-                              fontSize: answerFont,
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText1!
+                                .copyWith(fontSize: answerFont),
+                            // style: TextStyle(
+                            //   color: const Color(AppTheme.gray99),
+                            //   fontSize: answerFont,
+                            // ),
                           ),
-                          margin:
-                              EdgeInsets.symmetric(vertical: 9, horizontal: 6),
+                          margin: const EdgeInsets.symmetric(
+                              vertical: 9, horizontal: 6),
                         )
                       ],
                     ),
                     ExpansionTile(
-                      trailing: const RotatedBox(
+                      initiallyExpanded: true,
+                      trailing: RotatedBox(
                         quarterTurns: 1,
                         child: Icon(
                           Icons.navigate_next,
+                          color: Theme.of(context).iconTheme.color,
                         ),
                       ),
                       title: Text(
                         StringRsr.get(LanguageKey.Q5, firstCap: true)!,
-                        style: TextStyle(
-                            color: Theme.of(context).primaryColor,
-                            fontSize: questionFont),
+                        style: Theme.of(context)
+                            .textTheme
+                            .headline6!
+                            .copyWith(fontSize: questionFont),
+                        // style: TextStyle(
+                        //     color: Theme.of(context).primaryColor,
+                        //     fontSize: questionFont),
                       ),
                       children: <Widget>[
                         Container(
                           child: Text(
                             StringRsr.get(LanguageKey.A5, firstCap: true)!,
                             textAlign: TextAlign.justify,
-                            style: TextStyle(
-                              color: Color(AppTheme.gray99),
-                              fontSize: answerFont,
-                            ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .bodyText1!
+                                .copyWith(fontSize: answerFont),
+                            // style: TextStyle(
+                            //   color: const Color(AppTheme.gray99),
+                            //   fontSize: answerFont,
+                            // ),
                           ),
                           margin: const EdgeInsets.symmetric(
                               vertical: 9, horizontal: 6),

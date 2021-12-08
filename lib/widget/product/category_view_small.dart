@@ -157,9 +157,7 @@ class CategoryViewSmallState extends State<CategoryViewSmall> {
                       textAlign: TextAlign.center,
                       softWrap: false,
                       style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                            color: isSelected
-                                ? Theme.of(context).primaryColor
-                                : Colors.black54,
+                            color: isSelected ? Colors.white : Colors.black54,
                           ),
                       // style: const TextStyle(
                       //     color: Colors.black54,
@@ -322,7 +320,7 @@ class _ListForCategoryState extends State<ListForCategory> {
   @override
   Widget build(BuildContext context) {
     return ExpansionTile(
-      backgroundColor: Colors.white,
+      backgroundColor: Theme.of(context).backgroundColor,
       leading: Checkbox(
         value: isSelectedCategory,
         onChanged: (bool? value) {

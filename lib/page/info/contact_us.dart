@@ -5,9 +5,6 @@ import 'package:nibjobs/db/k_shared_preference.dart';
 import 'package:nibjobs/model/profile/contact_us.dart';
 import 'package:nibjobs/rsr/locale/lang/language_key.dart';
 import 'package:nibjobs/rsr/locale/string_rsr.dart';
-import 'package:nibjobs/rsr/theme/color.dart';
-import 'package:nibjobs/themes/light_color.dart';
-import 'package:nibjobs/themes/theme.dart';
 import 'package:uuid/uuid.dart';
 
 class ContactUsPage extends StatefulWidget {
@@ -77,12 +74,12 @@ class _ContactUsPageState extends State<ContactUsPage> {
   Widget getAppBar2(BuildContext context, String? job,
       {bool showCategory = false}) {
     return AppBar(
-      backgroundColor: LightColor.background,
+      backgroundColor: Theme.of(context).backgroundColor,
       leading: IconButton(
         onPressed: () {
           Navigator.pop(context);
         },
-        color: CustomColor.GRAY_DARK,
+        color: Theme.of(context).iconTheme.color,
         icon: const Icon(Icons.arrow_back_outlined),
       ),
       actions: <Widget>[],
@@ -104,224 +101,228 @@ class _ContactUsPageState extends State<ContactUsPage> {
   Widget build(BuildContext context) {
     setDeviceSpecificValues(context);
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(50),
           child: getAppBar2(context, "Contact us")),
       // drawer: Menu.getSideDrawer(context),
-      body: Container(
-        color: LightColor.background,
-        padding: AppTheme.padding,
-        child: Column(
-          children: [
-            Container(
-              padding: const EdgeInsets.only(left: 8, top: 8),
-              alignment: Alignment.centerLeft,
-              child: Text(
-                StringRsr.get(LanguageKey.CONTACT_US, firstCap: true)!,
-                style: const TextStyle(
-                    fontSize: 24,
-                    color: CustomColor.GRAY_DARK,
-                    fontWeight: FontWeight.bold),
-              ),
+      body: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.only(left: 8, top: 8),
+            alignment: Alignment.centerLeft,
+            child: Text(
+              StringRsr.get(LanguageKey.CONTACT_US, firstCap: true)!,
+              style: Theme.of(context)
+                  .textTheme
+                  .headline6!
+                  .copyWith(fontSize: 24, fontWeight: FontWeight.bold),
+              // style: const TextStyle(
+              //     fontSize: 24,
+              //     color: CustomColor.GRAY_DARK,
+              //     fontWeight: FontWeight.bold),
             ),
-            Container(
-              padding: const EdgeInsets.only(left: 8),
-              alignment: Alignment.centerLeft,
-              child: Text(
-                  StringRsr.get(LanguageKey.ANYTHING_YOU_LIKE_TO_TELL,
-                      firstCap: true)!,
-                  style: const TextStyle(
-                      fontSize: 18,
-                      color: CustomColor.GRAY_LIGHT,
-                      fontWeight: FontWeight.bold)),
+          ),
+          Container(
+            padding: const EdgeInsets.only(left: 8),
+            alignment: Alignment.centerLeft,
+            child: Text(
+              StringRsr.get(LanguageKey.ANYTHING_YOU_LIKE_TO_TELL,
+                  firstCap: true)!,
+              style: Theme.of(context)
+                  .textTheme
+                  .subtitle1!
+                  .copyWith(fontSize: 18, fontWeight: FontWeight.bold),
+              // style: const TextStyle(
+              //     fontSize: 18,
+              //     color: CustomColor.GRAY_LIGHT,
+              //     fontWeight: FontWeight.bold)
             ),
-            Expanded(
-              flex: 3,
-              child: Container(
-                margin: containerPadding,
-                child: ListView(
-                  children: <Widget>[
-                    Form(
-                      key: _formKey,
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: <Widget>[
-                            TextFormField(
-                              controller: nameController,
-                              onChanged: (titleVal) {
-                                title = titleVal;
-                              },
-                              onFieldSubmitted: (titleVal) {
-                                title = titleVal;
-                              },
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return StringRsr.get(
-                                      LanguageKey.PLEASE_ENTER_TITLE,
-                                      firstCap: true);
-                                }
-                                return null;
-                              },
-                              decoration: InputDecoration(
-                                hintStyle: const TextStyle(
-                                    color: CustomColor.GRAY_LIGHT),
-                                hintText: StringRsr.get(
-                                    LanguageKey.WHAT_IS_IT_ABOUT,
-                                    firstCap: true),
-                              ),
-                              // decoration: AppTheme.getDecorationTFF("TITLE",
-                              //     enableLabel: true),
-                              // style: AppTheme.getconst TextStyleTFF(context),
+          ),
+          Expanded(
+            flex: 3,
+            child: Container(
+              margin: containerPadding,
+              child: ListView(
+                children: <Widget>[
+                  Form(
+                    key: _formKey,
+                    child: SingleChildScrollView(
+                      child: Column(
+                        children: <Widget>[
+                          TextFormField(
+                            controller: nameController,
+                            onChanged: (titleVal) {
+                              title = titleVal;
+                            },
+                            onFieldSubmitted: (titleVal) {
+                              title = titleVal;
+                            },
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return StringRsr.get(
+                                    LanguageKey.PLEASE_ENTER_TITLE,
+                                    firstCap: true);
+                              }
+                              return null;
+                            },
+                            decoration: InputDecoration(
+                              hintStyle: Theme.of(context).textTheme.bodyText1!,
+                              hintText: StringRsr.get(
+                                  LanguageKey.WHAT_IS_IT_ABOUT,
+                                  firstCap: true),
                             ),
-                            const SizedBox(height: 23),
-                            TextFormField(
-                              controller: messageController,
-                              onChanged: (bodyVal) {
-                                body = bodyVal;
-                              },
-                              onFieldSubmitted: (bodyVal) {
-                                body = bodyVal;
-                              },
-                              validator: (value) {
-                                if (value!.isEmpty) {
-                                  return StringRsr.get(
-                                      LanguageKey.PLEASE_ENTER_BODY,
-                                      firstCap: true);
-                                }
-                                return null;
-                              },
-                              minLines: 5,
-                              maxLines: 13,
-                              decoration: InputDecoration(
-                                hintStyle: const TextStyle(
-                                    color: CustomColor.GRAY_LIGHT),
-                                hintText: StringRsr.get(LanguageKey.MESSAGE,
-                                    firstCap: true),
-                              ),
-                              // decoration: AppTheme.getDecorationTFF("body",
-                              //     enableLabel: true),
-                              // style: AppTheme.getconst TextStyleTFF(context),
+                            // decoration: AppTheme.getDecorationTFF("TITLE",
+                            //     enableLabel: true),
+                            // style: AppTheme.getconst TextStyleTFF(context),
+                          ),
+                          const SizedBox(height: 23),
+                          TextFormField(
+                            controller: messageController,
+                            onChanged: (bodyVal) {
+                              body = bodyVal;
+                            },
+                            onFieldSubmitted: (bodyVal) {
+                              body = bodyVal;
+                            },
+                            validator: (value) {
+                              if (value!.isEmpty) {
+                                return StringRsr.get(
+                                    LanguageKey.PLEASE_ENTER_BODY,
+                                    firstCap: true);
+                              }
+                              return null;
+                            },
+                            minLines: 5,
+                            maxLines: 13,
+                            decoration: InputDecoration(
+                              hintStyle: Theme.of(context).textTheme.bodyText1!,
+                              hintText: StringRsr.get(LanguageKey.MESSAGE,
+                                  firstCap: true),
                             ),
-                            const SizedBox(
-                              height: 10,
-                            ),
-                            SizedBox(height: buttonTopSpacing),
-                          ],
-                        ),
+                            // decoration: AppTheme.getDecorationTFF("body",
+                            //     enableLabel: true),
+                            // style: AppTheme.getconst TextStyleTFF(context),
+                          ),
+                          const SizedBox(
+                            height: 10,
+                          ),
+                          SizedBox(height: buttonTopSpacing),
+                        ],
                       ),
                     ),
-                    const SizedBox(
-                      height: 50,
-                    ),
-                    Center(
-                      child: SizedBox(
-                        width: 200,
-                        height: 40,
-                        child: ElevatedButton(
-                          onPressed: () async {
-                            if (_formKey.currentState!.validate() && !_absorb) {
-                              setState(() {
-                                _absorb = true;
-                              });
-                              if (_formKey.currentState!.validate()) {
-                                var uid = Uuid();
-                                HSharedPreference hSharedPreference =
-                                    GetHSPInstance.hSharedPreference;
-                                String userId = await hSharedPreference.get(
-                                        HSharedPreference.KEY_USER_EMAIL) ??
-                                    "anonymous";
+                  ),
+                  const SizedBox(
+                    height: 50,
+                  ),
+                  Center(
+                    child: SizedBox(
+                      width: 200,
+                      height: 40,
+                      child: ElevatedButton(
+                        onPressed: () async {
+                          if (_formKey.currentState!.validate() && !_absorb) {
+                            setState(() {
+                              _absorb = true;
+                            });
+                            if (_formKey.currentState!.validate()) {
+                              var uid = Uuid();
+                              HSharedPreference hSharedPreference =
+                                  GetHSPInstance.hSharedPreference;
+                              String userId = await hSharedPreference
+                                      .get(HSharedPreference.KEY_USER_EMAIL) ??
+                                  "anonymous";
 
-                                ContactUsModel contactUs = ContactUsModel(
-                                  id: uid.v1(),
-                                  from: userId,
-                                  title: nameController.text,
-                                  body: messageController.text,
-                                  resolved: false,
-                                  firstModified: DateTime.now(),
-                                  lastModified: DateTime.now(),
+                              ContactUsModel contactUs = ContactUsModel(
+                                id: uid.v1(),
+                                from: userId,
+                                title: nameController.text,
+                                body: messageController.text,
+                                resolved: false,
+                                firstModified: DateTime.now(),
+                                lastModified: DateTime.now(),
+                              );
+                              final result = await addContactUs(contactUs);
+                              if (result) {
+                                // AwesomeDialog(
+                                //   btnOkText: StringRsr.get(LanguageKey.OK,
+                                //       firstCap: true),
+                                //   btnCancelText: StringRsr.get(
+                                //       LanguageKey.CANCEL,
+                                //       firstCap: true),
+                                //   context: context,
+                                //   dialogType: DialogType.SUCCES,
+                                //   borderSide: const BorderSide(
+                                //       color: Colors.transparent,
+                                //       width: 2),
+                                //   width: 380,
+                                //   buttonsBorderRadius:
+                                //   const BorderRadius.all(
+                                //       Radius.circular(2)),
+                                //   headerAnimationLoop: false,
+                                //   animType: AnimType.BOTTOMSLIDE,
+                                //   title: StringRsr.get(
+                                //       LanguageKey.SUCCESSFUL,
+                                //       firstCap: true),
+                                //   desc: StringRsr.get(
+                                //       LanguageKey
+                                //           .THANK_YOU_FOR_YOUR_FEEDBACK,
+                                //       firstCap: true),
+                                //   showCloseIcon: true,
+                                //   btnOkOnPress: () async {
+                                //     nameController.text = "";
+                                //     messageController.text = "";
+                                //     Navigator.pop(context);
+                                //   },
+                                // ).show();
+
+                                showInfoToUser(
+                                  context,
+                                  DialogType.SUCCES,
+                                  StringRsr.get(LanguageKey.SUCCESSFUL,
+                                      firstCap: true),
+                                  StringRsr.get(
+                                      LanguageKey.THANK_YOU_FOR_YOUR_FEEDBACK,
+                                      firstCap: true),
+                                  onOk: () async {
+                                    nameController.text = "";
+                                    messageController.text = "";
+                                    Navigator.pop(context);
+                                  },
                                 );
-                                final result = await addContactUs(contactUs);
-                                if (result) {
-                                  // AwesomeDialog(
-                                  //   btnOkText: StringRsr.get(LanguageKey.OK,
-                                  //       firstCap: true),
-                                  //   btnCancelText: StringRsr.get(
-                                  //       LanguageKey.CANCEL,
-                                  //       firstCap: true),
-                                  //   context: context,
-                                  //   dialogType: DialogType.SUCCES,
-                                  //   borderSide: const BorderSide(
-                                  //       color: Colors.transparent,
-                                  //       width: 2),
-                                  //   width: 380,
-                                  //   buttonsBorderRadius:
-                                  //   const BorderRadius.all(
-                                  //       Radius.circular(2)),
-                                  //   headerAnimationLoop: false,
-                                  //   animType: AnimType.BOTTOMSLIDE,
-                                  //   title: StringRsr.get(
-                                  //       LanguageKey.SUCCESSFUL,
-                                  //       firstCap: true),
-                                  //   desc: StringRsr.get(
-                                  //       LanguageKey
-                                  //           .THANK_YOU_FOR_YOUR_FEEDBACK,
-                                  //       firstCap: true),
-                                  //   showCloseIcon: true,
-                                  //   btnOkOnPress: () async {
-                                  //     nameController.text = "";
-                                  //     messageController.text = "";
-                                  //     Navigator.pop(context);
-                                  //   },
-                                  // ).show();
-
-                                  showInfoToUser(
-                                    context,
-                                    DialogType.SUCCES,
-                                    StringRsr.get(LanguageKey.SUCCESSFUL,
-                                        firstCap: true),
-                                    StringRsr.get(
-                                        LanguageKey.THANK_YOU_FOR_YOUR_FEEDBACK,
-                                        firstCap: true),
-                                    onOk: () async {
-                                      nameController.text = "";
-                                      messageController.text = "";
-                                      Navigator.pop(context);
-                                    },
-                                  );
-                                } else {
-                                  showInfoToUser(
-                                    context,
-                                    DialogType.ERROR,
-                                    StringRsr.get(LanguageKey.ERROR,
-                                        firstCap: true),
-                                    StringRsr.get(LanguageKey.PLEASE_TRY_AGAIN,
-                                        firstCap: true),
-                                    onOk: () {},
-                                  );
-                                }
+                              } else {
+                                showInfoToUser(
+                                  context,
+                                  DialogType.ERROR,
+                                  StringRsr.get(LanguageKey.ERROR,
+                                      firstCap: true),
+                                  StringRsr.get(LanguageKey.PLEASE_TRY_AGAIN,
+                                      firstCap: true),
+                                  onOk: () {},
+                                );
                               }
                             }
-                          },
-                          child: _absorb
-                              ? const CircularProgressIndicator(
-                                  backgroundColor: Colors.white,
-                                  strokeWidth: 2,
-                                )
-                              : Center(
-                                  child: Text(
-                                    StringRsr.get(LanguageKey.SEND)!,
-                                    style: const TextStyle(color: Colors.white),
-                                  ),
+                          }
+                        },
+                        child: _absorb
+                            ? const CircularProgressIndicator(
+                                backgroundColor: Colors.white,
+                                strokeWidth: 2,
+                              )
+                            : Center(
+                                child: Text(
+                                  StringRsr.get(LanguageKey.SEND)!,
+                                  style: const TextStyle(color: Colors.white),
                                 ),
-                        ),
+                              ),
                       ),
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

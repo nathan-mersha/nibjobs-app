@@ -9,7 +9,6 @@ import 'package:nibjobs/model/config/global.dart';
 import 'package:nibjobs/route/route.dart';
 import 'package:nibjobs/rsr/locale/lang/language_key.dart';
 import 'package:nibjobs/rsr/locale/string_rsr.dart';
-import 'package:nibjobs/rsr/theme/color.dart';
 import 'package:nibjobs/themes/light_color.dart';
 import 'package:nibjobs/themes/theme.dart';
 import 'package:nibjobs/widget/info/message.dart';
@@ -66,25 +65,25 @@ class _CategoryPreferencePageState extends State<CategoryPreferencePage> {
               );
             }
           },
-          icon: const Icon(
+          icon: Icon(
             Icons.arrow_back_ios,
-            color: CustomColor.GRAY,
+            color: Theme.of(context).iconTheme.color,
             size: 20,
           ),
         ),
         elevation: 0,
-        backgroundColor: Colors.white,
+        backgroundColor: Theme.of(context).backgroundColor,
       ),
       body: Container(
         width: double.infinity,
-        color: Colors.white,
+        color: Theme.of(context).backgroundColor,
         child: SizedBox(
           width: AppTheme.fullWidth(context),
           child: SizedBox.expand(
             child: Container(
-              color: Colors.white,
+              color: Theme.of(context).backgroundColor,
               child: Card(
-                  color: Colors.white,
+                  color: Theme.of(context).backgroundColor,
                   shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(12.0)),
                   elevation: 0.3,
@@ -107,10 +106,8 @@ class _CategoryPreferencePageState extends State<CategoryPreferencePage> {
                                   "Job Notification",
                                   style: Theme.of(context)
                                       .textTheme
-                                      .headline5!
-                                      .copyWith(
-                                          color: CustomColor.TEXT_COLOR_GRAY,
-                                          fontWeight: FontWeight.bold),
+                                      .headline6!
+                                      .copyWith(fontWeight: FontWeight.bold),
                                 ),
                                 const SizedBox(
                                   height: 5,
@@ -126,8 +123,6 @@ class _CategoryPreferencePageState extends State<CategoryPreferencePage> {
                                                 .textTheme
                                                 .subtitle2!
                                                 .copyWith(
-                                                    color: CustomColor
-                                                        .TEXT_COLOR_GRAY_LIGHT,
                                                     fontWeight:
                                                         FontWeight.bold),
                                           ),
@@ -147,8 +142,6 @@ class _CategoryPreferencePageState extends State<CategoryPreferencePage> {
                                                 .textTheme
                                                 .subtitle2!
                                                 .copyWith(
-                                                    color: CustomColor
-                                                        .TEXT_COLOR_GRAY_LIGHT,
                                                     fontWeight:
                                                         FontWeight.bold),
                                           ),

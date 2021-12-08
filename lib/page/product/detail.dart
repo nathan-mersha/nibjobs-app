@@ -83,7 +83,7 @@ class _JobDetailPageState extends State<JobDetailPage> {
   Widget getAppBar2(BuildContext context, Job job,
       {bool showCategory = false}) {
     return AppBar(
-      backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+      backgroundColor: Theme.of(context).backgroundColor,
       leading: IconButton(
         onPressed: () {
           Navigator.pop(context);
@@ -127,6 +127,7 @@ class _JobDetailPageState extends State<JobDetailPage> {
 
     return Scaffold(
       key: _scaffoldKey,
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: PreferredSize(
           preferredSize: const Size.fromHeight(50),
           child: getAppBar2(context, job!)),
