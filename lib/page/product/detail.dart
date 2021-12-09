@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/painting.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -1067,6 +1068,13 @@ class _JobDetailPageState extends State<JobDetailPage> {
   }
 
   Widget buildIntroductionSection(String description) {
+    final urlRegExp = RegExp(
+        r"((https?:www\.)|(https?:\/\/)|(www\.))[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9]{1,6}(\/[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)?");
+    final urlMatches = urlRegExp.allMatches(description);
+    List<String> urls = urlMatches
+        .map((urlMatch) => description.substring(urlMatch.start, urlMatch.end))
+        .toList();
+
     return BlocBuilder<DescriptionCubit, DescriptionState>(
       builder: (context, state) {
         if (state is DescriptionInitial && state.showDescription) {
@@ -1074,12 +1082,40 @@ class _JobDetailPageState extends State<JobDetailPage> {
             padding: const EdgeInsets.only(top: 4),
             height: AppTheme.fullWidth(context) >= 800 ? 600 : 300,
             width: AppTheme.fullWidth(context),
-            child: SingleChildScrollView(
-              child: Text(
-                description,
-                softWrap: true,
-                style: Theme.of(context).textTheme.bodyText2!,
-              ),
+            child: ListView(
+              children: [
+                Text(
+                  description.replaceAll(
+                      RegExp(
+                          r"(http|ftp|https)://([\w_-]+(?:(?:\.[\w_-]+)+))([\w.,@?^=%&:/~+#-]*[\w@?^=%&/~+#-])?"),
+                      ""),
+                  softWrap: true,
+                  style: Theme.of(context).textTheme.bodyText2!,
+                ),
+                ListView.builder(
+                    itemCount: urls.length,
+                    shrinkWrap: true,
+                    primary: false,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: urls[index],
+                                style: const TextStyle(color: Colors.blue),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    makeWebCall(urls[index]);
+                                  },
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    }),
+              ],
             ),
           );
         }
