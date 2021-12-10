@@ -1080,7 +1080,7 @@ class _JobDetailPageState extends State<JobDetailPage> {
         if (state is DescriptionInitial && state.showDescription) {
           return Container(
             padding: const EdgeInsets.only(top: 4),
-            height: AppTheme.fullWidth(context) >= 800 ? 600 : 300,
+            height: AppTheme.fullHeight(context) * 0.65,
             width: AppTheme.fullWidth(context),
             child: ListView(
               children: [
