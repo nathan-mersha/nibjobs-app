@@ -68,6 +68,9 @@ class _ThemePreferencePageState extends State<ThemePreferencePage> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () async {
+            await hSharedPreference.set(HSharedPreference.THEME_MODE,
+                val == 1 ? AppData.Light : AppData.Dark);
+
             Navigator.of(context).pop();
           },
           icon: Icon(
