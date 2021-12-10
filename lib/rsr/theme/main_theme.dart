@@ -41,7 +41,7 @@ final appThemeData = {
       unselectedWidgetColor: CustomColor.GRAY,
       textTheme: const TextTheme(
         bodyText1: TextStyle(color: CustomColor.TEXT_COLOR_GRAY),
-        bodyText2: TextStyle(color: CustomColor.GRAY_LIGHT),
+        bodyText2: TextStyle(color: CustomColor.TEXT_COLOR_GRAY_LIGHT),
         subtitle1: TextStyle(color: CustomColor.TEXT_COLOR_GRAY),
         subtitle2: TextStyle(color: CustomColor.TEXT_COLOR_GRAY_LIGHT),
         headline6: TextStyle(color: CustomColor.TEXT_COLOR_GRAY),

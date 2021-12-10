@@ -150,7 +150,7 @@ class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
                           child: Text(
                             package,
                             style:
-                                Theme.of(context).textTheme.bodyText1!.copyWith(
+                                Theme.of(context).textTheme.bodyText2!.copyWith(
                                       fontWeight: FontWeight.bold,
                                     ),
                             // style: const TextStyle(
@@ -167,7 +167,7 @@ class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
                   title: Text(
                     StringRsr.get(LanguageKey.JOB_NOTIFICATION,
                         firstCap: true)!,
-                    style: Theme.of(context).textTheme.headline6!.copyWith(
+                    style: Theme.of(context).textTheme.subtitle2!.copyWith(
                           fontWeight: FontWeight.bold,
                           fontSize: 17,
                         ),
