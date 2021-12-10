@@ -213,5 +213,6 @@ class EN {
         "In NibJobs everything passes a strict approval process that includes job listings. So the job you created may be waiting for approval",
     LanguageKey.A5:
         "NibJobs’ main aim is to notify users with custom tailored job listings and not bombarded the user with unwanted job offers",
+    LanguageKey.RATE_US: "Rate us",
   };
 }

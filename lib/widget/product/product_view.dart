@@ -110,44 +110,45 @@ class _JobViewState extends State<JobView> {
         // crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.start,
         children: <Widget>[
-          Container(
-            padding:
-                const EdgeInsets.only(left: 8, right: 8, top: 3, bottom: 3),
-            decoration: BoxDecoration(
-                color: CustomColor.PRIM_DARK,
-                borderRadius: BorderRadius.circular(10)),
-            child: Text(
-              //"${currencyFormat.format(job.price).toString()}",
-              job.contractType!,
-              maxLines: 1,
-              overflow: TextOverflow.fade,
-              textAlign: TextAlign.left,
-              softWrap: false,
-              style:
-                  const TextStyle(color: CustomColor.TEXT_DARK, fontSize: 12),
+          if (job.contractType! != "unAvailable")
+            Container(
+              padding:
+                  const EdgeInsets.only(left: 8, right: 8, top: 3, bottom: 3),
+              decoration: BoxDecoration(
+                  color: CustomColor.PRIM_DARK,
+                  borderRadius: BorderRadius.circular(10)),
+              child: Text(
+                //"${currencyFormat.format(job.price).toString()}",
+                job.contractType!,
+                maxLines: 1,
+                overflow: TextOverflow.fade,
+                textAlign: TextAlign.left,
+                softWrap: false,
+                style:
+                    const TextStyle(color: CustomColor.TEXT_DARK, fontSize: 12),
+              ),
             ),
-          ),
           const SizedBox(
             width: 5,
           ),
-          Container(
-            padding:
-                const EdgeInsets.only(left: 8, right: 8, top: 3, bottom: 3),
-            decoration: BoxDecoration(
-                color: CustomColor.PRIM_GREEN,
-                borderRadius: BorderRadius.circular(10)),
-            child: Text(
-              job.status!,
-              maxLines: 1,
-              overflow: TextOverflow.fade,
-              textAlign: TextAlign.left,
-              softWrap: false,
-              style: const TextStyle(color: Colors.white, fontSize: 12),
-            ),
-          ),
-          const SizedBox(
-            width: 5,
-          ),
+          // Container(
+          //   padding:
+          //       const EdgeInsets.only(left: 8, right: 8, top: 3, bottom: 3),
+          //   decoration: BoxDecoration(
+          //       color: CustomColor.PRIM_GREEN,
+          //       borderRadius: BorderRadius.circular(10)),
+          //   child: Text(
+          //     job.status!,
+          //     maxLines: 1,
+          //     overflow: TextOverflow.fade,
+          //     textAlign: TextAlign.left,
+          //     softWrap: false,
+          //     style: const TextStyle(color: Colors.white, fontSize: 12),
+          //   ),
+          // ),
+          // const SizedBox(
+          //   width: 5,
+          // ),
           Align(
             alignment: Alignment.topRight,
             child: Padding(
@@ -174,40 +175,41 @@ class _JobViewState extends State<JobView> {
                 return BlocBuilder<UserBloc, UserState>(
                   builder: (context, state) {
                     if (state is UserSignedInState) {
-                      return Container(
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(24),
-                          color: Colors.white,
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsets.all(4.0),
-                          child: Icon(
-                            isSelected
-                                ? Icons.visibility
-                                : Icons.visibility_off,
-                            // color:
-                            //     isSelected ? Colors.red : LightColor.lightGrey,
-                            color: LightColor.lightGrey,
-
-                            size: 15,
-                          ),
-                        ),
-                      );
+                      return isSelected
+                          ? Container(
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(24),
+                              ),
+                              child: const Padding(
+                                padding: EdgeInsets.all(4.0),
+                                child: Icon(
+                                  Icons.visibility,
+                                  // color:
+                                  //     isSelected ? Colors.red : LightColor.lightGrey,
+                                  color: Color(0xff9900ff),
+                                  size: 15,
+                                ),
+                              ),
+                            )
+                          : Container();
                     }
-                    return Container(
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(24),
-                        color: Colors.white,
-                      ),
-                      child: Padding(
-                        padding: const EdgeInsets.all(4.0),
-                        child: Icon(
-                          Icons.favorite,
-                          color: isSelected ? Colors.red : LightColor.lightGrey,
-                          size: 15,
-                        ),
-                      ),
-                    );
+                    return isSelected
+                        ? Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(24),
+                            ),
+                            child: const Padding(
+                              padding: EdgeInsets.all(4.0),
+                              child: Icon(
+                                Icons.visibility,
+                                // color:
+                                //     isSelected ? Colors.red : LightColor.lightGrey,
+                                color: Color(0xff9900),
+                                size: 15,
+                              ),
+                            ),
+                          )
+                        : Container();
                   },
                 );
               }),
@@ -647,7 +649,7 @@ class _JobViewState extends State<JobView> {
                                               overflow: TextOverflow.fade,
                                               textAlign: TextAlign.left,
                                               softWrap: false,
-                                              style: TextStyle(
+                                              style: const TextStyle(
                                                   color: Colors.white,
                                                   fontSize: 12),
                                             ),

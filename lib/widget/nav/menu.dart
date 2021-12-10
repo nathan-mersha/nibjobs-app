@@ -451,12 +451,11 @@ class Menu {
           padding: const EdgeInsets.only(left: 30.0),
           child: ListTile(
             leading: Icon(
-              NibCustomIcons.share,
+              Icons.rate_review,
               color: Theme.of(context).iconTheme.color,
             ),
             title: Text(
-              //StringRsr.get(LanguageKey.SHARE, firstCap: true)!,
-              "Rate us",
+              StringRsr.get(LanguageKey.RATE_US, firstCap: true)!,
               style: Theme.of(context).textTheme.bodyText1,
             ),
             onTap: () {
@@ -605,9 +604,9 @@ class Menu {
             child: Stack(
               fit: StackFit.passthrough,
               children: [
-                const Icon(
-                  NibCustomIcons.notification,
-                  color: Colors.orange,
+                Icon(
+                  Icons.notifications_none_outlined,
+                  color: Theme.of(context).iconTheme.color,
                 ),
                 BlocBuilder<NotificationBloc, NotificationState>(
                   builder: (context, state) {
