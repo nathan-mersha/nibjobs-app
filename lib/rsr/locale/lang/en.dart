@@ -214,5 +214,8 @@ class EN {
     LanguageKey.A5:
         "NibJobs’ main aim is to notify users with custom tailored job listings and not bombarded the user with unwanted job offers",
     LanguageKey.RATE_US: "Rate us",
+    LanguageKey.PICK_A_THEME: "pick a theme",
+    LanguageKey.YOU_CAN_ALWAYS_CHANGE_IT_IN_SETTINGS:
+        "you can always change it in settings",
   };
 }

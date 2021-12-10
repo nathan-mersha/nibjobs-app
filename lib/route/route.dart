@@ -23,6 +23,7 @@ import 'package:nibjobs/page/profile/category_preference.dart';
 import 'package:nibjobs/page/profile/gift.dart';
 import 'package:nibjobs/page/profile/language.dart';
 import 'package:nibjobs/page/profile/signin.dart';
+import 'package:nibjobs/page/profile/theme_preference.dart';
 import 'package:nibjobs/page/profile/wishlist.dart';
 import 'package:nibjobs/page/setting/general/general.dart';
 import 'package:nibjobs/page/setting/general/payment_and_delivery.dart';
@@ -101,6 +102,7 @@ class RouteTo {
   static const String CATEGORY_PREFERENCE = "/info/preference";
 
   static const String JOB_Notification = "/notification/job";
+  static const String THEME_PREFERENCE_PAGE = "/theme/preference";
 
   var routes;
   RouteTo() {
@@ -167,6 +169,9 @@ class RouteTo {
       SHOP_DETAIL: (BuildContext context) =>
           SafeArea(child: CompanyDetailPage()),
       SHOP_EDIT: (BuildContext context) => SafeArea(child: EditCompanyPage()),
+      THEME_PREFERENCE_PAGE: (BuildContext context) =>
+          SafeArea(child: ThemePreferencePage()),
+
       SHOP_RATING: (BuildContext context) =>
           SafeArea(child: CompanyRatingPage()),
       SHOP_ADD_ITEM: (BuildContext context) => SafeArea(child: AddItemPage()),

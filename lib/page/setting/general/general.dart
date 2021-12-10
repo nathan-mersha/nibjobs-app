@@ -177,6 +177,22 @@ class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
                     //     fontWeight: FontWeight.bold),
                   ),
                 ),
+                ListTile(
+                  onTap: () {
+                    Navigator.pushNamed(context, RouteTo.THEME_PREFERENCE_PAGE);
+                  },
+                  title: Text(
+                    StringRsr.get(LanguageKey.PICK_A_THEME, firstCap: true)!,
+                    style: Theme.of(context).textTheme.subtitle2!.copyWith(
+                          fontWeight: FontWeight.bold,
+                          fontSize: 17,
+                        ),
+                    // style: const TextStyle(
+                    //     fontSize: 17,
+                    //     color: CustomColor.TEXT_COLOR_GRAY_LIGHT,
+                    //     fontWeight: FontWeight.bold),
+                  ),
+                ),
                 // BlocBuilder<ThemeBloc, ThemeState>(
                 //   builder: (context, state) {
                 //     if (state is ThemeState &&

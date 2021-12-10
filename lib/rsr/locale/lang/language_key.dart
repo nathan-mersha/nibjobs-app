@@ -211,4 +211,7 @@ class LanguageKey {
   static const String YOU_WILL_BE_NOTIFIED_FOR = "YOU_WILL_BE_NOTIFIED_FOR";
   static const String WELCOME_TO_NIBJOBS = "WELCOME_TO_NIBJOBS";
   static const String RATE_US = "RATE_US";
+  static const String PICK_A_THEME = "PICK_A_THEME";
+  static const String YOU_CAN_ALWAYS_CHANGE_IT_IN_SETTINGS =
+      "YOU_CAN_ALWAYS_CHANGE_IT_IN_SETTINGS";
 }

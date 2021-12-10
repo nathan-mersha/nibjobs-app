@@ -71,6 +71,8 @@ flutter:
     - assets/images/signup.png
     - assets/images/default_avatar.png
     - assets/images/download.png
+    - assets/images/dark.png
+    - assets/images/light.png
 
 
   fonts:
