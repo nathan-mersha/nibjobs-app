@@ -1,6 +1,7 @@
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
-import 'package:nibjobs/api/flutterfire.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nibjobs/bloc/theme/theme_bloc.dart';
+import 'package:nibjobs/consetance/enums.dart';
 import 'package:nibjobs/db/k_shared_preference.dart';
 import 'package:nibjobs/global.dart' as global;
 import 'package:nibjobs/model/config/global.dart';
@@ -23,6 +24,7 @@ class ThemePreferencePage extends StatefulWidget {
 
 class _ThemePreferencePageState extends State<ThemePreferencePage> {
   // LocalPreference aSP = GetLocalPreferenceInstance.localPreference;
+  int? val;
   HSharedPreference hSharedPreference = GetHSPInstance.hSharedPreference;
   Future<List<Category>> getCategory() async {
     List<String> list =
@@ -40,6 +42,24 @@ class _ThemePreferencePageState extends State<ThemePreferencePage> {
     }
 
     return Future.value(categoriesSorted);
+  }
+
+  @override
+  initState() {
+    super.initState();
+    themeSet();
+  }
+
+  Future<void> themeSet() async {
+    String theme =
+        await hSharedPreference.get(HSharedPreference.THEME_MODE) ?? "";
+    if (theme == "") {
+      val = 1;
+    } else {
+      val = theme == "AppData.Light" ? 1 : 2;
+    }
+    print("theme $theme");
+    setState(() {});
   }
 
   @override
@@ -127,13 +147,19 @@ class _ThemePreferencePageState extends State<ThemePreferencePage> {
                                       padding: const EdgeInsets.all(8.0),
                                       child: Row(
                                         children: [
-                                          // Radio(value: value, groupValue: groupValue, onChanged: onChanged)
-                                          Icon(
-                                            Icons.account_circle,
-                                            color: Theme.of(context)
-                                                .iconTheme
-                                                .color,
-                                          ),
+                                          Radio(
+                                              value: 1,
+                                              groupValue: val,
+                                              onChanged: (value) {
+                                                BlocProvider.of<ThemeBloc>(
+                                                        context)
+                                                    .add(ThemeChange(
+                                                        appData:
+                                                            AppData.Light));
+                                                setState(() {
+                                                  val = value as int;
+                                                });
+                                              }),
                                           const SizedBox(
                                             width: 10,
                                           ),
@@ -162,12 +188,18 @@ class _ThemePreferencePageState extends State<ThemePreferencePage> {
                                       padding: const EdgeInsets.all(8.0),
                                       child: Row(
                                         children: [
-                                          Icon(
-                                            Icons.account_circle,
-                                            color: Theme.of(context)
-                                                .iconTheme
-                                                .color,
-                                          ),
+                                          Radio(
+                                              value: 2,
+                                              groupValue: val,
+                                              onChanged: (value) {
+                                                BlocProvider.of<ThemeBloc>(
+                                                        context)
+                                                    .add(ThemeChange(
+                                                        appData: AppData.Dark));
+                                                setState(() {
+                                                  val = value as int;
+                                                });
+                                              }),
                                           const SizedBox(
                                             width: 10,
                                           ),
@@ -194,42 +226,11 @@ class _ThemePreferencePageState extends State<ThemePreferencePage> {
                               height: 40,
                               child: ElevatedButton(
                                 onPressed: () async {
-                                  hSharedPreference.set(
-                                      HSharedPreference.SELECT_PREFERENCE,
-                                      true);
-                                  String uid = await hSharedPreference
-                                          .get(HSharedPreference.KEY_USER_ID) ??
-                                      "";
-                                  if (uid != "") {
-                                    List<String> list = await hSharedPreference
-                                            .get(HSharedPreference
-                                                .LIST_OF_FAV_CATEGORY) ??
-                                        [];
-                                    if (list.isNotEmpty) {
-                                      final result =
-                                          await updateUser(uid, list);
-                                      if (result) {
-                                        debugPrint("data good");
-                                      } else {
-                                        debugPrint("data error ");
-                                      }
-                                      Navigator.pushReplacementNamed(
-                                          context, RouteTo.HOME);
-                                    } else {
-                                      showInfoToUser(
-                                        context,
-                                        DialogType.ERROR,
-                                        StringRsr.get(LanguageKey.ERROR,
-                                            firstCap: true),
-                                        StringRsr.get(
-                                            LanguageKey
-                                                .PLEASE_CHOOSE_A_CATEGORY,
-                                            firstCap: true),
-                                        onOk: () {},
-                                      );
-                                    }
-                                  }
-
+                                  await hSharedPreference.set(
+                                      HSharedPreference.THEME_MODE,
+                                      val == 1 ? AppData.Light : AppData.Dark);
+                                  Navigator.pushReplacementNamed(
+                                      context, RouteTo.HOME);
                                   // // setState(() {
                                   //   showInfo = false;
                                   // });

@@ -6,9 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nibjobs/api/flutterfire.dart';
 import 'package:nibjobs/bloc/notification/notification_bloc.dart';
-import 'package:nibjobs/bloc/theme/theme_bloc.dart';
 import 'package:nibjobs/bloc/user/user_bloc.dart';
-import 'package:nibjobs/consetance/enums.dart';
 import 'package:nibjobs/db/k_shared_preference.dart';
 import 'package:nibjobs/model/profile/company.dart';
 import 'package:nibjobs/page/product/home.dart';
@@ -468,27 +466,27 @@ class Menu {
           ),
         ),
 
-        ListTile(
-          leading: const Icon(Icons.help),
-          title: const Text("change Theme"),
-          trailing: Switch(
-            value: isDark,
-            onChanged: (value) {
-              isDark = value;
-              if (value) {
-                BlocProvider.of<ThemeBloc>(context)
-                    .add(ThemeChange(appData: AppData.Dark));
-              } else {
-                BlocProvider.of<ThemeBloc>(context)
-                    .add(ThemeChange(appData: AppData.Light));
-              }
-            },
-          ),
-          onTap: () {
-            //Navigator.pop(context); // Pops the navigation side drawer
-            // todo : help page here.
-          },
-        ),
+        // ListTile(
+        //   leading: const Icon(Icons.help),
+        //   title: const Text("change Theme"),
+        //   trailing: Switch(
+        //     value: isDark,
+        //     onChanged: (value) {
+        //       isDark = value;
+        //       if (value) {
+        //         BlocProvider.of<ThemeBloc>(context)
+        //             .add(ThemeChange(appData: AppData.Dark));
+        //       } else {
+        //         BlocProvider.of<ThemeBloc>(context)
+        //             .add(ThemeChange(appData: AppData.Light));
+        //       }
+        //     },
+        //   ),
+        //   onTap: () {
+        //     //Navigator.pop(context); // Pops the navigation side drawer
+        //     // todo : help page here.
+        //   },
+        // ),
         // BlocBuilder<UserBloc, UserState>(builder: (context, state) {
         //   if (state is UserSignedInState) {
         //     return ListTile(

@@ -2,6 +2,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class HSharedPreference {
   static const KEY_FIRST_TIME = "FIRST_TIME";
+  static const THEME_MODE = "THEME_MODE";
   static const KEY_FIRST_INVOICE_NUMBER = "FIRST_INVOICE_NUMBER";
   static const KEY_USER_ID = "KEY_USER_ID";
   static const KEY_USER_LAST_SEEN = "KEY_USER_LAST_SEEN";

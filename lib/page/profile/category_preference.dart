@@ -254,8 +254,17 @@ class _CategoryPreferencePageState extends State<CategoryPreferencePage> {
                                       } else {
                                         debugPrint("data error ");
                                       }
-                                      Navigator.pushReplacementNamed(
-                                          context, RouteTo.HOME);
+                                      String theme = await hSharedPreference
+                                              .get(HSharedPreference
+                                                  .THEME_MODE) ??
+                                          "";
+                                      if (theme != "") {
+                                        Navigator.pushReplacementNamed(
+                                            context, RouteTo.HOME);
+                                      } else {
+                                        Navigator.pushReplacementNamed(context,
+                                            RouteTo.THEME_PREFERENCE_PAGE);
+                                      }
                                     } else {
                                       showInfoToUser(
                                         context,
