@@ -41,7 +41,7 @@ class _EditCompanyPageState extends State<EditCompanyPage> {
   String primaryPhoneCode = "";
   String secondaryPhoneCode = "";
   bool absorbing = false;
-  String? companyLogo;
+  String? companyLogo = "";
   bool allSeen = false;
   bool imageSelected = false;
   String? docId;
