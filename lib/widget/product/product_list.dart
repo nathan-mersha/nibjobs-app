@@ -791,9 +791,9 @@ class _JobListState extends State<JobList> {
         } else {
           DateTime dateLast = DateTime.parse(dateFile);
           if (dateLast.isBefore(_jobs[i].lastModified!)) {
+            jobUnSeen += 1;
             BlocProvider.of<NotificationBloc>(context)
                 .add(NotificationEventAdder(counter: jobUnSeen));
-            jobUnSeen += 1;
           }
         }
       }

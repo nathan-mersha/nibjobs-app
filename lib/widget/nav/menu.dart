@@ -12,6 +12,7 @@ import 'package:nibjobs/model/profile/company.dart';
 import 'package:nibjobs/page/product/home.dart';
 import 'package:nibjobs/rsr/locale/lang/language_key.dart';
 import 'package:nibjobs/rsr/locale/string_rsr.dart';
+import 'package:nibjobs/rsr/theme/color.dart';
 import 'package:nibjobs/themes/nib_custom_icons_icons.dart';
 import 'package:share/share.dart';
 
@@ -604,16 +605,24 @@ class Menu {
               children: [
                 Icon(
                   Icons.notifications_none_outlined,
+                  size: 18,
                   color: Theme.of(context).iconTheme.color,
                 ),
                 BlocBuilder<NotificationBloc, NotificationState>(
                   builder: (context, state) {
                     if (state is NotificationInitial && state.counter != 0) {
                       return Container(
-                        alignment: Alignment.centerRight,
+                        padding: const EdgeInsets.only(left: 5),
+                        alignment: Alignment.bottomCenter,
                         child: Text(
                           state.counter.toString(),
-                          style: Theme.of(context).textTheme.bodyText1,
+                          style: Theme.of(context)
+                              .textTheme
+                              .bodyText1!
+                              .copyWith(
+                                  fontSize: 13,
+                                  color: CustomColor.PRIM_DARK,
+                                  fontWeight: FontWeight.bold),
                         ),
                       );
                     }
