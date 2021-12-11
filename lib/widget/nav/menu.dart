@@ -37,132 +37,205 @@ class Menu {
           padding: const EdgeInsets.only(left: 40.0),
           child: Padding(
             padding: const EdgeInsets.only(top: 40),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: <Widget>[
-                BlocBuilder<UserBloc, UserState>(builder: (context, state) {
-                  if (state is UserSignedInState) {
-                    return state.userImage == null || state.userImage == ""
-                        ? Container(
-                            height: 40,
-                            width: 40,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(40),
-                              image: const DecorationImage(
-                                image: AssetImage(
-                                  "assets/images/download.png",
+            child: Stack(
+              children: [
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: <Widget>[
+                    BlocBuilder<UserBloc, UserState>(builder: (context, state) {
+                      if (state is UserSignedInState) {
+                        return state.userImage == null || state.userImage == ""
+                            ? Container(
+                                height: 40,
+                                width: 40,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(40),
+                                  image: const DecorationImage(
+                                    image: AssetImage(
+                                      "assets/images/download.png",
+                                    ),
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
-                                fit: BoxFit.cover,
-                              ),
-                            ),
-                          )
-                        : Container(
-                            height: 40,
-                            width: 40,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(40),
-                              image: DecorationImage(
-                                image: NetworkImage(
-                                  state.userImage,
+                              )
+                            : Container(
+                                height: 40,
+                                width: 40,
+                                decoration: BoxDecoration(
+                                  borderRadius: BorderRadius.circular(40),
+                                  image: DecorationImage(
+                                    image: NetworkImage(
+                                      state.userImage,
+                                    ),
+                                    fit: BoxFit.cover,
+                                  ),
                                 ),
-                                fit: BoxFit.cover,
+                              );
+                      } else {
+                        return Container(
+                          height: 40,
+                          width: 40,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(40),
+                            image: const DecorationImage(
+                              image: AssetImage(
+                                "assets/images/download.png",
                               ),
+                              fit: BoxFit.cover,
                             ),
-                          );
-                  } else {
-                    return Container(
-                      height: 40,
-                      width: 40,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(40),
-                        image: const DecorationImage(
-                          image: AssetImage(
-                            "assets/images/download.png",
                           ),
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                    );
-                  }
-                }),
-                const SizedBox(
-                  height: 15,
-                ),
-                BlocBuilder<UserBloc, UserState>(builder: (context, state) {
-                  if (state is UserSignedInState) {
-                    return Text(
-                      state.userName == ""
-                          ? StringRsr.get(LanguageKey.NO_USERNAME_RETRIEVED,
-                              firstCap: true)!
-                          : state.userName,
-                      // style: const TextStyle(
-                      //     color: CustomColor.GRAY_DARK,
-                      //     fontWeight: FontWeight.bold,
-                      //     fontSize: 20),
-                      style: Theme.of(context)
-                          .textTheme
-                          .subtitle1!
-                          .copyWith(fontWeight: FontWeight.bold, fontSize: 20),
-                    );
-                  } else if (state is UserSignedOutState) {
-                    return GestureDetector(
-                      onTap: () {
-                        Navigator.pushNamed(context, RouteTo.PROFILE_SIGN_IN);
-                      },
-                      child: Text(
-                        StringRsr.get(LanguageKey.SIGN_IN, firstCap: true)!,
-                        // style: const TextStyle(
-                        //     color: CustomColor.GRAY_DARK,
-                        //     fontWeight: FontWeight.bold,
-                        //     fontSize: 20),
-                        style: Theme.of(context).textTheme.subtitle1!.copyWith(
-                            fontWeight: FontWeight.bold, fontSize: 20),
-                      ),
-                    );
-                  } else if (state is UserInitial) {
-                    return Container();
-                  }
-                  return Container();
-                }),
-                BlocBuilder<UserBloc, UserState>(
-                  builder: (context, state) {
-                    if (state is UserSignedInState) {
-                      return Text(
-                        // StringRsr.get(LanguageKey.WELCOME_TO_OUR_FAMILY,
-                        //     firstCap: true),
-                        state.userEmail != ""
-                            ? state.userEmail
-                            : StringRsr.get(LanguageKey.NO_EMAIL_RETRIEVED,
+                        );
+                      }
+                    }),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    BlocBuilder<UserBloc, UserState>(builder: (context, state) {
+                      if (state is UserSignedInState) {
+                        return Text(
+                          state.userName == ""
+                              ? StringRsr.get(LanguageKey.NO_USERNAME_RETRIEVED,
+                                  firstCap: true)!
+                              : state.userName,
+                          // style: const TextStyle(
+                          //     color: CustomColor.GRAY_DARK,
+                          //     fontWeight: FontWeight.bold,
+                          //     fontSize: 20),
+                          style: Theme.of(context)
+                              .textTheme
+                              .subtitle1!
+                              .copyWith(
+                                  fontWeight: FontWeight.bold, fontSize: 20),
+                        );
+                      } else if (state is UserSignedOutState) {
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, RouteTo.PROFILE_SIGN_IN);
+                          },
+                          child: Text(
+                            StringRsr.get(LanguageKey.SIGN_IN, firstCap: true)!,
+                            // style: const TextStyle(
+                            //     color: CustomColor.GRAY_DARK,
+                            //     fontWeight: FontWeight.bold,
+                            //     fontSize: 20),
+                            style: Theme.of(context)
+                                .textTheme
+                                .subtitle1!
+                                .copyWith(
+                                    fontWeight: FontWeight.bold, fontSize: 20),
+                          ),
+                        );
+                      } else if (state is UserInitial) {
+                        return Container();
+                      }
+                      return Container();
+                    }),
+                    BlocBuilder<UserBloc, UserState>(
+                      builder: (context, state) {
+                        if (state is UserSignedInState) {
+                          return Text(
+                            // StringRsr.get(LanguageKey.WELCOME_TO_OUR_FAMILY,
+                            //     firstCap: true),
+                            state.userEmail != ""
+                                ? state.userEmail
+                                : StringRsr.get(LanguageKey.NO_EMAIL_RETRIEVED,
+                                    firstCap: true)!,
+                            // style: const TextStyle(
+                            //   color: CustomColor.GRAY_LIGHT,
+                            //   fontWeight: FontWeight.bold,
+                            // ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .subtitle2!
+                                .copyWith(fontWeight: FontWeight.bold),
+                          );
+                        } else if (state is UserSignedOutState) {
+                          return Text(
+                            StringRsr.get(LanguageKey.WELCOME_TO_NIBJOBS,
                                 firstCap: true)!,
-                        // style: const TextStyle(
-                        //   color: CustomColor.GRAY_LIGHT,
-                        //   fontWeight: FontWeight.bold,
-                        // ),
-                        style: Theme.of(context)
-                            .textTheme
-                            .subtitle2!
-                            .copyWith(fontWeight: FontWeight.bold),
+
+                            // style: TextStyle(
+                            //   color: CustomColor.GRAY_LIGHT,
+                            //   fontWeight: FontWeight.bold,
+                            // ),
+                            style: Theme.of(context)
+                                .textTheme
+                                .subtitle2!
+                                .copyWith(fontWeight: FontWeight.bold),
+                          );
+                        } else if (state is UserInitial) {
+                          return Container();
+                        }
+                        return Container();
+                      },
+                    )
+                  ],
+                ),
+                Container(
+                  padding: const EdgeInsets.only(bottom: 20, right: 20, top: 8),
+                  alignment: Alignment.centerRight,
+                  child: BlocBuilder<UserBloc, UserState>(
+                      builder: (context, state) {
+                    if (state is UserSignedInState) {
+                      return GestureDetector(
+                        onTap: () {
+                          showInfoToUser(
+                            context,
+                            DialogType.INFO_REVERSED,
+                            StringRsr.get(LanguageKey.SIGN_OUT, firstCap: true),
+                            StringRsr.get(LanguageKey.DO_YOU_WANT_TO_SIGN_OUT,
+                                firstCap: true),
+                            onOk: () {
+                              BlocProvider.of<UserBloc>(context)
+                                  .add(UserSignOut());
+                              Navigator.pushNamed(
+                                  context, RouteTo.PROFILE_SIGN_IN);
+                              BlocListener<UserBloc, UserState>(
+                                listener: (context, state) {
+                                  // TODO: implement listener}
+                                  if (state is UserSignedOutState) {
+                                    showInfoToUser(
+                                      context,
+                                      DialogType.SUCCES,
+                                      StringRsr.get(LanguageKey.SUCCESSFUL,
+                                          firstCap: true),
+                                      StringRsr.get(
+                                          LanguageKey
+                                              .YOU_HAVE_SUCCESSFUL_SIGN_OUT,
+                                          firstCap: true),
+                                      onOk: () {
+                                        Navigator.pushNamed(
+                                            context, RouteTo.PROFILE_SIGN_IN);
+                                      },
+                                    );
+                                  }
+                                },
+                              );
+                            },
+                          );
+                        },
+                        child: Icon(
+                          Icons.logout,
+                          color: Theme.of(context).iconTheme.color,
+                        ),
                       );
                     } else if (state is UserSignedOutState) {
-                      return Text(
-                        StringRsr.get(LanguageKey.WELCOME_TO_NIBJOBS,
-                            firstCap: true)!,
-
-                        // style: TextStyle(
-                        //   color: CustomColor.GRAY_LIGHT,
-                        //   fontWeight: FontWeight.bold,
-                        // ),
-                        style: Theme.of(context)
-                            .textTheme
-                            .subtitle2!
-                            .copyWith(fontWeight: FontWeight.bold),
-                      );
+                      return GestureDetector(
+                          onTap: () {
+                            Navigator.pushNamed(
+                                context, RouteTo.PROFILE_SIGN_IN);
+                          },
+                          child: Icon(
+                            Icons.login,
+                            color: Theme.of(context).iconTheme.color,
+                          ));
                     } else if (state is UserInitial) {
                       return Container();
                     }
                     return Container();
-                  },
-                )
+                  }),
+                ),
               ],
             ),
           ),
@@ -647,68 +720,85 @@ class Menu {
               if (state is UserSignedInState) {
                 return GestureDetector(
                     onTap: () {
-                      AwesomeDialog(
-                        btnOkText:
-                            StringRsr.get(LanguageKey.OK, firstCap: true),
-                        btnCancelText:
-                            StringRsr.get(LanguageKey.CANCEL, firstCap: true),
-                        context: context,
-                        dialogType: DialogType.INFO_REVERSED,
-                        borderSide:
-                            BorderSide(color: Colors.transparent, width: 2),
-                        width: 380,
-                        buttonsBorderRadius:
-                            BorderRadius.all(Radius.circular(2)),
-                        headerAnimationLoop: false,
-                        animType: AnimType.BOTTOMSLIDE,
-                        title:
-                            StringRsr.get(LanguageKey.SIGN_OUT, firstCap: true),
-                        desc: StringRsr.get(LanguageKey.DO_YOU_WANT_TO_SIGN_OUT,
+                      // AwesomeDialog(
+                      //   btnOkText:
+                      //       StringRsr.get(LanguageKey.OK, firstCap: true),
+                      //   btnCancelText:
+                      //       StringRsr.get(LanguageKey.CANCEL, firstCap: true),
+                      //   context: context,
+                      //   dialogType: DialogType.INFO_REVERSED,
+                      //   borderSide:
+                      //       BorderSide(color: Colors.transparent, width: 2),
+                      //   width: 380,
+                      //   buttonsBorderRadius:
+                      //       BorderRadius.all(Radius.circular(2)),
+                      //   headerAnimationLoop: false,
+                      //   animType: AnimType.BOTTOMSLIDE,
+                      //   title:
+                      //       StringRsr.get(LanguageKey.SIGN_OUT, firstCap: true),
+                      //   desc: StringRsr.get(LanguageKey.DO_YOU_WANT_TO_SIGN_OUT,
+                      //       firstCap: true),
+                      //   showCloseIcon: true,
+                      //   btnCancelOnPress: () {},
+                      //   btnOkOnPress: () async {
+                      //     BlocProvider.of<UserBloc>(context).add(UserSignOut());
+                      //     Navigator.pushNamed(context, RouteTo.PROFILE_SIGN_IN);
+                      //     BlocListener<UserBloc, UserState>(
+                      //       listener: (context, state) {
+                      //         // TODO: implement listener}
+                      //         if (state is UserSignedOutState) {
+                      //
+                      //           showInfoToUser(
+                      //             context,
+                      //             DialogType.SUCCES,
+                      //             StringRsr.get(LanguageKey.SUCCESSFUL, firstCap: true),
+                      //             StringRsr.get(LanguageKey.YOU_HAVE_SUCCESSFUL_SIGN_OUT,
+                      //                 firstCap: true),
+                      //             onOk: () {
+                      //               Navigator.pushNamed(
+                      //                   context, RouteTo.PROFILE_SIGN_IN);
+                      //             },
+                      //           );
+                      //         }
+                      //       },
+                      //     );
+                      //   },
+                      // ).show();
+                      showInfoToUser(
+                        context,
+                        DialogType.INFO_REVERSED,
+                        StringRsr.get(LanguageKey.SIGN_OUT, firstCap: true),
+                        StringRsr.get(LanguageKey.DO_YOU_WANT_TO_SIGN_OUT,
                             firstCap: true),
-                        showCloseIcon: true,
-                        btnCancelOnPress: () {},
-                        btnOkOnPress: () async {
+                        onOk: () async {
                           BlocProvider.of<UserBloc>(context).add(UserSignOut());
                           Navigator.pushNamed(context, RouteTo.PROFILE_SIGN_IN);
                           BlocListener<UserBloc, UserState>(
                             listener: (context, state) {
                               // TODO: implement listener}
                               if (state is UserSignedOutState) {
-                                AwesomeDialog(
-                                  btnOkText: StringRsr.get(LanguageKey.OK,
+                                showInfoToUser(
+                                  context,
+                                  DialogType.SUCCES,
+                                  StringRsr.get(LanguageKey.SUCCESSFUL,
                                       firstCap: true),
-                                  btnCancelText: StringRsr.get(
-                                      LanguageKey.CANCEL,
-                                      firstCap: true),
-                                  context: context,
-                                  dialogType: DialogType.SUCCES,
-                                  borderSide: BorderSide(
-                                      color: Colors.transparent, width: 2),
-                                  width: 380,
-                                  buttonsBorderRadius:
-                                      BorderRadius.all(Radius.circular(2)),
-                                  headerAnimationLoop: false,
-                                  animType: AnimType.BOTTOMSLIDE,
-                                  title: StringRsr.get(LanguageKey.SUCCESSFUL,
-                                      firstCap: true),
-                                  desc: StringRsr.get(
+                                  StringRsr.get(
                                       LanguageKey.YOU_HAVE_SUCCESSFUL_SIGN_OUT,
                                       firstCap: true),
-                                  showCloseIcon: true,
-                                  btnOkOnPress: () {
+                                  onOk: () {
                                     Navigator.pushNamed(
                                         context, RouteTo.PROFILE_SIGN_IN);
                                   },
-                                ).show();
+                                );
                               }
                             },
                           );
                         },
-                      ).show();
+                      );
                     },
                     child: state.userImage == null
                         ? Container(
-                            margin: EdgeInsets.only(top: 16, bottom: 9),
+                            margin: const EdgeInsets.only(top: 16, bottom: 9),
                             height: 30,
                             width: 30,
                             decoration: BoxDecoration(
