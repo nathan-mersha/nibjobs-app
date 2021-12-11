@@ -127,7 +127,7 @@ class Menu {
                           ),
                         );
                       } else if (state is UserInitial) {
-                        return Container();
+                        return Center(child: Container());
                       }
                       return Container();
                     }),
