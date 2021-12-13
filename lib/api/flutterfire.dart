@@ -13,11 +13,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:nibjobs/dal/notification_dal.dart';
-import 'package:nibjobs/dal/notification_job_dal.dart';
 import 'package:nibjobs/db/k_shared_preference.dart';
 import 'package:nibjobs/model/commerce/coupon.dart';
 import 'package:nibjobs/model/commerce/job.dart';
-import 'package:nibjobs/model/notification_job_model.dart';
 import 'package:nibjobs/model/notification_model.dart';
 import 'package:nibjobs/model/profile/company.dart';
 import 'package:nibjobs/model/profile/contact_us.dart';
@@ -214,10 +212,8 @@ void notificationFunctionSave(RemoteMessage? message) {
       );
       NotificationDAL.create(notificationModel);
     } else {
-      print("message.data ${message.data["body"]}");
-
-      NotificationJobDAL.create(
-          NotificationJobModel.toModelDB(jsonDecode(message.data["body"])));
+      // NotificationJobDAL.create(
+      //     NotificationJobModel.toModelDB(jsonDecode(message.data["body"])));
     }
   }
 }
