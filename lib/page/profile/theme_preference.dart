@@ -141,13 +141,25 @@ class _ThemePreferencePageState extends State<ThemePreferencePage> {
                               children: [
                                 Column(
                                   children: [
-                                    Container(
-                                      width: AppTheme.fullWidth(context) < 500
-                                          ? 250
-                                          : 300,
-                                      height: 400,
-                                      child: Image.asset(
-                                          "assets/images/light.png"),
+                                    GestureDetector(
+                                      onTap: () {
+                                        if (val != 1) {
+                                          BlocProvider.of<ThemeBloc>(context)
+                                              .add(ThemeChange(
+                                                  appData: AppData.Light));
+                                          setState(() {
+                                            val = 1;
+                                          });
+                                        }
+                                      },
+                                      child: SizedBox(
+                                        width: AppTheme.fullWidth(context) < 500
+                                            ? 250
+                                            : 300,
+                                        height: 400,
+                                        child: Image.asset(
+                                            "assets/images/light.png"),
+                                      ),
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.all(8.0),
@@ -185,13 +197,25 @@ class _ThemePreferencePageState extends State<ThemePreferencePage> {
                                 ),
                                 Column(
                                   children: [
-                                    Container(
-                                      width: AppTheme.fullWidth(context) < 500
-                                          ? 250
-                                          : 300,
-                                      height: 400,
-                                      child:
-                                          Image.asset("assets/images/dark.png"),
+                                    GestureDetector(
+                                      onTap: () {
+                                        if (val != 2) {
+                                          BlocProvider.of<ThemeBloc>(context)
+                                              .add(ThemeChange(
+                                                  appData: AppData.Dark));
+                                          setState(() {
+                                            val = 2;
+                                          });
+                                        }
+                                      },
+                                      child: SizedBox(
+                                        width: AppTheme.fullWidth(context) < 500
+                                            ? 250
+                                            : 300,
+                                        height: 400,
+                                        child: Image.asset(
+                                            "assets/images/dark.png"),
+                                      ),
                                     ),
                                     Padding(
                                       padding: const EdgeInsets.all(8.0),
