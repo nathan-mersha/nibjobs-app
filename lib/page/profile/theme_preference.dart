@@ -142,6 +142,9 @@ class _ThemePreferencePageState extends State<ThemePreferencePage> {
                                 Column(
                                   children: [
                                     Container(
+                                      width: AppTheme.fullWidth(context) < 500
+                                          ? 250
+                                          : 300,
                                       height: 400,
                                       child: Image.asset(
                                           "assets/images/light.png"),
@@ -183,6 +186,9 @@ class _ThemePreferencePageState extends State<ThemePreferencePage> {
                                 Column(
                                   children: [
                                     Container(
+                                      width: AppTheme.fullWidth(context) < 500
+                                          ? 250
+                                          : 300,
                                       height: 400,
                                       child:
                                           Image.asset("assets/images/dark.png"),
