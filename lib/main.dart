@@ -256,7 +256,7 @@ class LoadingApp extends StatelessWidget {
             height: 15,
           ),
           Text(
-            "initializing Kelem application",
+            "initializing NibJobs application",
             textDirection: TextDirection.ltr,
             style: TextStyle(
                 color: CustomColor.GRAY_LIGHT,
