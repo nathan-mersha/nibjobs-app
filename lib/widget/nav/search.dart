@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nibjobs/bloc/search/search_bloc.dart';
-import 'package:nibjobs/bloc/sort/sort_bloc.dart';
 import 'package:nibjobs/rsr/locale/lang/language_key.dart';
 import 'package:nibjobs/rsr/locale/string_rsr.dart';
 import 'package:nibjobs/themes/light_color.dart';
@@ -99,21 +98,21 @@ class SearchState extends State<SearchView> {
               ),
             ),
           ),
-          const SizedBox(width: 20),
-          BlocBuilder<SortBloc, SortState>(
-            builder: (context, state) {
-              if (state is SortInitial) {
-                return GestureDetector(
-                    onTap: () {
-                      BlocProvider.of<SortBloc>(context)
-                          .add(SortPriceType(sortUp: !state.sortUp));
-                    },
-                    child: _icon(Icons.filter_list, color: Colors.black54));
-              } else {
-                return Container();
-              }
-            },
-          )
+          // const SizedBox(width: 20),
+          // BlocBuilder<SortBloc, SortState>(
+          //   builder: (context, state) {
+          //     if (state is SortInitial) {
+          //       return GestureDetector(
+          //           onTap: () {
+          //             BlocProvider.of<SortBloc>(context)
+          //                 .add(SortPriceType(sortUp: !state.sortUp));
+          //           },
+          //           child: _icon(Icons.filter_list, color: Colors.black54));
+          //     } else {
+          //       return Container();
+          //     }
+          //   },
+          // )
         ],
       ),
     );
