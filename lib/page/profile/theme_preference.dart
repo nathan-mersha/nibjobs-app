@@ -136,8 +136,8 @@ class _ThemePreferencePageState extends State<ThemePreferencePage> {
                           ),
                           Expanded(
                             child: Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               children: [
                                 Column(
                                   children: [
@@ -153,10 +153,7 @@ class _ThemePreferencePageState extends State<ThemePreferencePage> {
                                         }
                                       },
                                       child: SizedBox(
-                                        width: AppTheme.fullWidth(context) < 500
-                                            ? 250
-                                            : 300,
-                                        height: 400,
+                                        width: AppTheme.fullWidth(context) * .3,
                                         child: Image.asset(
                                             "assets/images/light.png"),
                                       ),
@@ -209,10 +206,7 @@ class _ThemePreferencePageState extends State<ThemePreferencePage> {
                                         }
                                       },
                                       child: SizedBox(
-                                        width: AppTheme.fullWidth(context) < 500
-                                            ? 250
-                                            : 300,
-                                        height: 400,
+                                        width: AppTheme.fullWidth(context) * .3,
                                         child: Image.asset(
                                             "assets/images/dark.png"),
                                       ),
