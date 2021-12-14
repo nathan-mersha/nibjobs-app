@@ -21,7 +21,6 @@ import 'api/config/global.dart';
 import 'api/flutterfire.dart';
 import 'bloc/ads/ad_helper.dart';
 import 'bloc/button/button_bloc.dart';
-import 'bloc/category/category_bloc.dart';
 import 'bloc/description/description_cubit.dart';
 import 'bloc/down/down_bloc.dart';
 import 'bloc/images/image_cubit.dart';
@@ -68,13 +67,21 @@ class MyApp extends StatefulWidget {
 class MyAppState extends State<MyApp> with WidgetsBindingObserver {
   static var routes;
   List<String>? proFavList;
+  late String themeDataState;
   HSharedPreference hSharedPreference = HSharedPreference();
 
   @override
   void initState() {
     super.initState();
-    WidgetsBinding.instance!.addObserver(this);
+
     func();
+    WidgetsBinding.instance!.addObserver(this);
+  }
+
+  Future<String> themeSet() async {
+    themeDataState =
+        await hSharedPreference.get(HSharedPreference.THEME_MODE) ?? "";
+    return themeDataState;
   }
 
   @override
@@ -139,89 +146,94 @@ class MyAppState extends State<MyApp> with WidgetsBindingObserver {
       });
     }
 
-    return MultiBlocProvider(
-      providers: [
-        BlocProvider(
-          create: (context) => ButtonBloc(proFavList!),
-        ),
-        BlocProvider(
-          create: (context) => NotificationBloc(),
-        ),
-        BlocProvider(
-          create: (context) => NavBloc(),
-        ),
-        BlocProvider(
-          create: (context) => AdsesCubit(adState: adState!),
-        ),
-        BlocProvider(
-          create: (context) => ThemeBloc(),
-        ),
-        BlocProvider(
-          create: (context) => CategoryBloc(length: 5 - proFavList!.length),
-        ),
-        BlocProvider(
-          create: (context) => DialogBloc(),
-        ),
-        BlocProvider(
-          create: (context) => SearchBloc(),
-        ),
-        BlocProvider(
-          create: (context) => DownBloc(),
-        ),
-        BlocProvider(
-          create: (context) => UserBloc(),
-        ),
-        BlocProvider(
-          create: (context) => ImageCubit(),
-        ),
-        BlocProvider(
-          create: (context) => SortBloc(),
-        ),
-        BlocProvider(
-          create: (context) => DescriptionCubit(),
-        ),
-        BlocProvider(
-          create: (context) => InternetBloc(connectivity: Connectivity()),
-        ),
-      ],
-      child: BlocBuilder<ThemeBloc, ThemeState>(
-        builder: (context, state) {
-          return FutureBuilder(
-            future: setSPInitValues(context),
-            builder: (context, projectSnap) {
-              if (projectSnap.connectionState == ConnectionState.none &&
-                  projectSnap.hasData == null) {
-                return const LoadingApp();
-              } else {
-                if (projectSnap.data == true) {
-                  return AppBuilder(builder: (context) {
-                    return MaterialApp(
-                        locale: DevicePreview.locale(
-                            context), // Add the locale here
-                        builder: DevicePreview.appBuilder,
-                        debugShowCheckedModeBanner: false,
-                        title: "nib jobs",
-                        theme: state.themeData,
-                        routes: routes);
-                  });
-                } else {
-                  return AppBuilder(builder: (context) {
-                    return MaterialApp(
-                        locale: DevicePreview.locale(
-                            context), // Add the locale here
-                        builder: DevicePreview.appBuilder,
-                        debugShowCheckedModeBanner: false,
-                        title: "nib jobs",
-                        theme: state.themeData,
-                        routes: routes);
-                  });
-                }
-              }
-            },
-          );
-        },
-      ),
-    );
+    return FutureBuilder(
+        future: themeSet(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return MultiBlocProvider(
+              providers: [
+                BlocProvider(
+                  create: (context) => ThemeBloc(snapshot.data as String),
+                ),
+                BlocProvider(
+                  create: (context) => ButtonBloc(proFavList!),
+                ),
+                BlocProvider(
+                  create: (context) => NotificationBloc(),
+                ),
+                BlocProvider(
+                  create: (context) => NavBloc(),
+                ),
+                BlocProvider(
+                  create: (context) => AdsesCubit(adState: adState!),
+                ),
+                BlocProvider(
+                  create: (context) => DialogBloc(),
+                ),
+                BlocProvider(
+                  create: (context) => SearchBloc(),
+                ),
+                BlocProvider(
+                  create: (context) => DownBloc(),
+                ),
+                BlocProvider(
+                  create: (context) => UserBloc(),
+                ),
+                BlocProvider(
+                  create: (context) => ImageCubit(),
+                ),
+                BlocProvider(
+                  create: (context) => SortBloc(),
+                ),
+                BlocProvider(
+                  create: (context) => DescriptionCubit(),
+                ),
+                BlocProvider(
+                  create: (context) =>
+                      InternetBloc(connectivity: Connectivity()),
+                ),
+              ],
+              child: BlocBuilder<ThemeBloc, ThemeState>(
+                builder: (context, state) {
+                  return FutureBuilder(
+                    future: setSPInitValues(context),
+                    builder: (context, projectSnap) {
+                      if (projectSnap.connectionState == ConnectionState.none &&
+                          projectSnap.hasData == null) {
+                        return const LoadingApp();
+                      } else {
+                        if (projectSnap.data == true) {
+                          return AppBuilder(builder: (context) {
+                            return MaterialApp(
+                                locale: DevicePreview.locale(
+                                    context), // Add the locale here
+                                builder: DevicePreview.appBuilder,
+                                debugShowCheckedModeBanner: false,
+                                title: "nib jobs",
+                                theme: state.themeData,
+                                routes: routes);
+                          });
+                        } else {
+                          return AppBuilder(builder: (context) {
+                            return MaterialApp(
+                                locale: DevicePreview.locale(
+                                    context), // Add the locale here
+                                builder: DevicePreview.appBuilder,
+                                debugShowCheckedModeBanner: false,
+                                title: "nib jobs",
+                                theme: state.themeData,
+                                routes: routes);
+                          });
+                        }
+                      }
+                    },
+                  );
+                },
+              ),
+            );
+          }
+          return const LoadingApp();
+        });
   }
 }
 
