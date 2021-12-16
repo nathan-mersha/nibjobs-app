@@ -8,7 +8,7 @@ class AdHelper {
   AdHelper({required this.initialized});
   String get bannerAdUnitId {
     if (Platform.isAndroid) {
-      return 'ca-app-pub-3940256099942544/6300978111';
+      return 'ca-app-pub-3940256099942544/6300978111'; //ca-app-pub-6460693144580555/5748323615
     } else if (Platform.isIOS) {
       return 'ca-app-pub-7439240901787604/2533999775';
     } else {
@@ -28,7 +28,7 @@ class AdHelper {
 
   static String get rewardedAdUnitId {
     if (Platform.isAndroid) {
-      return '<YOUR_ANDROID_INTERSTITIAL_AD_UNIT_ID>';
+      return 'ca-app-pub-3940256099942544/6300978111'; //ca-app-pub-6460693144580555/3064635740
     } else if (Platform.isIOS) {
       return '<YOUR_IOS_INTERSTITIAL_AD_UNIT_ID>';
     } else {
