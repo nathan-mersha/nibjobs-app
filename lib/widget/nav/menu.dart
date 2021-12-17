@@ -674,28 +674,40 @@ class Menu {
               //Navigator.of(context).pushNamed(RouteTo.JOB_Notification);
             },
             child: Stack(
-              fit: StackFit.passthrough,
               children: [
-                Icon(
-                  Icons.notifications_none_outlined,
-                  size: 18,
-                  color: Theme.of(context).iconTheme.color,
+                Padding(
+                  padding: const EdgeInsets.only(top: 3.0),
+                  child: Icon(
+                    Icons.notifications_none_outlined,
+                    size: 35,
+                    color: Theme.of(context).iconTheme.color,
+                  ),
                 ),
                 BlocBuilder<NotificationBloc, NotificationState>(
                   builder: (context, state) {
                     if (state is NotificationInitial && state.counter != 0) {
-                      return Container(
-                        padding: const EdgeInsets.only(left: 5),
-                        alignment: Alignment.bottomCenter,
-                        child: Text(
-                          state.counter.toString(),
-                          style: Theme.of(context)
-                              .textTheme
-                              .bodyText1!
-                              .copyWith(
-                                  fontSize: 13,
-                                  color: CustomColor.PRIM_DARK,
-                                  fontWeight: FontWeight.bold),
+                      //&& state.counter != 0
+                      return Padding(
+                        padding: const EdgeInsets.only(left: 20.0, top: 0),
+                        child: Container(
+                          width: 20,
+                          height: 20,
+                          decoration: BoxDecoration(
+                              color: CustomColor.PRIM_DARK,
+                              borderRadius: BorderRadius.circular(10)),
+                          alignment: Alignment.bottomCenter,
+                          child: Center(
+                            child: Text(
+                              state.counter.toString(),
+                              style: Theme.of(context)
+                                  .textTheme
+                                  .bodyText1!
+                                  .copyWith(
+                                      fontSize: 13,
+                                      color: CustomColor.RAD_DARK,
+                                      fontWeight: FontWeight.bold),
+                            ),
+                          ),
                         ),
                       );
                     }

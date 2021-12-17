@@ -1,6 +1,7 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:intl/intl.dart';
 import 'package:nibjobs/api/flutterfire.dart';
 import 'package:nibjobs/bloc/notification/notification_bloc.dart';
@@ -22,6 +23,8 @@ class JobView extends StatefulWidget {
   final String size;
   bool pageAdmin;
   String fav;
+  RewardedAd? rewardedAd;
+  Function? onADs;
   final Function? onComplete;
   static const String SIZE_SMALL = "SIZE_SMALL";
   static const String SIZE_MEDIUM = "SIZE_MEDIUM";
@@ -29,7 +32,9 @@ class JobView extends StatefulWidget {
   static final currencyFormat = new NumberFormat("#,##0.00", "en_US");
 
   JobView(this._job,
-      {this.size = SIZE_MEDIUM,
+      {this.rewardedAd,
+      this.onADs,
+      this.size = SIZE_MEDIUM,
       this.counter = 0,
       this.pageAdmin = false,
       this.fav = "",
@@ -220,6 +225,40 @@ class _JobViewState extends State<JobView> {
     );
   }
 
+  void _showRewardedAd() {
+    if (widget.rewardedAd == null) {
+      // Navigator.pushNamed(context, RouteTo.JOB_DETAIL, arguments: widget._job);
+      print('Warning: attempt to show rewarded before loaded.');
+      return;
+    }
+    widget.rewardedAd!.fullScreenContentCallback = FullScreenContentCallback(
+      onAdShowedFullScreenContent: (RewardedAd ad) =>
+          print('ad onAdShowedFullScreenContent.'),
+      onAdDismissedFullScreenContent: (RewardedAd ad) {
+        print('$ad onAdDismissedFullScreenContent.');
+        ad.dispose();
+        widget.onADs!();
+        Navigator.pushNamed(context, RouteTo.JOB_DETAIL,
+            arguments: widget._job);
+      },
+      onAdFailedToShowFullScreenContent: (RewardedAd ad, AdError error) {
+        print('$ad onAdFailedToShowFullScreenContent: $error');
+        ad.dispose();
+        widget.onADs!();
+        Navigator.pushNamed(context, RouteTo.JOB_DETAIL,
+            arguments: widget._job);
+      },
+    );
+
+    widget.rewardedAd!.setImmersiveMode(true);
+    widget.rewardedAd!.show(
+        onUserEarnedReward: (RewardedAd ad, RewardItem reward) {
+      print('$ad with reward $RewardItem(${reward.amount}, ${reward.type}');
+      Navigator.pushNamed(context, RouteTo.JOB_DETAIL, arguments: widget._job);
+    });
+    widget.rewardedAd = null;
+  }
+
   @override
   void initState() {
     // TODO: implement initState
@@ -317,6 +356,7 @@ class _JobViewState extends State<JobView> {
                 if (!widget.pageAdmin) {
                   // BlocProvider.of<DownBloc>(context).add(
                   //     DownSelectedEvent(job: widget._job, context: context));
+                  _showRewardedAd();
                   if (state is UserSignedInState) {
                     if (!isSelected) {
                       setState(() {
@@ -336,11 +376,8 @@ class _JobViewState extends State<JobView> {
                         //     fontSize: 16.0);
                       } else {}
                     }
-                    Navigator.pushNamed(context, RouteTo.JOB_DETAIL,
-                        arguments: widget._job);
                   } else {
-                    Navigator.pushNamed(context, RouteTo.JOB_DETAIL,
-                        arguments: widget._job);
+                    _showRewardedAd();
                   }
                 } else {
                   Navigator.pop(context);

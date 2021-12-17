@@ -6,6 +6,7 @@ import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 import 'package:nibjobs/api/flutterfire.dart';
+import 'package:nibjobs/bloc/ads/ad_helper.dart';
 import 'package:nibjobs/bloc/ads/adses_cubit.dart';
 import 'package:nibjobs/bloc/notification/notification_bloc.dart';
 import 'package:nibjobs/bloc/search/search_bloc.dart';
@@ -51,7 +52,7 @@ class _JobListState extends State<JobList> {
       .hSharedPreference; // total amount of data to be retrieved once.
   static const int JOB_LIMIT = 20;
   int jobUnSeen = 0;
-
+  static const int maxFailedLoadAttempts = 3;
   List googleBooks = [];
   String? uId;
   bool fav = false;
@@ -79,7 +80,13 @@ class _JobListState extends State<JobList> {
   bool sortUp = true;
   bool sortUpLocal = false;
   bool bookNotFound = false;
-
+  RewardedAd? _rewardedAd;
+  int _numRewardedLoadAttempts = 0;
+  static final AdRequest request = AdRequest(
+    keywords: <String>['foo', 'bar'],
+    contentUrl: 'http://foo.com/bar.html',
+    nonPersonalizedAds: true,
+  );
   @override
   void initState() {
     super.initState();
@@ -117,9 +124,38 @@ class _JobListState extends State<JobList> {
     // });
   }
 
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _createRewardedAd();
+  }
+
+  void _createRewardedAd() {
+    RewardedAd.load(
+        adUnitId: AdHelper.rewardedAdUnitId,
+        request: const AdRequest(),
+        rewardedAdLoadCallback: RewardedAdLoadCallback(
+          onAdLoaded: (RewardedAd ad) {
+            print('$ad loaded.');
+            _rewardedAd = ad;
+            _numRewardedLoadAttempts = 0;
+            setState(() {});
+          },
+          onAdFailedToLoad: (LoadAdError error) {
+            print('RewardedAd failed to load: $error');
+            _rewardedAd = null;
+            _numRewardedLoadAttempts += 1;
+            if (_numRewardedLoadAttempts <= maxFailedLoadAttempts) {
+              _createRewardedAd();
+            }
+          },
+        ));
+  }
+
   void dispose() {
     super.dispose();
     _scrollController.dispose();
+    _rewardedAd?.dispose();
   }
 
   Future<void> uID() async {
@@ -219,9 +255,10 @@ class _JobListState extends State<JobList> {
                                               ? 7 / 3
                                               : 7 / 3,
                                       child: JobView(
-                                        Job.toModel(state.searchInData[index]
-                                            ["document"]),
-                                      ),
+                                          Job.toModel(state.searchInData[index]
+                                              ["document"]),
+                                          rewardedAd: _rewardedAd,
+                                          onADs: _createRewardedAd),
                                     );
                                   }
                                   return BlocBuilder<AdsesCubit, AdsesState>(
@@ -411,10 +448,11 @@ class _JobListState extends State<JobList> {
                                                                   .20
                                                               ? 7 / 3
                                                               : 7 / 3,
-                                                  child: JobView(
-                                                    _jobs[index],
-                                                    fav: widget.fromWhere ?? "",
-                                                  ),
+                                                  child: JobView(_jobs[index],
+                                                      fav: widget.fromWhere ??
+                                                          "",
+                                                      rewardedAd: _rewardedAd,
+                                                      onADs: _createRewardedAd),
                                                 );
                                               }
 
@@ -525,10 +563,10 @@ class _JobListState extends State<JobList> {
                                               _jobs != null ? _jobs.length : 0,
                                           itemBuilder: (BuildContext context,
                                               int index) {
-                                            return JobView(
-                                              _jobs[index],
-                                              fav: widget.fromWhere!,
-                                            );
+                                            return JobView(_jobs[index],
+                                                fav: widget.fromWhere!,
+                                                rewardedAd: _rewardedAd,
+                                                onADs: _createRewardedAd);
                                           },
                                           // nextData: this
                                           //     ._refresherController

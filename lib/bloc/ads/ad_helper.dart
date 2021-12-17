@@ -28,7 +28,7 @@ class AdHelper {
 
   static String get rewardedAdUnitId {
     if (Platform.isAndroid) {
-      return 'ca-app-pub-3940256099942544/6300978111'; //ca-app-pub-6460693144580555/3064635740
+      return 'ca-app-pub-3940256099942544/5224354917'; //ca-app-pub-6460693144580555/3064635740
     } else if (Platform.isIOS) {
       return '<YOUR_IOS_INTERSTITIAL_AD_UNIT_ID>';
     } else {
