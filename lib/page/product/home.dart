@@ -82,6 +82,26 @@ class _HomePageState extends State<HomePage> {
       //   //debugPrint(routerFromMessage);
       // }
       notificationFunctionSave(message);
+      print("onMessageOpenedApp");
+      if (message != null) {
+        if (message.data != null) {
+          final routerFromMessage = message.data["notificationTag"];
+          debugPrint("message.data ${message.data}");
+          if (routerFromMessage == "gift") {
+            makeWebCall("tel:*805*${message.data["code"]}#");
+          } else {
+            if (message.notification!.title!.toLowerCase() !=
+                "job notification") {
+              Navigator.of(context).pushNamed(RouteTo.NOTIFICATION);
+            }
+          }
+        } else {
+          if (message.notification!.title!.toLowerCase() !=
+              "job notification") {
+            Navigator.of(context).pushNamed(RouteTo.NOTIFICATION);
+          }
+        }
+      }
     });
     FirebaseMessaging.onMessage.listen((message) {
       print("FirebaseMessaging.onMessage");
