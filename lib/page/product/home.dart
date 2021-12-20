@@ -62,6 +62,8 @@ class _HomePageState extends State<HomePage> {
     HLocalNotification.initialize(context);
 
     FirebaseMessaging.instance.getInitialMessage().then((message) {
+      print("FirebaseMessaging.instance");
+
       // if (message != null) {
       //   //debugPrint(message.notification.body);
       //   //debugPrint(message.notification.title);
@@ -82,6 +84,8 @@ class _HomePageState extends State<HomePage> {
       notificationFunctionSave(message);
     });
     FirebaseMessaging.onMessage.listen((message) {
+      print("FirebaseMessaging.onMessage");
+
       if (message.notification != null) {
         //debugPrint(message.notification.body);
         //debugPrint(message.notification.title);
@@ -103,6 +107,7 @@ class _HomePageState extends State<HomePage> {
     });
 
     FirebaseMessaging.onMessageOpenedApp.listen((message) {
+      print("onMessageOpenedApp");
       if (message != null) {
         if (message.data != null) {
           final routerFromMessage = message.data["notificationTag"];
@@ -110,10 +115,16 @@ class _HomePageState extends State<HomePage> {
           if (routerFromMessage == "gift") {
             makeWebCall("tel:*805*${message.data["code"]}#");
           } else {
-            Navigator.of(context).pushNamed(RouteTo.NOTIFICATION);
+            if (message.notification!.title!.toLowerCase() !=
+                "job notification") {
+              Navigator.of(context).pushNamed(RouteTo.NOTIFICATION);
+            }
           }
         } else {
-          Navigator.of(context).pushNamed(RouteTo.NOTIFICATION);
+          if (message.notification!.title!.toLowerCase() !=
+              "job notification") {
+            Navigator.of(context).pushNamed(RouteTo.NOTIFICATION);
+          }
         }
       }
     });

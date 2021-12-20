@@ -114,36 +114,24 @@ class _NotificationsPageState extends State<NotificationsPage> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
-                Text(
-                  notification.notificationServiceName!,
-                  softWrap: true,
-                  maxLines: 2,
-                  overflow: TextOverflow.fade,
-                  textAlign: TextAlign.justify,
-                  style: const TextStyle(
-                    color: Colors.black87,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 17,
-                  ),
-                ),
+                Text(notification.notificationServiceName!,
+                    softWrap: true,
+                    maxLines: 2,
+                    overflow: TextOverflow.fade,
+                    textAlign: TextAlign.justify,
+                    style: Theme.of(context).textTheme.subtitle1),
                 const SizedBox(
                   height: 10,
                 ),
                 SizedBox(
-                  height: 100,
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
-                        Text(
-                          notification.notificationServiceMessage!,
-                          softWrap: true,
-                          overflow: TextOverflow.fade,
-                          //textAlign: TextAlign.justify,
-                          style: const TextStyle(
-                            color: Colors.black54,
-                            fontSize: 14,
-                          ),
-                        ),
+                        Text(notification.notificationServiceMessage!,
+                            softWrap: true,
+                            overflow: TextOverflow.fade,
+                            //textAlign: TextAlign.justify,
+                            style: Theme.of(context).textTheme.subtitle1),
                       ],
                     ),
                   ),
