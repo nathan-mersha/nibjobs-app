@@ -688,7 +688,7 @@ class Menu {
                     if (state is NotificationInitial && state.counter != 0) {
                       //&& state.counter != 0
                       return Padding(
-                        padding: const EdgeInsets.only(left: 20.0, top: 0),
+                        padding: const EdgeInsets.only(left: 17.0, top: 0),
                         child: Container(
                           width: 20,
                           height: 20,
