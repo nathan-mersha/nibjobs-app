@@ -676,10 +676,10 @@ class Menu {
             child: Stack(
               children: [
                 Padding(
-                  padding: const EdgeInsets.only(top: 3.0),
+                  padding: const EdgeInsets.only(top: 8.0),
                   child: Icon(
                     Icons.notifications_none_outlined,
-                    size: 28,
+                    size: 27,
                     color: Theme.of(context).iconTheme.color,
                   ),
                 ),
