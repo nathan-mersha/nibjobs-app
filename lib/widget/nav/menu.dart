@@ -679,7 +679,7 @@ class Menu {
                   padding: const EdgeInsets.only(top: 3.0),
                   child: Icon(
                     Icons.notifications_none_outlined,
-                    size: 35,
+                    size: 28,
                     color: Theme.of(context).iconTheme.color,
                   ),
                 ),
