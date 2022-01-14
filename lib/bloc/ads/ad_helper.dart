@@ -1,17 +1,17 @@
 import 'dart:io';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
 
 class AdHelper {
-
   Future<InitializationStatus> initialized;
   AdHelper({required this.initialized});
   String get bannerAdUnitId {
     if (Platform.isAndroid) {
       String testAdId = "ca-app-pub-3940256099942544/6300978111";
       String prodAdId = "ca-app-pub-6460693144580555/5059939777";
-      return testAdId;
+      return kReleaseMode ? prodAdId : testAdId;
     } else if (Platform.isIOS) {
       return '<YOUR_IOS_INTERSTITIAL_AD_UNIT_ID>';
     } else {
@@ -34,7 +34,7 @@ class AdHelper {
       String testAdId = "ca-app-pub-3940256099942544/5224354917";
       String prodAdId = "ca-app-pub-6460693144580555/7969351757";
 
-      return testAdId;
+      return kReleaseMode ? prodAdId : testAdId;
     } else if (Platform.isIOS) {
       return '<YOUR_IOS_INTERSTITIAL_AD_UNIT_ID>';
     } else {
