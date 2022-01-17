@@ -62,8 +62,6 @@ class _HomePageState extends State<HomePage> {
     HLocalNotification.initialize(context);
 
     FirebaseMessaging.instance.getInitialMessage().then((message) {
-      print("FirebaseMessaging.instance");
-
       // if (message != null) {
       //   //debugPrint(message.notification.body);
       //   //debugPrint(message.notification.title);
@@ -82,7 +80,6 @@ class _HomePageState extends State<HomePage> {
       //   //debugPrint(routerFromMessage);
       // }
       notificationFunctionSave(message);
-      print("onMessageOpenedApp");
       if (message != null) {
         if (message.data != null) {
           final routerFromMessage = message.data["notificationTag"];
@@ -127,7 +124,6 @@ class _HomePageState extends State<HomePage> {
     });
 
     FirebaseMessaging.onMessageOpenedApp.listen((message) {
-      print("onMessageOpenedApp");
       if (message != null) {
         if (message.data != null) {
           final routerFromMessage = message.data["notificationTag"];

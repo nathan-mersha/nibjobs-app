@@ -30,9 +30,9 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
   @override
   void initState() {
     if (widget.isFavPageSelected!) {
-      _selectedIndex = 2;
+      _selectedIndex = 1;
     } else if (widget.isSubCategoryPageSelected!) {
-      _selectedIndex = 3;
+      _selectedIndex = 2;
     }
 
     _xController = AnimationController(
