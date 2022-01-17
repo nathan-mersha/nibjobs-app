@@ -1034,7 +1034,7 @@ class _JobListState extends State<JobList> {
                   .collection("job")
                   .limit(JOB_LIMIT)
                   .orderBy(Job.LAST_MODIFIED, descending: true)
-                  //.startAfterDocument(_lastDocumentSnapShot)
+                  .startAfterDocument(_lastDocumentSnapShot!)
                   .get()
               // if there is a previous document query begins searching from the last document.
               : await FirebaseFirestore.instance
@@ -1054,7 +1054,7 @@ class _JobListState extends State<JobList> {
                   .where(Job.CATEGORY, isEqualTo: widget._category!.name)
                   .limit(JOB_LIMIT)
                   .orderBy(Job.LAST_MODIFIED, descending: true)
-                  //.startAfterDocument(_lastDocumentSnapShot)
+                  .startAfterDocument(_lastDocumentSnapShot!)
                   .get()
               // if there is a previous document query begins searching from the last document.
               : await FirebaseFirestore.instance
@@ -1071,7 +1071,7 @@ class _JobListState extends State<JobList> {
         List<QueryDocumentSnapshot> documentSnapshot = querySnapshot.docs;
 
         // Assigning the last document snapshot for future query
-        if (documentSnapshot.length > 0) {
+        if (documentSnapshot.isNotEmpty) {
           _lastDocumentSnapShot = documentSnapshot.last;
 
           _noMoreItem = false;

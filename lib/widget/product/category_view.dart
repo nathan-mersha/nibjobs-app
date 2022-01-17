@@ -4,6 +4,7 @@ import 'package:nibjobs/db/k_shared_preference.dart';
 import 'package:nibjobs/global.dart' as global;
 import 'package:nibjobs/model/config/global.dart';
 import 'package:nibjobs/route/route.dart';
+import 'package:nibjobs/rsr/locale/lang/language_key.dart';
 import 'package:nibjobs/rsr/locale/string_rsr.dart';
 import 'package:nibjobs/themes/light_color.dart';
 import 'package:nibjobs/themes/theme.dart';
@@ -191,7 +192,7 @@ class _CategoryViewState extends State<CategoryView> {
                       Padding(
                         padding: const EdgeInsets.only(bottom: 15.0),
                         child: Text(
-                          "${widget._job.tags!.length} sub jobs",
+                          "${widget._job.tags!.length} ${StringRsr.get(LanguageKey.SUBCATEGORY)}",
                           maxLines: 1,
                           overflow: TextOverflow.fade,
                           textAlign: TextAlign.left,
