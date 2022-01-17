@@ -227,7 +227,7 @@ class _JobViewState extends State<JobView> {
 
   void _showRewardedAd() {
     if (widget.rewardedAd == null) {
-      Navigator.pushNamed(context, RouteTo.JOB_DETAIL, arguments: widget._job);
+      //Navigator.pushNamed(context, RouteTo.JOB_DETAIL, arguments: widget._job);
       print('Warning: attempt to show rewarded before loaded.');
       return;
     }
@@ -238,8 +238,8 @@ class _JobViewState extends State<JobView> {
         print('$ad onAdDismissedFullScreenContent.');
         ad.dispose();
         widget.onADs!();
-        // Navigator.pushNamed(context, RouteTo.JOB_DETAIL,
-        //     arguments: widget._job);
+        Navigator.pushNamed(context, RouteTo.JOB_DETAIL,
+            arguments: widget._job);
       },
       onAdFailedToShowFullScreenContent: (RewardedAd ad, AdError error) {
         print('$ad onAdFailedToShowFullScreenContent: $error');
