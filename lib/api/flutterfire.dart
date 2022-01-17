@@ -47,10 +47,12 @@ GridView buildGridViewLoading(BuildContext context) {
             : 1,
         mainAxisSpacing: 10,
         childAspectRatio: jobViewH(context) == .7
-            ? 7 / 4
+            ? AppTheme.fullWidth(context) < 361
+                ? 7 / 5
+                : 7 / 4
             : jobViewH(context) == .20
                 ? 7 / 3
-                : 7 / 3),
+                : 7 / 4),
     itemBuilder: (_, __) => Padding(
       padding: const EdgeInsets.only(bottom: 8.0),
       child: Container(
@@ -91,7 +93,9 @@ GridView buildGridViewLoading(BuildContext context) {
                                 baseColor: Colors.grey[300]!,
                                 highlightColor: Colors.grey[100]!,
                                 child: Container(
-                                  width: 240,
+                                  width: AppTheme.fullWidth(context) < 361
+                                      ? 140
+                                      : 240,
                                   height: 20.0,
                                   color: Colors.white,
                                 ),

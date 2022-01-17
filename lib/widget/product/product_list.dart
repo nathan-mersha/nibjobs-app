@@ -634,14 +634,20 @@ class _JobListState extends State<JobList> {
                                                   jobViewH(context) == .36 ||
                                                   jobViewH(context) == .35
                                               ? 3
-                                              : 2,
+                                              : AppTheme.fullWidth(context) <
+                                                      361
+                                                  ? 1
+                                                  : 2,
                                           mainAxisSpacing: 10,
-                                          childAspectRatio:
-                                              jobViewH(context) == .7
-                                                  ? 7 / 7
-                                                  : jobViewH(context) == .20
-                                                      ? 7 / 4
-                                                      : 7 / 5),
+                                          childAspectRatio: jobViewH(context) ==
+                                                  .7
+                                              ? AppTheme.fullWidth(context) <
+                                                      361
+                                                  ? 7 / 4
+                                                  : 7 / 7
+                                              : jobViewH(context) == .20
+                                                  ? 7 / 4
+                                                  : 7 / 5),
                                   itemCount: newCategories.length,
                                   itemBuilder:
                                       (BuildContext context, int index) {

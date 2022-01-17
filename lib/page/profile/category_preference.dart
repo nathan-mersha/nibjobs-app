@@ -345,7 +345,9 @@ class _CategoryPreferencePageState extends State<CategoryPreferencePage> {
               : 1,
           mainAxisSpacing: 10,
           childAspectRatio: jobViewH(context) == .7
-              ? 7 / 4
+              ? AppTheme.fullWidth(context) < 361
+                  ? 7 / 5
+                  : 7 / 4
               : jobViewH(context) == .20
                   ? 7 / 3
                   : 7 / 4),
@@ -389,7 +391,9 @@ class _CategoryPreferencePageState extends State<CategoryPreferencePage> {
                                   baseColor: Colors.grey[300]!,
                                   highlightColor: Colors.grey[100]!,
                                   child: Container(
-                                    width: 240,
+                                    width: AppTheme.fullWidth(context) < 361
+                                        ? 140
+                                        : 240,
                                     height: 20.0,
                                     color: Colors.white,
                                   ),

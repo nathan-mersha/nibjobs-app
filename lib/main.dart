@@ -51,7 +51,7 @@ void main() async {
   FirebaseMessaging.onBackgroundMessage(backgroundMessage);
   runApp(
     DevicePreview(
-      enabled: false,
+      enabled: true,
       builder: (context) => MyApp(), // Wrap your app
     ),
   );

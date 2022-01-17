@@ -97,8 +97,7 @@ class _ThemePreferencePageState extends State<ThemePreferencePage> {
                   elevation: 0.3,
                   child: Container(
                     padding: EdgeInsets.symmetric(
-                        horizontal:
-                            AppTheme.fullWidth(context) < 361 ? 10 : 15),
+                        horizontal: AppTheme.fullWidth(context) < 361 ? 8 : 15),
                     child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.start,
@@ -178,7 +177,7 @@ class _ThemePreferencePageState extends State<ThemePreferencePage> {
                                                 });
                                               }),
                                           const SizedBox(
-                                            width: 10,
+                                            width: 5,
                                           ),
                                           Text(
                                             "Light theme",
@@ -192,7 +191,7 @@ class _ThemePreferencePageState extends State<ThemePreferencePage> {
                                   ],
                                 ),
                                 const SizedBox(
-                                  width: 10,
+                                  width: 5,
                                 ),
                                 Column(
                                   children: [
@@ -232,7 +231,7 @@ class _ThemePreferencePageState extends State<ThemePreferencePage> {
                                                 });
                                               }),
                                           const SizedBox(
-                                            width: 10,
+                                            width: 5,
                                           ),
                                           Text(
                                             "Dark theme",

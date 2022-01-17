@@ -403,128 +403,6 @@ class _JobViewState extends State<JobView> {
                     child: Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: <Widget>[
-                        // Image thumbnail or image place holder
-                        // Expanded(
-                        //   flex: 1,
-                        //   child: Padding(
-                        //     padding: const EdgeInsets.all(8.0),
-                        //     child: Stack(
-                        //       fit: StackFit.expand,
-                        //       children: [
-                        //         // JobView.getThumbnailView(widget._job!,
-                        //         //     size: JobView.SIZE_MEDIUM),
-                        //         Align(
-                        //           alignment: Alignment.topRight,
-                        //           child: Padding(
-                        //             padding: const EdgeInsets.only(right: 10.0, top: 5),
-                        //             child: Builder(builder: (context) {
-                        //               if (widget.pageAdmin) {
-                        //                 return Container(
-                        //                   decoration: BoxDecoration(
-                        //                     borderRadius: BorderRadius.circular(24),
-                        //                     color: Colors.white,
-                        //                   ),
-                        //                   child: Padding(
-                        //                     padding: const EdgeInsets.all(4.0),
-                        //                     child: Icon(
-                        //                       Icons.verified_user,
-                        //                       color: widget._job!.approved!
-                        //                           ? Colors.lightGreen
-                        //                           : LightColor.lightGrey,
-                        //                       size: 20,
-                        //                     ),
-                        //                   ),
-                        //                 );
-                        //               }
-                        //               return BlocBuilder<UserBloc, UserState>(
-                        //                 builder: (context, state) {
-                        //                   if (state is UserSignedInState) {
-                        //                     return GestureDetector(
-                        //                       onTap: () async {
-                        //                         isSelected = !isSelected;
-                        //                         if (isSelected) {
-                        //                           final result =
-                        //                               await addFavJob(widget._job!);
-                        //                           if (result) {
-                        //                             addToList();
-                        //                             Fluttertoast.showToast(
-                        //                                 msg:
-                        //                                     "${widget._job!.title} ${StringRsr.get(LanguageKey.JOB_ADDED_TO_FAVORITE_LIST)}",
-                        //                                 toastLength: Toast.LENGTH_SHORT,
-                        //                                 gravity: ToastGravity.CENTER,
-                        //                                 timeInSecForIosWeb: 1,
-                        //                                 backgroundColor: Colors.green,
-                        //                                 textColor: Colors.white,
-                        //                                 fontSize: 16.0);
-                        //                           } else {}
-                        //                         } else {
-                        //                           final result =
-                        //                               await deleteFavJob(widget._job!);
-                        //                           if (result) {
-                        //                             removeInList();
-                        //                             Fluttertoast.showToast(
-                        //                                 msg:
-                        //                                     "${widget._job!.title} ${StringRsr.get(LanguageKey.JOB_REMOVED_FROM_FAVORITE_LIST)}",
-                        //                                 toastLength: Toast.LENGTH_SHORT,
-                        //                                 gravity: ToastGravity.CENTER,
-                        //                                 timeInSecForIosWeb: 1,
-                        //                                 backgroundColor: Colors.red,
-                        //                                 textColor: Colors.white,
-                        //                                 fontSize: 16.0);
-                        //                           } else {}
-                        //                         }
-                        //                         setState(() {});
-                        //                       },
-                        //                       child: Container(
-                        //                         decoration: BoxDecoration(
-                        //                           borderRadius: BorderRadius.circular(24),
-                        //                           color: Colors.white,
-                        //                         ),
-                        //                         child: Padding(
-                        //                           padding: const EdgeInsets.all(4.0),
-                        //                           child: Icon(
-                        //                             Icons.favorite,
-                        //                             color: isSelected
-                        //                                 ? Colors.red
-                        //                                 : LightColor.lightGrey,
-                        //                             size: 15,
-                        //                           ),
-                        //                         ),
-                        //                       ),
-                        //                     );
-                        //                   }
-                        //                   return GestureDetector(
-                        //                     onTap: () async {
-                        //                       Navigator.pushNamed(
-                        //                           context, RouteTo.PROFILE_SIGN_IN);
-                        //                     },
-                        //                     child: Container(
-                        //                       decoration: BoxDecoration(
-                        //                         borderRadius: BorderRadius.circular(24),
-                        //                         color: Colors.white,
-                        //                       ),
-                        //                       child: Padding(
-                        //                         padding: const EdgeInsets.all(4.0),
-                        //                         child: Icon(
-                        //                           Icons.favorite,
-                        //                           color: isSelected
-                        //                               ? Colors.red
-                        //                               : LightColor.lightGrey,
-                        //                           size: 15,
-                        //                         ),
-                        //                       ),
-                        //                     ),
-                        //                   );
-                        //                 },
-                        //               );
-                        //             }),
-                        //           ),
-                        //         )
-                        //       ],
-                        //     ),
-                        //   ),
-                        // ),
-
                         Expanded(
                           flex: 1,
                           child: Container(
@@ -543,7 +421,10 @@ class _JobViewState extends State<JobView> {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         SizedBox(
-                                          width: 240,
+                                          width:
+                                              AppTheme.fullWidth(context) < 361
+                                                  ? 140
+                                                  : 240,
                                           child: Text(
                                             "${widget._job!.title![0].toUpperCase()}${widget._job!.title!.substring(1).toLowerCase()}",
                                             maxLines: 1,
@@ -596,7 +477,10 @@ class _JobViewState extends State<JobView> {
                                           MainAxisAlignment.spaceBetween,
                                       children: [
                                         SizedBox(
-                                          width: 200,
+                                          width:
+                                              AppTheme.fullWidth(context) < 361
+                                                  ? 100
+                                                  : 200,
                                           child: Text(
                                             "by ${widget._job!.company!.name}",
                                             maxLines: 1,
