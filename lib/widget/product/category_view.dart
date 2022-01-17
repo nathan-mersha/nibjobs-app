@@ -174,7 +174,8 @@ class _CategoryViewState extends State<CategoryView> {
                       Text(
                         StringRsr.locale != "et_am"
                             ? widget._job.name
-                            : amCategories!["am"][widget._job.name],
+                            : amCategories!["am"][widget._job.name] ??
+                                widget._job.name,
                         maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                         textAlign: TextAlign.left,

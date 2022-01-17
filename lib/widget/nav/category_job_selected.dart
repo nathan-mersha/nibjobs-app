@@ -5,8 +5,6 @@ import 'package:nibjobs/global.dart' as global;
 import 'package:nibjobs/model/config/global.dart';
 import 'package:nibjobs/rsr/locale/lang/language_key.dart';
 import 'package:nibjobs/rsr/locale/string_rsr.dart';
-import 'package:nibjobs/rsr/theme/color.dart';
-import 'package:nibjobs/themes/light_color.dart';
 import 'package:nibjobs/themes/theme.dart';
 import 'package:nibjobs/widget/icon/icons.dart';
 import 'package:nibjobs/widget/info/message.dart';
@@ -56,18 +54,17 @@ class _CategorySelectedJobNavigationState
   Widget getAppBar2(BuildContext context, String job,
       {bool showCategory = false}) {
     return AppBar(
-      backgroundColor: LightColor.lightGrey,
+      //backgroundColor: LightColor.lightGrey,
 
       leading: IconButton(
         onPressed: () {
           Navigator.pop(context);
         },
-        color: CustomColor.GRAY_DARK,
         icon: const Icon(Icons.arrow_back_outlined),
       ),
       title: Text(
-        StringRsr.locale != "et_am" ? job : amCategories!["am"][job],
-        style: const TextStyle(color: CustomColor.GRAY_DARK),
+        StringRsr.locale != "et_am" ? job : amCategories!["am"][job] ?? job,
+        style: Theme.of(context).textTheme.subtitle1,
       ),
       actions: <Widget>[],
       //showCategory ? CategoryMenu() : Container()
@@ -93,7 +90,8 @@ class _CategorySelectedJobNavigationState
                     StringRsr.get(LanguageKey.WAITING_FOR_DATA, firstCap: true),
               ))
             : Container(
-                color: LightColor.lightGrey,
+                color: Theme.of(context).backgroundColor,
+                //color: LightColor.lightGrey,
                 child: Column(
                   children: <Widget>[
                     SearchView(
@@ -112,7 +110,8 @@ class _CategorySelectedJobNavigationState
                         child: DefaultTabController(
                           length: subCategories!.length,
                           child: Scaffold(
-                            backgroundColor: LightColor.lightGrey,
+                            backgroundColor: Theme.of(context).backgroundColor,
+                            //  backgroundColor: LightColor.lightGrey,
                             body: SafeArea(
                               child: Column(
                                 children: [
@@ -121,9 +120,11 @@ class _CategorySelectedJobNavigationState
                                       isScrollable: true,
                                       indicatorColor:
                                           Theme.of(context).primaryColor,
-                                      unselectedLabelColor: CustomColor.GRAY,
+                                      unselectedLabelColor: Theme.of(context)
+                                          .unselectedWidgetColor,
                                       indicatorSize: TabBarIndicatorSize.tab,
-                                      labelColor: Colors.white,
+                                      labelStyle:
+                                          Theme.of(context).textTheme.bodyText1,
                                       indicator: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(20),

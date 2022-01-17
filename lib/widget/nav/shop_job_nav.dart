@@ -131,8 +131,10 @@ class _CompanyJobNavigationState extends State<CompanyJobNavigation> {
                                             ? StringRsr.get(LanguageKey.ALL)
                                             : StringRsr.locale != "et_am"
                                                 ? category.name.toString()
-                                                : amCategories!["am"]
-                                                    [category.name.toString()],
+                                                : amCategories!["am"][category
+                                                        .name
+                                                        .toString()] ??
+                                                    category.name.toString(),
                                       ),
                                     );
                                   }).toList()),

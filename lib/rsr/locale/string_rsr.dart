@@ -24,7 +24,7 @@ class StringRsr {
   static String? get(key, {firstCap = false, lcl}) {
     String localeVal = lcl ?? locale;
 
-    String val = _localizedValues[localeVal]![key]!;
+    String val = _localizedValues[localeVal]![key] ?? "";
 
     if (firstCap) {
       return val == ""

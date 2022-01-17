@@ -74,7 +74,10 @@ class SearchState extends State<SearchView> {
                   hintText: widget.query != null
                       ? StringRsr.get(LanguageKey.SEARCH_SHOP, firstCap: true)
                       : StringRsr.get(LanguageKey.SEARCH_JOBS, firstCap: true),
-                  hintStyle: const TextStyle(fontSize: 12),
+                  hintStyle: Theme.of(context)
+                      .textTheme
+                      .subtitle1!
+                      .copyWith(color: Colors.black54),
                   contentPadding: const EdgeInsets.only(
                       left: 10, right: 10, bottom: 0, top: 3),
                   prefixIcon: const Icon(Icons.search, color: Colors.black54),

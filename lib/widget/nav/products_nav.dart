@@ -153,13 +153,16 @@ class _JobNavigationState extends State<JobNavigation> {
                                                       LanguageKey.LATEST)!
                                                   : StringRsr.locale != "et_am"
                                                       ? category.name.toString()
-                                                      : category.name
-                                                          .toString(),
-                                              // : amCategories!["am"][category.name.toString()],
+                                                      : amCategories!["am"][
+                                                              category.name
+                                                                  .toString()] ??
+                                                          category.name
+                                                              .toString(),
                                             ),
                                           );
                                         }).toList()),
                                     Expanded(
+                                      flex: 1,
                                       child: TabBarView(
                                           children: categories!
                                               .map((Category category) {

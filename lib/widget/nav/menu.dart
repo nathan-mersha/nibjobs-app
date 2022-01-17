@@ -1,14 +1,12 @@
 import 'dart:io';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nibjobs/api/flutterfire.dart';
 import 'package:nibjobs/bloc/notification/notification_bloc.dart';
 import 'package:nibjobs/bloc/user/user_bloc.dart';
 import 'package:nibjobs/db/k_shared_preference.dart';
-import 'package:nibjobs/model/profile/company.dart';
 import 'package:nibjobs/page/product/home.dart';
 import 'package:nibjobs/rsr/locale/lang/language_key.dart';
 import 'package:nibjobs/rsr/locale/string_rsr.dart';
@@ -270,121 +268,121 @@ class Menu {
             },
           ),
         ),
-        BlocBuilder<UserBloc, UserState>(
-          builder: (context, state) {
-            if (state is UserSignedInState) {
-              return FutureBuilder(
-                  future: userHasCompany(),
-                  builder: (context, snapshot) {
-                    if (snapshot.hasData) {
-                      return Padding(
-                        padding: const EdgeInsets.only(left: 30.0),
-                        child: ListTile(
-                          leading: Icon(
-                            NibCustomIcons.companies,
-                            color: Theme.of(context).iconTheme.color,
-                          ),
-                          title: Text(
-                            StringRsr.get(LanguageKey.MY_SHOP, firstCap: true)!,
-                            style: Theme.of(context).textTheme.bodyText1,
-                          ),
-                          onTap: () async {
-                            // todo : navigate
-                            var uid = state.uId;
-
-                            DocumentSnapshot documentSnapshot =
-                                await FirebaseFirestore.instance
-                                    .collection(Company.COLLECTION_NAME)
-                                    .doc(uid)
-                                    .get();
-                            Company companyData;
-                            if (documentSnapshot.data() == null) {
-                              companyData = Company();
-                            } else {
-                              companyData = Company.toModel(documentSnapshot
-                                  .data()! as Map<String, dynamic>);
-                            }
-
-                            Navigator.of(context).pop();
-                            Navigator.pushNamed(context, RouteTo.SHOP_EDIT,
-                                arguments: companyData);
-                          },
-                        ),
-                      );
-                    }
-                    return Padding(
-                      padding: const EdgeInsets.only(left: 30.0),
-                      child: ListTile(
-                        leading: Icon(
-                          NibCustomIcons.companies,
-                          color: Theme.of(context).iconTheme.color,
-                        ),
-                        title: Text(
-                          StringRsr.get(LanguageKey.CREATE_SHOP,
-                              firstCap: true)!,
-                          style: Theme.of(context).textTheme.bodyText1,
-                        ),
-                        onTap: () async {
-                          // todo : navigate
-                          var uid = state.uId;
-
-                          DocumentSnapshot documentSnapshot =
-                              await FirebaseFirestore.instance
-                                  .collection(Company.COLLECTION_NAME)
-                                  .doc(uid)
-                                  .get();
-                          // if (documentSnapshot.data() == null) return ;
-                          Company companyData = Company.toModel(
-                              documentSnapshot.data() as Map<String, dynamic>);
-                          Navigator.of(context).pop();
-                          Navigator.pushNamed(context, RouteTo.SHOP_EDIT,
-                              arguments: companyData);
-                        },
-                      ),
-                    );
-                  });
-            } else {
-              return Padding(
-                padding: const EdgeInsets.only(left: 30.0),
-                child: ListTile(
-                  leading: Icon(
-                    NibCustomIcons.companies,
-                    color: Theme.of(context).iconTheme.color,
-                  ),
-                  title: Text(
-                    StringRsr.get(LanguageKey.CREATE_SHOP, firstCap: true)!,
-                    style: Theme.of(context).textTheme.bodyText1,
-                  ),
-                  onTap: () async {
-                    AwesomeDialog(
-                      btnOkText: StringRsr.get(LanguageKey.OK, firstCap: true),
-                      btnCancelText:
-                          StringRsr.get(LanguageKey.CANCEL, firstCap: true),
-                      context: context,
-                      dialogType: DialogType.INFO_REVERSED,
-                      borderSide:
-                          const BorderSide(color: Colors.transparent, width: 2),
-                      width: 380,
-                      buttonsBorderRadius:
-                          const BorderRadius.all(Radius.circular(2)),
-                      headerAnimationLoop: false,
-                      animType: AnimType.BOTTOMSLIDE,
-                      title: StringRsr.get(LanguageKey.SIGN_IN, firstCap: true),
-                      desc: StringRsr.get(LanguageKey.YOU_HAVE_TO_SIGN_IN_FIRST,
-                          firstCap: true),
-                      showCloseIcon: true,
-                      btnCancelOnPress: () {},
-                      btnOkOnPress: () async {
-                        Navigator.of(context).pop();
-                        Navigator.pushNamed(context, RouteTo.PROFILE_SIGN_IN);
-                      },
-                    ).show();
-                  },
-                ),
-              );
-            }
-          },
-        ),
+        // BlocBuilder<UserBloc, UserState>(
+        //   builder: (context, state) {
+        //     if (state is UserSignedInState) {
+        //       return FutureBuilder(
+        //           future: userHasCompany(),
+        //           builder: (context, snapshot) {
+        //             if (snapshot.hasData) {
+        //               return Padding(
+        //                 padding: const EdgeInsets.only(left: 30.0),
+        //                 child: ListTile(
+        //                   leading: Icon(
+        //                     NibCustomIcons.companies,
+        //                     color: Theme.of(context).iconTheme.color,
+        //                   ),
+        //                   title: Text(
+        //                     StringRsr.get(LanguageKey.MY_SHOP, firstCap: true)!,
+        //                     style: Theme.of(context).textTheme.bodyText1,
+        //                   ),
+        //                   onTap: () async {
+        //                     // todo : navigate
+        //                     var uid = state.uId;
+        //
+        //                     DocumentSnapshot documentSnapshot =
+        //                         await FirebaseFirestore.instance
+        //                             .collection(Company.COLLECTION_NAME)
+        //                             .doc(uid)
+        //                             .get();
+        //                     Company companyData;
+        //                     if (documentSnapshot.data() == null) {
+        //                       companyData = Company();
+        //                     } else {
+        //                       companyData = Company.toModel(documentSnapshot
+        //                           .data()! as Map<String, dynamic>);
+        //                     }
+        //
+        //                     Navigator.of(context).pop();
+        //                     Navigator.pushNamed(context, RouteTo.SHOP_EDIT,
+        //                         arguments: companyData);
+        //                   },
+        //                 ),
+        //               );
+        //             }
+        //             return Padding(
+        //               padding: const EdgeInsets.only(left: 30.0),
+        //               child: ListTile(
+        //                 leading: Icon(
+        //                   NibCustomIcons.companies,
+        //                   color: Theme.of(context).iconTheme.color,
+        //                 ),
+        //                 title: Text(
+        //                   StringRsr.get(LanguageKey.CREATE_SHOP,
+        //                       firstCap: true)!,
+        //                   style: Theme.of(context).textTheme.bodyText1,
+        //                 ),
+        //                 onTap: () async {
+        //                   // todo : navigate
+        //                   var uid = state.uId;
+        //
+        //                   DocumentSnapshot documentSnapshot =
+        //                       await FirebaseFirestore.instance
+        //                           .collection(Company.COLLECTION_NAME)
+        //                           .doc(uid)
+        //                           .get();
+        //                   // if (documentSnapshot.data() == null) return ;
+        //                   Company companyData = Company.toModel(
+        //                       documentSnapshot.data() as Map<String, dynamic>);
+        //                   Navigator.of(context).pop();
+        //                   Navigator.pushNamed(context, RouteTo.SHOP_EDIT,
+        //                       arguments: companyData);
+        //                 },
+        //               ),
+        //             );
+        //           });
+        //     } else {
+        //       return Padding(
+        //         padding: const EdgeInsets.only(left: 30.0),
+        //         child: ListTile(
+        //           leading: Icon(
+        //             NibCustomIcons.companies,
+        //             color: Theme.of(context).iconTheme.color,
+        //           ),
+        //           title: Text(
+        //             StringRsr.get(LanguageKey.CREATE_SHOP, firstCap: true)!,
+        //             style: Theme.of(context).textTheme.bodyText1,
+        //           ),
+        //           onTap: () async {
+        //             AwesomeDialog(
+        //               btnOkText: StringRsr.get(LanguageKey.OK, firstCap: true),
+        //               btnCancelText:
+        //                   StringRsr.get(LanguageKey.CANCEL, firstCap: true),
+        //               context: context,
+        //               dialogType: DialogType.INFO_REVERSED,
+        //               borderSide:
+        //                   const BorderSide(color: Colors.transparent, width: 2),
+        //               width: 380,
+        //               buttonsBorderRadius:
+        //                   const BorderRadius.all(Radius.circular(2)),
+        //               headerAnimationLoop: false,
+        //               animType: AnimType.BOTTOMSLIDE,
+        //               title: StringRsr.get(LanguageKey.SIGN_IN, firstCap: true),
+        //               desc: StringRsr.get(LanguageKey.YOU_HAVE_TO_SIGN_IN_FIRST,
+        //                   firstCap: true),
+        //               showCloseIcon: true,
+        //               btnCancelOnPress: () {},
+        //               btnOkOnPress: () async {
+        //                 Navigator.of(context).pop();
+        //                 Navigator.pushNamed(context, RouteTo.PROFILE_SIGN_IN);
+        //               },
+        //             ).show();
+        //           },
+        //         ),
+        //       );
+        //     }
+        //   },
+        // ),
         Padding(
           padding: const EdgeInsets.only(left: 30.0),
           child: ListTile(
@@ -513,8 +511,8 @@ class Menu {
               String shareMessage =
                   "${StringRsr.get(LanguageKey.DOWNLOAD_KELEM_APP, lcl: LanguageKey.ENGLISH_LC, firstCap: true)}"
                   "\n${StringRsr.get(LanguageKey.DOWNLOAD_KELEM_APP, lcl: LanguageKey.AMHARIC_LC)}"
-                  "\n\nPlaystore\nhttps://bit.ly/kelem_app_playstore_v1"
-                  "\n\nAppstore\nhttps://bit.ly/kelem_app_appstore_v1";
+                  "\n\nPlaystore\nhttps://bit.ly/nibjobs_app_playstore"
+                  "\n\nAppstore\nhttps://bit.ly/nibjobs_app_appstore_v1";
               Share.share(shareMessage);
             },
           ),
@@ -532,9 +530,9 @@ class Menu {
             ),
             onTap: () {
               if (Platform.isAndroid) {
-                makeWebCall('https://bit.ly/kelem_app_playstore_v1');
+                makeWebCall('https://bit.ly/nibjobs_app_playstore');
               } else {
-                makeWebCall('https://bit.ly/kelem_app_appstore_v1');
+                makeWebCall('https://bit.ly/nibjobs_app_appstore_v1');
               }
             },
           ),

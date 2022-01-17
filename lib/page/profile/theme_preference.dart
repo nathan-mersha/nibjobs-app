@@ -154,6 +154,8 @@ class _ThemePreferencePageState extends State<ThemePreferencePage> {
                                       },
                                       child: SizedBox(
                                         width: AppTheme.fullWidth(context) * .3,
+                                        height:
+                                            AppTheme.fullHeight(context) * .5,
                                         child: Image.asset(
                                             "assets/images/light.png"),
                                       ),
@@ -207,6 +209,8 @@ class _ThemePreferencePageState extends State<ThemePreferencePage> {
                                       },
                                       child: SizedBox(
                                         width: AppTheme.fullWidth(context) * .3,
+                                        height:
+                                            AppTheme.fullHeight(context) * .5,
                                         child: Image.asset(
                                             "assets/images/dark.png"),
                                       ),

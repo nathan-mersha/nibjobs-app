@@ -610,7 +610,7 @@ class _JobListState extends State<JobList> {
                           // Got data and connection is done
 
                           List<Category> newCategories = snapshot.data;
-                          newCategories.removeAt(0);
+                          //       newCategories.removeAt(0);
 
                           // Got data here
                           return newCategories.isEmpty
@@ -839,7 +839,12 @@ class _JobListState extends State<JobList> {
   }
 
   Future<List<Category>> getCategory() async {
-    return Future.value(global.localConfig.categories);
+    List<Category> newCategories = global.localConfig.categories;
+    if (newCategories[0].name == "all") {
+      newCategories.removeAt(0);
+    }
+
+    return Future.value(newCategories);
   }
 
   Future<List> getJobs() async {

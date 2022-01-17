@@ -117,8 +117,10 @@ class _FavoriteJobNavigationState extends State<FavoriteJobNavigation> {
                                           ? StringRsr.get(LanguageKey.ALL)
                                           : StringRsr.locale != "et_am"
                                               ? category.name.toString()
-                                              : amCategories!["am"]
-                                                  [category.name.toString()],
+                                              : amCategories!["am"][category
+                                                      .name
+                                                      .toString()] ??
+                                                  category.name.toString(),
                                     ),
                                   );
                                 }).toList()),

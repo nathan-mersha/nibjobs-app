@@ -31,6 +31,9 @@ final appThemeData = {
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
+          textStyle: const TextStyle(
+            color: CustomColor.PRIM_DARK,
+          ),
           primary: CustomColor.RAD_DARK,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(30.0),
@@ -66,11 +69,16 @@ final appThemeData = {
     brightness: Brightness.dark,
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(
+        primary: CustomColor.PRIM_DARK,
+        textStyle: const TextStyle(
+          color: Colors.black,
+        ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(30.0),
         ),
       ),
     ),
+
     // textTheme: const TextTheme(
     //   bodyText1: TextStyle(color: CustomColor.TEXT_COLOR_GRAY),
     //   bodyText2: TextStyle(color: CustomColor.GRAY_LIGHT),

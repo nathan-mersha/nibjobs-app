@@ -244,38 +244,6 @@ class _ContactUsPageState extends State<ContactUsPage> {
                               );
                               final result = await addContactUs(contactUs);
                               if (result) {
-                                // AwesomeDialog(
-                                //   btnOkText: StringRsr.get(LanguageKey.OK,
-                                //       firstCap: true),
-                                //   btnCancelText: StringRsr.get(
-                                //       LanguageKey.CANCEL,
-                                //       firstCap: true),
-                                //   context: context,
-                                //   dialogType: DialogType.SUCCES,
-                                //   borderSide: const BorderSide(
-                                //       color: Colors.transparent,
-                                //       width: 2),
-                                //   width: 380,
-                                //   buttonsBorderRadius:
-                                //   const BorderRadius.all(
-                                //       Radius.circular(2)),
-                                //   headerAnimationLoop: false,
-                                //   animType: AnimType.BOTTOMSLIDE,
-                                //   title: StringRsr.get(
-                                //       LanguageKey.SUCCESSFUL,
-                                //       firstCap: true),
-                                //   desc: StringRsr.get(
-                                //       LanguageKey
-                                //           .THANK_YOU_FOR_YOUR_FEEDBACK,
-                                //       firstCap: true),
-                                //   showCloseIcon: true,
-                                //   btnOkOnPress: () async {
-                                //     nameController.text = "";
-                                //     messageController.text = "";
-                                //     Navigator.pop(context);
-                                //   },
-                                // ).show();
-
                                 showInfoToUser(
                                   context,
                                   DialogType.SUCCES,
@@ -306,13 +274,14 @@ class _ContactUsPageState extends State<ContactUsPage> {
                         },
                         child: _absorb
                             ? const CircularProgressIndicator(
-                                backgroundColor: Colors.white,
+                                //backgroundColor: Colors.white,
                                 strokeWidth: 2,
                               )
                             : Center(
                                 child: Text(
                                   StringRsr.get(LanguageKey.SEND)!,
-                                  style: const TextStyle(color: Colors.white),
+                                  style: TextStyle(
+                                      color: Theme.of(context).primaryColor),
                                 ),
                               ),
                       ),
