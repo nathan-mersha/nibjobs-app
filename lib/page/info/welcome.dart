@@ -3,6 +3,7 @@ import 'package:nibjobs/api/config/global.dart';
 import 'package:nibjobs/route/route.dart';
 import 'package:nibjobs/rsr/locale/lang/language_key.dart';
 import 'package:nibjobs/rsr/locale/string_rsr.dart';
+import 'package:nibjobs/themes/theme.dart';
 
 class WelcomePage extends StatefulWidget {
   @override
@@ -149,40 +150,40 @@ class _WelcomePageState extends State<WelcomePage> {
       color: Colors.white,
       padding: const EdgeInsets.only(bottom: 12),
       child: Center(
-          child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: <Widget>[
-            Image.asset(
-              welcomePage[index]["image"]!,
-              height: 300,
+          child: Column(mainAxisAlignment: MainAxisAlignment.end, children: <
+              Widget>[
+        Image.asset(
+          welcomePage[index]["image"]!,
+          height: AppTheme.fullWidth(context) < 361 ? 200 : 300,
+        ),
+        Column(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: <Widget>[
+            const SizedBox(
+              height: 30,
             ),
-            Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                const SizedBox(
-                  height: 30,
-                ),
-                Text(
-                  welcomePage[index]["title"]!,
-                  maxLines: 4,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                      fontWeight: FontWeight.w800, fontSize: 19),
-                ),
-                Container(
-                  margin: EdgeInsets.symmetric(vertical: 35, horizontal: 95),
-                  child: Text(
-                    welcomePage[index]["description"]!,
-                    maxLines: 4,
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      color: Colors.black54,
-                    ),
-                  ),
-                )
-              ],
+            Text(
+              welcomePage[index]["title"]!,
+              maxLines: 4,
+              textAlign: TextAlign.center,
+              style: const TextStyle(fontWeight: FontWeight.w800, fontSize: 19),
             ),
-          ])),
+            Container(
+              margin: AppTheme.fullWidth(context) < 361
+                  ? const EdgeInsets.symmetric(vertical: 25, horizontal: 55)
+                  : const EdgeInsets.symmetric(vertical: 35, horizontal: 95),
+              child: Text(
+                welcomePage[index]["description"]!,
+                maxLines: 4,
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  color: Colors.black54,
+                ),
+              ),
+            )
+          ],
+        ),
+      ])),
     );
   }
 }

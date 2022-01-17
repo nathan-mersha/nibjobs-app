@@ -456,7 +456,7 @@ Future<bool> addUser(UserModel user) async {
       if (!snapshot.exists) {
         UserModel? oldUser = UserModel.toModel(snapshot.data()!);
         user.categoryList = oldUser.categoryList;
-        if (oldUser.categoryList!.isEmpty) {
+        if (oldUser.categoryList!.isNotEmpty) {
           await hSharedPreference.set(
               HSharedPreference.LIST_OF_FAV_CATEGORY, oldUser.categoryList);
         } else {

@@ -66,6 +66,7 @@ final appThemeData = {
     //   color: Colors.black,
     // ),
     // cardTheme: const CardTheme(color: CustomColor.RAD_DARK),
+
     brightness: Brightness.dark,
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ElevatedButton.styleFrom(

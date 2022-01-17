@@ -9,6 +9,7 @@ import 'package:nibjobs/route/route.dart';
 import 'package:nibjobs/rsr/locale/lang/language_key.dart';
 import 'package:nibjobs/rsr/locale/string_rsr.dart';
 import 'package:nibjobs/rsr/theme/color.dart';
+import 'package:nibjobs/themes/theme.dart';
 
 class SignInPage extends StatefulWidget {
   @override
@@ -32,8 +33,9 @@ class _SignInPageState extends State<SignInPage> {
             SizedBox(
               width: double.infinity,
               child: Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 80, vertical: 35),
+                padding: AppTheme.fullWidth(context) < 361
+                    ? const EdgeInsets.symmetric(horizontal: 60, vertical: 35)
+                    : const EdgeInsets.symmetric(horizontal: 80, vertical: 35),
                 width: double.infinity,
                 color: Colors.white,
                 child: Column(

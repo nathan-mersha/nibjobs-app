@@ -238,10 +238,10 @@ class _CategoryPreferencePageState extends State<CategoryPreferencePage> {
                                   String uid = await hSharedPreference
                                           .get(HSharedPreference.KEY_USER_ID) ??
                                       "";
+                                  hSharedPreference.set(
+                                      HSharedPreference.SELECT_PREFERENCE,
+                                      true);
                                   if (uid != "") {
-                                    hSharedPreference.set(
-                                        HSharedPreference.SELECT_PREFERENCE,
-                                        true);
                                     List<String> list = await hSharedPreference
                                             .get(HSharedPreference
                                                 .LIST_OF_FAV_CATEGORY) ??
@@ -273,34 +273,35 @@ class _CategoryPreferencePageState extends State<CategoryPreferencePage> {
                                             firstCap: true),
                                         StringRsr.get(
                                             LanguageKey
-                                                .YOU_HAVE_TO_SIGN_IN_FIRST,
+                                                .PLEASE_CHOOSE_A_CATEGORY,
                                             firstCap: true),
-                                        onOk: () {},
+                                        onOk: () async {},
                                       );
                                     }
                                   } else {
                                     debugPrint("error lister");
-                                    showInfoToUser(
-                                      context,
-                                      DialogType.ERROR,
-                                      StringRsr.get(LanguageKey.ERROR,
-                                          firstCap: true),
-                                      StringRsr.get(
-                                          LanguageKey.PLEASE_CHOOSE_A_CATEGORY,
-                                          firstCap: true),
-                                      onOk: () {},
-                                    );
+                                    String theme = await hSharedPreference.get(
+                                            HSharedPreference.THEME_MODE) ??
+                                        "";
+                                    if (theme != "") {
+                                      Navigator.pushReplacementNamed(
+                                          context, RouteTo.HOME);
+                                    } else {
+                                      Navigator.pushReplacementNamed(context,
+                                          RouteTo.THEME_PREFERENCE_PAGE);
+                                    }
+                                    // showInfoToUser(
+                                    //   context,
+                                    //   DialogType.ERROR,
+                                    //   StringRsr.get(LanguageKey.ERROR,
+                                    //       firstCap: true),
+                                    //   StringRsr.get(
+                                    //       LanguageKey.PLEASE_CHOOSE_A_CATEGORY,
+                                    //       firstCap: true),
+                                    //   onOk: () {},
+                                    // );
                                   }
-                                  String theme = await hSharedPreference
-                                          .get(HSharedPreference.THEME_MODE) ??
-                                      "";
-                                  if (theme != "") {
-                                    Navigator.pushReplacementNamed(
-                                        context, RouteTo.HOME);
-                                  } else {
-                                    Navigator.pushReplacementNamed(
-                                        context, RouteTo.THEME_PREFERENCE_PAGE);
-                                  }
+
                                   // // setState(() {
                                   //   showInfo = false;
                                   // });

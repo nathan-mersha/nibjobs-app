@@ -73,7 +73,7 @@ class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
     Widget getAppBar2(BuildContext context, String job,
         {bool showCategory = false}) {
       return AppBar(
-        backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+        backgroundColor: Theme.of(context).backgroundColor,
         leading: IconButton(
           onPressed: () {
             Navigator.pop(context);

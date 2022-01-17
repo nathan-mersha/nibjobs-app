@@ -172,7 +172,7 @@ class _NotificationsPageState extends State<NotificationsPage> {
       {bool showCategory = false}) {
     return AppBar(
       // backgroundColor: LightColor.background,
-      backgroundColor: Theme.of(context).appBarTheme.backgroundColor,
+      backgroundColor: Theme.of(context).backgroundColor,
       leading: IconButton(
         onPressed: () {
           Navigator.pop(context);
