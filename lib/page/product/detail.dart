@@ -643,6 +643,7 @@ class _JobDetailPageState extends State<JobDetailPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               RichText(
+                maxLines: 1,
                 text: TextSpan(
                   children: [
                     TextSpan(
@@ -650,8 +651,10 @@ class _JobDetailPageState extends State<JobDetailPage> {
                       style: Theme.of(context).textTheme.bodyText1!,
                     ),
                     TextSpan(
-                      text:
-                          "${job.company!.name!.substring(0, 1).toUpperCase()}${job.company!.name!.substring(1, job.company!.name!.length).toLowerCase()} ",
+                      text: AppTheme.fullWidth(context) < 360 &&
+                              job.company!.name!.length > 20
+                          ? "${job.company!.name!.substring(0, 1).toUpperCase()}${job.company!.name!.substring(1, 20).toLowerCase()}... "
+                          : "${job.company!.name!.substring(0, 1).toUpperCase()}${job.company!.name!.substring(1, job.company!.name!.length).toLowerCase()}",
                       style: Theme.of(context)
                           .textTheme
                           .bodyText1!
@@ -671,8 +674,7 @@ class _JobDetailPageState extends State<JobDetailPage> {
                     ),
                   ],
                 ),
-                maxLines: 2,
-                overflow: TextOverflow.fade,
+                overflow: TextOverflow.clip,
               ),
               // Row(
               //   children: [

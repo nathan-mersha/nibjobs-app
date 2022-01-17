@@ -55,11 +55,13 @@ class _CategorySelectedJobNavigationState
       {bool showCategory = false}) {
     return AppBar(
       //backgroundColor: LightColor.lightGrey,
+      backgroundColor: Theme.of(context).backgroundColor,
 
       leading: IconButton(
         onPressed: () {
           Navigator.pop(context);
         },
+        color: Theme.of(context).iconTheme.color,
         icon: const Icon(Icons.arrow_back_outlined),
       ),
       title: Text(

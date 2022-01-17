@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nibjobs/bloc/search/search_bloc.dart';
 import 'package:nibjobs/rsr/locale/lang/language_key.dart';
 import 'package:nibjobs/rsr/locale/string_rsr.dart';
+import 'package:nibjobs/rsr/theme/color.dart';
 import 'package:nibjobs/themes/light_color.dart';
 
 class SearchView extends StatefulWidget {
@@ -61,11 +62,15 @@ class SearchState extends State<SearchView> {
             child: Container(
               height: 40,
               alignment: Alignment.center,
-              decoration: BoxDecoration(
+              decoration: const BoxDecoration(
                   color: LightColor.background,
                   borderRadius: BorderRadius.all(Radius.circular(10))),
               child: TextField(
                 controller: searchController,
+                style: Theme.of(context)
+                    .textTheme
+                    .subtitle1!
+                    .copyWith(color: CustomColor.GRAY_DARK),
                 onSubmitted: (v) {
                   widget.onComplete!(v);
                 },
@@ -79,7 +84,7 @@ class SearchState extends State<SearchView> {
                       .subtitle1!
                       .copyWith(color: Colors.black54),
                   contentPadding: const EdgeInsets.only(
-                      left: 10, right: 10, bottom: 0, top: 3),
+                      left: 10, right: 10, bottom: 0, top: 5),
                   prefixIcon: const Icon(Icons.search, color: Colors.black54),
                   suffixIcon: BlocBuilder<SearchBloc, SearchViewState>(
                     builder: (context, state) {
@@ -90,7 +95,8 @@ class SearchState extends State<SearchView> {
                               BlocProvider.of<SearchBloc>(context)
                                   .add(SearchViewEvent(searchInView: true));
                             },
-                            child: Icon(Icons.close, color: Colors.black54));
+                            child:
+                                const Icon(Icons.close, color: Colors.black54));
                       }
                       return const Visibility(
                           visible: false,

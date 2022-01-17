@@ -599,12 +599,12 @@ class _KelemSearchPageState extends State<KelemSearchPage> {
   Widget getAppBar2(BuildContext context, Company company,
       {bool showCategory = false}) {
     return AppBar(
-      backgroundColor: LightColor.background,
+      backgroundColor: Theme.of(context).backgroundColor,
       leading: IconButton(
         onPressed: () {
           Navigator.pop(context);
         },
-        color: CustomColor.GRAY_DARK,
+        color: Theme.of(context).iconTheme.color,
         icon: const Icon(Icons.arrow_back_outlined),
       ),
 
