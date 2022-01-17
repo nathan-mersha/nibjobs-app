@@ -345,27 +345,28 @@ class _HomePageState extends State<HomePage> {
         isCategoryPageSelected = false;
         isSubCategoryPageSelected = false;
       });
-    } else if (index == 2) {
+    } else if (index == 1) {
       setState(() {
         isFavPageSelected = true;
         isHomePageSelected = false;
         isCategoryPageSelected = false;
         isSubCategoryPageSelected = false;
       });
-    } else if (index == 3) {
+    } else if (index == 2) {
       setState(() {
         isCategoryPageSelected = true;
         isFavPageSelected = false;
         isHomePageSelected = false;
         isSubCategoryPageSelected = false;
       });
-    } else if (index == 1) {
-      setState(() {
-        isSubCategoryPageSelected = true;
-        isCategoryPageSelected = false;
-        isFavPageSelected = false;
-        isHomePageSelected = false;
-      });
     }
+    // else if (index == 1) {
+    //   setState(() {
+    //     isSubCategoryPageSelected = true;
+    //     isCategoryPageSelected = false;
+    //     isFavPageSelected = false;
+    //     isHomePageSelected = false;
+    //   });
+    // }
   }
 }

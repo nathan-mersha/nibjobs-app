@@ -211,7 +211,20 @@ class _JobDetailPageState extends State<JobDetailPage> {
                                   width: 200,
                                   height: 40,
                                   child: ElevatedButton(
-                                      onPressed: () {
+                                      onPressed: () async {
+                                        var uid = await hSharedPreference.get(
+                                                HSharedPreference
+                                                    .KEY_USER_ID) ??
+                                            "";
+                                        if (uid != "") {
+                                          final result = await addFavJob(job);
+                                          if (result) {
+                                            debugPrint("sent");
+                                          } else {
+                                            debugPrint("not sent ");
+                                          }
+                                        }
+
                                         makeWebCall(job!.applyLink!);
                                       },
                                       child: Text(

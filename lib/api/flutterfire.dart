@@ -532,7 +532,7 @@ Future<bool> addContactUs(ContactUsModel contactUsModel) async {
   return false;
 }
 
-Future<bool> addFavJob(Job job) async {
+Future<bool> addFavJob(Job? job) async {
   try {
     HSharedPreference hSharedPreference = GetHSPInstance.hSharedPreference;
     var uid = await hSharedPreference.get(HSharedPreference.KEY_USER_ID);
@@ -543,15 +543,16 @@ Future<bool> addFavJob(Job job) async {
         .collection("favoriteJob")
         .doc(uid)
         .collection("job")
-        .doc(job.id);
+        .doc(job?.id);
 
     FirebaseFirestore.instance.runTransaction((transaction) async {
       DocumentSnapshot snapshot = await transaction.get(documentReference);
+
       if (!snapshot.exists) {
-        documentReference.set(Job.toMap(job));
+        documentReference.set(Job.toMap(job!));
         return true;
       }
-      transaction.update(documentReference, Job.toMap(job));
+      transaction.update(documentReference, Job.toMap(job!));
       return true;
     });
 

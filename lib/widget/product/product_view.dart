@@ -238,8 +238,8 @@ class _JobViewState extends State<JobView> {
         print('$ad onAdDismissedFullScreenContent.');
         ad.dispose();
         widget.onADs!();
-        Navigator.pushNamed(context, RouteTo.JOB_DETAIL,
-            arguments: widget._job);
+        // Navigator.pushNamed(context, RouteTo.JOB_DETAIL,
+        //     arguments: widget._job);
       },
       onAdFailedToShowFullScreenContent: (RewardedAd ad, AdError error) {
         print('$ad onAdFailedToShowFullScreenContent: $error');

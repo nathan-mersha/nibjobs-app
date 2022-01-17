@@ -59,7 +59,7 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
   double _indexToPosition(int index) {
     // Calculate button positions based off of their
     // index (works with `MainAxisAlignment.spaceAround`)
-    const buttonCount = 4.0;
+    const buttonCount = 3.0; //4
     final appWidth = MediaQuery.of(context).size.width;
     final buttonsWidth = _getButtonContainerWidth();
     final startX = (appWidth - buttonsWidth) / 2;
@@ -170,9 +170,9 @@ class _CustomBottomNavigationBarState extends State<CustomBottomNavigationBar>
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: <Widget>[
                 _icon(NibCustomIcons.home, _selectedIndex == 0, 0),
-                _icon(NibCustomIcons.companies, _selectedIndex == 1, 1),
-                _icon(NibCustomIcons.favorite, _selectedIndex == 2, 2),
-                _icon(NibCustomIcons.category, _selectedIndex == 3, 3),
+                //_icon(NibCustomIcons.companies, _selectedIndex == 1, 1),
+                _icon(NibCustomIcons.favorite, _selectedIndex == 1, 1),
+                _icon(NibCustomIcons.category, _selectedIndex == 2, 2),
               ],
             ),
           ),

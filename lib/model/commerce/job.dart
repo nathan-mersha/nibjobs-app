@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:nibjobs/model/profile/company.dart';
 import 'package:nibjobs/model/profile/user.dart';
 
@@ -83,8 +81,9 @@ class Job {
       DESCRIPTION: job.description,
       APPLY_VIA: job.applyVia,
       APPLY_LINK: job.applyLink,
-      COMPANY: job.company,
-      JOB_CHANNEL: job.jobChannel,
+      COMPANY: job.company == null ? null : Company.toMap(job.company!),
+      JOB_CHANNEL:
+          job.jobChannel == null ? null : JobChannel.toMap(job.jobChannel!),
       APPROVED: job.approved,
       DELETED: job.deleted,
       RAW_POST: job.rawPost,
@@ -139,13 +138,13 @@ class Job {
         applyLink: map[APPLY_LINK],
         jobChannel: map[JOB_CHANNEL] == null
             ? JobChannel()
-            : JobChannel() ,//JobChannel.toModel(jsonDecode(map[JOB_CHANNEL])),
+            : JobChannel(), //JobChannel.toModel(jsonDecode(map[JOB_CHANNEL])),
         approved: map[APPROVED] as bool,
         deleted: map[DELETED] as bool,
         rawPost: map[RAW_POST],
         company: map[COMPANY] == null
             ? Company()
-            : Company(),//Company.toModel(jsonDecode(map[COMPANY])),
+            : Company(), //Company.toModel(jsonDecode(map[COMPANY])),
         firstModified: DateTime.parse(
             map[FIRST_MODIFIED] ?? DateTime.now().toIso8601String()),
         lastModified: DateTime.parse(
