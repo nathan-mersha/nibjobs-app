@@ -80,70 +80,37 @@ class _HomePageState extends State<HomePage> {
       //   //debugPrint(routerFromMessage);
       // }
       notificationFunctionSave(message);
-      if (message != null) {
-        if (message.data != null) {
-          final routerFromMessage = message.data["notificationTag"];
-          debugPrint("message.data ${message.data}");
-          if (routerFromMessage == "gift") {
-            makeWebCall("tel:*805*${message.data["code"]}#");
-          } else {
-            if (message.notification!.title!.toLowerCase() !=
-                "job notification") {
-              Navigator.of(context).pushNamed(RouteTo.NOTIFICATION);
-            }
-          }
-        } else {
-          if (message.notification!.title!.toLowerCase() !=
-              "job notification") {
-            Navigator.of(context).pushNamed(RouteTo.NOTIFICATION);
-          }
-        }
-      }
+      notificationRoute(message);
     });
     FirebaseMessaging.onMessage.listen((message) {
-      print("FirebaseMessaging.onMessage");
-
       if (message.notification != null) {
-        //debugPrint(message.notification.body);
-        //debugPrint(message.notification.title);
         HLocalNotification.showNotification(message);
-        // NotificationModel notificationModel = NotificationModel(
-        //   id: message.messageId,
-        //   notificationServiceName: message.notification!.title,
-        //   notificationServiceMessage: message.notification!.body,
-        //   notificationServiceAmount: "0",
-        //   notificationType: message.notification!.title,
-        //   notificationServiceDate: DateTime.now().toString(),
-        //   notificationServicePaymentMethodName: "wallet",
-        // );
-        //
-        // NotificationDAL.create(notificationModel);
-        //Navigator.of(context).pushNamed(RouteTo.NOTIFICATION);
         notificationFunctionSave(message);
       }
     });
 
     FirebaseMessaging.onMessageOpenedApp.listen((message) {
-      if (message != null) {
-        if (message.data != null) {
-          final routerFromMessage = message.data["notificationTag"];
-          debugPrint("message.data ${message.data}");
-          if (routerFromMessage == "gift") {
-            makeWebCall("tel:*805*${message.data["code"]}#");
-          } else {
-            if (message.notification!.title!.toLowerCase() !=
-                "job notification") {
-              Navigator.of(context).pushNamed(RouteTo.NOTIFICATION);
-            }
-          }
-        } else {
-          if (message.notification!.title!.toLowerCase() !=
-              "job notification") {
-            Navigator.of(context).pushNamed(RouteTo.NOTIFICATION);
-          }
+      notificationRoute(message);
+    });
+  }
+
+  void notificationRoute(RemoteMessage? message) {
+    if (message != null) {
+      if (message.data != null) {
+        final routerFromMessage = message.data["notificationTag"];
+        debugPrint("message.data ${message.data}");
+        if (routerFromMessage == "gift") {
+          makeWebCall("tel:*805*${message.data["code"]}#");
+        } else if (message.notification!.title!.toLowerCase() !=
+            "job notification") {
+          Navigator.of(context).pushNamed(RouteTo.NOTIFICATION);
+        }
+      } else {
+        if (message.notification!.title!.toLowerCase() != "job notification") {
+          Navigator.of(context).pushNamed(RouteTo.NOTIFICATION);
         }
       }
-    });
+    }
   }
 
   Future<void> intShowInfo() async {
