@@ -118,28 +118,6 @@ class ET_AM {
     LanguageKey.NO_NOTIFICATIONS_FOUND: "ማሳወቂያዎች የሉም",
     LanguageKey.REFRESH: "አድስ",
     LanguageKey.NOTIFICATION: "ማሳወቂያዎች",
-    LanguageKey.Q1: "ቀለም ምንድን ነው?",
-    LanguageKey.Q2: "የእኔን ሱቅ በቀለም ላይ እንዴት ማስገባት እችላለሁ?",
-    LanguageKey.Q3: "ቀለም ከሌሎች በኢትዮጵያ ውስጥ ከሚገኙ የኢኮሜርስ መተግበሪያ እንዴት ይለያል?",
-    LanguageKey.Q4: "በ ቀለም ውስጥ የራሴን ሱቅ መፍጠር እችላለሁ?",
-    LanguageKey.Q5: "ስልኬን ማን ማየት ይችላል?",
-    LanguageKey.Q6: "የእኔን ሱቅ በቀለም ውስጥ ተዘርዝሮ አያለሁ ፣ የሱቁን ሙሉ በሙሉ መቆጣጠር እችላለሁን?",
-    LanguageKey.Q7: "የፈጠርኩት ሱቅ ለምን ለሌሎች ሰዎች አይታይም",
-    LanguageKey.Q8: "የፈጠርኩት ምርት ለምን ለሌሎች ሰዎች አይታይም",
-    LanguageKey.A1:
-        "ቀለም በዋናነት ታዋቂ የቴሌግራም ቀለም እና ምርቶቻቸውን ከአንድ መተግበሪያ ለእርስዎ እንዲገኝ የሚያደርግ የኢኮሜርስ መተግበሪያ ነው።",
-    LanguageKey.A2:
-        "የቴሌግራም ቻናል ካለዎት “የእኔን ሱቅ ማከል እፈልጋለሁ” በሚል ርዕስ መልዕክት ላኩልን እና እኛ በ 72 ሰዓታት ውስጥ ወደ እርስዎ እንመልሳለን።",
-    LanguageKey.A3:
-        "ምንም እንኳን አሁንም በመተግበሪያው ውስጥ ሱቅ መፍጠር እና የራስዎን ምርቶች ማስገባት ቢችሉም ቀለም በዋናነት የሚያተኩረዉ ግን ቴሌግራም ላይ ባሉ የኢኮሜርስ ግን ላይ ነው።",
-    LanguageKey.A4: "አዎ በቀለም ውስጥ ሱቅዎን መፍጠር እና ምርቶችን ማስገባት ይችላሉ",
-    LanguageKey.A5:
-        "ስልክ ቁጥርዎን እና ሌላ ማንኛውንም የግል መረጃ ካስገቡ እርስዎን ማነጋገር ለሚፈልግ ለማንኛውም ሰው የሚገኝ ይሆናል",
-    LanguageKey.A6:
-        "አዎ ፣ በተዘረዘረው ስልክ ቁጥር በመደወል የሱቁ ባለቤት መሆንዎን ያረጋግጡ እና ለሁሉም ምርቶችዎ ሙሉ ቁጥጥር ወደሚሰጥዎት ዳሽቦርድ እንልክልዎታለን።",
-    LanguageKey.A7:
-        "ለሕዝብ የሚታዩት የተረጋገጡ ሱቆች ብቻ ናቸው ፣ እባክዎን ሱቅዎን እንዲረጋገጥ እኛን ያነጋግሩን",
-    LanguageKey.A8: "ለሕዝብ የሚታዩት የተረጋገጡ ምርቶች ብቻ ናቸው ፣ ሂደቱ እስከ 72 ሰዓታት ሊወስድ ይችላል",
     LanguageKey.FAQ: "ተደጋግሞ የሚነሱ ጥያቄዎች",
     LanguageKey.REGISTER: "ይመዝገቡ",
     LanguageKey.SKIP: "ዝለል",
@@ -180,5 +158,33 @@ class ET_AM {
     LanguageKey.NO_I_DONT_WANT_A_FREE_GIFT: "አይ ነፃ ስጦታ አልፈልግም",
     LanguageKey.SELECT_UP_TO_5_CATEGORIES: "እስከ 5 ምድቦችን ይምረጡ",
     LanguageKey.CONTINUE: "ቀጥል",
+
+    LanguageKey.NO_USERNAME_RETRIEVED: "የተጠቃሚ ስም አልወጣም",
+    LanguageKey.SEARCH_SHOP: "ከ ኩባንያ ይፈልጉ",
+    LanguageKey.EMAIL_FORMAT_NOT_CORRECT: "ኢሜሉ ትክክል አይደለም",
+    LanguageKey.WEBSITE_FORMAT_NOT_CORRECT: "ድር ጣቢያው ትክክል አይደለም",
+    LanguageKey.SECONDARY_PHONE_SAME_AS_PRIMARY_PHONE:
+    "ሁለተኛው ስልክ ከዋናው ስልክ ጋር አንድ ነው።",
+    LanguageKey.CLICK_HERE_TO_DIAL: "ለመደወል እዚህ ጠቅ ያድርጉ",
+    LanguageKey.JOB_NOTIFICATION: "የሥራ ማስታወቂያ",
+    LanguageKey.NEW: "አዲስ",
+    LanguageKey.YOU_WILL_BE_NOTIFIED_FOR: "ለእነዚህ ማስታወቂያ እንዲደርሶት እናደርጋለን",
+    LanguageKey.WELCOME_TO_NIBJOBS: "እንኳን ወደ ንብ ስራዎች በደህና መጡ",
+    LanguageKey.Q1: "ንብ ሥራዎች ምንድነው?",
+    LanguageKey.Q2: "ንብ ሥራዎች ከሌሎች የሥራ ዝርዝር ኩባንያዎች የሚለየው ምንድን ነው?",
+    LanguageKey.Q3: "ማስታወቂያዎችን እንዴት ማስወገድ እችላለሁ?",
+    LanguageKey.Q4: "ንብ ሥራዎች ምን ያህል የሥራ ምድቦች ኣሉት?",
+    LanguageKey.Q5: "ንብ ሥራዎች ከስንት የስራ ምንጮች ይሰበስባል?",
+
+    LanguageKey.A1: "ንብ ሥራዎች ለእያንዳንዱ ተጠቃሚ የተዘጋጀ የስራ ማስታወቂያ ለማቅረብ የሚተጋ ኢትዮጵያ ላይ መሠረት ያረገ መረጃ ጠቋሚ ድርጅት ነው።",
+    LanguageKey.A2: "ንብ ሥራዎች ዋና አላማ ተጠቃሚዎችን የተበጁ የስራ ዝርዝሮችን ማሳወቅ እና ተጠቃሚውን ባልተፈለጉ የስራ ማሳወቂያዎች ኣለማጨናነቅ ነው።",
+    LanguageKey.A3: "ሁሉም ማስታወቂያዎች ተወግደው የሚከፈልበት መተግበሪያ ኣፕ ላይ እየሰራን ነው።",
+    LanguageKey.A4: "ንብ ሥራዎች ከደርዘን በላይ ምድቦች እና ከመቶ በላይ ንዑስ ምድቦች አሉት",
+    LanguageKey.A5: "ንብ ሥራዎች በአሁኑ ጊዜ ከ13 የስራ ምንጮች ይሰበስባል",
+
+    LanguageKey.RATE_US: "ደረጃ ይስጡን።",
+    LanguageKey.PICK_A_THEME: "አይታ ይምረጡ",
+    LanguageKey.YOU_CAN_ALWAYS_CHANGE_IT_IN_SETTINGS:
+    "ሁልጊዜ በቅንብሮች ውስጥ መለወጥ ይችላሉ።",
   };
 }
