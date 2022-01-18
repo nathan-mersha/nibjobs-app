@@ -4,6 +4,7 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nibjobs/api/flutterfire.dart';
+import 'package:nibjobs/bloc/button/button_bloc.dart';
 import 'package:nibjobs/bloc/notification/notification_bloc.dart';
 import 'package:nibjobs/bloc/user/user_bloc.dart';
 import 'package:nibjobs/db/k_shared_preference.dart';
@@ -730,50 +731,6 @@ class Menu {
               if (state is UserSignedInState) {
                 return GestureDetector(
                     onTap: () {
-                      // AwesomeDialog(
-                      //   btnOkText:
-                      //       StringRsr.get(LanguageKey.OK, firstCap: true),
-                      //   btnCancelText:
-                      //       StringRsr.get(LanguageKey.CANCEL, firstCap: true),
-                      //   context: context,
-                      //   dialogType: DialogType.INFO_REVERSED,
-                      //   borderSide:
-                      //       BorderSide(color: Colors.transparent, width: 2),
-                      //   width: 380,
-                      //   buttonsBorderRadius:
-                      //       BorderRadius.all(Radius.circular(2)),
-                      //   headerAnimationLoop: false,
-                      //   animType: AnimType.BOTTOMSLIDE,
-                      //   title:
-                      //       StringRsr.get(LanguageKey.SIGN_OUT, firstCap: true),
-                      //   desc: StringRsr.get(LanguageKey.DO_YOU_WANT_TO_SIGN_OUT,
-                      //       firstCap: true),
-                      //   showCloseIcon: true,
-                      //   btnCancelOnPress: () {},
-                      //   btnOkOnPress: () async {
-                      //     BlocProvider.of<UserBloc>(context).add(UserSignOut());
-                      //     Navigator.pushNamed(context, RouteTo.PROFILE_SIGN_IN);
-                      //     BlocListener<UserBloc, UserState>(
-                      //       listener: (context, state) {
-                      //         // TODO: implement listener}
-                      //         if (state is UserSignedOutState) {
-                      //
-                      //           showInfoToUser(
-                      //             context,
-                      //             DialogType.SUCCES,
-                      //             StringRsr.get(LanguageKey.SUCCESSFUL, firstCap: true),
-                      //             StringRsr.get(LanguageKey.YOU_HAVE_SUCCESSFUL_SIGN_OUT,
-                      //                 firstCap: true),
-                      //             onOk: () {
-                      //               Navigator.pushNamed(
-                      //                   context, RouteTo.PROFILE_SIGN_IN);
-                      //             },
-                      //           );
-                      //         }
-                      //       },
-                      //     );
-                      //   },
-                      // ).show();
                       showInfoToUser(
                         context,
                         DialogType.INFO_REVERSED,
@@ -781,6 +738,8 @@ class Menu {
                         StringRsr.get(LanguageKey.DO_YOU_WANT_TO_SIGN_OUT,
                             firstCap: true),
                         onOk: () async {
+                          BlocProvider.of<ButtonBloc>(context)
+                              .add(ButtonSet(categoryList: []));
                           BlocProvider.of<UserBloc>(context).add(UserSignOut());
                           Navigator.pushNamed(context, RouteTo.PROFILE_SIGN_IN);
                           BlocListener<UserBloc, UserState>(
@@ -865,87 +824,6 @@ class Menu {
         const SizedBox(
           width: 20,
         ),
-        // Container(
-        //   padding: const EdgeInsets.all(20),
-        //   child: BlocBuilder<UserBloc, UserState>(builder: (context, state) {
-        //     if (state is UserSignedInState) {
-        //       return GestureDetector(
-        //         onTap: () {
-        //           AwesomeDialog(
-        //             btnOkText: StringRsr.get(LanguageKey.OK, firstCap: true),
-        //             btnCancelText:
-        //                 StringRsr.get(LanguageKey.CANCEL, firstCap: true),
-        //             context: context,
-        //             dialogType: DialogType.INFO_REVERSED,
-        //             borderSide: BorderSide(color: Colors.transparent, width: 2),
-        //             width: 380,
-        //             buttonsBorderRadius: BorderRadius.all(Radius.circular(2)),
-        //             headerAnimationLoop: false,
-        //             animType: AnimType.BOTTOMSLIDE,
-        //             title: StringRsr.get(LanguageKey.SIGN_OUT, firstCap: true),
-        //             desc: StringRsr.get(LanguageKey.DO_YOU_WANT_TO_SIGN_OUT,
-        //                 firstCap: true),
-        //             showCloseIcon: true,
-        //             btnCancelOnPress: () {},
-        //             btnOkOnPress: () async {
-        //               BlocProvider.of<UserBloc>(context).add(UserSignOut());
-        //               Navigator.pushNamed(context, RouteTo.PROFILE_SIGN_IN);
-        //               BlocListener<UserBloc, UserState>(
-        //                 listener: (context, state) {
-        //                   // TODO: implement listener}
-        //                   if (state is UserSignedOutState) {
-        //                     AwesomeDialog(
-        //                       btnOkText:
-        //                           StringRsr.get(LanguageKey.OK, firstCap: true),
-        //                       btnCancelText: StringRsr.get(LanguageKey.CANCEL,
-        //                           firstCap: true),
-        //                       context: context,
-        //                       dialogType: DialogType.SUCCES,
-        //                       borderSide: BorderSide(
-        //                           color: Colors.transparent, width: 2),
-        //                       width: 380,
-        //                       buttonsBorderRadius:
-        //                           BorderRadius.all(Radius.circular(2)),
-        //                       headerAnimationLoop: false,
-        //                       animType: AnimType.BOTTOMSLIDE,
-        //                       title: StringRsr.get(LanguageKey.SUCCESSFUL,
-        //                           firstCap: true),
-        //                       desc: StringRsr.get(
-        //                           LanguageKey.YOU_HAVE_SUCCESSFUL_SIGN_OUT,
-        //                           firstCap: true),
-        //                       showCloseIcon: true,
-        //                       btnOkOnPress: () {
-        //                         Navigator.pushNamed(
-        //                             context, RouteTo.PROFILE_SIGN_IN);
-        //                       },
-        //                     ).show();
-        //                   }
-        //                 },
-        //               );
-        //             },
-        //           ).show();
-        //         },
-        //         child: const Icon(
-        //           Icons.logout,
-        //           color: Colors.grey,
-        //         ),
-        //       );
-        //     } else if (state is UserSignedOutState) {
-        //       return GestureDetector(
-        //           onTap: () {
-        //             Navigator.pushNamed(context, RouteTo.PROFILE_SIGN_IN);
-        //           },
-        //           child: Icon(
-        //             Icons.login,
-        //             color: Colors.grey,
-        //           ));
-        //     } else if (state is UserInitial) {
-        //       return Container();
-        //     }
-        //     return Container();
-        //   }),
-        // ),
-        //
       ],
       //showCategory ? CategoryMenu() : Container()
       //backgroundColor: LightColor.lightGrey,

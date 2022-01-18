@@ -7,6 +7,7 @@ class UserModel {
   static const String DISPLAY_NAME = "displayName";
   static const String EMAIL = "email";
   static const String CATEGORY_LIST = "categoryList";
+  static const String CATEGORIES = "categories";
   static const String DEVICE_ID = "deviceId";
   static const String PHONE_NUMBER = "phoneNumber";
   static const String IS_EMAIL_VERIFIED = "isEmailVerified";
@@ -21,6 +22,7 @@ class UserModel {
   String? email;
   String? deviceId;
   List<dynamic>? categoryList;
+  List<dynamic>? categories;
   String? phoneNumber;
   bool? isEmailVerified;
   String? profilePicture;
@@ -33,13 +35,14 @@ class UserModel {
       this.displayName = "",
       this.email = "",
       this.categoryList = const [],
+      this.categories = const [],
       this.deviceId = "",
       this.phoneNumber = "",
       this.isEmailVerified = false,
       this.profilePicture = "",
       this.fcm = "",
-       this.firstModified,
-       this.lastModified});
+      this.firstModified,
+      this.lastModified});
 
   /// Converts UserModel to Map
   static Map<String, dynamic> toMap(UserModel user) {
@@ -47,6 +50,7 @@ class UserModel {
       USER_ID: user.userId,
       USER_NAME: user.userName,
       CATEGORY_LIST: user.categoryList,
+      CATEGORIES: user.categories,
       DISPLAY_NAME: user.displayName,
       EMAIL: user.email,
       DEVICE_ID: user.deviceId,
@@ -69,6 +73,7 @@ class UserModel {
         userId: map[USER_ID],
         categoryList: map[CATEGORY_LIST] ?? [],
         userName: map[USER_NAME],
+        categories: map[CATEGORIES] ?? [],
         displayName: map[DISPLAY_NAME],
         email: map[EMAIL],
         deviceId: map[DEVICE_ID],

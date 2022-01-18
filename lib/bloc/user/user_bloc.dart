@@ -45,6 +45,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     await hSharedPreference.set(HSharedPreference.KEY_USER_IMAGE_URL, null);
     List<String> list = [];
     await hSharedPreference.set(HSharedPreference.LIST_OF_FAV_CATEGORY, list);
+    await hSharedPreference.set(HSharedPreference.LIST_OF_FAV, list);
+    await hSharedPreference.set(HSharedPreference.LIST_OF_CATEGORY_ORDER, list);
 
     uId = null;
     userName = null;
@@ -69,10 +71,8 @@ class UserBloc extends Bloc<UserEvent, UserState> {
     } else if (event is UserSignOut) {
       yield UserInitial();
       final result = await signOut();
-
       if (result) {
         await userDataSetter();
-
         yield UserSignedOutState();
       } else {
         yield UserSigningOutErrorState();

@@ -454,16 +454,21 @@ Future<bool> addUser(UserModel user) async {
     FirebaseFirestore.instance.runTransaction((transaction) async {
       DocumentSnapshot snapshot = await transaction.get(documentReference);
       if (snapshot.exists) {
+        print("data is here ${snapshot.exists}");
         UserModel? oldUser = UserModel.toModel(snapshot.data()!);
         user.categoryList = oldUser.categoryList;
+        user.categories = oldUser.categories;
         if (oldUser.categoryList!.isNotEmpty) {
-          await hSharedPreference.set(
-              HSharedPreference.LIST_OF_FAV_CATEGORY, oldUser.categoryList);
+          await hSharedPreference.set(HSharedPreference.LIST_OF_FAV_CATEGORY,
+              oldUser.categoryList!.cast<String>());
+          await hSharedPreference.set(HSharedPreference.LIST_OF_CATEGORY_ORDER,
+              oldUser.categories!.cast<String>());
         }
         // documentReference.set(UserModel.toMap(user));
         // //documentReference.set(UserModel.toMap(user));
         // return true;
       } else {
+        print("data is here ${snapshot.exists}");
         List list = await hSharedPreference
                 .get(HSharedPreference.LIST_OF_FAV_CATEGORY) ??
             [];
@@ -481,7 +486,12 @@ Future<bool> addUser(UserModel user) async {
 
 Future<bool> updateUser(String userId, List<String> list) async {
   try {
+    HSharedPreference hSharedPreference = GetHSPInstance.hSharedPreference;
+
     //var uid = FirebaseAuth.instance.currentUser.uid;
+    List<String> categories =
+        await hSharedPreference.get(HSharedPreference.LIST_OF_CATEGORY_ORDER) ??
+            [];
     var uid = userId;
     //var uid = "mixWxOCNn0eI84R1A8Fa";
     DocumentReference documentReference =
@@ -491,6 +501,7 @@ Future<bool> updateUser(String userId, List<String> list) async {
       DocumentSnapshot snapshot = await transaction.get(documentReference);
       UserModel userModel = UserModel.toModel(snapshot.data());
       userModel.categoryList = list;
+      userModel.categories = categories;
       if (snapshot.exists) {
         documentReference.set(UserModel.toMap(userModel));
         return true;

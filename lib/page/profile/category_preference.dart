@@ -29,6 +29,9 @@ class _CategoryPreferencePageState extends State<CategoryPreferencePage> {
     List<String> list =
         await hSharedPreference.get(HSharedPreference.LIST_OF_CATEGORY_ORDER) ??
             [];
+    List<String> categoryList =
+        await hSharedPreference.get(HSharedPreference.LIST_OF_FAV_CATEGORY) ??
+            [];
     List<Category> categories = global.localConfig.categories;
     List<Category> categoriesSorted = [];
 
@@ -39,7 +42,8 @@ class _CategoryPreferencePageState extends State<CategoryPreferencePage> {
         categoriesSorted.add(e);
       }
     }
-
+    BlocProvider.of<ButtonBloc>(context)
+        .add(ButtonSet(categoryList: categoryList));
     return Future.value(categoriesSorted);
   }
 
@@ -246,6 +250,7 @@ class _CategoryPreferencePageState extends State<CategoryPreferencePage> {
                                             .get(HSharedPreference
                                                 .LIST_OF_FAV_CATEGORY) ??
                                         [];
+
                                     if (list.isNotEmpty) {
                                       final result =
                                           await updateUser(uid, list);
