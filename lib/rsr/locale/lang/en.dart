@@ -186,6 +186,7 @@ class EN {
     LanguageKey.CATEGORY_PREFERENCES: "Category Preferences",
     LanguageKey.SELECT_UP_TO_5_CATEGORIES: "select up to 5 categories",
     LanguageKey.CONTINUE: "continue",
+
     LanguageKey.NO_USERNAME_RETRIEVED: "no username retrieved",
     LanguageKey.SEARCH_SHOP: "search company",
     LanguageKey.EMAIL_FORMAT_NOT_CORRECT: "email format not correct",
@@ -196,23 +197,19 @@ class EN {
     LanguageKey.JOB_NOTIFICATION: "job notification",
     LanguageKey.NEW: "new",
     LanguageKey.YOU_WILL_BE_NOTIFIED_FOR: "you will be notified for ",
-    LanguageKey.WELCOME_TO_NIBJOBS: "welcome to Nibjobs",
+    LanguageKey.WELCOME_TO_NIBJOBS: "welcome to NibJobs",
     LanguageKey.Q1: "What is NibJobs?",
-    LanguageKey.Q2: "How can I add my Company on NibJobs",
-    LanguageKey.Q3: "Why is the company I created not visible to others",
-    LanguageKey.Q4: "Why is the job i created not visible to others",
-    LanguageKey.Q5:
-        "What makes NibJobs different from others Job Listing companies",
-    LanguageKey.A1:
-        "NibJobs is an Ethiopian based job indexing company that strives to bring each user tailored job notifications",
-    LanguageKey.A2:
-        "Go to the side menu bar and click on “My company” to add your company, after that you can begin posting jobs for free",
-    LanguageKey.A3:
-        "In NibJobs everything passes a strict approval process that includes company information as well. So your company may be waiting approval at this moment",
-    LanguageKey.A4:
-        "In NibJobs everything passes a strict approval process that includes job listings. So the job you created may be waiting for approval",
-    LanguageKey.A5:
-        "NibJobs’ main aim is to notify users with custom tailored job listings and not bombarded the user with unwanted job offers",
+    LanguageKey.Q2: "What makes NibJobs different from others Job Listing companies?",
+    LanguageKey.Q3: "How can I remove the ads?",
+    LanguageKey.Q4: "How many job categories do NibJobs have?",
+    LanguageKey.Q5: "From how many source does NibJobs collect job posts?",
+
+    LanguageKey.A1: "NibJobs is an Ethiopian based job indexing company that strives to bring each user tailored job notifications",
+    LanguageKey.A2: "NibJobs’ main aim is to notify users with custom tailored job listings and not bombarded the user with unwanted job offers",
+    LanguageKey.A3: "We are working on a paid app with all the ads removed",
+    LanguageKey.A4: "NibJobs have over a dozen of categories and over a hundred subcategories",
+    LanguageKey.A5: "NibJobs currently collects from 13 job posting sources",
+
     LanguageKey.RATE_US: "Rate us",
     LanguageKey.PICK_A_THEME: "pick a theme",
     LanguageKey.YOU_CAN_ALWAYS_CHANGE_IT_IN_SETTINGS:
