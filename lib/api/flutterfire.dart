@@ -453,26 +453,25 @@ Future<bool> addUser(UserModel user) async {
     HSharedPreference hSharedPreference = GetHSPInstance.hSharedPreference;
     FirebaseFirestore.instance.runTransaction((transaction) async {
       DocumentSnapshot snapshot = await transaction.get(documentReference);
-      if (!snapshot.exists) {
+      if (snapshot.exists) {
         UserModel? oldUser = UserModel.toModel(snapshot.data()!);
         user.categoryList = oldUser.categoryList;
         if (oldUser.categoryList!.isNotEmpty) {
           await hSharedPreference.set(
               HSharedPreference.LIST_OF_FAV_CATEGORY, oldUser.categoryList);
-        } else {
-          List list = await hSharedPreference
-                  .get(HSharedPreference.LIST_OF_FAV_CATEGORY) ??
-              [];
-          if (list.isNotEmpty) {
-            user.categoryList = list;
-          }
-          documentReference.set(UserModel.toMap(user));
         }
-        //documentReference.set(UserModel.toMap(user));
-        return true;
+        // documentReference.set(UserModel.toMap(user));
+        // //documentReference.set(UserModel.toMap(user));
+        // return true;
       } else {
-        documentReference.set(UserModel.toMap(user));
+        List list = await hSharedPreference
+                .get(HSharedPreference.LIST_OF_FAV_CATEGORY) ??
+            [];
+        if (list.isNotEmpty) {
+          user.categoryList = list;
+        }
       }
+      documentReference.set(UserModel.toMap(user));
       return true;
     });
     return true;
