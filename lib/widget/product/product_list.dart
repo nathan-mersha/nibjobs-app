@@ -200,17 +200,6 @@ class _JobListState extends State<JobList> {
                                   .add(SearchViewEvent(searchInView: true));
                             },
                             onLoading: () {
-                              // List newJobs = await getJobs();
-                              // if (newJobs.isNotEmpty) {
-                              //   _jobs.addAll(newJobs);
-                              //   _initialJobsLoaded = true;
-                              //   if (mounted) setState(() {});
-                              //   _refresherControllerSearch.loadComplete();
-                              // } else if (newJobs.isEmpty) {
-                              //   _refresherControllerSearch.loadNoData();
-                              // } else {
-                              //   _refresherControllerSearch.loadFailed();
-                              // }
                               BlocProvider.of<SearchBloc>(context)
                                   .add(SearchViewEvent(searchInView: true));
                             },
@@ -223,30 +212,10 @@ class _JobListState extends State<JobList> {
                                     ? 2
                                     : 1,
                                 mainAxisSpacing: 10,
-                                // gridDelegate:
-                                //     SliverGridDelegateWithFixedCrossAxisCount(
-                                //         crossAxisCount: jobViewH(context) ==
-                                //                     .20 ||
-                                //                 jobViewH(context) == .37 ||
-                                //                 jobViewH(context) == .36
-                                //             ? 2
-                                //             : 1,
-                                //         mainAxisSpacing: 10,
-                                //         childAspectRatio:
-                                //             jobViewH(context) == .7
-                                //                 ? 7 / 4
-                                //                 : jobViewH(context) == .20
-                                //                     ? 7 / 3
-                                //                     : 7 / 3),
                                 itemCount: state.searchInData.length,
                                 staggeredTileBuilder: (index) =>
                                     StaggeredTile.fit(1),
                                 itemBuilder: (BuildContext context, int index) {
-                                  // return JobView(
-                                  //   Job.toModel(
-                                  //       state.searchInData[index]["document"]),
-                                  // );
-
                                   if (state.searchInData[index] is Map) {
                                     return AspectRatio(
                                       aspectRatio: jobViewH(context) == .7
@@ -282,6 +251,13 @@ class _JobListState extends State<JobList> {
                                   );
                                 }),
                           );
+                        } else if (state is SearchLoading) {
+                          return Center(
+                              child: Message(
+                            icon: CustomIcons.getHorizontalLoading(),
+                            message: StringRsr.get(LanguageKey.WAITING_FOR_DATA,
+                                firstCap: true),
+                          ));
                         } else if (state is SearchError) {
                           return Message(
                             message: "No data found",
@@ -296,7 +272,6 @@ class _JobListState extends State<JobList> {
                           builder: (context, state) {
                             if (state is SortInitial) {
                               sortUp = state.sortUp;
-
                               if (_jobs.isNotEmpty &&
                                   state.sortUpNow &&
                                   sortUp.toString() != sortUpLocal.toString()) {
@@ -310,7 +285,6 @@ class _JobListState extends State<JobList> {
                                       controller: _refresherController,
                                       enablePullUp: true,
                                       onRefresh: () async {
-                                        debugPrint("here must be ads");
                                         _refresherController.refreshCompleted();
                                         List? newJobs = await getJobs();
                                         if (newJobs.isNotEmpty) {
@@ -321,19 +295,15 @@ class _JobListState extends State<JobList> {
                                             for (var i = newJobs.length - 4;
                                                 i >= 1;
                                                 i -= 4) {
-                                              debugPrint("here must be ads 2");
-
                                               newJobs.insert(
                                                 i,
                                                 Job(title: "googleAdsKelem"),
                                               );
-                                              debugPrint("here must be ads 3");
                                             }
                                             _jobs.addAll(newJobs);
                                             await counterUpdater(_jobs);
                                           });
 
-                                          //       _jobs = sortFun(_jobs);
                                           _refresherController
                                               .refreshCompleted();
                                           _initialJobsLoaded = false;
@@ -407,32 +377,10 @@ class _JobListState extends State<JobList> {
                                                 ? 2
                                                 : 1,
                                             mainAxisSpacing: 10,
-                                            //hasNext: _jobs.length < 200,
-                                            // gridDelegate:
-                                            //     SliverGridDelegateWithFixedCrossAxisCount(
-                                            //         crossAxisCount: jobViewH(
-                                            //                         context) ==
-                                            //                     .20 ||
-                                            //                 jobViewH(
-                                            //                         context) ==
-                                            //                     .37 ||
-                                            //                 jobViewH(
-                                            //                         context) ==
-                                            //                     .36
-                                            //             ? 2
-                                            //             : 1,
-                                            //         mainAxisSpacing: 10,
-                                            //         childAspectRatio:
-                                            //             jobViewH(context) ==
-                                            //                     .7
-                                            //                 ? 7 / 4
-                                            //                 : jobViewH(
-                                            //                             context) ==
-                                            //                         .20
-                                            //                     ? 7 / 3
-                                            //                     : 7 / 3),
-                                            staggeredTileBuilder: (index) =>
-                                                StaggeredTile.fit(1),
+
+                                            staggeredTileBuilder: (index) {
+                                              return const StaggeredTile.fit(1);
+                                            },
                                             itemCount: _jobs != null
                                                 ? _jobs.length
                                                 : 0,
@@ -513,7 +461,6 @@ class _JobListState extends State<JobList> {
                                       if (newJobs.isNotEmpty) {
                                         _jobs.addAll(newJobs);
                                         _initialJobsLoaded = false;
-
                                         if (mounted) setState(() {});
                                         _refresherController.loadComplete();
                                       } else if (newJobs.isEmpty) {

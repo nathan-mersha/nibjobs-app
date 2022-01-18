@@ -739,6 +739,7 @@ Future<bool> signOut() async {
       //await FacebookAuth.instance.logOut();
       await FirebaseAuth.instance.signOut();
     } catch (e) {}
+
     return true;
   } catch (e) {}
   return false;
