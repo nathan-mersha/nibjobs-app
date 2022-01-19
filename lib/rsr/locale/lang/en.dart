@@ -174,9 +174,9 @@ class EN {
     LanguageKey.ALL: "all",
     LanguageKey.CREATE_SHOP: "create company",
 
-    LanguageKey.JOIN_OUR_COMMUNITY: "join our\ncommunity",
-    LanguageKey.CREATE_SHOP_ADD_TO_FAVORITES_AND_SELL_YOUR_JOBS:
-        "create company,add to favorites\nand sell your jobs",
+    LanguageKey.DONT_MISS_OUT_ON_CUSTOM_NOTIFICATIONS: "don't miss out on\ncustom notifications",
+    LanguageKey.YOU_WILL_NEED_TO_SIGNUP_TO_RECIEVE_CUSTOM_JOB_NOTIFICATIONS:
+        "you will need to signup to receive\ncustom job notifications",
     LanguageKey.YES_I_WILL_SIGNUP: "yes I will sign up",
     LanguageKey.CLAIM_YOUR_AIRTIME_GIFT: "claim your\nairtime gift",
     LanguageKey.SIGNUP_AND_CLAIM_YOUR_AIRTIME_GIFT:
@@ -214,5 +214,7 @@ class EN {
     LanguageKey.PICK_A_THEME: "pick a theme",
     LanguageKey.YOU_CAN_ALWAYS_CHANGE_IT_IN_SETTINGS:
         "you can always change it in settings",
+    LanguageKey.LIGHT_THEME : "light theme",
+    LanguageKey.DARK_THEME : "dark theme"
   };
 }
