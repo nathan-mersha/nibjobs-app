@@ -196,24 +196,6 @@ class _CategoryPreferencePageState extends State<CategoryPreferencePage> {
                                           ),
                                         )
                                       : ListView.builder(
-                                          // controller:
-                                          // _scrollController,
-                                          // shrinkWrap: false,
-                                          // gridDelegate:
-                                          //     SliverGridDelegateWithFixedCrossAxisCount(
-                                          //         crossAxisCount:
-                                          //             jobViewH(context) != .70
-                                          //                 ? 1
-                                          //                 : 1,
-                                          //         mainAxisSpacing: 5,
-                                          //         childAspectRatio: jobViewH(
-                                          //                     context) ==
-                                          //                 .7
-                                          //             ? 7 / 5
-                                          //             : jobViewH(context) ==
-                                          //                     .20
-                                          //                 ? 7 / 3
-                                          //                 : 7 / 3),
                                           itemCount: newCategories.length,
                                           itemBuilder: (BuildContext context,
                                               int index) {

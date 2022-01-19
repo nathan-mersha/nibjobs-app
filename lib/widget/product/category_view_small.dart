@@ -5,6 +5,7 @@ import 'package:nibjobs/bloc/button/button_bloc.dart';
 import 'package:nibjobs/db/k_shared_preference.dart';
 import 'package:nibjobs/global.dart' as global;
 import 'package:nibjobs/model/config/global.dart';
+import 'package:nibjobs/rsr/locale/string_rsr.dart';
 import 'package:nibjobs/rsr/theme/color.dart';
 
 class CategoryViewSmall extends StatefulWidget {
@@ -247,11 +248,20 @@ class ListForCategory extends StatefulWidget {
 class _ListForCategoryState extends State<ListForCategory> {
   bool isSelectedCategory = false;
   HSharedPreference hSharedPreference = HSharedPreference();
+  Map<String, dynamic>? amCategories;
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
-    // amCategories = global.localConfig.amCategory;
+    amCategories = global.localConfig.amCategory;
+    global.localConfig.addListener(() {
+      if (mounted) {
+        setState(() {
+          amCategories = global.localConfig.amCategory;
+        });
+      }
+    });
+
     seeInList();
   }
 
@@ -337,7 +347,11 @@ class _ListForCategoryState extends State<ListForCategory> {
       title: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Text(
-          widget.category!.name!,
+          // widget.category!.name!,
+          StringRsr.locale != "et_am"
+              ? widget.category!.name!.toString()
+              : amCategories!["am"][widget.category!.name!.toString()] ??
+                  widget.category!.name!.toString(),
           style: Theme.of(context).textTheme.subtitle1!.copyWith(
                 fontWeight: FontWeight.bold,
                 fontSize: 18,
