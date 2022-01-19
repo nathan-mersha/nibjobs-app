@@ -146,9 +146,9 @@ class ET_AM {
     LanguageKey.LATEST: "የቅርብ",
     LanguageKey.ALL: "ሁሉም",
     LanguageKey.CREATE_SHOP: "ሱቅ ይፍጠሩ",
-    LanguageKey.JOIN_OUR_COMMUNITY: "የእኛን ማህበረሰብ\nይቀላቀሉ",
-    LanguageKey.CREATE_SHOP_ADD_TO_FAVORITES_AND_SELL_YOUR_JOBS:
-        "ሱቅ ይፍጠሩ ፣ ወደ ተወዳጆች ያክሉ\nእና ምርቶችዎን ይሸጡ",
+    LanguageKey.DONT_MISS_OUT_ON_CUSTOM_NOTIFICATIONS: "የተመረቱ የስራ\nማስታወቂያ ኣያምልጦ",
+    LanguageKey.YOU_WILL_NEED_TO_SIGNUP_TO_RECIEVE_CUSTOM_JOB_NOTIFICATIONS:
+        "ከተመዘገቡ ለእርሶ የተመረቱ የስራ\nማስታወቂያ እንደወጡ ይደርሶታል",
     LanguageKey.YES_I_WILL_SIGNUP: "እሺ እመዘገባለሁ",
     LanguageKey.CLAIM_YOUR_AIRTIME_GIFT: "የአየር ሰዓት ስጦታዎን\nይውሰዱ",
     LanguageKey.SIGNUP_AND_CLAIM_YOUR_AIRTIME_GIFT:
@@ -186,5 +186,7 @@ class ET_AM {
     LanguageKey.PICK_A_THEME: "አይታ ይምረጡ",
     LanguageKey.YOU_CAN_ALWAYS_CHANGE_IT_IN_SETTINGS:
     "ሁልጊዜ በቅንብሮች ውስጥ መለወጥ ይችላሉ።",
+    LanguageKey.LIGHT_THEME : "ብሩህ አይታ",
+    LanguageKey.DARK_THEME : "ጨለማ አይታ"
   };
 }

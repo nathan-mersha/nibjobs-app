@@ -180,7 +180,9 @@ class _ThemePreferencePageState extends State<ThemePreferencePage> {
                                             width: 5,
                                           ),
                                           Text(
-                                            "Light theme",
+                                            StringRsr.get(
+                                                LanguageKey.LIGHT_THEME,
+                                                firstCap: true)!,
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .bodyText1,
@@ -234,7 +236,9 @@ class _ThemePreferencePageState extends State<ThemePreferencePage> {
                                             width: 5,
                                           ),
                                           Text(
-                                            "Dark theme",
+                                            StringRsr.get(
+                                                LanguageKey.DARK_THEME,
+                                                firstCap: true)!,
                                             style: Theme.of(context)
                                                 .textTheme
                                                 .bodyText1,

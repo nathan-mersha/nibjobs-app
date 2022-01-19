@@ -101,7 +101,7 @@ class _GiftPageState extends State<GiftPage> {
                                       children: [
                                         Text(
                                           StringRsr.get(
-                                              LanguageKey.JOIN_OUR_COMMUNITY)!,
+                                              LanguageKey.DONT_MISS_OUT_ON_CUSTOM_NOTIFICATIONS)!,
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline6!
@@ -115,7 +115,7 @@ class _GiftPageState extends State<GiftPage> {
                                         ),
                                         Text(
                                           StringRsr.get(LanguageKey
-                                              .CREATE_SHOP_ADD_TO_FAVORITES_AND_SELL_YOUR_JOBS)!,
+                                              .YOU_WILL_NEED_TO_SIGNUP_TO_RECIEVE_CUSTOM_JOB_NOTIFICATIONS)!,
                                           style: Theme.of(context)
                                               .textTheme
                                               .subtitle2!
@@ -234,7 +234,7 @@ class _GiftPageState extends State<GiftPage> {
                                       children: [
                                         Text(
                                           StringRsr.get(
-                                              LanguageKey.JOIN_OUR_COMMUNITY)!,
+                                              LanguageKey.DONT_MISS_OUT_ON_CUSTOM_NOTIFICATIONS)!,
                                           style: Theme.of(context)
                                               .textTheme
                                               .headline5!
@@ -248,7 +248,7 @@ class _GiftPageState extends State<GiftPage> {
                                         ),
                                         Text(
                                           StringRsr.get(LanguageKey
-                                              .CREATE_SHOP_ADD_TO_FAVORITES_AND_SELL_YOUR_JOBS)!,
+                                              .YOU_WILL_NEED_TO_SIGNUP_TO_RECIEVE_CUSTOM_JOB_NOTIFICATIONS)!,
                                           style: Theme.of(context)
                                               .textTheme
                                               .subtitle2!
