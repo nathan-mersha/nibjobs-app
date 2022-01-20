@@ -26,8 +26,34 @@ class HLocalNotification {
               isDefaultAction: true,
               child: Text('Ok'),
               onPressed: () async {
-                Navigator.of(context, rootNavigator: true).pop();
-                await Navigator.of(context).pushNamed(RouteTo.NOTIFICATION);
+                Map valueMap = json.decode(payload!);
+
+                if (valueMap != null) {
+                  final routerFromMessage = valueMap["notificationTag"];
+                  debugPrint("message.data $valueMap");
+                  if (routerFromMessage == "gift") {
+                    Navigator.of(context, rootNavigator: true).pop();
+                    makeWebCall("tel:*805*${valueMap["code"]}#");
+                  } else if (title.toLowerCase() != "job notification") {
+                    print("title.toLowerCase()l ${title.toLowerCase()}");
+                    Navigator.of(context, rootNavigator: true).pop();
+                    await Navigator.of(context).pushNamed(RouteTo.NOTIFICATION);
+                  } else if (title.toLowerCase() == "job notification") {
+                    Navigator.of(context, rootNavigator: true).pop();
+                    await Navigator.of(context)
+                        .pushReplacementNamed(RouteTo.HOME);
+                  }
+                } else {
+                  if (title.toLowerCase() != "job notification") {
+                    print("title.toLowerCase() ${title.toLowerCase()}");
+                    Navigator.of(context, rootNavigator: true).pop();
+                    await Navigator.of(context).pushNamed(RouteTo.NOTIFICATION);
+                  } else if (title.toLowerCase() == "job notification") {
+                    Navigator.of(context, rootNavigator: true).pop();
+                    await Navigator.of(context)
+                        .pushReplacementNamed(RouteTo.HOME);
+                  }
+                }
               },
             )
           ],
@@ -38,7 +64,12 @@ class HLocalNotification {
     flutterLocalNotificationsPlugin.initialize(initSettings,
         onSelectNotification: (String? message) async {
       final routerFromMessage = message!;
-      Navigator.of(context).pushNamed(RouteTo.NOTIFICATION);
+      print("routerFromMessage $message");
+      if (message.toLowerCase() == "job notification") {
+        Navigator.of(context).pushReplacementNamed(RouteTo.HOME);
+      } else if (message.toLowerCase() != "job notification") {
+        Navigator.of(context).pushNamed(RouteTo.NOTIFICATION);
+      }
     });
   }
 
@@ -64,13 +95,25 @@ class HLocalNotification {
                 if (routerFromMessage == "gift") {
                   Navigator.of(context, rootNavigator: true).pop();
                   makeWebCall("tel:*805*${valueMap["code"]}#");
-                } else {
+                } else if (title.toLowerCase() != "job notification") {
+                  print("title.toLowerCase()l ${title.toLowerCase()}");
                   Navigator.of(context, rootNavigator: true).pop();
                   await Navigator.of(context).pushNamed(RouteTo.NOTIFICATION);
+                } else if (title.toLowerCase() == "job notification") {
+                  Navigator.of(context, rootNavigator: true).pop();
+                  await Navigator.of(context)
+                      .pushReplacementNamed(RouteTo.HOME);
                 }
               } else {
-                Navigator.of(context, rootNavigator: true).pop();
-                await Navigator.of(context).pushNamed(RouteTo.NOTIFICATION);
+                if (title.toLowerCase() != "job notification") {
+                  print("title.toLowerCase() ${title.toLowerCase()}");
+                  Navigator.of(context, rootNavigator: true).pop();
+                  await Navigator.of(context).pushNamed(RouteTo.NOTIFICATION);
+                } else if (title.toLowerCase() == "job notification") {
+                  Navigator.of(context, rootNavigator: true).pop();
+                  await Navigator.of(context)
+                      .pushReplacementNamed(RouteTo.HOME);
+                }
               }
             },
           )
@@ -91,7 +134,7 @@ class HLocalNotification {
           message.notification!.title,
           message.notification!.body,
           platform,
-          payload: message.data.toString());
+          payload: message.notification!.title.toString());
     } on Exception catch (e) {}
   }
 

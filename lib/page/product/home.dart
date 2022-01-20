@@ -62,23 +62,7 @@ class _HomePageState extends State<HomePage> {
     HLocalNotification.initialize(context);
 
     FirebaseMessaging.instance.getInitialMessage().then((message) {
-      // if (message != null) {
-      //   //debugPrint(message.notification.body);
-      //   //debugPrint(message.notification.title);
-      //   final routerFromMessage = message.data["route"];
-      //   NotificationModel notificationModel = NotificationModel(
-      //     id: message.messageId,
-      //     notificationServiceName: message.notification!.title,
-      //     notificationServiceMessage: message.notification!.body,
-      //     notificationServiceAmount: "0",
-      //     notificationType: message.notification!.title,
-      //     notificationServiceDate: DateTime.now().toString(),
-      //     notificationServicePaymentMethodName: "wallet",
-      //   );
-      //
-      //   NotificationDAL.create(notificationModel);
-      //   //debugPrint(routerFromMessage);
-      // }
+      print("this is getInitialMessage");
       notificationFunctionSave(message);
       notificationRoute(message);
     });
@@ -90,6 +74,7 @@ class _HomePageState extends State<HomePage> {
     });
 
     FirebaseMessaging.onMessageOpenedApp.listen((message) {
+      print("this is onMessageOpenedApp");
       notificationRoute(message);
     });
   }
@@ -104,10 +89,16 @@ class _HomePageState extends State<HomePage> {
         } else if (message.notification!.title!.toLowerCase() !=
             "job notification") {
           Navigator.of(context).pushNamed(RouteTo.NOTIFICATION);
+        } else if (message.notification!.title!.toLowerCase() !=
+            "job notification") {
+          Navigator.of(context).pushReplacementNamed(RouteTo.HOME);
         }
       } else {
         if (message.notification!.title!.toLowerCase() != "job notification") {
           Navigator.of(context).pushNamed(RouteTo.NOTIFICATION);
+        } else if (message.notification!.title!.toLowerCase() !=
+            "job notification") {
+          Navigator.of(context).pushReplacementNamed(RouteTo.HOME);
         }
       }
     }
