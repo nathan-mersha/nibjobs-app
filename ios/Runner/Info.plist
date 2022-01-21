@@ -32,7 +32,7 @@
 	<array>
 		<dict>
 			<key>CFBundleURLName</key>
-			<string>kelemDeepLink</string>
+			<string>nibjobsDeepLink</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>com.kelem.nibjobs</string>
@@ -45,12 +45,10 @@
 			<string></string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>com.googleusercontent.apps.656104812451-d7ot7dbfrj6d022msav1t375gnl3ekps</string>
+				<string>com.googleusercontent.apps.183365513568-8d9rkj86p0j55qopji6j9nmkll97iuu9</string>
 			</array>
 		</dict>
 	</array>
-	<key>LSRequiresIPhoneOS</key>
-	<true/>
 	<key>NSCameraUsageDescription</key>
 	<string>This app requires access to the camera. so that you can take photo of shop logo or product.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
