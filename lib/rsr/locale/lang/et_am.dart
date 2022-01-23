@@ -183,10 +183,10 @@ class ET_AM {
     LanguageKey.A5: "ንብ ሥራዎች በአሁኑ ጊዜ ከ13 የስራ ምንጮች ይሰበስባል",
 
     LanguageKey.RATE_US: "ደረጃ ይስጡን።",
-    LanguageKey.PICK_A_THEME: "አይታ ይምረጡ",
+    LanguageKey.PICK_A_THEME: "እይታ ይምረጡ",
     LanguageKey.YOU_CAN_ALWAYS_CHANGE_IT_IN_SETTINGS:
     "ሁልጊዜ በቅንብሮች ውስጥ መለወጥ ይችላሉ።",
-    LanguageKey.LIGHT_THEME : "ብሩህ አይታ",
-    LanguageKey.DARK_THEME : "ጨለማ አይታ"
+    LanguageKey.LIGHT_THEME : "ብሩህ እይታ",
+    LanguageKey.DARK_THEME : "ጨለማ እይታ"
   };
 }
