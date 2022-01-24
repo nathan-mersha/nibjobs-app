@@ -227,36 +227,42 @@ class _JobViewState extends State<JobView> {
 
   void _showRewardedAd() {
     if (widget.rewardedAd == null) {
-      //Navigator.pushNamed(context, RouteTo.JOB_DETAIL, arguments: widget._job);
+      Navigator.pushNamed(context, RouteTo.JOB_DETAIL, arguments: widget._job);
       print('Warning: attempt to show rewarded before loaded.');
       return;
     }
-    widget.rewardedAd!.fullScreenContentCallback = FullScreenContentCallback(
-      onAdShowedFullScreenContent: (RewardedAd ad) =>
-          print('ad onAdShowedFullScreenContent.'),
-      onAdDismissedFullScreenContent: (RewardedAd ad) {
-        print('$ad onAdDismissedFullScreenContent.');
-        ad.dispose();
-        widget.onADs!();
-        // Navigator.pushNamed(context, RouteTo.JOB_DETAIL,
-        //     arguments: widget._job);
-      },
-      onAdFailedToShowFullScreenContent: (RewardedAd ad, AdError error) {
-        print('$ad onAdFailedToShowFullScreenContent: $error');
-        ad.dispose();
-        widget.onADs!();
+    try {
+      widget.rewardedAd!.fullScreenContentCallback = FullScreenContentCallback(
+        onAdShowedFullScreenContent: (RewardedAd ad) =>
+            print('ad onAdShowedFullScreenContent.'),
+        onAdDismissedFullScreenContent: (RewardedAd ad) {
+          print('$ad onAdDismissedFullScreenContent.');
+          ad.dispose();
+          widget.onADs!();
+          // Navigator.pushNamed(context, RouteTo.JOB_DETAIL,
+          //     arguments: widget._job);
+        },
+        onAdFailedToShowFullScreenContent: (RewardedAd ad, AdError error) {
+          print('$ad onAdFailedToShowFullScreenContent: $error');
+          ad.dispose();
+          widget.onADs!();
+          Navigator.pushNamed(context, RouteTo.JOB_DETAIL,
+              arguments: widget._job);
+        },
+      );
+
+      widget.rewardedAd!.setImmersiveMode(true);
+      widget.rewardedAd!.show(
+          onUserEarnedReward: (RewardedAd ad, RewardItem reward) {
+        print('$ad with reward $RewardItem(${reward.amount}, ${reward.type}');
         Navigator.pushNamed(context, RouteTo.JOB_DETAIL,
             arguments: widget._job);
-      },
-    );
-
-    widget.rewardedAd!.setImmersiveMode(true);
-    widget.rewardedAd!.show(
-        onUserEarnedReward: (RewardedAd ad, RewardItem reward) {
-      print('$ad with reward $RewardItem(${reward.amount}, ${reward.type}');
+      });
+      widget.rewardedAd = null;
+    } on Exception catch (e) {
+      // TODO
       Navigator.pushNamed(context, RouteTo.JOB_DETAIL, arguments: widget._job);
-    });
-    widget.rewardedAd = null;
+    }
   }
 
   @override
@@ -357,6 +363,7 @@ class _JobViewState extends State<JobView> {
                   // BlocProvider.of<DownBloc>(context).add(
                   //     DownSelectedEvent(job: widget._job, context: context));
                   _showRewardedAd();
+
                   if (state is UserSignedInState) {
                     if (!isSelected) {
                       setState(() {
