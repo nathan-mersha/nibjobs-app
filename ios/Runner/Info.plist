@@ -4,6 +4,8 @@
 <dict>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>$(DEVELOPMENT_LANGUAGE)</string>
+	<key>CFBundleDisplayName</key>
+	<string>Nibjobs</string>
 	<key>CFBundleExecutable</key>
 	<string>$(EXECUTABLE_NAME)</string>
 	<key>CFBundleIdentifier</key>
@@ -22,11 +24,16 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-	<key>LSApplicationQueriesSchemes</key>
+	<key>NSCameraUsageDescription</key>
+	<string>This app requires access to the camera. so that you can take photo of  logo.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>This app requires access to the photo library.so that you can choose photo of shop logo or product.</string>
+	<key>SKAdNetworkItems</key>
 	<array>
-		<string>tel</string>
-		<string>http</string>
-		<string>https</string>
+		<dict>
+			<key>SKAdNetworkIdentifier</key>
+			<string>cstr6suwn9.skadnetwork</string>
+		</dict>
 	</array>
 	<key>CFBundleURLTypes</key>
 	<array>
@@ -39,20 +46,22 @@
 			</array>
 		</dict>
 		<dict>
-			<key>CFBundleTypeRole</key>
-			<string>Editor</string>
 			<key>CFBundleURLName</key>
 			<string></string>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
 				<string>com.googleusercontent.apps.183365513568-8d9rkj86p0j55qopji6j9nmkll97iuu9</string>
 			</array>
 		</dict>
 	</array>
-	<key>NSCameraUsageDescription</key>
-	<string>This app requires access to the camera. so that you can take photo of shop logo or product.</string>
-	<key>NSPhotoLibraryUsageDescription</key>
-	<string>This app requires access to the photo library.so that you can choose photo of shop logo or product.</string>
+	<key>LSApplicationQueriesSchemes</key>
+	<array>
+		<string>tel</string>
+		<string>http</string>
+		<string>https</string>
+	</array>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>fetch</string>
@@ -76,6 +85,8 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false/>
+	<true/>
+	<key>GADApplicationIdentifier</key>
+	<string>ca-app-pub-7439240901787604~3292547674</string>
 </dict>
 </plist>

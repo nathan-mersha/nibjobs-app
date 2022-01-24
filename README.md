@@ -1,4 +1,4 @@
-# nibjobs
+cd# nibjobs
 
 Ethiopian job finder
 

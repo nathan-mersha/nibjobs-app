@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
    LastUpgradeVersion = "1300"
-   version = "1.8">
+   version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES">
@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "97C146ED1CF9000F007C117D"
-               BuildableName = "Runner"
+               BuildableName = "Runner.app"
                BlueprintName = "Runner"
                ReferencedContainer = "container:Runner.xcodeproj">
             </BuildableReference>
@@ -31,7 +31,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "97C146ED1CF9000F007C117D"
-            BuildableName = "Runner"
+            BuildableName = "Runner.app"
             BlueprintName = "Runner"
             ReferencedContainer = "container:Runner.xcodeproj">
          </BuildableReference>
@@ -49,16 +49,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <BuildableJobRunnable
-         runnableDebuggingMode = "runnableDebuggingMode">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
-            BuildableIdentifier = "BuildableIdentifier"
-            BlueprintIdentifier = "BlueprintIdentifier"
-            BuildableName = "BuildableName"
-            BlueprintName = "BlueprintName"
-            ReferencedContainer = "ReferencedContainer">
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "97C146ED1CF9000F007C117D"
+            BuildableName = "Runner.app"
+            BlueprintName = "Runner"
+            ReferencedContainer = "container:Runner.xcodeproj">
          </BuildableReference>
-      </BuildableJobRunnable>
+      </BuildableProductRunnable>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Profile"
@@ -66,16 +66,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <BuildableJobRunnable
-         runnableDebuggingMode = "runnableDebuggingMode">
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
-            BuildableIdentifier = "BuildableIdentifier"
-            BlueprintIdentifier = "BlueprintIdentifier"
-            BuildableName = "BuildableName"
-            BlueprintName = "BlueprintName"
-            ReferencedContainer = "ReferencedContainer">
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "97C146ED1CF9000F007C117D"
+            BuildableName = "Runner.app"
+            BlueprintName = "Runner"
+            ReferencedContainer = "container:Runner.xcodeproj">
          </BuildableReference>
-      </BuildableJobRunnable>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
