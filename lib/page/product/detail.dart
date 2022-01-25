@@ -643,8 +643,10 @@ class _JobDetailPageState extends State<JobDetailPage> {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               RichText(
-                maxLines: 1,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
                 text: TextSpan(
+                  style: DefaultTextStyle.of(context).style,
                   children: [
                     TextSpan(
                       text: 'by ',
@@ -674,7 +676,6 @@ class _JobDetailPageState extends State<JobDetailPage> {
                     ),
                   ],
                 ),
-                overflow: TextOverflow.clip,
               ),
               // Row(
               //   children: [
