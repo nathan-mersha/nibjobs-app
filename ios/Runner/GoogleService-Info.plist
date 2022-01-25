@@ -3,9 +3,9 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>183365513568-8d9rkj86p0j55qopji6j9nmkll97iuu9.apps.googleusercontent.com</string>
+	<string>183365513568-lptikbmn6fajamsa2tdmij367cguvbl4.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.183365513568-8d9rkj86p0j55qopji6j9nmkll97iuu9</string>
+	<string>com.googleusercontent.apps.183365513568-lptikbmn6fajamsa2tdmij367cguvbl4</string>
 	<key>ANDROID_CLIENT_ID</key>
 	<string>183365513568-1ppf4evmrjik7hs6tgq3p8o076fgetmi.apps.googleusercontent.com</string>
 	<key>API_KEY</key>
@@ -15,7 +15,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>como.kelem.nibjobs</string>
+	<string>com.kelem.nibjobs</string>
 	<key>PROJECT_ID</key>
 	<string>nib-job-finder</string>
 	<key>STORAGE_BUCKET</key>
@@ -31,6 +31,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:183365513568:ios:4636dc4cc266cb8ea0ae05</string>
+	<string>1:183365513568:ios:0b139789a326ce14a0ae05</string>
 </dict>
 </plist>
