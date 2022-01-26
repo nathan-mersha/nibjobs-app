@@ -33,7 +33,7 @@ class CategoryViewSmall extends StatefulWidget {
                 height: 40,
               );
             },
-            placeholderFadeInDuration: Duration(seconds: 1),
+            placeholderFadeInDuration: const Duration(seconds: 1),
             placeholder: (BuildContext context, String imageURL) {
               return Container();
             },
@@ -82,17 +82,19 @@ class CategoryViewSmallState extends State<CategoryViewSmall> {
     List<String> proOrderList =
         await hSharedPreference.get(HSharedPreference.LIST_OF_CATEGORY_ORDER) ??
             [];
-    proFavList.add(widget._job);
-    if (!proOrderList.contains(widget.category!.name!)) {
-      proOrderList.add(widget.category!.name!);
+    if (proFavList.length < 10) {
+      proFavList.add(widget._job);
+      if (!proOrderList.contains(widget.category!.name!)) {
+        proOrderList.add(widget.category!.name!);
+        await hSharedPreference.set(
+            HSharedPreference.LIST_OF_CATEGORY_ORDER, proOrderList);
+      }
       await hSharedPreference.set(
-          HSharedPreference.LIST_OF_CATEGORY_ORDER, proOrderList);
-    }
-    await hSharedPreference.set(
-        HSharedPreference.LIST_OF_FAV_CATEGORY, proFavList);
+          HSharedPreference.LIST_OF_FAV_CATEGORY, proFavList);
 
-    BlocProvider.of<ButtonBloc>(context)
-        .add(ButtonSet(categoryList: proFavList));
+      BlocProvider.of<ButtonBloc>(context)
+          .add(ButtonSet(categoryList: proFavList));
+    }
   }
 
   Future<void> removeInList() async {
@@ -331,19 +333,19 @@ class _ListForCategoryState extends State<ListForCategory> {
   Widget build(BuildContext context) {
     return ExpansionTile(
       backgroundColor: Theme.of(context).backgroundColor,
-      leading: Checkbox(
-        value: isSelectedCategory,
-        onChanged: (bool? value) {
-          setState(() {
-            isSelectedCategory = value!;
-            if (isSelectedCategory) {
-              addToList();
-            } else {
-              removeInList();
-            }
-          });
-        },
-      ),
+      // leading: Checkbox(
+      //   value: isSelectedCategory,
+      //   onChanged: (bool? value) {
+      //     setState(() {
+      //       isSelectedCategory = value!;
+      //       if (isSelectedCategory) {
+      //         addToList();
+      //       } else {
+      //         removeInList();
+      //       }
+      //     });
+      //   },
+      // ),
       title: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Text(
