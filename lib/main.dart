@@ -108,7 +108,7 @@ class MyAppState extends State<MyApp> with WidgetsBindingObserver {
   }
 
   void timeSetter() async {
-    Timer.periodic(const Duration(minutes: 2, seconds: 1), (timer) {
+    Timer.periodic(const Duration(minutes: 5, seconds: 1), (timer) {
       //code to run on every 30 minutes 1 seconds
       hSharedPreference.set(HSharedPreference.KEY_USER_LAST_SEEN,
           DateTime.now().toIso8601String());
@@ -118,7 +118,7 @@ class MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     CreateAllDAL.createDatabase();
-    timeSetter();
+    //timeSetter();
     routes = RouteTo().routes;
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);

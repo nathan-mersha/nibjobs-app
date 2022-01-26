@@ -270,7 +270,7 @@ class _JobViewState extends State<JobView> {
     // TODO: implement initState
     super.initState();
     seeInList();
-    setterAllData();
+    //setterAllData();
   }
 
   Future<void> setterAllData() async {
