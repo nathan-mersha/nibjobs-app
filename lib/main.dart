@@ -118,7 +118,7 @@ class MyAppState extends State<MyApp> with WidgetsBindingObserver {
   @override
   Widget build(BuildContext context) {
     CreateAllDAL.createDatabase();
-    //timeSetter();
+    timeSetter();
     routes = RouteTo().routes;
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);

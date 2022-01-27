@@ -5,6 +5,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:flutter_staggered_grid_view/flutter_staggered_grid_view.dart';
 import 'package:google_mobile_ads/google_mobile_ads.dart';
+import 'package:keframe/frame_separate_widget.dart';
+import 'package:keframe/size_cache_widget.dart';
 import 'package:nibjobs/api/flutterfire.dart';
 import 'package:nibjobs/bloc/ads/ad_helper.dart';
 import 'package:nibjobs/bloc/ads/adses_cubit.dart';
@@ -62,7 +64,7 @@ class _JobListState extends State<JobList> {
   bool _initialJobsLoaded = false;
   DocumentSnapshot? _lastDocumentSnapShot;
   List _jobs = [];
-  ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
   String? _subCategory;
   Category? _category;
   Company? companyOne;
@@ -82,7 +84,7 @@ class _JobListState extends State<JobList> {
   bool bookNotFound = false;
   RewardedAd? _rewardedAd;
   int _numRewardedLoadAttempts = 0;
-  static final AdRequest request = AdRequest(
+  static const AdRequest request = AdRequest(
     keywords: <String>['foo', 'bar'],
     contentUrl: 'http://foo.com/bar.html',
     nonPersonalizedAds: true,
@@ -95,22 +97,22 @@ class _JobListState extends State<JobList> {
     _subCategory = widget._subCategory;
     search = widget._searchData;
 
-    _scrollController.addListener(() {
-      // Reached at 70% of bottom
-      num currentPosition = _scrollController.position.pixels;
-      num maxScrollExtent = _scrollController.position.maxScrollExtent * 0.9;
-      if (currentPosition == maxScrollExtent) {
-        // setState(() {
-        //   _loading = true;
-        // });
-
-        // Retrieving next jobs and adding to existing list.
-        getJobs();
-        // setState(() {
-        //   _loading = false;
-        // });
-      }
-    });
+    // _scrollController.addListener(() {
+    //   // Reached at 70% of bottom
+    //   num currentPosition = _scrollController.position.pixels;
+    //   num maxScrollExtent = _scrollController.position.maxScrollExtent * 0.9;
+    //   if (currentPosition == maxScrollExtent) {
+    //     // setState(() {
+    //     //   _loading = true;
+    //     // });
+    //
+    //     // Retrieving next jobs and adding to existing list.
+    //     getJobs();
+    //     // setState(() {
+    //     //   _loading = false;
+    //     // });
+    //   }
+    // });
 
     // listening on global config.
     // global.localConfig.addListener(() {
@@ -367,61 +369,82 @@ class _JobListState extends State<JobList> {
                                             ),
                                           );
                                         } else if (_jobs.isNotEmpty) {
-                                          return StaggeredGridView.countBuilder(
-                                            controller: _scrollController,
-                                            shrinkWrap: true,
-                                            crossAxisCount: jobViewH(context) ==
-                                                        .20 ||
-                                                    jobViewH(context) == .37 ||
-                                                    jobViewH(context) == .36
-                                                ? 2
-                                                : 1,
-                                            mainAxisSpacing: 10,
+                                          return SizeCacheWidget(
+                                            child:
+                                                StaggeredGridView.countBuilder(
+                                              controller: _scrollController,
+                                              shrinkWrap: true,
+                                              crossAxisCount:
+                                                  jobViewH(context) == .20 ||
+                                                          jobViewH(context) ==
+                                                              .37 ||
+                                                          jobViewH(context) ==
+                                                              .36
+                                                      ? 2
+                                                      : 1,
+                                              mainAxisSpacing: 10,
 
-                                            staggeredTileBuilder: (index) {
-                                              return const StaggeredTile.fit(1);
-                                            },
-                                            itemCount: _jobs != null
-                                                ? _jobs.length
-                                                : 0,
-                                            itemBuilder: (BuildContext context,
-                                                int index) {
-                                              if (_jobs[index].title !=
-                                                  "googleAdsKelem") {
-                                                return AspectRatio(
-                                                  aspectRatio:
-                                                      jobViewH(context) == .7
+                                              staggeredTileBuilder: (index) {
+                                                return const StaggeredTile.fit(
+                                                    1);
+                                              },
+                                              itemCount: _jobs != null
+                                                  ? _jobs.length
+                                                  : 0,
+                                              itemBuilder:
+                                                  (BuildContext context,
+                                                      int index) {
+                                                if (_jobs[index].title !=
+                                                    "googleAdsKelem") {
+                                                  return FrameSeparateWidget(
+                                                    index: index,
+                                                    placeHolder: Container(),
+                                                    child: AspectRatio(
+                                                      aspectRatio: jobViewH(
+                                                                  context) ==
+                                                              .7
                                                           ? 7 / 4
                                                           : jobViewH(context) ==
                                                                   .20
                                                               ? 7 / 3
                                                               : 7 / 3,
-                                                  child: JobView(_jobs[index],
-                                                      fav: widget.fromWhere ??
-                                                          "",
-                                                      rewardedAd: _rewardedAd,
-                                                      onADs: _createRewardedAd),
-                                                );
-                                              }
+                                                      child: JobView(
+                                                          _jobs[index],
+                                                          fav:
+                                                              widget.fromWhere ??
+                                                                  "",
+                                                          rewardedAd:
+                                                              _rewardedAd,
+                                                          onADs:
+                                                              _createRewardedAd),
+                                                    ),
+                                                  );
+                                                }
 
-                                              return SizedBox(
-                                                height: 50,
-                                                child: AdWidget(
-                                                  ad: BannerAd(
-                                                      size: AdSize.banner,
-                                                      adUnitId: state.adState
-                                                          .bannerAdUnitId,
-                                                      listener: state
-                                                          .adState.listener,
-                                                      request:
-                                                          const AdRequest())
-                                                    ..load(),
-                                                ),
-                                              );
-                                            },
-                                            // nextData: this
-                                            //     ._refresherController
-                                            //     .requestLoading,
+                                                return FrameSeparateWidget(
+                                                  index: index,
+                                                  placeHolder: Container(),
+                                                  child: SizedBox(
+                                                    height: 50,
+                                                    child: AdWidget(
+                                                      ad: BannerAd(
+                                                          size: AdSize.banner,
+                                                          adUnitId: state
+                                                              .adState
+                                                              .bannerAdUnitId,
+                                                          listener: state
+                                                              .adState.listener,
+                                                          request:
+                                                              const AdRequest())
+                                                        ..load(),
+                                                    ),
+                                                  ),
+                                                );
+                                              },
+                                              // nextData: this
+                                              //     ._refresherController
+                                              //     .requestLoading,
+                                            ),
                                           );
                                         } else {
                                           return buildGridViewLoading(context);
@@ -483,41 +506,50 @@ class _JobListState extends State<JobList> {
                                           ),
                                         );
                                       } else if (_jobs.isNotEmpty) {
-                                        return GridView.builder(
-                                          controller: _scrollController,
-                                          shrinkWrap: true,
-                                          //hasNext: _jobs.length < 200,
-                                          gridDelegate:
-                                              SliverGridDelegateWithFixedCrossAxisCount(
-                                                  crossAxisCount: jobViewH(
-                                                                  context) ==
-                                                              .20 ||
-                                                          jobViewH(context) ==
-                                                              .37 ||
-                                                          jobViewH(context) ==
-                                                              .36
-                                                      ? 2
-                                                      : 1,
-                                                  mainAxisSpacing: 10,
-                                                  childAspectRatio:
-                                                      jobViewH(context) == .7
-                                                          ? 7 / 4
-                                                          : jobViewH(context) ==
-                                                                  .20
-                                                              ? 7 / 3
-                                                              : 7 / 3),
-                                          itemCount:
-                                              _jobs != null ? _jobs.length : 0,
-                                          itemBuilder: (BuildContext context,
-                                              int index) {
-                                            return JobView(_jobs[index],
-                                                fav: widget.fromWhere!,
-                                                rewardedAd: _rewardedAd,
-                                                onADs: _createRewardedAd);
-                                          },
-                                          // nextData: this
-                                          //     ._refresherController
-                                          //     .requestLoading,
+                                        return SizeCacheWidget(
+                                          child: GridView.builder(
+                                            cacheExtent: 500,
+                                            controller: _scrollController,
+                                            shrinkWrap: true,
+                                            //hasNext: _jobs.length < 200,
+                                            gridDelegate:
+                                                SliverGridDelegateWithFixedCrossAxisCount(
+                                                    crossAxisCount: jobViewH(
+                                                                    context) ==
+                                                                .20 ||
+                                                            jobViewH(context) ==
+                                                                .37 ||
+                                                            jobViewH(context) ==
+                                                                .36
+                                                        ? 2
+                                                        : 1,
+                                                    mainAxisSpacing: 10,
+                                                    childAspectRatio: jobViewH(
+                                                                context) ==
+                                                            .7
+                                                        ? 7 / 4
+                                                        : jobViewH(context) ==
+                                                                .20
+                                                            ? 7 / 3
+                                                            : 7 / 3),
+                                            itemCount: _jobs != null
+                                                ? _jobs.length
+                                                : 0,
+                                            itemBuilder: (BuildContext context,
+                                                int index) {
+                                              return FrameSeparateWidget(
+                                                index: index,
+                                                placeHolder: Container(),
+                                                child: JobView(_jobs[index],
+                                                    fav: widget.fromWhere!,
+                                                    rewardedAd: _rewardedAd,
+                                                    onADs: _createRewardedAd),
+                                              );
+                                            },
+                                            // nextData: this
+                                            //     ._refresherController
+                                            //     .requestLoading,
+                                          ),
                                         );
                                       } else {
                                         return buildGridViewLoading(context);

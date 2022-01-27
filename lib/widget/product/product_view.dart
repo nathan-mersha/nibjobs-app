@@ -9,11 +9,10 @@ import 'package:nibjobs/bloc/user/user_bloc.dart';
 import 'package:nibjobs/db/k_shared_preference.dart';
 import 'package:nibjobs/model/commerce/job.dart';
 import 'package:nibjobs/route/route.dart';
-import 'package:nibjobs/rsr/locale/lang/language_key.dart';
-import 'package:nibjobs/rsr/locale/string_rsr.dart';
 import 'package:nibjobs/rsr/theme/color.dart';
 import 'package:nibjobs/themes/light_color.dart';
 import 'package:nibjobs/themes/theme.dart';
+import 'package:nibjobs/widget/product/product_is_new.dart';
 import 'package:timeago/timeago.dart' as timeago;
 import 'package:url_launcher/url_launcher.dart';
 
@@ -270,7 +269,7 @@ class _JobViewState extends State<JobView> {
     // TODO: implement initState
     super.initState();
     seeInList();
-    //setterAllData();
+    setterAllData();
   }
 
   Future<void> setterAllData() async {
@@ -306,13 +305,13 @@ class _JobViewState extends State<JobView> {
         setState(() {
           isSelected = true;
         });
-        print("isSelected $isSelected");
-      } else {
-        setState(() {
-          isSelected = false;
-        });
-        print("isSelected $isSelected");
       }
+      //else {
+      //   setState(() {
+      //     isSelected = false;
+      //   });
+      //
+      // }
     } else {
       setState(() {
         isSelected = true;
@@ -555,35 +554,9 @@ class _JobViewState extends State<JobView> {
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     getPricingView(context, widget._job!),
-                                    BlocBuilder<NotificationBloc,
-                                        NotificationState>(
-                                      builder: (context, state) {
-                                        return Visibility(
-                                          visible: isNew,
-                                          child: Container(
-                                            padding: const EdgeInsets.only(
-                                                left: 8,
-                                                right: 8,
-                                                top: 3,
-                                                bottom: 3),
-                                            decoration: BoxDecoration(
-                                                color: CustomColor.PRIM_GREEN,
-                                                borderRadius:
-                                                    BorderRadius.circular(10)),
-                                            child: Text(
-                                              StringRsr.get(LanguageKey.NEW,
-                                                  firstCap: true)!,
-                                              maxLines: 1,
-                                              overflow: TextOverflow.fade,
-                                              textAlign: TextAlign.left,
-                                              softWrap: false,
-                                              style: const TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 12),
-                                            ),
-                                          ),
-                                        );
-                                      },
+                                    ProductIsNew(
+                                      widget._job,
+                                      fav: widget.fav,
                                     ),
                                   ],
                                 )
