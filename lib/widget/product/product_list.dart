@@ -294,6 +294,10 @@ class _JobListState extends State<JobList> {
 
                                           await state.adState.initialized
                                               .then((value) async {
+                                            newJobs.insert(
+                                              0,
+                                              Job(title: "googleAdsKelem"),
+                                            );
                                             for (var i = newJobs.length - 4;
                                                 i >= 1;
                                                 i -= 4) {

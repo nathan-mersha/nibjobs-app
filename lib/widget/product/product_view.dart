@@ -361,7 +361,7 @@ class _JobViewState extends State<JobView> {
                 if (!widget.pageAdmin) {
                   // BlocProvider.of<DownBloc>(context).add(
                   //     DownSelectedEvent(job: widget._job, context: context));
-                  _showRewardedAd();
+                  //_showRewardedAd();
 
                   if (state is UserSignedInState) {
                     if (!isSelected) {
@@ -380,10 +380,15 @@ class _JobViewState extends State<JobView> {
                         //     backgroundColor: Colors.green,
                         //     textColor: Colors.white,
                         //     fontSize: 16.0);
-                      } else {}
+
+                      }
+                      Navigator.pushNamed(context, RouteTo.JOB_DETAIL,
+                          arguments: widget._job);
                     }
                   } else {
-                    _showRewardedAd();
+                    Navigator.pushNamed(context, RouteTo.JOB_DETAIL,
+                        arguments: widget._job);
+                    //_showRewardedAd();
                   }
                 } else {
                   Navigator.pop(context);
