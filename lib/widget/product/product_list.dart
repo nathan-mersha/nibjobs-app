@@ -52,7 +52,7 @@ class _JobListState extends State<JobList> {
   double? _childAspectRatio;
   HSharedPreference hSharedPreference = GetHSPInstance
       .hSharedPreference; // total amount of data to be retrieved once.
-  static const int JOB_LIMIT = 20;
+  static const int JOB_LIMIT = 10;
   int jobUnSeen = 0;
   static const int maxFailedLoadAttempts = 3;
   List googleBooks = [];
