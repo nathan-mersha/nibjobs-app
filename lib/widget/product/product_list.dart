@@ -307,6 +307,11 @@ class _JobListState extends State<JobList> {
                                               );
                                             }
                                             _jobs.addAll(newJobs);
+                                            BlocProvider.of<NotificationBloc>(
+                                                    context)
+                                                .add(
+                                                    const NotificationEventAdder(
+                                                        counter: 0));
                                             await counterUpdater(_jobs);
                                           });
 
@@ -349,6 +354,11 @@ class _JobListState extends State<JobList> {
                                               debugPrint("here must be ads 3");
                                             }
                                             _jobs.addAll(newJobs);
+                                            BlocProvider.of<NotificationBloc>(
+                                                    context)
+                                                .add(
+                                                    const NotificationEventAdder(
+                                                        counter: 0));
                                             await counterUpdater(_jobs);
                                           });
                                           if (mounted) setState(() {});
