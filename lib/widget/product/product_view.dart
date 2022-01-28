@@ -7,6 +7,7 @@ import 'package:nibjobs/api/flutterfire.dart';
 import 'package:nibjobs/bloc/notification/notification_bloc.dart';
 import 'package:nibjobs/bloc/user/user_bloc.dart';
 import 'package:nibjobs/db/k_shared_preference.dart';
+import 'package:nibjobs/global.dart' as global;
 import 'package:nibjobs/model/commerce/job.dart';
 import 'package:nibjobs/route/route.dart';
 import 'package:nibjobs/rsr/theme/color.dart';
@@ -345,6 +346,43 @@ class _JobViewState extends State<JobView> {
     }
   }
 
+  Future<void> withoutVideo(dynamic state) async {
+    //_showRewardedAd();
+    if (state is UserSignedInState) {
+      if (!isSelected) {
+        setState(() {
+          isSelected = true;
+        });
+        final result = await addFavJob(widget._job!);
+        if (result) {
+          addToList();
+        }
+        Navigator.pushNamed(context, RouteTo.JOB_DETAIL,
+            arguments: widget._job);
+      }
+    } else {
+      Navigator.pushNamed(context, RouteTo.JOB_DETAIL, arguments: widget._job);
+      //_showRewardedAd();
+    }
+  }
+
+  Future<void> withVideo(dynamic state) async {
+    _showRewardedAd();
+    if (state is UserSignedInState) {
+      if (!isSelected) {
+        setState(() {
+          isSelected = true;
+        });
+        final result = await addFavJob(widget._job!);
+        if (result) {
+          addToList();
+        }
+      }
+    } else {
+      _showRewardedAd();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     // setterAllData();
@@ -361,34 +399,13 @@ class _JobViewState extends State<JobView> {
                 if (!widget.pageAdmin) {
                   // BlocProvider.of<DownBloc>(context).add(
                   //     DownSelectedEvent(job: widget._job, context: context));
-                  //_showRewardedAd();
 
-                  if (state is UserSignedInState) {
-                    if (!isSelected) {
-                      setState(() {
-                        isSelected = true;
-                      });
-                      final result = await addFavJob(widget._job!);
-                      if (result) {
-                        addToList();
-                        // Fluttertoast.showToast(
-                        //     msg:
-                        //     "${widget._product.name} ${StringRsr.get(LanguageKey.PRODUCT_ADDED_TO_FAVORITE_LIST)}",
-                        //     toastLength: Toast.LENGTH_SHORT,
-                        //     gravity: ToastGravity.CENTER,
-                        //     timeInSecForIosWeb: 1,
-                        //     backgroundColor: Colors.green,
-                        //     textColor: Colors.white,
-                        //     fontSize: 16.0);
-
-                      }
-                      Navigator.pushNamed(context, RouteTo.JOB_DETAIL,
-                          arguments: widget._job);
-                    }
+                  final bool videoAd =
+                      global.globalConfig.featuresConfig!.videoAd ?? false;
+                  if (videoAd) {
+                    withVideo(state);
                   } else {
-                    Navigator.pushNamed(context, RouteTo.JOB_DETAIL,
-                        arguments: widget._job);
-                    //_showRewardedAd();
+                    withoutVideo(state);
                   }
                 } else {
                   Navigator.pop(context);
