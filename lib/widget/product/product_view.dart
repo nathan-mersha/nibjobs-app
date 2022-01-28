@@ -357,9 +357,8 @@ class _JobViewState extends State<JobView> {
         if (result) {
           addToList();
         }
-        Navigator.pushNamed(context, RouteTo.JOB_DETAIL,
-            arguments: widget._job);
       }
+      Navigator.pushNamed(context, RouteTo.JOB_DETAIL, arguments: widget._job);
     } else {
       Navigator.pushNamed(context, RouteTo.JOB_DETAIL, arguments: widget._job);
       //_showRewardedAd();
