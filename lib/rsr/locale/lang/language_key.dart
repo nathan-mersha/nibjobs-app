@@ -184,9 +184,11 @@ class LanguageKey {
   static const String LATEST = "LATEST";
   static const String ALL = "ALL";
   static const String CREATE_SHOP = "CREATE_SHOP";
-  static const String DONT_MISS_OUT_ON_CUSTOM_NOTIFICATIONS = "DONT_MISS_OUT_ON_CUSTOM_NOTIFICATIONS";
+  static const String DONT_MISS_OUT_ON_CUSTOM_NOTIFICATIONS =
+      "DONT_MISS_OUT_ON_CUSTOM_NOTIFICATIONS";
 
-  static const String YOU_WILL_NEED_TO_SIGNUP_TO_RECIEVE_CUSTOM_JOB_NOTIFICATIONS =
+  static const String
+      YOU_WILL_NEED_TO_SIGNUP_TO_RECIEVE_CUSTOM_JOB_NOTIFICATIONS =
       "YOU_WILL_NEED_TO_SIGNUP_TO_RECIEVE_CUSTOM_JOB_NOTIFICATIONS";
 
   static const String YES_I_WILL_SIGNUP = "YES_I_WILL_SIGNUP";
@@ -216,4 +218,7 @@ class LanguageKey {
       "YOU_CAN_ALWAYS_CHANGE_IT_IN_SETTINGS";
   static const String LIGHT_THEME = "LIGHT_THEME";
   static const String DARK_THEME = "DARK_THEME";
+  static const String YOU_CANT_SELECT_MORE_THAN_TEN =
+      "YOU_CANT_SELECT_MORE_THAN_TEN";
+  static const String LIMIT_REACHED = "LIMIT_REACHED";
 }

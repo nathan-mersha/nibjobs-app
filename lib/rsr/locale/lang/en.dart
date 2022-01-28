@@ -174,7 +174,8 @@ class EN {
     LanguageKey.ALL: "all",
     LanguageKey.CREATE_SHOP: "create company",
 
-    LanguageKey.DONT_MISS_OUT_ON_CUSTOM_NOTIFICATIONS: "don't miss out on\ncustom notifications",
+    LanguageKey.DONT_MISS_OUT_ON_CUSTOM_NOTIFICATIONS:
+        "don't miss out on\ncustom notifications",
     LanguageKey.YOU_WILL_NEED_TO_SIGNUP_TO_RECIEVE_CUSTOM_JOB_NOTIFICATIONS:
         "you will need to signup to receive\ncustom job notifications",
     LanguageKey.YES_I_WILL_SIGNUP: "yes I will sign up",
@@ -199,22 +200,28 @@ class EN {
     LanguageKey.YOU_WILL_BE_NOTIFIED_FOR: "you will be notified for ",
     LanguageKey.WELCOME_TO_NIBJOBS: "welcome to NibJobs",
     LanguageKey.Q1: "What is NibJobs?",
-    LanguageKey.Q2: "What makes NibJobs different from others Job Listing companies?",
+    LanguageKey.Q2:
+        "What makes NibJobs different from others Job Listing companies?",
     LanguageKey.Q3: "How can I remove the ads?",
     LanguageKey.Q4: "How many job categories do NibJobs have?",
     LanguageKey.Q5: "From how many source does NibJobs collect job posts?",
 
-    LanguageKey.A1: "NibJobs is an Ethiopian based job indexing company that strives to bring each user tailored job notifications",
-    LanguageKey.A2: "NibJobs’ main aim is to notify users with custom tailored job listings and not bombarded the user with unwanted job offers",
+    LanguageKey.A1:
+        "NibJobs is an Ethiopian based job indexing company that strives to bring each user tailored job notifications",
+    LanguageKey.A2:
+        "NibJobs’ main aim is to notify users with custom tailored job listings and not bombarded the user with unwanted job offers",
     LanguageKey.A3: "We are working on a paid app with all the ads removed",
-    LanguageKey.A4: "NibJobs have over a dozen of categories and over a hundred subcategories",
+    LanguageKey.A4:
+        "NibJobs have over a dozen of categories and over a hundred subcategories",
     LanguageKey.A5: "NibJobs currently collects from 13 job posting sources",
 
     LanguageKey.RATE_US: "Rate us",
     LanguageKey.PICK_A_THEME: "pick a theme",
     LanguageKey.YOU_CAN_ALWAYS_CHANGE_IT_IN_SETTINGS:
         "you can always change it in settings",
-    LanguageKey.LIGHT_THEME : "light theme",
-    LanguageKey.DARK_THEME : "dark theme"
+    LanguageKey.LIGHT_THEME: "light theme",
+    LanguageKey.DARK_THEME: "dark theme",
+    LanguageKey.YOU_CANT_SELECT_MORE_THAN_TEN: "you cant select more then 10 ",
+    LanguageKey.LIMIT_REACHED: "limit reached"
   };
 }

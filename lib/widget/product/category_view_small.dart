@@ -1,10 +1,13 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:nibjobs/api/flutterfire.dart';
 import 'package:nibjobs/bloc/button/button_bloc.dart';
 import 'package:nibjobs/db/k_shared_preference.dart';
 import 'package:nibjobs/global.dart' as global;
 import 'package:nibjobs/model/config/global.dart';
+import 'package:nibjobs/rsr/locale/lang/language_key.dart';
 import 'package:nibjobs/rsr/locale/string_rsr.dart';
 import 'package:nibjobs/rsr/theme/color.dart';
 
@@ -69,9 +72,7 @@ class CategoryViewSmallState extends State<CategoryViewSmall> {
         isSelected = true;
       });
     } else {
-      setState(() {
-        isSelected = false;
-      });
+      isSelected = false;
     }
   }
 
@@ -82,19 +83,18 @@ class CategoryViewSmallState extends State<CategoryViewSmall> {
     List<String> proOrderList =
         await hSharedPreference.get(HSharedPreference.LIST_OF_CATEGORY_ORDER) ??
             [];
-    if (proFavList.length < 10) {
-      proFavList.add(widget._job);
-      if (!proOrderList.contains(widget.category!.name!)) {
-        proOrderList.add(widget.category!.name!);
-        await hSharedPreference.set(
-            HSharedPreference.LIST_OF_CATEGORY_ORDER, proOrderList);
-      }
-      await hSharedPreference.set(
-          HSharedPreference.LIST_OF_FAV_CATEGORY, proFavList);
 
-      BlocProvider.of<ButtonBloc>(context)
-          .add(ButtonSet(categoryList: proFavList));
+    proFavList.add(widget._job);
+    if (!proOrderList.contains(widget.category!.name!)) {
+      proOrderList.add(widget.category!.name!);
+      await hSharedPreference.set(
+          HSharedPreference.LIST_OF_CATEGORY_ORDER, proOrderList);
     }
+    await hSharedPreference.set(
+        HSharedPreference.LIST_OF_FAV_CATEGORY, proFavList);
+
+    BlocProvider.of<ButtonBloc>(context)
+        .add(ButtonSet(categoryList: proFavList));
   }
 
   Future<void> removeInList() async {
@@ -116,7 +116,7 @@ class CategoryViewSmallState extends State<CategoryViewSmall> {
     return BlocBuilder<ButtonBloc, ButtonState>(
       builder: (context, state) {
         if (state is ButtonInitial) {
-          seeInList();
+          //seeInList();
           return ElevatedButton(
             style: ButtonStyle(
               backgroundColor: MaterialStateProperty.all<Color>(isSelected
@@ -124,20 +124,31 @@ class CategoryViewSmallState extends State<CategoryViewSmall> {
                   : CustomColor.GRAY_VERY_LIGHT),
             ),
             onPressed: () async {
-              isSelected = !isSelected;
-              if (isSelected) {
-                List<String> number = await hSharedPreference
-                        .get(HSharedPreference.LIST_OF_FAV_CATEGORY) ??
-                    [];
-
-                addToList();
-                // BlocProvider.of<CategoryBloc>(context)
-                //     .add(CategoryNumber(categoryNumber: 5 - (number.length + 1)));
-
+              List<String> number = await hSharedPreference
+                      .get(HSharedPreference.LIST_OF_FAV_CATEGORY) ??
+                  [];
+              if (number.length < 10) {
+                isSelected = !isSelected;
+                if (isSelected) {
+                  addToList();
+                  // BlocProvider.of<CategoryBloc>(context)
+                  //     .add(CategoryNumber(categoryNumber: 5 - (number.length + 1)));
+                } else {
+                  removeInList();
+                }
+                setState(() {});
               } else {
-                removeInList();
+                BlocProvider.of<ButtonBloc>(context)
+                    .add(ButtonSet(categoryList: number));
+                showInfoToUser(
+                  context,
+                  DialogType.ERROR,
+                  StringRsr.get(LanguageKey.LIMIT_REACHED, firstCap: true),
+                  StringRsr.get(LanguageKey.YOU_CANT_SELECT_MORE_THAN_TEN,
+                      firstCap: true),
+                  onOk: () {},
+                );
               }
-              setState(() {});
             },
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -174,64 +185,7 @@ class CategoryViewSmallState extends State<CategoryViewSmall> {
             ),
           );
         }
-        return ElevatedButton(
-          style: ButtonStyle(
-            backgroundColor: MaterialStateProperty.all<Color>(isSelected
-                ? CustomColor.RAD_DARK
-                : CustomColor.GRAY_VERY_LIGHT),
-          ),
-          onPressed: () async {
-            isSelected = !isSelected;
-            if (isSelected) {
-              List<String> number = await hSharedPreference
-                      .get(HSharedPreference.LIST_OF_FAV_CATEGORY) ??
-                  [];
-
-              addToList();
-              // BlocProvider.of<CategoryBloc>(context)
-              //     .add(CategoryNumber(categoryNumber: 5 - (number.length + 1)));
-
-            } else {
-              removeInList();
-            }
-            setState(() {});
-          },
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: <Widget>[
-              // Image thumbnail or image place holder
-
-              Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: <Widget>[
-                  // Category name
-                  Text(
-                    // StringRsr.locale != "et_am"
-                    //     ? widget._job.name!
-                    //     : amCategories!["am"][widget._job.name],
-                    widget._job,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                    textAlign: TextAlign.center,
-                    softWrap: false,
-                    style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                          color: isSelected
-                              ? Theme.of(context).primaryColor
-                              : Colors.black54,
-                        ),
-                    // style: const TextStyle(
-                    //     color: Colors.black54,
-                    //     fontSize: AppTheme.fullWidth(context) < 330 ? 12 : 19),
-                  ),
-
-                  // Category price and regular price
-                ],
-              )
-            ],
-          ),
-        );
+        return Container();
       },
     );
   }
