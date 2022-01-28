@@ -127,27 +127,28 @@ class CategoryViewSmallState extends State<CategoryViewSmall> {
               List<String> number = await hSharedPreference
                       .get(HSharedPreference.LIST_OF_FAV_CATEGORY) ??
                   [];
-              if (number.length < 10) {
-                isSelected = !isSelected;
-                if (isSelected) {
+              isSelected = !isSelected;
+              if (isSelected) {
+                if (number.length < 10) {
                   addToList();
-                  // BlocProvider.of<CategoryBloc>(context)
-                  //     .add(CategoryNumber(categoryNumber: 5 - (number.length + 1)));
+                  setState(() {});
                 } else {
-                  removeInList();
+                  BlocProvider.of<ButtonBloc>(context)
+                      .add(ButtonSet(categoryList: number));
+                  showInfoToUser(
+                    context,
+                    DialogType.ERROR,
+                    StringRsr.get(LanguageKey.LIMIT_REACHED, firstCap: true),
+                    StringRsr.get(LanguageKey.YOU_CANT_SELECT_MORE_THAN_TEN,
+                        firstCap: true),
+                    onOk: () {},
+                  );
                 }
-                setState(() {});
+                // BlocProvider.of<CategoryBloc>(context)
+                //     .add(CategoryNumber(categoryNumber: 5 - (number.length + 1)));
               } else {
-                BlocProvider.of<ButtonBloc>(context)
-                    .add(ButtonSet(categoryList: number));
-                showInfoToUser(
-                  context,
-                  DialogType.ERROR,
-                  StringRsr.get(LanguageKey.LIMIT_REACHED, firstCap: true),
-                  StringRsr.get(LanguageKey.YOU_CANT_SELECT_MORE_THAN_TEN,
-                      firstCap: true),
-                  onOk: () {},
-                );
+                removeInList();
+                setState(() {});
               }
             },
             child: Column(
