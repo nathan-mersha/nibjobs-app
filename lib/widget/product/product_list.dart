@@ -27,6 +27,7 @@ import 'package:nibjobs/widget/info/message.dart';
 import 'package:nibjobs/widget/product/product_view.dart';
 import 'package:nibjobs/widget/product/shop_view.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
+import 'package:shimmer/shimmer.dart';
 
 import 'category_view.dart';
 
@@ -412,7 +413,207 @@ class _JobListState extends State<JobList> {
                                                     "googleAdsKelem") {
                                                   return FrameSeparateWidget(
                                                     index: index,
-                                                    placeHolder: Container(),
+                                                    placeHolder: Card(
+                                                      elevation: 0,
+                                                      shape:
+                                                          RoundedRectangleBorder(
+                                                        borderRadius:
+                                                            BorderRadius
+                                                                .circular(20),
+                                                      ),
+                                                      child: Row(
+                                                        crossAxisAlignment:
+                                                            CrossAxisAlignment
+                                                                .center,
+                                                        children: <Widget>[
+                                                          // Image thumbnail or image place holder
+
+                                                          Expanded(
+                                                            flex: 1,
+                                                            child: Container(
+                                                              padding: const EdgeInsets
+                                                                      .symmetric(
+                                                                  vertical: 10,
+                                                                  horizontal:
+                                                                      15),
+                                                              child: Column(
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceAround,
+                                                                children: <
+                                                                    Widget>[
+                                                                  // Job name
+                                                                  Column(
+                                                                    crossAxisAlignment:
+                                                                        CrossAxisAlignment
+                                                                            .start,
+                                                                    children: [
+                                                                      Row(
+                                                                        mainAxisAlignment:
+                                                                            MainAxisAlignment.spaceBetween,
+                                                                        children: [
+                                                                          Shimmer
+                                                                              .fromColors(
+                                                                            baseColor:
+                                                                                Colors.grey[300]!,
+                                                                            highlightColor:
+                                                                                Colors.grey[100]!,
+                                                                            child:
+                                                                                Container(
+                                                                              width: AppTheme.fullWidth(context) < 361 ? 140 : 240,
+                                                                              height: 20.0,
+                                                                              color: Colors.white,
+                                                                            ),
+                                                                          ),
+                                                                          Shimmer
+                                                                              .fromColors(
+                                                                            baseColor:
+                                                                                Colors.grey[300]!,
+                                                                            highlightColor:
+                                                                                Colors.grey[100]!,
+                                                                            child:
+                                                                                Container(
+                                                                              width: 40,
+                                                                              height: 40.0,
+                                                                              decoration: BoxDecoration(
+                                                                                color: Colors.white,
+                                                                                borderRadius: BorderRadius.circular(40),
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                        ],
+                                                                      ),
+                                                                      const SizedBox(
+                                                                        height:
+                                                                            1,
+                                                                      ),
+                                                                      // Job Author / Manufacturer
+                                                                      Shimmer
+                                                                          .fromColors(
+                                                                        baseColor:
+                                                                            Colors.grey[300]!,
+                                                                        highlightColor:
+                                                                            Colors.grey[100]!,
+                                                                        child:
+                                                                            Container(
+                                                                          width:
+                                                                              200,
+                                                                          height:
+                                                                              15.0,
+                                                                          color:
+                                                                              Colors.white,
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+
+                                                                  const SizedBox(
+                                                                    height: 3,
+                                                                  ),
+                                                                  Shimmer
+                                                                      .fromColors(
+                                                                    baseColor:
+                                                                        Colors.grey[
+                                                                            300]!,
+                                                                    highlightColor:
+                                                                        Colors.grey[
+                                                                            100]!,
+                                                                    child:
+                                                                        Container(
+                                                                      width:
+                                                                          350,
+                                                                      height:
+                                                                          15.0,
+                                                                      color: Colors
+                                                                          .white,
+                                                                    ),
+                                                                  ),
+                                                                  Shimmer
+                                                                      .fromColors(
+                                                                    baseColor:
+                                                                        Colors.grey[
+                                                                            300]!,
+                                                                    highlightColor:
+                                                                        Colors.grey[
+                                                                            100]!,
+                                                                    child:
+                                                                        Container(
+                                                                      width:
+                                                                          300,
+                                                                      height:
+                                                                          15.0,
+                                                                      color: Colors
+                                                                          .white,
+                                                                    ),
+                                                                  ),
+                                                                  const SizedBox(
+                                                                    height: 3,
+                                                                  ),
+                                                                  Shimmer
+                                                                      .fromColors(
+                                                                    baseColor:
+                                                                        Colors.grey[
+                                                                            300]!,
+                                                                    highlightColor:
+                                                                        Colors.grey[
+                                                                            100]!,
+                                                                    child:
+                                                                        Container(
+                                                                      width: 80,
+                                                                      height:
+                                                                          15.0,
+                                                                      color: Colors
+                                                                          .white,
+                                                                    ),
+                                                                  ),
+
+                                                                  // Price and regular price
+                                                                  const SizedBox(
+                                                                    height: 2,
+                                                                  ),
+
+                                                                  Row(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .spaceBetween,
+                                                                    mainAxisSize:
+                                                                        MainAxisSize
+                                                                            .max,
+                                                                    children: [
+                                                                      SingleChildScrollView(
+                                                                        scrollDirection:
+                                                                            Axis.horizontal,
+                                                                        child: Shimmer
+                                                                            .fromColors(
+                                                                          baseColor:
+                                                                              Colors.grey[300]!,
+                                                                          highlightColor:
+                                                                              Colors.grey[100]!,
+                                                                          child:
+                                                                              Container(
+                                                                            width:
+                                                                                60,
+                                                                            height:
+                                                                                15.0,
+                                                                            color:
+                                                                                Colors.white,
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  )
+
+                                                                  // Job price and regular price
+                                                                ],
+                                                              ),
+                                                            ),
+                                                          )
+                                                        ],
+                                                      ),
+                                                    ),
                                                     child: AspectRatio(
                                                       aspectRatio: jobViewH(
                                                                   context) ==
@@ -553,7 +754,214 @@ class _JobListState extends State<JobList> {
                                                 int index) {
                                               return FrameSeparateWidget(
                                                 index: index,
-                                                placeHolder: Container(),
+                                                placeHolder: Card(
+                                                  elevation: 0,
+                                                  shape: RoundedRectangleBorder(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            20),
+                                                  ),
+                                                  child: Row(
+                                                    crossAxisAlignment:
+                                                        CrossAxisAlignment
+                                                            .center,
+                                                    children: <Widget>[
+                                                      // Image thumbnail or image place holder
+
+                                                      Expanded(
+                                                        flex: 1,
+                                                        child: Container(
+                                                          padding:
+                                                              const EdgeInsets
+                                                                      .symmetric(
+                                                                  vertical: 10,
+                                                                  horizontal:
+                                                                      15),
+                                                          child: Column(
+                                                            crossAxisAlignment:
+                                                                CrossAxisAlignment
+                                                                    .start,
+                                                            mainAxisAlignment:
+                                                                MainAxisAlignment
+                                                                    .spaceAround,
+                                                            children: <Widget>[
+                                                              // Job name
+                                                              Column(
+                                                                crossAxisAlignment:
+                                                                    CrossAxisAlignment
+                                                                        .start,
+                                                                children: [
+                                                                  Row(
+                                                                    mainAxisAlignment:
+                                                                        MainAxisAlignment
+                                                                            .spaceBetween,
+                                                                    children: [
+                                                                      Shimmer
+                                                                          .fromColors(
+                                                                        baseColor:
+                                                                            Colors.grey[300]!,
+                                                                        highlightColor:
+                                                                            Colors.grey[100]!,
+                                                                        child:
+                                                                            Container(
+                                                                          width: AppTheme.fullWidth(context) < 361
+                                                                              ? 140
+                                                                              : 240,
+                                                                          height:
+                                                                              20.0,
+                                                                          color:
+                                                                              Colors.white,
+                                                                        ),
+                                                                      ),
+                                                                      Shimmer
+                                                                          .fromColors(
+                                                                        baseColor:
+                                                                            Colors.grey[300]!,
+                                                                        highlightColor:
+                                                                            Colors.grey[100]!,
+                                                                        child:
+                                                                            Container(
+                                                                          width:
+                                                                              40,
+                                                                          height:
+                                                                              40.0,
+                                                                          decoration:
+                                                                              BoxDecoration(
+                                                                            color:
+                                                                                Colors.white,
+                                                                            borderRadius:
+                                                                                BorderRadius.circular(40),
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ],
+                                                                  ),
+                                                                  const SizedBox(
+                                                                    height: 1,
+                                                                  ),
+                                                                  // Job Author / Manufacturer
+                                                                  Shimmer
+                                                                      .fromColors(
+                                                                    baseColor:
+                                                                        Colors.grey[
+                                                                            300]!,
+                                                                    highlightColor:
+                                                                        Colors.grey[
+                                                                            100]!,
+                                                                    child:
+                                                                        Container(
+                                                                      width:
+                                                                          200,
+                                                                      height:
+                                                                          15.0,
+                                                                      color: Colors
+                                                                          .white,
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              ),
+
+                                                              const SizedBox(
+                                                                height: 3,
+                                                              ),
+                                                              Shimmer
+                                                                  .fromColors(
+                                                                baseColor:
+                                                                    Colors.grey[
+                                                                        300]!,
+                                                                highlightColor:
+                                                                    Colors.grey[
+                                                                        100]!,
+                                                                child:
+                                                                    Container(
+                                                                  width: 350,
+                                                                  height: 15.0,
+                                                                  color: Colors
+                                                                      .white,
+                                                                ),
+                                                              ),
+                                                              Shimmer
+                                                                  .fromColors(
+                                                                baseColor:
+                                                                    Colors.grey[
+                                                                        300]!,
+                                                                highlightColor:
+                                                                    Colors.grey[
+                                                                        100]!,
+                                                                child:
+                                                                    Container(
+                                                                  width: 300,
+                                                                  height: 15.0,
+                                                                  color: Colors
+                                                                      .white,
+                                                                ),
+                                                              ),
+                                                              const SizedBox(
+                                                                height: 3,
+                                                              ),
+                                                              Shimmer
+                                                                  .fromColors(
+                                                                baseColor:
+                                                                    Colors.grey[
+                                                                        300]!,
+                                                                highlightColor:
+                                                                    Colors.grey[
+                                                                        100]!,
+                                                                child:
+                                                                    Container(
+                                                                  width: 80,
+                                                                  height: 15.0,
+                                                                  color: Colors
+                                                                      .white,
+                                                                ),
+                                                              ),
+
+                                                              // Price and regular price
+                                                              const SizedBox(
+                                                                height: 2,
+                                                              ),
+
+                                                              Row(
+                                                                mainAxisAlignment:
+                                                                    MainAxisAlignment
+                                                                        .spaceBetween,
+                                                                mainAxisSize:
+                                                                    MainAxisSize
+                                                                        .max,
+                                                                children: [
+                                                                  SingleChildScrollView(
+                                                                    scrollDirection:
+                                                                        Axis.horizontal,
+                                                                    child: Shimmer
+                                                                        .fromColors(
+                                                                      baseColor:
+                                                                          Colors
+                                                                              .grey[300]!,
+                                                                      highlightColor:
+                                                                          Colors
+                                                                              .grey[100]!,
+                                                                      child:
+                                                                          Container(
+                                                                        width:
+                                                                            60,
+                                                                        height:
+                                                                            15.0,
+                                                                        color: Colors
+                                                                            .white,
+                                                                      ),
+                                                                    ),
+                                                                  ),
+                                                                ],
+                                                              )
+
+                                                              // Job price and regular price
+                                                            ],
+                                                          ),
+                                                        ),
+                                                      )
+                                                    ],
+                                                  ),
+                                                ),
                                                 child: JobView(_jobs[index],
                                                     fav: widget.fromWhere!,
                                                     rewardedAd: _rewardedAd,
