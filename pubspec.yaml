@@ -1,6 +1,6 @@
 name: nibjobs
 description: Ethiopian job finder
-version: 1.0.8+8
+version: 1.1.0+10
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
