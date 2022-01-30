@@ -295,18 +295,26 @@ class _JobListState extends State<JobList> {
 
                                           await state.adState.initialized
                                               .then((value) async {
-                                            newJobs.insert(
-                                              0,
-                                              Job(title: "googleAdsKelem"),
-                                            );
-                                            for (var i = newJobs.length - 4;
-                                                i >= 1;
-                                                i -= 4) {
+                                            bool bannerAdsSeen = global
+                                                    .globalConfig
+                                                    .featuresConfig!
+                                                    .bannerAdsSeen ??
+                                                false;
+                                            if (bannerAdsSeen) {
                                               newJobs.insert(
-                                                i,
+                                                0,
                                                 Job(title: "googleAdsKelem"),
                                               );
+                                              for (var i = newJobs.length - 4;
+                                                  i >= 1;
+                                                  i -= 4) {
+                                                newJobs.insert(
+                                                  i,
+                                                  Job(title: "googleAdsKelem"),
+                                                );
+                                              }
                                             }
+
                                             _jobs.addAll(newJobs);
                                             BlocProvider.of<NotificationBloc>(
                                                     context)
@@ -343,16 +351,29 @@ class _JobListState extends State<JobList> {
 
                                           await state.adState.initialized
                                               .then((value) async {
-                                            for (var i = newJobs.length - 4;
-                                                i >= 1;
-                                                i -= 4) {
-                                              debugPrint("here must be ads 2");
-
+                                            bool bannerAdsSeen = global
+                                                    .globalConfig
+                                                    .featuresConfig!
+                                                    .bannerAdsSeen ??
+                                                false;
+                                            if (bannerAdsSeen) {
                                               newJobs.insert(
-                                                i,
+                                                0,
                                                 Job(title: "googleAdsKelem"),
                                               );
-                                              debugPrint("here must be ads 3");
+                                              for (var i = newJobs.length - 4;
+                                                  i >= 1;
+                                                  i -= 4) {
+                                                debugPrint(
+                                                    "here must be ads 2");
+
+                                                newJobs.insert(
+                                                  i,
+                                                  Job(title: "googleAdsKelem"),
+                                                );
+                                                debugPrint(
+                                                    "here must be ads 3");
+                                              }
                                             }
                                             _jobs.addAll(newJobs);
                                             BlocProvider.of<NotificationBloc>(
