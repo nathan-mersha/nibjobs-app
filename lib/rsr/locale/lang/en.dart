@@ -221,7 +221,7 @@ class EN {
         "you can always change it in settings",
     LanguageKey.LIGHT_THEME: "light theme",
     LanguageKey.DARK_THEME: "dark theme",
-    LanguageKey.YOU_CANT_SELECT_MORE_THAN_TEN: "you cant select more then 10 ",
+    LanguageKey.YOU_CANT_SELECT_MORE_THAN_TEN: "You can only select 10 tags",
     LanguageKey.LIMIT_REACHED: "limit reached"
   };
 }

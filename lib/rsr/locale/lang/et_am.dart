@@ -187,6 +187,8 @@ class ET_AM {
     LanguageKey.YOU_CAN_ALWAYS_CHANGE_IT_IN_SETTINGS:
     "ሁልጊዜ በቅንብሮች ውስጥ መለወጥ ይችላሉ።",
     LanguageKey.LIGHT_THEME : "ብሩህ እይታ",
-    LanguageKey.DARK_THEME : "ጨለማ እይታ"
+    LanguageKey.DARK_THEME : "ጨለማ እይታ",
+    LanguageKey.YOU_CANT_SELECT_MORE_THAN_TEN: "10 ስራዎችን ብቻ ይምረጡ",
+    LanguageKey.LIMIT_REACHED: "ገደብ ደርሷል"
   };
 }
