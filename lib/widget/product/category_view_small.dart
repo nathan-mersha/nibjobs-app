@@ -67,6 +67,8 @@ class CategoryViewSmallState extends State<CategoryViewSmall> {
     List<String> proFavList =
         await hSharedPreference.get(HSharedPreference.LIST_OF_FAV_CATEGORY) ??
             [];
+    BlocProvider.of<ButtonBloc>(context)
+        .add(ButtonSet(categoryList: proFavList));
     if (proFavList.contains(widget._job)) {
       setState(() {
         isSelected = true;
