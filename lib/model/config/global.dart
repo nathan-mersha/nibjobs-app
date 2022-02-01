@@ -305,6 +305,7 @@ class FeaturesConfig {
   static const String ORDER = "order";
   static const String FORCE_NEWS_ON_HOME = "forceNewsOnHome";
   static const String VIDEO_AD = "videoAd";
+  static const String AD_VIEW_PROBABILITY = "adViewProbability";
   static const String BANNER_ADS_SEEN = "bannerAdsSeen";
 
   /// If toggled on shows best sellers page
@@ -341,6 +342,7 @@ class FeaturesConfig {
   bool? buyCredit;
   bool? wallet;
   bool? videoAd;
+  List? adViewProbability;
   bool? bannerAdsSeen;
   bool? transactions;
   bool? claimGift;
@@ -367,6 +369,7 @@ class FeaturesConfig {
       this.buyCredit,
       this.wallet,
       this.videoAd,
+      this.adViewProbability,
       this.bannerAdsSeen,
       this.transactions,
       this.company,
@@ -394,6 +397,7 @@ class FeaturesConfig {
       FEATURES_CONFIG_ID: featuresConfig.featuresConfigId,
       BUY_CREDIT: featuresConfig.buyCredit,
       VIDEO_AD: featuresConfig.videoAd,
+      AD_VIEW_PROBABILITY: featuresConfig.adViewProbability,
       BANNER_ADS_SEEN: featuresConfig.bannerAdsSeen,
       WALLET: featuresConfig.wallet,
       TRANSACTIONS: featuresConfig.transactions,
@@ -426,6 +430,7 @@ class FeaturesConfig {
         buyCredit: map[BUY_CREDIT],
         wallet: map[WALLET],
         videoAd: map[VIDEO_AD],
+        adViewProbability: map[AD_VIEW_PROBABILITY],
         bannerAdsSeen: map[BANNER_ADS_SEEN],
         claimGift: map[CLAIM_GIFT],
         transactions: map[TRANSACTIONS],

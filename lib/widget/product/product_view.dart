@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -44,8 +46,20 @@ class JobView extends StatefulWidget {
       {bool expand = true,
       String size = SIZE_MEDIUM,
       bool detailPage = false}) {
-    return job.company!.logo == null || job.company!.logo!.isEmpty
-        ? Container()
+    return job.company!.logo == "unAvailable" || job.company!.logo == ""
+        ? Center(
+            child: Text(
+              detailPage
+                  ? "${job.jobChannel!.name![0].toUpperCase()}${job.jobChannel!.name![1].toUpperCase()}"
+                  : "${job.company!.name![0].toUpperCase()}${job.company!.name![1].toUpperCase()}",
+              style:
+                  const TextStyle(fontSize: 12, color: CustomColor.PRIM_DARK),
+              // style: Theme.of(context)
+              //     .textTheme
+              //     .bodyText1!
+              //     .copyWith(fontSize: 12, color: CustomColor.PRIM_DARK),
+            ),
+          )
         : CachedNetworkImage(
             imageUrl: detailPage ? job.jobChannel!.logo! : job.company!.logo!,
             useOldImageOnUrlChange: true,
@@ -366,19 +380,28 @@ class _JobViewState extends State<JobView> {
   }
 
   Future<void> withVideo(dynamic state) async {
-    _showRewardedAd();
-    if (state is UserSignedInState) {
-      if (!isSelected) {
-        setState(() {
-          isSelected = true;
-        });
-        final result = await addFavJob(widget._job!);
-        if (result) {
-          addToList();
+    final List adViewProbability =
+        global.globalConfig.featuresConfig!.adViewProbability ??
+            ["0", "0", "1", "1"];
+    Random random = Random();
+    String chance = adViewProbability[random.nextInt(3)];
+    if (chance == "1" || chance == "on") {
+      _showRewardedAd();
+      if (state is UserSignedInState) {
+        if (!isSelected) {
+          setState(() {
+            isSelected = true;
+          });
+          final result = await addFavJob(widget._job!);
+          if (result) {
+            addToList();
+          }
         }
+      } else {
+        _showRewardedAd();
       }
     } else {
-      _showRewardedAd();
+      withoutVideo(state);
     }
   }
 
