@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nibjobs/api/flutterfire.dart';
 import 'package:nibjobs/bloc/button/button_bloc.dart';
+import 'package:nibjobs/bloc/search/search_bloc.dart';
 import 'package:nibjobs/db/k_shared_preference.dart';
 import 'package:nibjobs/global.dart' as global;
 import 'package:nibjobs/model/config/global.dart';
@@ -12,6 +13,7 @@ import 'package:nibjobs/rsr/locale/string_rsr.dart';
 import 'package:nibjobs/themes/light_color.dart';
 import 'package:nibjobs/themes/theme.dart';
 import 'package:nibjobs/widget/info/message.dart';
+import 'package:nibjobs/widget/nav/search.dart';
 import 'package:nibjobs/widget/product/category_view_small.dart';
 import 'package:shimmer/shimmer.dart';
 
@@ -29,7 +31,9 @@ class _CategoryPreferencePageState extends State<CategoryPreferencePage> {
     List<String> list =
         await hSharedPreference.get(HSharedPreference.LIST_OF_CATEGORY_ORDER) ??
             [];
-    List<String> categoryList = await hSharedPreference.get(HSharedPreference.LIST_OF_FAV_CATEGORY) ?? [];
+    List<String> categoryList =
+        await hSharedPreference.get(HSharedPreference.LIST_OF_FAV_CATEGORY) ??
+            [];
     List<Category> categories = global.localConfig.categories;
     List<Category> categoriesSorted = [];
 
@@ -40,7 +44,8 @@ class _CategoryPreferencePageState extends State<CategoryPreferencePage> {
         categoriesSorted.add(e);
       }
     }
-    BlocProvider.of<ButtonBloc>(context).add(ButtonSet(categoryList: categoryList));
+    BlocProvider.of<ButtonBloc>(context)
+        .add(ButtonSet(categoryList: categoryList));
     return Future.value(categoriesSorted);
   }
 
@@ -50,6 +55,8 @@ class _CategoryPreferencePageState extends State<CategoryPreferencePage> {
       appBar: AppBar(
         leading: IconButton(
           onPressed: () async {
+            BlocProvider.of<SearchBloc>(context)
+                .add(SearchViewEvent(searchInView: false));
             List<String> list = await hSharedPreference
                     .get(HSharedPreference.LIST_OF_FAV_CATEGORY) ??
                 [];
@@ -160,28 +167,22 @@ class _CategoryPreferencePageState extends State<CategoryPreferencePage> {
                               ],
                             ),
                           ),
-                          Expanded(
-                            child: FutureBuilder(
-                              future: getCategory(),
-                              builder: (BuildContext context,
-                                  AsyncSnapshot snapshot) {
-                                if (snapshot.hasData &&
-                                    snapshot.connectionState ==
-                                        ConnectionState.done) {
-                                  // Got data and connection is done
-                                  Category? allCategory;
-                                  List<Category> newCategories = snapshot.data;
-                                  for (var element in newCategories) {
-                                    if (element.name == "all") {
-                                      allCategory = element;
-                                    }
-                                  }
-                                  if (allCategory != null) {
-                                    newCategories.remove(allCategory);
-                                  }
-
-                                  // Got data here
-                                  return newCategories.isEmpty
+                          SearchView(
+                            onComplete: (String search) {
+                              //global.localConfig.selectedSearchBook = search;
+                              BlocProvider.of<SearchBloc>(context)
+                                  .add(SearchCategoryEvent(searchData: search));
+                              //  getBookByQuery(search);
+                            },
+                          ),
+                          BlocBuilder<SearchBloc, SearchViewState>(
+                              builder: (context, state) {
+                            if (state is SearchLoading) {
+                              return buildGridViewLoading(context);
+                            } else if (state is SearchLoaded) {
+                              return Expanded(
+                                child: SizedBox(
+                                  child: state.searchInData.isEmpty
                                       ? Message(
                                           message:
                                               "${StringRsr.get(LanguageKey.NO, firstCap: true)} ${StringRsr.get(LanguageKey.FOUND)}",
@@ -193,22 +194,72 @@ class _CategoryPreferencePageState extends State<CategoryPreferencePage> {
                                           ),
                                         )
                                       : ListView.builder(
-                                          itemCount: newCategories.length,
+                                          itemCount: state.searchInData.length,
                                           itemBuilder: (BuildContext context,
                                               int index) {
                                             return Padding(
                                               padding: const EdgeInsets.only(
                                                   bottom: 10.0),
                                               child: buildCategoryViewSmall(
-                                                  newCategories, index),
+                                                  state.searchInData
+                                                      as List<Category>,
+                                                  index),
                                             );
-                                          });
-                                } else {
-                                  return buildGridViewLoading(context);
-                                }
-                              },
-                            ),
-                          ),
+                                          }),
+                                ),
+                              );
+                            }
+                            return Expanded(
+                              child: FutureBuilder(
+                                future: getCategory(),
+                                builder: (BuildContext context,
+                                    AsyncSnapshot snapshot) {
+                                  if (snapshot.hasData &&
+                                      snapshot.connectionState ==
+                                          ConnectionState.done) {
+                                    // Got data and connection is done
+                                    Category? allCategory;
+                                    List<Category> newCategories =
+                                        snapshot.data;
+                                    for (var element in newCategories) {
+                                      if (element.name == "all") {
+                                        allCategory = element;
+                                      }
+                                    }
+                                    if (allCategory != null) {
+                                      newCategories.remove(allCategory);
+                                    }
+
+                                    // Got data here
+                                    return newCategories.isEmpty
+                                        ? Message(
+                                            message:
+                                                "${StringRsr.get(LanguageKey.NO, firstCap: true)} ${StringRsr.get(LanguageKey.FOUND)}",
+                                            icon: Icon(
+                                              Icons.whatshot,
+                                              color: Theme.of(context)
+                                                  .primaryColor,
+                                              size: 45,
+                                            ),
+                                          )
+                                        : ListView.builder(
+                                            itemCount: newCategories.length,
+                                            itemBuilder: (BuildContext context,
+                                                int index) {
+                                              return Padding(
+                                                padding: const EdgeInsets.only(
+                                                    bottom: 10.0),
+                                                child: buildCategoryViewSmall(
+                                                    newCategories, index),
+                                              );
+                                            });
+                                  } else {
+                                    return buildGridViewLoading(context);
+                                  }
+                                },
+                              ),
+                            );
+                          }),
                           const SizedBox(
                             height: 10,
                           ),
@@ -218,6 +269,8 @@ class _CategoryPreferencePageState extends State<CategoryPreferencePage> {
                               height: 40,
                               child: ElevatedButton(
                                 onPressed: () async {
+                                  BlocProvider.of<SearchBloc>(context).add(
+                                      SearchViewEvent(searchInView: false));
                                   String uid = await hSharedPreference
                                           .get(HSharedPreference.KEY_USER_ID) ??
                                       "";

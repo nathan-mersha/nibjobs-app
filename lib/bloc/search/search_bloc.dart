@@ -5,7 +5,9 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nibjobs/api/kelem_api.dart';
+import 'package:nibjobs/global.dart' as global;
 import 'package:nibjobs/model/commerce/job.dart';
+import 'package:nibjobs/model/config/global.dart';
 
 part 'search_event.dart';
 part 'search_state.dart';
@@ -40,6 +42,21 @@ class SearchBloc extends Bloc<SearchEvent, SearchViewState> {
       } else {
         yield SearchError();
       }
+    } else if (event is SearchCategoryEvent) {
+      yield SearchLoading();
+      List<Category> categories = global.localConfig.categories;
+      List<Category> categoriesSorted = [];
+      for (var e in categories) {
+        for (var l in e.tags!) {
+          if (l!.contains(event.searchData)) {
+            categoriesSorted.insert(0, e);
+            break;
+          }
+        }
+      }
+      yield SearchLoaded(searchInData: categoriesSorted);
+    } else {
+      yield SearchError();
     }
   }
 }

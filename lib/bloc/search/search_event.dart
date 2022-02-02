@@ -22,3 +22,11 @@ class SearchJobEvent extends SearchEvent {
   // TODO: implement props
   List<Object> get props => [searchData, fields, document];
 }
+
+class SearchCategoryEvent extends SearchEvent {
+  final String searchData;
+  SearchCategoryEvent({required this.searchData});
+  @override
+  // TODO: implement props
+  List<Object> get props => [searchData];
+}

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nibjobs/api/app_builder.dart';
 import 'package:nibjobs/api/flutterfire.dart';
+import 'package:nibjobs/bloc/search/search_bloc.dart';
 import 'package:nibjobs/db/k_shared_preference.dart';
 import 'package:nibjobs/route/route.dart';
 import 'package:nibjobs/rsr/locale/lang/language_key.dart';
@@ -162,6 +164,8 @@ class _GeneralSettingsPageState extends State<GeneralSettingsPage> {
                 ),
                 ListTile(
                   onTap: () {
+                    BlocProvider.of<SearchBloc>(context)
+                        .add(SearchViewEvent(searchInView: false));
                     Navigator.pushNamed(context, RouteTo.CATEGORY_PREFERENCE);
                   },
                   title: Text(
