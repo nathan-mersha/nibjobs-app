@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:nibjobs/api/flutterfire.dart';
 import 'package:nibjobs/bloc/button/button_bloc.dart';
+import 'package:nibjobs/bloc/search/search_bloc.dart';
 import 'package:nibjobs/db/k_shared_preference.dart';
 import 'package:nibjobs/global.dart' as global;
 import 'package:nibjobs/model/config/global.dart';
@@ -14,13 +15,14 @@ import 'package:nibjobs/rsr/theme/color.dart';
 class CategoryViewSmall extends StatefulWidget {
   final String _job;
   final String size;
+  final String search;
   final Category? category;
   final bool pageAdmin;
   static const String SIZE_SMALL = "SIZE_SMALL";
   static const String SIZE_MEDIUM = "SIZE_MEDIUM";
   static const String SIZE_LARGE = "SIZE_LARGE";
   CategoryViewSmall(this._job, this.category,
-      {this.size = SIZE_MEDIUM, this.pageAdmin = false});
+      {this.size = SIZE_MEDIUM, this.pageAdmin = false, this.search = ""});
 
   static Widget getThumbnailView(Category job,
       {bool expand = true, String size = SIZE_MEDIUM}) {
@@ -78,6 +80,19 @@ class CategoryViewSmallState extends State<CategoryViewSmall> {
     }
   }
 
+  Future<bool> seeInSearchList() async {
+    List<String> proFavList =
+        await hSharedPreference.get(HSharedPreference.LIST_OF_FAV_CATEGORY) ??
+            [];
+    BlocProvider.of<ButtonBloc>(context)
+        .add(ButtonSet(categoryList: proFavList));
+    if (proFavList.contains(widget._job)) {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
   Future<void> addToList() async {
     List<String> proFavList =
         await hSharedPreference.get(HSharedPreference.LIST_OF_FAV_CATEGORY) ??
@@ -118,74 +133,170 @@ class CategoryViewSmallState extends State<CategoryViewSmall> {
     return BlocBuilder<ButtonBloc, ButtonState>(
       builder: (context, state) {
         if (state is ButtonInitial) {
-          //seeInList();
-          return ElevatedButton(
-            style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all<Color>(isSelected
-                  ? CustomColor.RAD_DARK
-                  : CustomColor.GRAY_VERY_LIGHT),
-            ),
-            onPressed: () async {
-              List<String> number = await hSharedPreference
-                      .get(HSharedPreference.LIST_OF_FAV_CATEGORY) ??
-                  [];
-              isSelected = !isSelected;
-              if (isSelected) {
-                if (number.length < 10) {
-                  addToList();
-                  setState(() {});
-                } else {
-                  BlocProvider.of<ButtonBloc>(context)
-                      .add(ButtonSet(categoryList: number));
-                  showInfoToUser(
-                    context,
-                    DialogType.ERROR,
-                    StringRsr.get(LanguageKey.LIMIT_REACHED, firstCap: true),
-                    StringRsr.get(LanguageKey.YOU_CANT_SELECT_MORE_THAN_TEN,
-                        firstCap: true),
-                    onOk: () {},
-                  );
-                }
-                // BlocProvider.of<CategoryBloc>(context)
-                //     .add(CategoryNumber(categoryNumber: 5 - (number.length + 1)));
+          return BlocBuilder<SearchBloc, SearchViewState>(
+            builder: (context, state) {
+              if (state is SearchLoaded) {
+                return FutureBuilder(
+                    future: seeInSearchList(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        bool st = snapshot.data as bool;
+                        return ElevatedButton(
+                          style: ButtonStyle(
+                            backgroundColor: MaterialStateProperty.all<Color>(st
+                                ? CustomColor.RAD_DARK
+                                : CustomColor.GRAY_VERY_LIGHT),
+                          ),
+                          onPressed: () async {
+                            List<String> number = await hSharedPreference.get(
+                                    HSharedPreference.LIST_OF_FAV_CATEGORY) ??
+                                [];
+                            isSelected = !isSelected;
+                            if (isSelected) {
+                              if (number.length < 10) {
+                                addToList();
+                                setState(() {});
+                              } else {
+                                BlocProvider.of<ButtonBloc>(context)
+                                    .add(ButtonSet(categoryList: number));
+                                showInfoToUser(
+                                  context,
+                                  DialogType.ERROR,
+                                  StringRsr.get(LanguageKey.LIMIT_REACHED,
+                                      firstCap: true),
+                                  StringRsr.get(
+                                      LanguageKey.YOU_CANT_SELECT_MORE_THAN_TEN,
+                                      firstCap: true),
+                                  onOk: () {},
+                                );
+                              }
+                              // BlocProvider.of<CategoryBloc>(context)
+                              //     .add(CategoryNumber(categoryNumber: 5 - (number.length + 1)));
+                            } else {
+                              removeInList();
+                              setState(() {});
+                            }
+                          },
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                            children: <Widget>[
+                              // Image thumbnail or image place holder
+
+                              Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.center,
+                                children: <Widget>[
+                                  // Category name
+                                  Text(
+                                    // StringRsr.locale != "et_am"
+                                    //     ? widget._job.name!
+                                    //     : amCategories!["am"][widget._job.name],
+                                    widget._job,
+                                    maxLines: 2,
+                                    overflow: TextOverflow.ellipsis,
+                                    textAlign: TextAlign.center,
+                                    softWrap: false,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .subtitle2!
+                                        .copyWith(
+                                          color: st
+                                              ? Colors.white
+                                              : Colors.black54,
+                                        ),
+                                    // style: const TextStyle(
+                                    //     color: Colors.black54,
+                                    //     fontSize: AppTheme.fullWidth(context) < 330 ? 12 : 19),
+                                  ),
+
+                                  // Category price and regular price
+                                ],
+                              )
+                            ],
+                          ),
+                        );
+                      }
+                      return Container();
+                    });
+              } else if (state is SearchInitial) {
+                return ElevatedButton(
+                  style: ButtonStyle(
+                    backgroundColor: MaterialStateProperty.all<Color>(isSelected
+                        ? CustomColor.RAD_DARK
+                        : CustomColor.GRAY_VERY_LIGHT),
+                  ),
+                  onPressed: () async {
+                    List<String> number = await hSharedPreference
+                            .get(HSharedPreference.LIST_OF_FAV_CATEGORY) ??
+                        [];
+                    isSelected = !isSelected;
+                    if (isSelected) {
+                      if (number.length < 10) {
+                        addToList();
+                        setState(() {});
+                      } else {
+                        BlocProvider.of<ButtonBloc>(context)
+                            .add(ButtonSet(categoryList: number));
+                        showInfoToUser(
+                          context,
+                          DialogType.ERROR,
+                          StringRsr.get(LanguageKey.LIMIT_REACHED,
+                              firstCap: true),
+                          StringRsr.get(
+                              LanguageKey.YOU_CANT_SELECT_MORE_THAN_TEN,
+                              firstCap: true),
+                          onOk: () {},
+                        );
+                      }
+                      // BlocProvider.of<CategoryBloc>(context)
+                      //     .add(CategoryNumber(categoryNumber: 5 - (number.length + 1)));
+                    } else {
+                      removeInList();
+                      setState(() {});
+                    }
+                  },
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: <Widget>[
+                      // Image thumbnail or image place holder
+
+                      Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: <Widget>[
+                          // Category name
+                          Text(
+                            // StringRsr.locale != "et_am"
+                            //     ? widget._job.name!
+                            //     : amCategories!["am"][widget._job.name],
+                            widget._job,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            textAlign: TextAlign.center,
+                            softWrap: false,
+                            style:
+                                Theme.of(context).textTheme.subtitle2!.copyWith(
+                                      color: isSelected
+                                          ? Colors.white
+                                          : Colors.black54,
+                                    ),
+                            // style: const TextStyle(
+                            //     color: Colors.black54,
+                            //     fontSize: AppTheme.fullWidth(context) < 330 ? 12 : 19),
+                          ),
+
+                          // Category price and regular price
+                        ],
+                      )
+                    ],
+                  ),
+                );
               } else {
-                removeInList();
-                setState(() {});
+                return const CircularProgressIndicator();
               }
             },
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                // Image thumbnail or image place holder
-
-                Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.center,
-                  children: <Widget>[
-                    // Category name
-                    Text(
-                      // StringRsr.locale != "et_am"
-                      //     ? widget._job.name!
-                      //     : amCategories!["am"][widget._job.name],
-                      widget._job,
-                      maxLines: 2,
-                      overflow: TextOverflow.ellipsis,
-                      textAlign: TextAlign.center,
-                      softWrap: false,
-                      style: Theme.of(context).textTheme.subtitle2!.copyWith(
-                            color: isSelected ? Colors.white : Colors.black54,
-                          ),
-                      // style: const TextStyle(
-                      //     color: Colors.black54,
-                      //     fontSize: AppTheme.fullWidth(context) < 330 ? 12 : 19),
-                    ),
-
-                    // Category price and regular price
-                  ],
-                )
-              ],
-            ),
           );
         }
         return Container();
@@ -197,7 +308,9 @@ class CategoryViewSmallState extends State<CategoryViewSmall> {
 class ListForCategory extends StatefulWidget {
   final Category? category;
   final bool? viewJob;
-  const ListForCategory({Key? key, this.category, this.viewJob})
+  final String? search;
+  const ListForCategory(
+      {Key? key, this.category, this.viewJob, this.search = ""})
       : super(key: key);
 
   @override
@@ -317,7 +430,7 @@ class _ListForCategoryState extends State<ListForCategory> {
               ),
         ),
       ),
-      initiallyExpanded: widget.viewJob!,
+      initiallyExpanded: widget.search != "" ? true : widget.viewJob!,
       children: [
         Padding(
           padding: const EdgeInsets.all(8.0),
@@ -326,7 +439,8 @@ class _ListForCategoryState extends State<ListForCategory> {
             runSpacing: 4,
             spacing: 3,
             children: widget.category!.tags!
-                .map((e) => CategoryViewSmall(e, widget.category!))
+                .map((e) => CategoryViewSmall(e, widget.category!,
+                    search: widget.search!))
                 .toSet()
                 .toList(),
           ),
