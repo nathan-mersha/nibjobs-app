@@ -205,7 +205,7 @@ class _JobViewState extends State<JobView> {
                                   Icons.visibility,
                                   // color:
                                   //     isSelected ? Colors.red : LightColor.lightGrey,
-                                  color: Color(0xff9900ff),
+                                  color: Colors.orange,
                                   size: 15,
                                 ),
                               ),
