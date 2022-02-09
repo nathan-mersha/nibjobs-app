@@ -74,6 +74,9 @@ class SearchState extends State<SearchView> {
                 onSubmitted: (v) {
                   widget.onComplete!(v);
                 },
+                onChanged: (v) {
+                  widget.onComplete!(v);
+                },
                 decoration: InputDecoration(
                   border: InputBorder.none,
                   hintText: widget.query != null

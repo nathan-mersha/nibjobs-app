@@ -143,7 +143,7 @@ class EN {
     LanguageKey.SKIP: "skip",
     LanguageKey.SIGN_IN_WITH_GOOGLE: "sign in with Google",
     LanguageKey.SIGN_IN_WITH_APPLE: "sign in with Apple",
-    LanguageKey.I_WILL_DO_IT_LATTER: "I will do it latter!",
+    LanguageKey.I_WILL_DO_IT_LATTER: "I will do it later!",
     LanguageKey.NO_JOB_FOUND: "no job found",
     LanguageKey.WAITING_FOR_DATA: "waiting for data",
     LanguageKey.CONNECTION_IS_BACK: "connection is back",

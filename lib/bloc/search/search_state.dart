@@ -14,10 +14,10 @@ class SearchInitial extends SearchViewState {
 
 class SearchLoaded extends SearchViewState {
   final List<dynamic> searchInData;
-
-  SearchLoaded({required this.searchInData});
+  final String search;
+  SearchLoaded({required this.searchInData, this.search = ""});
   @override
-  List<Object> get props => [searchInData];
+  List<Object> get props => [searchInData, search];
 }
 
 class SearchLoading extends SearchViewState {

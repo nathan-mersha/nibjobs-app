@@ -170,6 +170,7 @@ class _CategoryPreferencePageState extends State<CategoryPreferencePage> {
                           SearchView(
                             onComplete: (String search) {
                               //global.localConfig.selectedSearchBook = search;
+
                               BlocProvider.of<SearchBloc>(context)
                                   .add(SearchCategoryEvent(searchData: search));
                               //  getBookByQuery(search);
@@ -203,62 +204,66 @@ class _CategoryPreferencePageState extends State<CategoryPreferencePage> {
                                               child: buildCategoryViewSmall(
                                                   state.searchInData
                                                       as List<Category>,
-                                                  index),
+                                                  index,
+                                                  search: state.search),
                                             );
                                           }),
                                 ),
                               );
-                            }
-                            return Expanded(
-                              child: FutureBuilder(
-                                future: getCategory(),
-                                builder: (BuildContext context,
-                                    AsyncSnapshot snapshot) {
-                                  if (snapshot.hasData &&
-                                      snapshot.connectionState ==
-                                          ConnectionState.done) {
-                                    // Got data and connection is done
-                                    Category? allCategory;
-                                    List<Category> newCategories =
-                                        snapshot.data;
-                                    for (var element in newCategories) {
-                                      if (element.name == "all") {
-                                        allCategory = element;
+                            } else {
+                              return Expanded(
+                                child: FutureBuilder(
+                                  future: getCategory(),
+                                  builder: (BuildContext context,
+                                      AsyncSnapshot snapshot) {
+                                    if (snapshot.hasData &&
+                                        snapshot.connectionState ==
+                                            ConnectionState.done) {
+                                      // Got data and connection is done
+                                      Category? allCategory;
+                                      List<Category> newCategories =
+                                          snapshot.data;
+                                      for (var element in newCategories) {
+                                        if (element.name == "all") {
+                                          allCategory = element;
+                                        }
                                       }
-                                    }
-                                    if (allCategory != null) {
-                                      newCategories.remove(allCategory);
-                                    }
+                                      if (allCategory != null) {
+                                        newCategories.remove(allCategory);
+                                      }
 
-                                    // Got data here
-                                    return newCategories.isEmpty
-                                        ? Message(
-                                            message:
-                                                "${StringRsr.get(LanguageKey.NO, firstCap: true)} ${StringRsr.get(LanguageKey.FOUND)}",
-                                            icon: Icon(
-                                              Icons.whatshot,
-                                              color: Theme.of(context)
-                                                  .primaryColor,
-                                              size: 45,
-                                            ),
-                                          )
-                                        : ListView.builder(
-                                            itemCount: newCategories.length,
-                                            itemBuilder: (BuildContext context,
-                                                int index) {
-                                              return Padding(
-                                                padding: const EdgeInsets.only(
-                                                    bottom: 10.0),
-                                                child: buildCategoryViewSmall(
-                                                    newCategories, index),
-                                              );
-                                            });
-                                  } else {
-                                    return buildGridViewLoading(context);
-                                  }
-                                },
-                              ),
-                            );
+                                      // Got data here
+                                      return newCategories.isEmpty
+                                          ? Message(
+                                              message:
+                                                  "${StringRsr.get(LanguageKey.NO, firstCap: true)} ${StringRsr.get(LanguageKey.FOUND)}",
+                                              icon: Icon(
+                                                Icons.whatshot,
+                                                color: Theme.of(context)
+                                                    .primaryColor,
+                                                size: 45,
+                                              ),
+                                            )
+                                          : ListView.builder(
+                                              itemCount: newCategories.length,
+                                              itemBuilder:
+                                                  (BuildContext context,
+                                                      int index) {
+                                                return Padding(
+                                                  padding:
+                                                      const EdgeInsets.only(
+                                                          bottom: 10.0),
+                                                  child: buildCategoryViewSmall(
+                                                      newCategories, index),
+                                                );
+                                              });
+                                    } else {
+                                      return buildGridViewLoading(context);
+                                    }
+                                  },
+                                ),
+                              );
+                            }
                           }),
                           const SizedBox(
                             height: 10,
@@ -365,11 +370,13 @@ class _CategoryPreferencePageState extends State<CategoryPreferencePage> {
     );
   }
 
-  Widget buildCategoryViewSmall(List<Category> newCategories, int i) {
+  Widget buildCategoryViewSmall(List<Category> newCategories, int i,
+      {String search = ""}) {
     //return CategoryViewSmall(newCategories[index]);
     return ListForCategory(
       category: newCategories[i],
       viewJob: i == 0,
+      search: search,
     );
   }
 

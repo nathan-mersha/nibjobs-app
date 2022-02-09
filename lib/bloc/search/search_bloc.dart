@@ -44,17 +44,43 @@ class SearchBloc extends Bloc<SearchEvent, SearchViewState> {
       }
     } else if (event is SearchCategoryEvent) {
       yield SearchLoading();
+
+      String search = event.searchData.replaceAll(" ", "");
+      if (search == "") {
+        yield SearchInitial(searchInView: false);
+        return;
+      }
       List<Category> categories = global.localConfig.categories;
       List<Category> categoriesSorted = [];
+      List categoriesData = [];
       for (var e in categories) {
+        Category category = Category(
+          categoryId: e.categoryId,
+          name: e.name,
+          icon: e.icon,
+          tags: e.tags,
+          keys: e.keys,
+          firstModified: e.firstModified,
+          lastModified: e.lastModified,
+        );
+
         for (var l in e.tags!) {
-          if (l!.contains(event.searchData)) {
-            categoriesSorted.insert(0, e);
-            break;
+          if (l!.contains(search)) {
+            if (l.startsWith(search)) {
+              categoriesData.insert(0, l);
+            } else {
+              categoriesData.add(l);
+            }
           }
         }
+        if (categoriesData.isNotEmpty) {
+          category.tags = categoriesData;
+          categoriesData = [];
+          categoriesSorted.add(category);
+        }
       }
-      yield SearchLoaded(searchInData: categoriesSorted);
+      yield SearchLoaded(
+          searchInData: categoriesSorted, search: event.searchData);
     } else {
       yield SearchError();
     }
