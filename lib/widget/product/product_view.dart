@@ -529,7 +529,7 @@ class _JobViewState extends State<JobView> {
                                         SizedBox(
                                           width:
                                               AppTheme.fullWidth(context) < 361
-                                                  ? 100
+                                                  ? 60
                                                   : 200,
                                           child: Text(
                                             "by ${widget._job!.company!.name}",
@@ -549,7 +549,7 @@ class _JobViewState extends State<JobView> {
                                           timeago.format(
                                               widget._job!.lastModified!),
                                           maxLines: 1,
-                                          overflow: TextOverflow.clip,
+                                          overflow: TextOverflow.fade,
                                           textAlign: TextAlign.right,
                                           softWrap: false,
                                           // style: const TextStyle(

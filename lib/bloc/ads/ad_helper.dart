@@ -13,7 +13,9 @@ class AdHelper {
       String prodAdId = "ca-app-pub-7439240901787604/5744305798";
       return kReleaseMode ? prodAdId : testAdId;
     } else if (Platform.isIOS) {
-      return '<YOUR_IOS_INTERSTITIAL_AD_UNIT_ID>';
+      String testAdId = "ca-app-pub-3940256099942544/6300978111";
+      String prodAdId = "ca-app-pub-7439240901787604/6795820554";
+      return kReleaseMode ? prodAdId : testAdId;
     } else {
       throw UnsupportedError('Unsupported platform');
     }
@@ -36,7 +38,10 @@ class AdHelper {
 
       return kReleaseMode ? prodAdId : testAdId;
     } else if (Platform.isIOS) {
-      return '<YOUR_IOS_INTERSTITIAL_AD_UNIT_ID>';
+      String testAdId = "ca-app-pub-3940256099942544/1712485313";
+      String prodAdId = "ca-app-pub-7439240901787604/1840869165";
+
+      return kReleaseMode ? prodAdId : testAdId;
     } else {
       throw UnsupportedError('Unsupported platform');
     }
