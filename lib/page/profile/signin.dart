@@ -7,8 +7,7 @@ import 'package:nibjobs/api/flutterfire.dart';
 import 'package:nibjobs/bloc/user/user_bloc.dart';
 import 'package:nibjobs/route/route.dart';
 import 'package:nibjobs/rsr/locale/lang/language_key.dart';
-import 'package:nibjobs/rsr/locale/string_rsr.dart';
-import 'package:nibjobs/rsr/theme/color.dart';
+import 'package:nibjobs/rsr/locale/string_rstheme/color.dart';
 import 'package:nibjobs/themes/theme.dart';
 
 class SignInPage extends StatefulWidget {
@@ -142,38 +141,38 @@ class _SignInPageState extends State<SignInPage> {
                         ),
                       ),
                     ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: <Widget>[
-                        Text(
-                          StringRsr.get(LanguageKey.I_WILL_DO_IT_LATTER,
-                              firstCap: true)!,
-                          style: const TextStyle(color: CustomColor.GRAY),
-                        ),
-                        TextButton(
-                          child: Text(
-                            StringRsr.get(LanguageKey.SKIP, firstCap: true)!,
-                            style: TextStyle(
-                                color: Theme.of(context).primaryColor,
-                                fontWeight: FontWeight.w800,
-                                fontSize: 16),
-                          ),
-                          onPressed: () async {
-                            // setState(() {
-                            //   showInfo = true;
-                            // });
-                            bool registerResult = await signInAnonymously();
-
-                            if (registerResult) {
-                              // BlocProvider.of<UserBloc>(context)
-                              //     .add(UserSignIn());
-                              Navigator.pushReplacementNamed(
-                                  context, RouteTo.HOME);
-                            }
-                          },
-                        )
-                      ],
-                    )
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   children: <Widget>[
+                    //     Text(
+                    //       StringRsr.get(LanguageKey.I_WILL_DO_IT_LATTER,
+                    //           firstCap: true)!,
+                    //       style: const TextStyle(color: CustomColor.GRAY),
+                    //     ),
+                    //     TextButton(
+                    //       child: Text(
+                    //         StringRsr.get(LanguageKey.SKIP, firstCap: true)!,
+                    //         style: TextStyle(
+                    //             color: Theme.of(context).primaryColor,
+                    //             fontWeight: FontWeight.w800,
+                    //             fontSize: 16),
+                    //       ),
+                    //       onPressed: () async {
+                    //         // setState(() {
+                    //         //   showInfo = true;
+                    //         // });
+                    //         bool registerResult = await signInAnonymously();
+                    //
+                    //         if (registerResult) {
+                    //           // BlocProvider.of<UserBloc>(context)
+                    //           //     .add(UserSignIn());
+                    //           Navigator.pushReplacementNamed(
+                    //               context, RouteTo.HOME);
+                    //         }
+                    //       },
+                    //     )
+                    //   ],
+                    // )
                   ],
                 ),
               ),

@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -76,6 +77,19 @@ class _HomePageState extends State<HomePage> {
     FirebaseMessaging.onMessageOpenedApp.listen((message) {
       print("this is onMessageOpenedApp");
       notificationRoute(message);
+    });
+
+    FirebaseAuth.instance.authStateChanges().listen((User? user) {
+      if (user == null) {
+        print('User is currently signed out!');
+        Navigator.of(context).pushReplacementNamed(RouteTo.PROFILE_SIGN_IN);
+      } else {
+        // Navigator.of(context).pushReplacementNamed(RouteTo.PROFILE_SIGN_IN);
+        // emitSignedOut();
+        // Navigator.of(context)
+        //     .pushReplacementNamed(RouteTo.PROFILE_SIGN_IN);
+        print('User is currently signed in!');
+      }
     });
   }
 
