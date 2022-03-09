@@ -7,7 +7,7 @@ import 'package:nibjobs/api/flutterfire.dart';
 import 'package:nibjobs/bloc/user/user_bloc.dart';
 import 'package:nibjobs/route/route.dart';
 import 'package:nibjobs/rsr/locale/lang/language_key.dart';
-import 'package:nibjobs/rsr/locale/string_rstheme/color.dart';
+import 'package:nibjobs/rsr/locale/string_rsr.dart';
 import 'package:nibjobs/themes/theme.dart';
 
 class SignInPage extends StatefulWidget {
