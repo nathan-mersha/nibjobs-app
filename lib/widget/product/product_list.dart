@@ -300,6 +300,7 @@ class _JobListState extends State<JobList> {
                                                     .featuresConfig!
                                                     .bannerAdsSeen ??
                                                 false;
+
                                             if (bannerAdsSeen) {
                                               newJobs.insert(
                                                 0,
@@ -356,6 +357,7 @@ class _JobListState extends State<JobList> {
                                                     .featuresConfig!
                                                     .bannerAdsSeen ??
                                                 false;
+
                                             if (bannerAdsSeen) {
                                               newJobs.insert(
                                                 0,
