@@ -78,7 +78,9 @@ class _HomePageState extends State<HomePage> {
       print("this is onMessageOpenedApp");
       notificationRoute(message);
     });
-
+    if (FirebaseAuth.instance.currentUser == null) {
+      Navigator.of(context).pushReplacementNamed(RouteTo.PROFILE_SIGN_IN);
+    }
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
       if (user == null) {
         print('User is currently signed out!');
