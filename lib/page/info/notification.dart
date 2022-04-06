@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:nibjobs/api/flutterfire.dart';
 import 'package:nibjobs/dal/notification_dal.dart';
@@ -84,6 +85,14 @@ class _NotificationsPageState extends State<NotificationsPage> {
   }
 
   Widget recentNotificationsTile(NotificationModel notification, int index) {
+    final urlRegExp = RegExp(
+        r"((https?:www\.)|(https?:\/\/)|(www\.))[-a-zA-Z0-9@:%._\+~#=]{1,256}\.[a-zA-Z0-9]{1,6}(\/[-a-zA-Z0-9()@:%_\+.~#?&\/=]*)?");
+    final urlMatches =
+        urlRegExp.allMatches(notification.notificationServiceMessage!);
+    List urls = urlMatches
+        .map((urlMatch) => notification.notificationServiceMessage!
+            .substring(urlMatch.start, urlMatch.end))
+        .toList();
     return Container(
       decoration: BoxDecoration(
         border:
@@ -139,6 +148,29 @@ class _NotificationsPageState extends State<NotificationsPage> {
                 const SizedBox(
                   height: 2,
                 ),
+                ListView.builder(
+                    itemCount: urls.length,
+                    shrinkWrap: true,
+                    primary: false,
+                    itemBuilder: (context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: urls[index],
+                                style: const TextStyle(color: Colors.blue),
+                                recognizer: TapGestureRecognizer()
+                                  ..onTap = () {
+                                    makeWebCall(urls[index]);
+                                  },
+                              ),
+                            ],
+                          ),
+                        ),
+                      );
+                    }),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [

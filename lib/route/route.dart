@@ -105,6 +105,8 @@ class RouteTo {
   static const String THEME_PREFERENCE_PAGE = "/theme/preference";
 
   var routes;
+  HSharedPreference localPreference = GetHSPInstance.hSharedPreference;
+
   RouteTo() {
     routes = {
       ROOT: (BuildContext context) => SafeArea(
@@ -200,16 +202,35 @@ class RouteTo {
     } else if (snapshot.data == true) {
       return LanguagePage();
     } else if (snapshot.data == false) {
-      return HomePage(); // change to home page
+      return FutureBuilder(
+          future: isUserLogIn(),
+          builder: (context, snapshot) {
+            print("isUserLogIn ${snapshot.data}");
+            if (snapshot.connectionState == ConnectionState.none &&
+                snapshot.hasData == null) {
+              return CircularProgressIndicator();
+            } else if (snapshot.data == true) {
+              return SignInPage();
+            } else if (snapshot.data == false) {
+              return HomePage();
+            } else {
+              return Container(
+                  color: Colors.white, child: CircularProgressIndicator());
+            }
+          }); // change to home page
     } else {
       return Container(color: Colors.white, child: CircularProgressIndicator());
     }
   }
 
   Future<bool> isFirstTime() async {
-    HSharedPreference localPreference = GetHSPInstance.hSharedPreference;
     return await localPreference
         .get(HSharedPreference.KEY_FIRST_TIME)
         .then((firstTime) => firstTime == null ? true : false);
+  }
+
+  Future<bool> isUserLogIn() async {
+    return await localPreference.get(HSharedPreference.KEY_USER_ID).then(
+        (uid) => uid == null || uid == "" || uid == "null" ? true : false);
   }
 }
