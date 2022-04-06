@@ -20,7 +20,7 @@
 
     </queries>
    <application
-       android:name="io.flutter.app.FlutterApplication"
+       android:name="${applicationName}"
         android:label="Nib Jobs"
        android:showWhenLocked="true"
        android:turnScreenOn="true"
