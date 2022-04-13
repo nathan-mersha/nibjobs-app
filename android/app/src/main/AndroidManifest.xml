@@ -32,6 +32,7 @@
        <activity
            android:name="com.aboutyou.dart_packages.sign_in_with_apple.SignInWithAppleCallback"
            android:exported="true"
+           android:exported="true"
            >
            <intent-filter>
                <action android:name="android.intent.action.VIEW" />
@@ -43,6 +44,7 @@
            </intent-filter>
        </activity>
         <activity
+            android:exported="true"
             android:name=".MainActivity"
             android:launchMode="singleTop"
             android:showWhenLocked="true"
