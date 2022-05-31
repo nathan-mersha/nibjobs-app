@@ -238,7 +238,11 @@ showInfoToUser(
     title: title,
     desc: desc,
     showCloseIcon: true,
-    btnOkOnPress: onOk ?? () {},
+    btnOkOnPress:  () {
+      if (onOk != null) {
+        onOk();
+      }
+    },
   ).show();
 }
 

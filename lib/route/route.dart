@@ -142,7 +142,7 @@ class RouteTo {
           SafeArea(child: CategorySelectedJobNavigation()),
 
       JOB_EDIT: (BuildContext context) => SafeArea(child: JobEditPage()),
-      HOME: (BuildContext context) => SafeArea(child: HomePage()),
+      HOME: (BuildContext context) => const SafeArea(child: HomePage()),
 
       /// Profile pages
       PROFILE_LANGUAGE_SELECTOR: (BuildContext context) =>
@@ -169,10 +169,10 @@ class RouteTo {
       /// Company pages
       SHOP_ADMIN: (BuildContext context) => SafeArea(child: CompanyAdminPage()),
       SHOP_DETAIL: (BuildContext context) =>
-          SafeArea(child: CompanyDetailPage()),
+          const SafeArea(child: CompanyDetailPage()),
       SHOP_EDIT: (BuildContext context) => SafeArea(child: EditCompanyPage()),
       THEME_PREFERENCE_PAGE: (BuildContext context) =>
-          SafeArea(child: ThemePreferencePage()),
+          const SafeArea(child: ThemePreferencePage()),
 
       SHOP_RATING: (BuildContext context) =>
           SafeArea(child: CompanyRatingPage()),
@@ -198,7 +198,7 @@ class RouteTo {
   Widget buildFirstPage(BuildContext context, AsyncSnapshot snapshot) {
     if (snapshot.connectionState == ConnectionState.none &&
         snapshot.hasData == null) {
-      return CircularProgressIndicator();
+      return const CircularProgressIndicator();
     } else if (snapshot.data == true) {
       return LanguagePage();
     } else if (snapshot.data == false) {
@@ -208,18 +208,20 @@ class RouteTo {
             print("isUserLogIn ${snapshot.data}");
             if (snapshot.connectionState == ConnectionState.none &&
                 snapshot.hasData == null) {
-              return CircularProgressIndicator();
+              return const CircularProgressIndicator();
             } else if (snapshot.data == true) {
               return SignInPage();
             } else if (snapshot.data == false) {
-              return HomePage();
+              return const HomePage();
             } else {
               return Container(
-                  color: Colors.white, child: CircularProgressIndicator());
+                  color: Colors.white,
+                  child: const CircularProgressIndicator());
             }
           }); // change to home page
     } else {
-      return Container(color: Colors.white, child: CircularProgressIndicator());
+      return Container(
+          color: Colors.white, child: const CircularProgressIndicator());
     }
   }
 

@@ -20,7 +20,6 @@ class AppTheme {
   static const darkGray = 0xff1a1a1a;
   static const gray = 0xff808080;
   static const fafafa = 0xfffafafa;
-  static const lightGray = 0xffcccccc;
   static const veryLightGray = 0xffe8e8e8;
   static const darkBlue = 0xff1d005c;
   static const gray99 = 0xff999999;
@@ -31,6 +30,8 @@ class AppTheme {
 
   static const titleDarkBlue = 0xff1d005c;
   static const bbNavColor = 0xff666666;
+  static const lightGray = 0xffcccccc;
+
   static const backgroundColor = 0xfff5f5f5;
   static const sideDrawerHeaderColor = 0xff999999;
   static const appbarTitle = 0xffb3b3b3;
